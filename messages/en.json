@@ -1,0 +1,384 @@
+{
+  "site": {
+    "name": "SANO LUNA",
+    "tagline": "Renewed Wellness, Tranquil Spirit",
+    "description": "SANO LUNA — A luxury wellness and spa destination blending ancient wisdom with modern care"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "packages": "Packages",
+    "giftCards": "Gift Cards",
+    "team": "Our Team",
+    "gallery": "Gallery",
+    "reviews": "Reviews",
+    "booking": "Book",
+    "contact": "Contact",
+    "faq": "FAQ",
+    "policies": "Policies"
+  },
+  "header": {
+    "bookCta": "Book an Experience",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close menu",
+    "switchLang": "Arabic",
+    "navLabel": "Main navigation",
+    "logoAlt": "SANO LUNA — Luxury Wellness"
+  },
+  "footer": {
+    "tagline": "Where ancient wisdom meets modern grace. A sanctuary crafted for your complete renewal.",
+    "exploreTitle": "Explore",
+    "experienceTitle": "Experience",
+    "contactTitle": "Contact",
+    "followTitle": "Follow",
+    "address": "Riyadh, Saudi Arabia",
+    "phone": "+966 50 000 0000",
+    "email": "hello@sanoluna.com",
+    "hours": "Sat – Thu: 9am – 9pm",
+    "copyright": "© {year} SANO LUNA. All rights reserved.",
+    "rights": "All rights reserved",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service"
+  },
+  "aria": {
+    "mainMenu": "Main navigation",
+    "mobileMenu": "Mobile navigation menu",
+    "menuOpen": "Open main menu",
+    "menuClose": "Close main menu",
+    "switchToArabic": "Switch to Arabic",
+    "switchToEnglish": "Switch to English",
+    "currentPage": "Current page",
+    "socialInstagram": "Follow us on Instagram",
+    "socialWhatsapp": "Contact us on WhatsApp",
+    "socialFacebook": "Follow us on Facebook",
+    "socialTiktok": "Follow us on TikTok"
+  },
+  "common": {
+    "bookNow": "Book Now",
+    "learnMore": "Learn More",
+    "viewAll": "View All",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "notFound": "Page Not Found",
+    "backHome": "Back to Home",
+    "language": "عربي",
+    "sar": "SAR",
+    "min": "min",
+    "perSession": "per session",
+    "guests": "guests",
+    "featured": "Featured",
+    "popular": "Popular",
+    "new": "New",
+    "from": "From",
+    "includes": "Includes"
+  },
+  "home": {
+    "hero": {
+      "overline": "Luxury Home Wellness",
+      "titleLine1": "Where Stillness",
+      "titleLine2": "Finds You",
+      "subtitle": "Premium spa and wellness experiences delivered to your door. Swedish, Thai, Moroccan rituals, and more — crafted for the discerning.",
+      "ctaPrimary": "Book an Experience",
+      "ctaSecondary": "Explore Services",
+      "trustPrivacy": "Complete Privacy",
+      "trustPay": "Secure Payment",
+      "trustConfirmed": "Confirmed Booking"
+    },
+    "trust": {
+      "overline": "Why SANO LUNA",
+      "title": "A Standard of Care Unlike Any Other",
+      "subtitle": "Every detail considered. Every visit unforgettable.",
+      "privacy": "Complete Privacy",
+      "privacyDesc": "Your experience unfolds in your own space — away from the outside world.",
+      "expertise": "Expert Specialists",
+      "expertiseDesc": "Certified professionals committed to the highest standards of care.",
+      "personalised": "Personalised Care",
+      "personalisedDesc": "Every session tailored to your body, your preferences, your moment.",
+      "quality": "Uncompromising Quality",
+      "qualityDesc": "Curated products, sterilised tools, rigorous hygiene — without exception."
+    },
+    "intro": {
+      "overline": "About SANO LUNA",
+      "title": "A Sanctuary That Comes to You",
+      "body": "SANO LUNA is a luxury wellness experience delivered directly to your home. We believe that true restoration happens in surroundings where you feel completely at ease — your own sanctuary.",
+      "cta": "Our Story"
+    },
+    "categories": {
+      "overline": "Our Disciplines",
+      "title": "Choose Your Journey",
+      "subtitle": "Six curated pathways to restoration — from ancient Moroccan ritual to specialist therapeutic care.",
+      "viewAll": "View All Services",
+      "services": "experiences"
+    },
+    "featured": {
+      "overline": "Signature Experiences",
+      "title": "Most Loved by Our Guests",
+      "subtitle": "Handpicked treatments that consistently transform — chosen by those who know.",
+      "viewAll": "Explore Full Catalogue",
+      "duration": "min",
+      "book": "Reserve"
+    },
+    "signature": {
+      "overline": "The SANO LUNA Signature",
+      "title": "The Complete Ritual",
+      "subtitle": "Three hours. Three disciplines. One complete transformation.",
+      "body": "Our most extraordinary offering — the Moroccan Bath Ritual, manicure and pedicure, and a full body massage woven into a single, seamless journey. This is SANO LUNA at its most complete.",
+      "duration": "3 hours",
+      "price": "449 SAR",
+      "includes": "Moroccan Bath · Manicure & Pedicure · Full Massage",
+      "cta": "Reserve the Ritual",
+      "ctaSecondary": "View Package Details"
+    },
+    "compose": {
+      "overline": "Build Your Experience",
+      "title": "Compose Your Perfect Visit",
+      "subtitle": "Select multiple services in a single visit. Our system arranges the timing, sequencing, and specialist allocation — you simply arrive and receive.",
+      "step1": "Choose your treatments",
+      "step2": "Select your date & time",
+      "step3": "Your personalised SANO LUNA experience",
+      "cta": "Start Composing",
+      "note": "Coming soon — personalised experience builder"
+    },
+    "packages": {
+      "overline": "Curated Journeys",
+      "title": "Complete Experiences",
+      "subtitle": "Thoughtfully combined services for guests who want more than a single treatment.",
+      "viewAll": "View All Packages",
+      "duration": "min",
+      "guests": "guests",
+      "book": "Reserve Package",
+      "includes": "Includes"
+    },
+    "giftCards": {
+      "overline": "The Gift of Calm",
+      "title": "Give the Gift of SANO LUNA",
+      "subtitle": "For the one who deserves a moment of stillness. Choose any service or package — we create a beautiful digital gift card and deliver it directly.",
+      "cta": "Purchase a Gift Card",
+      "features": "Choose any service · Personalised message · Instant digital delivery"
+    },
+    "why": {
+      "overline": "Our Principles",
+      "title": "Why SANO LUNA",
+      "subtitle": "The values that define every visit."
+    },
+    "howItWorks": {
+      "overline": "How It Works",
+      "title": "Simple. Seamless. Yours.",
+      "subtitle": "Booking SANO LUNA takes moments. The experience lasts far longer."
+    },
+    "team": {
+      "overline": "Our Specialists",
+      "title": "The Hands Behind SANO LUNA",
+      "subtitle": "Certified, professional, and genuinely passionate about your wellbeing.",
+      "viewAll": "Meet the Full Team",
+      "placeholder": "Specialist profiles coming soon"
+    },
+    "testimonials": {
+      "overline": "Guest Voices",
+      "title": "What Our Guests Say",
+      "subtitle": "Moments shared by those who experienced SANO LUNA.",
+      "placeholder": "Real guest reviews will appear here",
+      "rating": "5 out of 5 stars"
+    },
+    "gallery": {
+      "overline": "The SANO LUNA Atmosphere",
+      "title": "A Glimpse Into Your Experience",
+      "subtitle": "The warmth, the textures, the calm — an atmosphere crafted for restoration.",
+      "viewAll": "View Full Gallery",
+      "placeholder": "Photography coming soon"
+    },
+    "faq": {
+      "overline": "Questions",
+      "title": "Common Questions",
+      "subtitle": "Everything you need to know before your first SANO LUNA experience.",
+      "viewAll": "View All Questions",
+      "open": "Open answer",
+      "close": "Close answer"
+    },
+    "finalCta": {
+      "overline": "Your Moment Awaits",
+      "title": "Ready for Your SANO LUNA Experience?",
+      "subtitle": "Book your first visit today — and discover what it means to truly restore.",
+      "ctaPrimary": "Book an Experience",
+      "ctaSecondary": "Browse Services"
+    }
+  },
+  "booking": {
+    "title": "Book Your Appointment",
+    "name": "Full Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "service": "Service",
+    "date": "Date",
+    "time": "Time",
+    "notes": "Additional Notes",
+    "submit": "Confirm Booking",
+    "success": "Your booking request has been received successfully",
+    "error": "An error occurred while booking, please try again"
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "name": "Name",
+    "email": "Email",
+    "message": "Your Message",
+    "submit": "Send Message",
+    "success": "Thank you! We'll get back to you as soon as possible",
+    "error": "An error occurred, please try again"
+  },
+  "services": {
+    "hero": {
+      "overline": "Our Offerings",
+      "title": "Discover Your Ritual",
+      "subtitle": "Every treatment is a considered moment of genuine care — designed to be experienced in the privacy and comfort of your own home."
+    },
+    "catalog": {
+      "allCategories": "All Services",
+      "searchPlaceholder": "Search services…",
+      "sortLabel": "Sort by",
+      "sortRecommended": "Recommended",
+      "sortPriceAsc": "Price: Low to High",
+      "sortPriceDesc": "Price: High to Low",
+      "sortDuration": "Shortest First",
+      "resultsCount": "{count} services",
+      "noResults": "No services found",
+      "noResultsHint": "Try adjusting your search or filters.",
+      "resetFilters": "View all services",
+      "loading": "Loading services…"
+    },
+    "card": {
+      "duration": "min",
+      "from": "From",
+      "currency": "SAR",
+      "popular": "Popular",
+      "featured": "Signature",
+      "viewDetails": "Explore",
+      "bookNow": "Book"
+    },
+    "detail": {
+      "breadcrumbHome": "Home",
+      "breadcrumbServices": "Services",
+      "duration": "Duration",
+      "price": "Price",
+      "currency": "SAR",
+      "minutes": "min",
+      "bookCta": "Book This Experience",
+      "bookCtaNote": "Confirm your date & time in the next step",
+      "benefitsTitle": "What You'll Experience",
+      "descriptionTitle": "About This Treatment",
+      "whatToExpectTitle": "What to Expect",
+      "beforeLabel": "Before",
+      "duringLabel": "During",
+      "afterLabel": "After",
+      "relatedTitle": "You May Also Enjoy",
+      "finalCtaTitle": "Ready to Begin?",
+      "finalCtaSubtitle": "Book your treatment and we'll come to you.",
+      "finalCta": "Book Now",
+      "notFound": "Treatment not found",
+      "notFoundHint": "The service you're looking for may have moved.",
+      "backToServices": "Back to Services",
+      "priceOnRequest": "Price on request"
+    }
+  },
+  "booking": {
+    "title": "Book Your Experience",
+    "subtitle": "A few steps to your moment of care",
+    "progress": {
+      "step1": "Experience",
+      "step2": "Date & Time",
+      "step3": "Details",
+      "step4": "Review"
+    },
+    "experience": {
+      "title": "Choose Your Experience",
+      "subtitle": "Select a service or package to begin",
+      "services": "Services",
+      "packages": "Packages",
+      "selected": "Selected",
+      "select": "Select",
+      "duration": "{min} min",
+      "fromPrice": "From {price} SAR",
+      "continue": "Continue"
+    },
+    "datetime": {
+      "title": "Choose Your Date & Time",
+      "selectDate": "Select a date",
+      "selectTime": "Select a time",
+      "available": "Available",
+      "unavailable": "Unavailable",
+      "noSlots": "No available times on this date",
+      "noSlotsHint": "Please choose a different date.",
+      "loading": "Loading available times…",
+      "days": ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+      "months": ["January","February","March","April","May","June","July","August","September","October","November","December"],
+      "today": "Today",
+      "continue": "Continue"
+    },
+    "details": {
+      "title": "Your Details",
+      "subtitle": "How can we reach you?",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Your full name",
+      "phone": "Phone Number",
+      "phonePlaceholder": "+966 5X XXX XXXX",
+      "email": "Email Address",
+      "emailPlaceholder": "your@email.com",
+      "notes": "Notes (optional)",
+      "notesPlaceholder": "Any preferences or special requests?",
+      "continue": "Continue",
+      "privacy": "Your information is kept private and secure."
+    },
+    "review": {
+      "title": "Review Your Booking",
+      "service": "Experience",
+      "dateTime": "Date & Time",
+      "location": "Location",
+      "duration": "Duration",
+      "price": "Price",
+      "customer": "Your Details",
+      "notes": "Notes",
+      "edit": "Edit",
+      "confirm": "Confirm Booking",
+      "confirming": "Confirming…",
+      "minutes": "min",
+      "sar": "SAR",
+      "disclaimer": "By confirming, you agree to our booking and cancellation policy."
+    },
+    "confirmation": {
+      "title": "Booking Confirmed",
+      "subtitle": "We look forward to welcoming you.",
+      "bookingNumber": "Booking Number",
+      "service": "Experience",
+      "dateTime": "Date & Time",
+      "location": "Location",
+      "price": "Total",
+      "addToCalendar": "Add to Calendar",
+      "backToHome": "Back to Home",
+      "questions": "Questions?",
+      "contactUs": "Contact us"
+    },
+    "errors": {
+      "serviceNotFound": "This service is no longer available. Please choose another.",
+      "slotUnavailable": "This time slot is no longer available. Please choose another time.",
+      "doubleBooking": "This time was just booked. Please choose another time.",
+      "validationError": "Please check your details and try again.",
+      "serverError": "Something went wrong. Please try again.",
+      "nameRequired": "Please enter your full name",
+      "nameTooShort": "Name must be at least 2 characters",
+      "phoneRequired": "Please enter your phone number",
+      "phoneInvalid": "Please enter a valid Saudi phone number (+966)",
+      "emailRequired": "Please enter your email address",
+      "emailInvalid": "Please enter a valid email address"
+    },
+    "summary": {
+      "title": "Your Booking",
+      "service": "Experience",
+      "date": "Date",
+      "time": "Time",
+      "duration": "Duration",
+      "price": "Price",
+      "nothingSelected": "No experience selected yet"
+    }
+  }
+}
+

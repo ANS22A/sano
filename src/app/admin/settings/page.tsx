@@ -1,0 +1,74 @@
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import { Clock, CalendarX, UserCheck, MapPin } from 'lucide-react'
+import { cookies } from 'next/headers'
+import { adminT, type AdminLang } from '@/lib/admin/translations'
+import { requireRole } from '@/lib/admin/auth'
+
+export const metadata: Metadata = { title: 'Settings' }
+
+export default async function AdminSettingsPage() {
+  await requireRole('manager')
+  const cookieStore = await cookies()
+  const lang = (cookieStore.get('admin_lang')?.value ?? 'en') as AdminLang
+  const t = adminT[lang]
+
+  const settingsCards = [
+    {
+      title: t.nav.businessHours,
+      description: lang === 'ar' ? 'إدارة أوقات العمل العامة لكل فرع' : 'Manage general business hours per location',
+      icon: Clock,
+      href: '/admin/settings/business-hours',
+    },
+    {
+      title: t.nav.blackoutDates,
+      description: lang === 'ar' ? 'تحديد أيام الإغلاق والعطلات' : 'Configure holidays and closed dates',
+      icon: CalendarX,
+      href: '/admin/settings/blackout-dates',
+    },
+    {
+      title: t.nav.staff,
+      description: lang === 'ar' ? 'إدارة أعضاء الفريق ومواعيد توفرهم' : 'Manage staff members and availability',
+      icon: UserCheck,
+      href: '/admin/staff',
+    },
+    {
+      title: t.nav.locations,
+      description: lang === 'ar' ? 'إدارة بيانات فروع سانو لونا' : 'Manage SANO LUNA locations',
+      icon: MapPin,
+      href: '/admin/locations',
+    },
+  ]
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-col gap-1">
+        <h1 className="text-2xl font-bold text-[#2a2118] tracking-tight">{t.nav.settings}</h1>
+        <p className="text-sm text-[#7a6a57]">
+          {lang === 'ar' 
+            ? 'إدارة إعدادات النظام، والفروع، وأوقات العمل.' 
+            : 'Manage system settings, locations, and schedules.'}
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {settingsCards.map((card) => {
+          const Icon = card.icon
+          return (
+            <Link
+              key={card.href}
+              href={card.href}
+              className="group flex flex-col p-6 bg-white rounded-2xl border border-[#e8ddd0] hover:border-[#c9a96e] hover:shadow-[0_4px_20px_-4px_rgba(201,169,110,0.15)] transition-all duration-300 transform hover:-translate-y-0.5"
+            >
+              <div className="w-11 h-11 rounded-xl bg-[#faf7f4] flex items-center justify-center text-[#c9a96e] group-hover:bg-[#c9a96e] group-hover:text-white transition-colors duration-300 mb-4 shrink-0 shadow-sm border border-[#f0e8de] group-hover:border-[#c9a96e]">
+                <Icon className="w-5 h-5" />
+              </div>
+              <h2 className="text-base font-semibold text-[#2a2118] mb-1.5">{card.title}</h2>
+              <p className="text-sm text-[#9a8a7a] leading-relaxed line-clamp-2">{card.description}</p>
+            </Link>
+          )
+        })}
+      </div>
+    </div>
+  )
+}

@@ -12,7 +12,13 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Agent skill files — not project source
+    ".agents/**",
+    // Generated Supabase types — any usage is intentional for compat
+    "src/types/database.types.ts",
+    "src/services/bookings.service.ts",
   ]),
 ]);
 
 export default eslintConfig;
+

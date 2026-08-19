@@ -1,26 +1,1502 @@
-@import "tailwindcss";
+/* =============================================================================
+   SANO LUNA — GLOBAL STYLES & DESIGN TOKEN SYSTEM
+   
+   Design Philosophy: Quiet Luxury
+   Style: Minimalism × Editorial with warm stone tones
+   
+   Font System:
+   - English Display/Headings: Cormorant Garamond
+   - English Body/UI: DM Sans
+   - Arabic Headings: Noto Naskh Arabic
+   - Arabic Body/UI: Noto Sans Arabic
+   ============================================================================= */
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* --------------------------------------------------------------------------- */
+/* 1. FONT IMPORTS                                                               */
+/* --------------------------------------------------------------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* --------------------------------------------------------------------------- */
+/* 2. TAILWIND V4 THEME TOKENS                                                  */
+/* --------------------------------------------------------------------------- */
+
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* === COLORS === */
+  --color-background:          var(--background);
+  --color-foreground:          var(--foreground);
+  --color-surface:             var(--surface);
+  --color-surface-elevated:    var(--surface-elevated);
+  --color-surface-muted:       var(--surface-muted);
+
+  --color-card:                var(--card);
+  --color-card-foreground:     var(--card-foreground);
+  --color-popover:             var(--popover);
+  --color-popover-foreground:  var(--popover-foreground);
+
+  --color-primary:             var(--primary);
+  --color-primary-hover:       var(--primary-hover);
+  --color-primary-foreground:  var(--primary-foreground);
+
+  --color-secondary:           var(--secondary);
+  --color-secondary-hover:     var(--secondary-hover);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-accent:              var(--accent);
+  --color-accent-foreground:   var(--accent-foreground);
+  --color-accent-subtle:       var(--accent-subtle);
+
+  --color-muted:               var(--muted);
+  --color-muted-foreground:    var(--muted-foreground);
+
+  --color-border:              var(--border);
+  --color-border-subtle:       var(--border-subtle);
+  --color-border-strong:       var(--border-strong);
+
+  --color-input:               var(--input);
+  --color-ring:                var(--ring);
+
+  --color-success:             var(--success);
+  --color-success-foreground:  var(--success-foreground);
+  --color-warning:             var(--warning);
+  --color-warning-foreground:  var(--warning-foreground);
+  --color-error:               var(--error);
+  --color-error-foreground:    var(--error-foreground);
+  --color-info:                var(--info);
+  --color-info-foreground:     var(--info-foreground);
+
+  --color-destructive:         var(--error);
+  --color-destructive-foreground: var(--error-foreground);
+
+  /* === SIDEBAR === */
+  --color-sidebar-ring:                var(--sidebar-ring);
+  --color-sidebar-border:              var(--sidebar-border);
+  --color-sidebar-accent-foreground:   var(--sidebar-accent-foreground);
+  --color-sidebar-accent:              var(--sidebar-accent);
+  --color-sidebar-primary-foreground:  var(--sidebar-primary-foreground);
+  --color-sidebar-primary:             var(--sidebar-primary);
+  --color-sidebar-foreground:          var(--sidebar-foreground);
+  --color-sidebar:                     var(--sidebar);
+
+  /* === TYPOGRAPHY === */
+  --font-display:   var(--font-display-en);
+  --font-heading:   var(--font-display-en);
+  --font-sans:      var(--font-body-en);
+  --font-mono:      ui-monospace, 'Cascadia Code', 'Source Code Pro', monospace;
+
+  /* === BORDER RADIUS === */
+  --radius-none:  0;
+  --radius-xs:    2px;
+  --radius-sm:    4px;
+  --radius-md:    6px;
+  --radius-lg:    8px;
+  --radius-xl:    12px;
+  --radius-2xl:   16px;
+  --radius-3xl:   24px;
+  --radius-pill:  9999px;
+  --radius:       var(--radius-md);
+
+  /* === SHADOWS === */
+  --shadow-none:     none;
+  --shadow-subtle:   0 1px 3px 0 rgb(26 23 20 / 0.04), 0 1px 2px -1px rgb(26 23 20 / 0.04);
+  --shadow-medium:   0 4px 16px -2px rgb(26 23 20 / 0.08), 0 2px 8px -2px rgb(26 23 20 / 0.04);
+  --shadow-elevated: 0 12px 40px -4px rgb(26 23 20 / 0.12), 0 4px 16px -4px rgb(26 23 20 / 0.06);
+  --shadow-luxury:   0 24px 64px -8px rgb(26 23 20 / 0.16);
+
+  /* === SPACING === */
+  --spacing-0:   0;
+  --spacing-1:   4px;
+  --spacing-2:   8px;
+  --spacing-3:   12px;
+  --spacing-4:   16px;
+  --spacing-5:   20px;
+  --spacing-6:   24px;
+  --spacing-8:   32px;
+  --spacing-10:  40px;
+  --spacing-12:  48px;
+  --spacing-16:  64px;
+  --spacing-20:  80px;
+  --spacing-24:  96px;
+  --spacing-30:  120px;
+  --spacing-40:  160px;
+
+  /* === TRANSITIONS === */
+  --duration-fast:   150ms;
+  --duration-normal: 300ms;
+  --duration-slow:   500ms;
+  --duration-reveal: 600ms;
+  --ease-smooth:     cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-luxury:     cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out:        cubic-bezier(0, 0, 0.2, 1);
+  --ease-in:         cubic-bezier(0.4, 0, 1, 1);
+
+  /* === BREAKPOINTS === */
+  --breakpoint-xs:   375px;
+  --breakpoint-sm:   640px;
+  --breakpoint-md:   768px;
+  --breakpoint-lg:   1024px;
+  --breakpoint-xl:   1280px;
+  --breakpoint-2xl:  1440px;
+  --breakpoint-3xl:  1920px;
+
+  /* === CONTAINERS === */
+  --container-sm:    640px;
+  --container-md:    768px;
+  --container-lg:    1024px;
+  --container-xl:    1280px;
+  --container-2xl:   1440px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* --------------------------------------------------------------------------- */
+/* 3. LIGHT MODE COLOR TOKENS — "Warm Ivory Stone"                              */
+/* --------------------------------------------------------------------------- */
+
+:root {
+  /* Background layers */
+  --background:       #FAF9F7;    /* Warm ivory — primary background */
+  --surface:          #F5F2EE;    /* Soft stone — card surfaces */
+  --surface-elevated: #FFFFFF;    /* Pure white — elevated elements */
+  --surface-muted:    #F0EDE8;    /* Stone muted — subtle backgrounds */
+
+  /* Text */
+  --foreground:       #1A1714;    /* Deep warm charcoal */
+  --foreground-secondary: #4A4542; /* Secondary text */
+
+  /* Cards / Popover */
+  --card:             #FFFFFF;
+  --card-foreground:  #1A1714;
+  --popover:          #FFFFFF;
+  --popover-foreground: #1A1714;
+
+  /* Brand Primary — Warm Taupe */
+  --primary:          #6B5E52;    /* Warm taupe — main CTA, links */
+  --primary-hover:    #5A4F45;    /* Darker hover */
+  --primary-foreground: #FFFFFF;  /* White on primary */
+
+  /* Secondary — Stone */
+  --secondary:        #F0EDE8;    /* Light stone — secondary buttons */
+  --secondary-hover:  #E8E4DF;
+  --secondary-foreground: #1A1714;
+
+  /* Accent — Champagne Gold */
+  --accent:           #C9A882;    /* Champagne — highlights, decorations */
+  --accent-foreground: #1A1714;
+  --accent-subtle:    #F2EBE1;    /* Barely-there accent tint */
+
+  /* Muted */
+  --muted:            #EDE9E4;
+  --muted-foreground: #9B9189;   /* Warm stone grey */
+
+  /* Borders */
+  --border:           #E8E4DF;    /* Standard border */
+  --border-subtle:    #F0EDE8;    /* Barely visible */
+  --border-strong:    #C8C3BC;    /* Visible dividers */
+
+  /* Form inputs */
+  --input:            #EDE9E4;
+  --ring:             #6B5E52;    /* Focus ring = primary */
+
+  /* Semantic */
+  --success:          #4A7C59;
+  --success-foreground: #FFFFFF;
+  --warning:          #A86826;
+  --warning-foreground: #FFFFFF;
+  --error:            #C0392B;
+  --error-foreground: #FFFFFF;
+  --info:             #2C6E8A;
+  --info-foreground:  #FFFFFF;
+
+  /* Sidebar */
+  --sidebar:          #F5F2EE;
+  --sidebar-foreground: #1A1714;
+  --sidebar-primary:  #6B5E52;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent:   #EDE9E4;
+  --sidebar-accent-foreground: #1A1714;
+  --sidebar-border:   #E8E4DF;
+  --sidebar-ring:     #6B5E52;
+
+  /* Font families */
+  --font-display-en:  'Cormorant Garamond', 'Georgia', serif;
+  --font-body-en:     'DM Sans', 'system-ui', sans-serif;
+  --font-display-ar:  'Noto Naskh Arabic', 'serif';
+  --font-body-ar:     'Noto Sans Arabic', 'sans-serif';
+
+  /* Navigation tokens */
+  --nav-height-desktop: 80px;
+  --nav-height-mobile:  64px;
+  --nav-border:         var(--border-subtle);
+  --nav-bg:             rgba(250, 249, 247, 0.92);
+  --nav-bg-scrolled:    rgba(250, 249, 247, 0.98);
+
+  /* Section padding */
+  --section-padding-y-desktop: 120px;
+  --section-padding-y-tablet:  80px;
+  --section-padding-y-mobile:  60px;
+
+  /* Modal */
+  --modal-overlay:    rgba(26, 23, 20, 0.55);
+  --modal-radius:     var(--radius-xl);
+  --modal-shadow:     var(--shadow-luxury);
+}
+
+/* --------------------------------------------------------------------------- */
+/* 4. DARK MODE TOKENS                                                          */
+/* --------------------------------------------------------------------------- */
+
+.dark {
+  --background:       #16130F;
+  --surface:          #1E1B17;
+  --surface-elevated: #28241F;
+  --surface-muted:    #221F1B;
+
+  --foreground:       #F5F2EE;
+  --foreground-secondary: #C8C3BC;
+
+  --card:             #1E1B17;
+  --card-foreground:  #F5F2EE;
+  --popover:          #28241F;
+  --popover-foreground: #F5F2EE;
+
+  --primary:          #C9A882;
+  --primary-hover:    #D4B896;
+  --primary-foreground: #16130F;
+
+  --secondary:        #2D2925;
+  --secondary-hover:  #38332E;
+  --secondary-foreground: #F5F2EE;
+
+  --accent:           #C9A882;
+  --accent-foreground: #16130F;
+  --accent-subtle:    #2D2622;
+
+  --muted:            #2D2925;
+  --muted-foreground: #8C857D;
+
+  --border:           #38332E;
+  --border-subtle:    #2D2925;
+  --border-strong:    #504945;
+
+  --input:            #2D2925;
+  --ring:             #C9A882;
+
+  --nav-bg:           rgba(22, 19, 15, 0.92);
+  --nav-bg-scrolled:  rgba(22, 19, 15, 0.98);
+}
+
+/* --------------------------------------------------------------------------- */
+/* 5. BASE STYLES                                                                */
+/* --------------------------------------------------------------------------- */
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body-en);
+    font-size: 1rem;
+    line-height: 1.75;
+    font-weight: 400;
+  }
+
+  /* Arabic-specific body font */
+  :lang(ar) body,
+  [dir="rtl"] body,
+  [lang="ar"] body {
+    font-family: var(--font-body-ar);
+    line-height: 2;        /* Arabic requires more generous line height */
+    letter-spacing: 0;     /* Never use negative letter-spacing with Arabic */
+  }
+
+  /* English headings use serif display font */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display-en);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+
+  /* Arabic headings */
+  :lang(ar) h1, :lang(ar) h2, :lang(ar) h3,
+  :lang(ar) h4, :lang(ar) h5, :lang(ar) h6,
+  [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3 {
+    font-family: var(--font-display-ar);
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  /* Anchor base reset */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Focus ring — accessible, brand-colored */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Selection */
+  ::selection {
+    background-color: var(--accent-subtle);
+    color: var(--foreground);
+  }
+
+  /* Reduced motion — respects user preference */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    html {
+      scroll-behavior: auto;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* --------------------------------------------------------------------------- */
+/* 6. TYPOGRAPHY SCALE                                                           */
+/* --------------------------------------------------------------------------- */
+
+@layer base {
+  /* Display XL — Hero headline */
+  .text-display-xl {
+    font-family: var(--font-display-en);
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+  }
+
+  /* Display — Large section titles */
+  .text-display {
+    font-family: var(--font-display-en);
+    font-size: clamp(2.25rem, 5vw, 4rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  /* H1 */
+  .text-h1 {
+    font-family: var(--font-display-en);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+  }
+
+  /* H2 */
+  .text-h2 {
+    font-family: var(--font-display-en);
+    font-size: clamp(1.625rem, 3vw, 2.25rem);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  /* H3 */
+  .text-h3 {
+    font-family: var(--font-display-en);
+    font-size: clamp(1.375rem, 2.5vw, 1.75rem);
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+  }
+
+  /* H4 */
+  .text-h4 {
+    font-family: var(--font-display-en);
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0;
+  }
+
+  /* Body Large */
+  .text-body-lg {
+    font-family: var(--font-body-en);
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.75;
+  }
+
+  /* Body */
+  .text-body {
+    font-family: var(--font-body-en);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.75;
+  }
+
+  /* Body Small */
+  .text-body-sm {
+    font-family: var(--font-body-en);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  /* Caption */
+  .text-caption {
+    font-family: var(--font-body-en);
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  /* Label */
+  .text-label {
+    font-family: var(--font-body-en);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+  }
+
+  /* Button text */
+  .text-button {
+    font-family: var(--font-body-en);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+
+  /* Navigation link */
+  .text-nav {
+    font-family: var(--font-body-en);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* Price */
+  .text-price {
+    font-family: var(--font-display-en);
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  /* Overline — category labels, section labels */
+  .text-overline {
+    font-family: var(--font-body-en);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  /* === Arabic Typography Overrides === */
+  :lang(ar) .text-display-xl, [dir="rtl"] .text-display-xl {
+    font-family: var(--font-display-ar);
+    letter-spacing: 0;
+    line-height: 1.3;
+  }
+
+  :lang(ar) .text-display, [dir="rtl"] .text-display {
+    font-family: var(--font-display-ar);
+    letter-spacing: 0;
+    line-height: 1.4;
+  }
+
+  :lang(ar) .text-h1, [dir="rtl"] .text-h1 {
+    font-family: var(--font-display-ar);
+    letter-spacing: 0;
+    line-height: 1.5;
+  }
+
+  :lang(ar) .text-h2, [dir="rtl"] .text-h2,
+  :lang(ar) .text-h3, [dir="rtl"] .text-h3,
+  :lang(ar) .text-h4, [dir="rtl"] .text-h4 {
+    font-family: var(--font-display-ar);
+    letter-spacing: 0;
+    line-height: 1.6;
+  }
+
+  :lang(ar) .text-body-lg, [dir="rtl"] .text-body-lg,
+  :lang(ar) .text-body, [dir="rtl"] .text-body,
+  :lang(ar) .text-body-sm, [dir="rtl"] .text-body-sm {
+    font-family: var(--font-body-ar);
+    letter-spacing: 0;
+    line-height: 2;
+  }
+
+  :lang(ar) .text-nav, [dir="rtl"] .text-nav {
+    font-family: var(--font-body-ar);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.9375rem;
+  }
+
+  :lang(ar) .text-overline, [dir="rtl"] .text-overline {
+    font-family: var(--font-body-ar);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.8125rem;
+  }
+
+  :lang(ar) .text-button, [dir="rtl"] .text-button {
+    font-family: var(--font-body-ar);
+    letter-spacing: 0;
+  }
+
+  :lang(ar) .text-price, [dir="rtl"] .text-price {
+    font-family: var(--font-display-ar);
+    letter-spacing: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------- */
+/* 7. COMPONENT UTILITIES                                                        */
+/* --------------------------------------------------------------------------- */
+
+@layer utilities {
+  /* Container system */
+  .container-sl {
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 6rem);
+  }
+
+  .container-sl-wide {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 6rem);
+  }
+
+  .container-sl-narrow {
+    width: 100%;
+    max-width: 768px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 3rem);
+  }
+
+  /* Section padding */
+  .section-py {
+    padding-block: clamp(3.75rem, 8vw, 7.5rem);
+  }
+
+  .section-py-lg {
+    padding-block: clamp(5rem, 10vw, 10rem);
+  }
+
+  .section-py-sm {
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  /* Divider — brand signature thin line */
+  .divider-sl {
+    width: 40px;
+    height: 1px;
+    background-color: var(--accent);
+    display: block;
+  }
+
+  .divider-sl-center {
+    margin-inline: auto;
+  }
+
+  /* Overline + divider combo — brand signature */
+  .overline-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Image reveal mask — brand signature */
+  .img-reveal-mask {
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Hover scale — images */
+  .img-hover-scale {
+    transition: transform var(--duration-slow) var(--ease-luxury);
+  }
+  .img-hover-scale:hover {
+    transform: scale(1.04);
+  }
+
+  /* Card hover elevation */
+  .card-hover {
+    transition: box-shadow var(--duration-normal) var(--ease-smooth),
+                transform var(--duration-normal) var(--ease-smooth);
+  }
+  .card-hover:hover {
+    box-shadow: var(--shadow-medium);
+    transform: translateY(-2px);
+  }
+
+  /* Text balance */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* RTL-aware spacing */
+  .space-start-4 {
+    margin-inline-start: 1rem;
+  }
+  .space-end-4 {
+    margin-inline-end: 1rem;
+  }
+
+  /* Aspect ratios */
+  .aspect-portrait {
+    aspect-ratio: 3 / 4;
+  }
+  .aspect-landscape {
+    aspect-ratio: 16 / 9;
+  }
+  .aspect-square-luxury {
+    aspect-ratio: 1 / 1;
+  }
+  .aspect-hero {
+    aspect-ratio: 21 / 9;
+  }
+
+  /* Scrollbar hide (for horizontal scroll sections) */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Brand accent line — signature decorative element */
+  .brand-line::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background-color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .brand-line-center::before {
+    margin-inline: auto;
+    margin-bottom: 1rem;
+  }
+
+  /* Gradient overlays for images */
+  .overlay-warm {
+    background: linear-gradient(
+      to top,
+      rgba(26, 23, 20, 0.7) 0%,
+      rgba(26, 23, 20, 0.3) 50%,
+      transparent 100%
+    );
+  }
+
+  .overlay-light {
+    background: linear-gradient(
+      to top,
+      rgba(250, 249, 247, 0.9) 0%,
+      rgba(250, 249, 247, 0.4) 60%,
+      transparent 100%
+    );
+  }
+}
+
+/* --------------------------------------------------------------------------- */
+/* 8. BUTTON SYSTEM                                                              */
+/* --------------------------------------------------------------------------- */
+
+@layer components {
+  /* Base button — resets */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body-en);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition:
+      background-color var(--duration-fast) var(--ease-smooth),
+      color var(--duration-fast) var(--ease-smooth),
+      border-color var(--duration-fast) var(--ease-smooth),
+      box-shadow var(--duration-fast) var(--ease-smooth),
+      transform var(--duration-fast) var(--ease-smooth);
+    white-space: nowrap;
+    user-select: none;
+    border: 1px solid transparent;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn:disabled, .btn[aria-disabled="true"] {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .btn:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  :lang(ar) .btn, [dir="rtl"] .btn {
+    font-family: var(--font-body-ar);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.9375rem;
+  }
+
+  /* Sizes */
+  .btn-sm {
+    height: 36px;
+    padding-inline: 1rem;
+    font-size: 0.8125rem;
+  }
+
+  .btn-md {
+    height: 44px;
+    padding-inline: 1.5rem;
+  }
+
+  .btn-lg {
+    height: 52px;
+    padding-inline: 2rem;
+    font-size: 0.9375rem;
+  }
+
+  /* Primary */
+  .btn-primary {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    border-color: var(--primary);
+  }
+  .btn-primary:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+  }
+
+  /* Secondary */
+  .btn-secondary {
+    background-color: var(--secondary);
+    color: var(--secondary-foreground);
+    border-color: var(--border);
+  }
+  .btn-secondary:hover:not(:disabled) {
+    background-color: var(--secondary-hover);
+  }
+
+  /* Outline */
+  .btn-outline {
+    background-color: transparent;
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+  .btn-outline:hover:not(:disabled) {
+    background-color: var(--accent-subtle);
+  }
+
+  /* Ghost */
+  .btn-ghost {
+    background-color: transparent;
+    color: var(--foreground);
+    border-color: transparent;
+  }
+  .btn-ghost:hover:not(:disabled) {
+    background-color: var(--muted);
+    color: var(--foreground);
+  }
+
+  /* Accent / Booking CTA */
+  .btn-accent {
+    background-color: var(--accent);
+    color: var(--foreground);
+    border-color: var(--accent);
+    font-weight: 500;
+  }
+  .btn-accent:hover:not(:disabled) {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    border-color: var(--primary);
+  }
+
+  /* Icon-only button */
+  .btn-icon {
+    aspect-ratio: 1;
+    padding: 0;
+    border-radius: var(--radius-sm);
+  }
+  .btn-icon.btn-sm  { width: 36px; }
+  .btn-icon.btn-md  { width: 44px; }
+  .btn-icon.btn-lg  { width: 52px; }
+
+  /* Arrow link — editorial signature */
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-body-en);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--foreground);
+    cursor: pointer;
+    transition: gap var(--duration-fast) var(--ease-smooth),
+                color var(--duration-fast) var(--ease-smooth);
+    border: none;
+    background: none;
+    padding: 0;
+  }
+  .link-arrow .arrow {
+    transition: transform var(--duration-fast) var(--ease-smooth);
+  }
+  .link-arrow:hover .arrow {
+    transform: translateX(4px);
+  }
+  [dir="rtl"] .link-arrow:hover .arrow {
+    transform: translateX(-4px);
+  }
+  .link-arrow:hover {
+    color: var(--primary);
+  }
+
+  :lang(ar) .link-arrow, [dir="rtl"] .link-arrow {
+    font-family: var(--font-body-ar);
+    text-transform: none;
+    letter-spacing: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------- */
+/* 9. FORM SYSTEM                                                                */
+/* --------------------------------------------------------------------------- */
+
+@layer components {
+  .form-input {
+    width: 100%;
+    height: 48px;
+    padding-inline: 1rem;
+    background-color: var(--surface-elevated);
+    color: var(--foreground);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body-en);
+    font-size: 0.9375rem;
+    line-height: 1;
+    transition:
+      border-color var(--duration-fast) var(--ease-smooth),
+      box-shadow var(--duration-fast) var(--ease-smooth),
+      background-color var(--duration-fast) var(--ease-smooth);
+    outline: none;
+  }
+
+  :lang(ar) .form-input, [dir="rtl"] .form-input {
+    font-family: var(--font-body-ar);
+  }
+
+  .form-input::placeholder {
+    color: var(--muted-foreground);
+  }
+
+  .form-input:hover {
+    border-color: var(--border-strong);
+  }
+
+  .form-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(107, 94, 82, 0.12);
+  }
+
+  .form-input.error {
+    border-color: var(--error);
+  }
+
+  .form-input.error:focus {
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.12);
+  }
+
+  .form-input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: var(--muted);
+  }
+
+  .form-textarea {
+    min-height: 140px;
+    height: auto;
+    padding-block: 0.875rem;
+    resize: vertical;
+    line-height: 1.75;
+  }
+
+  .form-label {
+    display: block;
+    font-family: var(--font-body-en);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--foreground);
+    margin-bottom: 0.5rem;
+  }
+
+  :lang(ar) .form-label, [dir="rtl"] .form-label {
+    font-family: var(--font-body-ar);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.9375rem;
+  }
+
+  .form-helper {
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    margin-top: 0.375rem;
+  }
+
+  .form-error {
+    font-size: 0.8125rem;
+    color: var(--error);
+    margin-top: 0.375rem;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------- */
+/* 10. CARD SYSTEM                                                               */
+/* --------------------------------------------------------------------------- */
+
+@layer components {
+  /* Base card */
+  .card-sl {
+    background-color: var(--surface-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  /* Service card */
+  .card-service {
+    background-color: var(--surface-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition:
+      border-color var(--duration-normal) var(--ease-smooth),
+      box-shadow var(--duration-normal) var(--ease-smooth),
+      transform var(--duration-normal) var(--ease-luxury);
+  }
+  .card-service:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-medium);
+    transform: translateY(-3px);
+  }
+
+  /* Team card */
+  .card-team {
+    text-align: center;
+    background: transparent;
+  }
+
+  /* Testimonial card */
+  .card-testimonial {
+    background-color: var(--surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+  }
+
+  /* Feature card — editorial */
+  .card-feature {
+    background-color: transparent;
+    border-block-end: 1px solid var(--border);
+    padding-block: 2rem;
+    transition: border-color var(--duration-fast) var(--ease-smooth);
+  }
+  .card-feature:hover {
+    border-block-end-color: var(--accent);
+  }
+
+  /* Gallery card */
+  .card-gallery {
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background-color: var(--surface-muted);
+  }
+  .card-gallery .gallery-img {
+    transition: transform var(--duration-slow) var(--ease-luxury);
+  }
+  .card-gallery:hover .gallery-img {
+    transform: scale(1.06);
+  }
+
+  /* Package card — highlighted */
+  .card-package {
+    background-color: var(--surface-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition:
+      border-color var(--duration-normal) var(--ease-smooth),
+      box-shadow var(--duration-normal) var(--ease-smooth);
+  }
+  .card-package.featured {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-subtle);
+  }
+  .card-package:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-medium);
+  }
+}
+
+/* --------------------------------------------------------------------------- */
+/* 11. BADGE SYSTEM                                                              */
+/* --------------------------------------------------------------------------- */
+
+@layer components {
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-body-en);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  :lang(ar) .badge, [dir="rtl"] .badge {
+    font-family: var(--font-body-ar);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.8125rem;
+  }
+
+  .badge-default {
+    background-color: var(--muted);
+    color: var(--muted-foreground);
+  }
+
+  .badge-primary {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  .badge-accent {
+    background-color: var(--accent-subtle);
+    color: var(--primary);
+    border: 1px solid var(--accent);
+  }
+
+  .badge-success {
+    background-color: rgba(74, 124, 89, 0.1);
+    color: var(--success);
+  }
+
+  .badge-warning {
+    background-color: rgba(168, 104, 38, 0.1);
+    color: var(--warning);
+  }
+
+  .badge-error {
+    background-color: rgba(192, 57, 43, 0.1);
+    color: var(--error);
+  }
+
+  /* Featured / new tag */
+  .badge-featured {
+    background-color: var(--accent);
+    color: var(--foreground);
+  }
+}
+
+/* --------------------------------------------------------------------------- */
+/* 12. MODAL / OVERLAY SYSTEM                                                    */
+/* --------------------------------------------------------------------------- */
+
+@layer components {
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: var(--modal-overlay);
+    backdrop-filter: blur(4px);
+    z-index: 50;
+  }
+
+  .modal-content {
+    background-color: var(--surface-elevated);
+    border-radius: var(--modal-radius);
+    box-shadow: var(--modal-shadow);
+    border: 1px solid var(--border-subtle);
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Drawer (mobile navigation panel) */
+  .drawer-content {
+    background-color: var(--background);
+    height: 100dvh;
+    overflow-y: auto;
+  }
+}
+
+/* --------------------------------------------------------------------------- */
+/* 13. SECTION SYSTEM                                                            */
+/* --------------------------------------------------------------------------- */
+
+@layer components {
+  /* Standard section */
+  .section-standard {
+    padding-block: clamp(3.75rem, 8vw, 7.5rem);
+  }
+
+  /* Large editorial section */
+  .section-editorial {
+    padding-block: clamp(5rem, 10vw, 10rem);
+  }
+
+  /* Dark section */
+  .section-dark {
+    background-color: var(--foreground);
+    color: var(--background);
+    padding-block: clamp(5rem, 10vw, 10rem);
+  }
+  .section-dark .text-muted {
+    color: rgba(245, 242, 238, 0.6);
+  }
+
+  /* Full bleed — no container */
+  .section-fullbleed {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* Centered section */
+  .section-centered {
+    text-align: center;
+  }
+  [dir="rtl"] .section-centered {
+    text-align: center;
+  }
+}
+
+/* --------------------------------------------------------------------------- */
+/* 14. LOADING STATES                                                            */
+/* --------------------------------------------------------------------------- */
+
+@layer components {
+  /* Skeleton loader — warm stone pulse */
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--muted) 25%,
+      var(--border-subtle) 50%,
+      var(--muted) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-pulse 1.8s ease-in-out infinite;
+    border-radius: var(--radius-sm);
+  }
+
+  @keyframes skeleton-pulse {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* Spinner */
+  .spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Image loading placeholder */
+  .img-loading {
+    background-color: var(--surface-muted);
+    position: relative;
+    overflow: hidden;
+  }
+  .img-loading::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255,255,255,0.15) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+}
+
+/* --------------------------------------------------------------------------- */
+/* 15. SCROLL REVEAL UTILITIES (paired with Framer Motion)                      */
+/* --------------------------------------------------------------------------- */
+
+@layer utilities {
+  /* Initial hidden state — JS hydrates and animates */
+  .reveal-initial {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  /* When JS is disabled, show everything */
+  .no-js .reveal-initial {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-initial {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------- */
+/* 16. SHADCN/UI OVERRIDES — Match SANO LUNA visual identity                    */
+/* --------------------------------------------------------------------------- */
+
+@layer components {
+  /* Override shadcn default button */
+  .shadcn-btn-override [class*="Button"] {
+    font-family: var(--font-body-en);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-radius: var(--radius-sm) !important;
+  }
+
+  /* Override shadcn card */
+  [class*="Card"] {
+    border-color: var(--border) !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: none !important;
+  }
+
+  /* Override shadcn input */
+  [class*="Input"] {
+    border-radius: var(--radius-sm) !important;
+    border-color: var(--border) !important;
+    font-family: var(--font-body-en) !important;
+  }
+  [class*="Input"]:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px rgba(107, 94, 82, 0.12) !important;
+  }
+
+  /* Override badge */
+  [class*="Badge"] {
+    border-radius: var(--radius-pill) !important;
+    font-size: 0.6875rem !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+  }
+}
+
+/* =============================================================================
+   PHASE 4 — HOMEPAGE UTILITY ALIASES
+   Shorthand classes used across homepage section components.
+   All values derived from existing design system tokens.
+   ============================================================================= */
+
+/* ─── Sand color scale (referenced as var(--color-sand-*)) ─── */
+:root {
+  --color-sand-50:  rgba(250, 249, 247, 0.8);
+  --color-sand-100: #F5F2EE;  /* = --surface */
+  --color-sand-200: #EDE9E4;  /* = --muted */
+  --color-sand-300: #C9A882;  /* = --accent */
+  --color-sand-400: #B89672;  /* slightly darker accent */
+  --color-sand-500: #9B896E;  /* warm mid-tone */
+  --color-sand-600: #7A6A58;  /* muted warm brown */
+  --color-sand-700: #6B5E52;  /* = --primary */
+  --color-sand-800: #5A4F45;  /* deep warm */
+  --color-sand-900: #1A1714;  /* = charcoal = --foreground */
+
+  /* Surface warm — slightly elevated warm ivory */
+  --color-surface-warm: #F7F5F1;
+
+  /* Text muted alias */
+  --color-text-muted: #9B9189;  /* = --muted-foreground */
+
+  /* Accent shorthand */
+  --color-accent: #C9A882;      /* = --accent */
+}
+
+@layer utilities {
+  /* ─── Section — full section wrapper with responsive padding ─── */
+  .section-sl {
+    padding-block: clamp(3.75rem, 8vw, 7.5rem);
+  }
+
+  .section-sl-sm {
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .section-sl-lg {
+    padding-block: clamp(5rem, 10vw, 10rem);
+  }
+
+  /* ─── Heading aliases — map to existing text-display/text-h* ─── */
+  .heading-sl-xl {
+    font-family: var(--font-display-en);
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--foreground);
+  }
+  :lang(ar) .heading-sl-xl,
+  [dir="rtl"] .heading-sl-xl {
+    font-family: var(--font-display-ar);
+    letter-spacing: 0;
+  }
+
+  .heading-sl-lg {
+    font-family: var(--font-display-en);
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--foreground);
+  }
+  :lang(ar) .heading-sl-lg,
+  [dir="rtl"] .heading-sl-lg {
+    font-family: var(--font-display-ar);
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+
+  .heading-sl-md {
+    font-family: var(--font-display-en);
+    font-size: clamp(1.625rem, 3vw, 2.25rem);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+  }
+  :lang(ar) .heading-sl-md,
+  [dir="rtl"] .heading-sl-md {
+    font-family: var(--font-display-ar);
+    letter-spacing: 0;
+  }
+
+  .heading-sl-sm {
+    font-family: var(--font-display-en);
+    font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+    color: var(--foreground);
+  }
+  :lang(ar) .heading-sl-sm,
+  [dir="rtl"] .heading-sl-sm {
+    font-family: var(--font-display-ar);
+    letter-spacing: 0;
+  }
+
+  .heading-sl-xs {
+    font-family: var(--font-display-en);
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--foreground);
+  }
+  :lang(ar) .heading-sl-xs,
+  [dir="rtl"] .heading-sl-xs {
+    font-family: var(--font-display-ar);
+  }
+
+  /* ─── Overline — small caps label above headings ─── */
+  .overline-sl {
+    font-family: var(--font-body-en);
+    font-size: 0.6875rem;       /* 11px */
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    display: block;
+  }
+  :lang(ar) .overline-sl,
+  [dir="rtl"] .overline-sl {
+    font-family: var(--font-body-ar);
+    letter-spacing: 0.08em;
+  }
+
+  /* ─── Body text aliases ─── */
+  .text-body-muted {
+    font-family: var(--font-body-en);
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-text-muted);
+  }
+  :lang(ar) .text-body-muted,
+  [dir="rtl"] .text-body-muted {
+    font-family: var(--font-body-ar);
+  }
+
+  /* ─── Button alias — ensure btn base exists ─── */
+  .btn-md {
+    padding-block: 0.625rem;
+    padding-inline: 1.5rem;
+    font-size: 0.875rem;
+  }
 }

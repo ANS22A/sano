@@ -1,0 +1,61 @@
+import type { Metadata } from 'next'
+import { getAdminLocations } from '@/app/actions/adminLocations.actions'
+import { AdminEmptyState } from '@/components/admin/ui/AdminEmptyState'
+import { AdminBadge } from '@/components/admin/ui/AdminBadge'
+import Link from 'next/link'
+import { MapPin } from 'lucide-react'
+import { cookies } from 'next/headers'
+import { adminT, type AdminLang } from '@/lib/admin/translations'
+
+export const metadata: Metadata = { title: 'Locations' }
+
+export default async function AdminLocationsPage() {
+  const cookieStore = await cookies()
+  const lang = (cookieStore.get('admin_lang')?.value ?? 'en') as AdminLang
+  const t = adminT[lang]
+  const locations = await getAdminLocations()
+
+  return (
+    <div className="space-y-4">
+      <h1 className="text-xl font-bold text-[#2a2118]">{t.locations.title}</h1>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        {locations.length === 0 ? (
+          <div className="sm:col-span-2">
+            <AdminEmptyState icon={<MapPin className="w-6 h-6" />} title={t.locations.noResults} />
+          </div>
+        ) : (
+          locations.map((loc) => (
+            <div key={loc.id} className="bg-white rounded-2xl border border-[#e8ddd0] p-5 hover:border-[#c9a96e]/30 hover:shadow-[0_4px_20px_-4px_rgba(42,33,24,0.04)] transition-all duration-300">
+              <div className="flex items-start justify-between gap-3 mb-3">
+                <div>
+                  <h2 className="font-semibold text-[#2a2118]">{loc.name_en}</h2>
+                  <p className="text-sm text-[#9a8a7a]" dir="rtl">{loc.name_ar}</p>
+                </div>
+                <AdminBadge
+                  status={loc.is_active ? 'active' : 'inactive'}
+                  label={loc.is_active ? t.common.active : t.common.inactive}
+                />
+              </div>
+              <p className="text-xs text-[#7a6a57] mb-4">{loc.address_en ?? '—'}</p>
+              <div className="flex gap-3">
+                <Link
+                  href={`/admin/settings/business-hours?location=${loc.id}`}
+                  className="text-xs font-medium text-[#c9a96e] hover:underline"
+                >
+                  {t.locations.businessHours}
+                </Link>
+                <Link
+                  href={`/admin/settings/blackout-dates?location=${loc.id}`}
+                  className="text-xs font-medium text-[#c9a96e] hover:underline"
+                >
+                  {t.locations.blackoutDates}
+                </Link>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  )
+}
