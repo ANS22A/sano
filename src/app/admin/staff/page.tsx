@@ -1,23 +1,28 @@
 import type { Metadata } from 'next'
-import { getAdminStaff } from '@/app/actions/adminLocations.actions'
+import { getAdminStaff } from '@/app/actions/adminStaff.actions'
 import { AdminBadge } from '@/components/admin/ui/AdminBadge'
 import { AdminEmptyState } from '@/components/admin/ui/AdminEmptyState'
+import { StaffFormWrapper } from '@/components/admin/ui/StaffFormWrapper'
 import Link from 'next/link'
 import { UserCheck } from 'lucide-react'
 import { cookies } from 'next/headers'
-import { adminT, type AdminLang } from '@/lib/admin/translations'
+import { adminT, type AdminLang, ADMIN_DIR } from '@/lib/admin/translations'
 
 export const metadata: Metadata = { title: 'Staff' }
 
 export default async function AdminStaffPage() {
   const cookieStore = await cookies()
   const lang = (cookieStore.get('admin_lang')?.value ?? 'en') as AdminLang
+  const dir = ADMIN_DIR[lang]
   const t = adminT[lang]
   const staff = await getAdminStaff()
 
   return (
     <div className="space-y-4">
-      <h1 className="text-xl font-bold text-[#2a2118]">{t.staff.title}</h1>
+      <div className="flex items-center justify-between gap-3">
+        <h1 className="text-xl font-bold text-[#2a2118]">{t.staff.title}</h1>
+        <StaffFormWrapper t={t} dir={dir} />
+      </div>
 
       <div className="bg-white rounded-2xl border border-[#e8ddd0] overflow-hidden">
         {staff.length === 0 ? (
@@ -43,10 +48,11 @@ export default async function AdminStaffPage() {
                         label={s.is_active ? t.common.active : t.common.inactive}
                       />
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3 flex items-center gap-3">
                       <Link href={`/admin/staff/${s.id}/availability`} className="text-xs font-medium text-[#c9a96e] hover:underline">
                         {t.staff.availability}
                       </Link>
+                      <StaffFormWrapper t={t} dir={dir} staff={{ id: s.id, name_en: s.name_en, name_ar: s.name_ar, bio_en: s.bio_en, bio_ar: s.bio_ar, slug: s.slug, image_url: s.image_url }} variant="icon" />
                     </td>
                   </tr>
                 ))}

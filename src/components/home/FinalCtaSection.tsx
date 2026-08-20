@@ -27,7 +27,7 @@ export function FinalCtaSection() {
           sizes="100vw"
           className="object-cover object-center opacity-30"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-surface-warm)] via-transparent to-[var(--color-surface-warm)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-[var(--color-surface-warm)]" />
         <div className="absolute inset-0 bg-[var(--color-surface-warm)]/80" />
       </div>
 
@@ -40,9 +40,9 @@ export function FinalCtaSection() {
           >
             {/* Decorative line */}
             <div className="flex items-center justify-center gap-3 mb-8" aria-hidden="true">
-              <span className="w-12 h-px bg-[var(--color-sand-400)]" />
-              <span className="text-[var(--color-sand-500)] text-lg">✦</span>
-              <span className="w-12 h-px bg-[var(--color-sand-400)]" />
+              <span className="w-12 h-px bg-border" />
+              <span className="text-primary text-lg">✦</span>
+              <span className="w-12 h-px bg-border" />
             </div>
 
             <p className="overline-sl mb-4">{t('overline')}</p>
@@ -77,3 +77,4 @@ export function FinalCtaSection() {
     </section>
   )
 }
+

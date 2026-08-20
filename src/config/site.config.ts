@@ -26,8 +26,6 @@ export const primaryNavigation: NavItem[] = [
   { key: 'packages', href: '/packages' },
   { key: 'giftCards', href: '/gift-cards' },
   { key: 'team', href: '/team' },
-  { key: 'gallery', href: '/gallery' },
-  { key: 'reviews', href: '/reviews' },
   { key: 'contact', href: '/contact' },
 ]
 
@@ -38,16 +36,13 @@ export const footerExploreLinks: NavItem[] = [
   { key: 'services', href: '/services' },
   { key: 'packages', href: '/packages' },
   { key: 'team', href: '/team' },
-  { key: 'gallery', href: '/gallery' },
 ]
 
 // Footer — Experience column
 export const footerExperienceLinks: NavItem[] = [
   { key: 'booking', href: '/booking' },
-  { key: 'reviews', href: '/reviews' },
   { key: 'faq', href: '/faq' },
   { key: 'contact', href: '/contact' },
-  { key: 'policies', href: '/policies' },
 ]
 
 // Backward-compat alias
@@ -57,32 +52,31 @@ export const LOCALES: Locale[] = ['ar', 'en']
 export const DEFAULT_LOCALE: Locale = 'ar'
 
 // ─────────────────────────────────────────────
-// CONTACT — Placeholder until CMS/Supabase
+// CONTACT — Single Source of Truth for Business Info
 // ─────────────────────────────────────────────
 
-/** @placeholder Replace with real business data before launch */
 export const contactConfig = {
-  phone: '+966 50 000 0000',        // PLACEHOLDER
-  whatsapp: '+966500000000',         // PLACEHOLDER
-  email: 'hello@sanoluna.com',       // PLACEHOLDER
+  phone: '' as string,
+  whatsapp: '' as string,
+  email: '' as string,
   address: {
-    ar: 'الرياض، المملكة العربية السعودية', // PLACEHOLDER
-    en: 'Riyadh, Saudi Arabia',             // PLACEHOLDER
+    ar: 'جدة، المملكة العربية السعودية',
+    en: 'Jeddah, Saudi Arabia',
   },
   hours: {
-    ar: 'السبت – الخميس: ٩ص – ٩م',  // PLACEHOLDER
-    en: 'Sat – Thu: 9am – 9pm',      // PLACEHOLDER
+    ar: 'مفتوح طوال أيام الأسبوع مع ساعات عمل مرنة حسب المواعيد والحجوزات.',
+    en: 'Open every day with flexible appointment-based hours.',
   },
 } as const
 
 // ─────────────────────────────────────────────
-// SOCIAL — Placeholder until real accounts confirmed
+// SOCIAL — Links
 // ─────────────────────────────────────────────
 
-/** @placeholder Replace with real social URLs before launch */
 export const socialLinks = {
-  instagram: 'https://instagram.com/sanoluna', // PLACEHOLDER
-  whatsapp:  'https://wa.me/966500000000',     // PLACEHOLDER
-  facebook:  'https://facebook.com/sanoluna',  // PLACEHOLDER
-  tiktok:    'https://tiktok.com/@sanoluna',   // PLACEHOLDER
+  instagram: '' as string,
+  whatsapp: '' as string,
+  facebook: '' as string,
+  tiktok: '' as string,
 } as const
+

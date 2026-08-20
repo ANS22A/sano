@@ -2,8 +2,9 @@
 
 import { useTransition } from 'react'
 import { useRouter } from 'next/navigation'
-import { createAdminService, updateAdminService, toggleServiceActive } from '@/app/actions/adminServices.actions'
+import { createAdminService, updateAdminService, toggleServiceActive, uploadServiceImage, removeServiceImage } from '@/app/actions/adminServices.actions'
 import { useAdmin } from '@/components/admin/shell/AdminShell'
+import { AdminImageUpload } from '@/components/admin/ui/AdminImageUpload'
 
 interface ServiceFormProps {
   service?: {
@@ -18,6 +19,7 @@ interface ServiceFormProps {
     is_featured: boolean
     short_description_ar?: string | null
     short_description_en?: string | null
+    image_url?: string | null
   }
   categories: { id: string; name_en: string; name_ar: string }[]
   isEdit?: boolean
@@ -74,6 +76,19 @@ export function ServiceForm({ service, categories, isEdit }: ServiceFormProps) {
           </button>
         )}
       </div>
+
+      {isEdit && service && (
+        <div className="bg-white rounded-2xl border border-[#e8ddd0] p-6">
+          <h2 className="text-sm font-bold text-[#2a2118] mb-4">Service Image</h2>
+          <AdminImageUpload
+            entityId={service.id}
+            imageUrl={service.image_url ?? null}
+            onUpload={uploadServiceImage}
+            onRemove={removeServiceImage}
+            t={t}
+          />
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-[#e8ddd0] p-6 space-y-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

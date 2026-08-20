@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { getCustomerWithBookings } from '@/app/actions/adminLocations.actions'
+import { getCustomerWithBookings } from '@/app/actions/adminCustomers.actions'
 import { AdminBadge } from '@/components/admin/ui/AdminBadge'
+import { CustomerFormWrapper } from '@/components/admin/ui/CustomerFormWrapper'
 import { ArrowLeft } from 'lucide-react'
+import { cookies } from 'next/headers'
+import { adminT, type AdminLang, ADMIN_DIR } from '@/lib/admin/translations'
 
 export const metadata: Metadata = { title: 'Customer' }
 
@@ -12,13 +15,21 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
   const { customer, bookings } = await getCustomerWithBookings(id)
   if (!customer) notFound()
 
+  const cookieStore = await cookies()
+  const lang = (cookieStore.get('admin_lang')?.value ?? 'en') as AdminLang
+  const dir = ADMIN_DIR[lang]
+  const t = adminT[lang]
+
   return (
     <div className="max-w-2xl space-y-6">
       <Link href="/admin/customers" className="inline-flex items-center gap-2 text-sm text-[#9a8a7a] hover:text-[#2a2118]">
-        <ArrowLeft className="w-4 h-4" /> Back
+        <ArrowLeft className="w-4 h-4" /> {t.common.back}
       </Link>
 
-      <h1 className="text-xl font-bold text-[#2a2118]">{customer.full_name}</h1>
+      <div className="flex items-center justify-between gap-4">
+        <h1 className="text-xl font-bold text-[#2a2118]">{customer.full_name}</h1>
+        <CustomerFormWrapper t={t} dir={dir} customer={{ id: customer.id, full_name: customer.full_name, phone: customer.phone, email: customer.email }} variant="button" />
+      </div>
 
       {/* Customer info */}
       <div className="bg-white rounded-2xl border border-[#e8ddd0] overflow-hidden">

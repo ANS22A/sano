@@ -50,7 +50,7 @@ export function WhySection() {
             >
               {/* Step number */}
               <div
-                className="flex-shrink-0 text-[var(--color-sand-300)] text-xs tracking-[0.2em] tabular-nums w-8 pt-1"
+                className="flex-shrink-0 text-accent text-xs tracking-[0.2em] tabular-nums w-8 pt-1"
                 aria-hidden="true"
               >
                 {String(i + 1).padStart(2, '0')}
@@ -59,7 +59,7 @@ export function WhySection() {
               <div className="flex-1">
                 {/* Icon */}
                 <div
-                  className="text-[var(--color-sand-600)] text-xl mb-3"
+                  className="text-primary text-xl mb-3"
                   aria-hidden="true"
                 >
                   {principle.icon}
@@ -82,3 +82,4 @@ export function WhySection() {
     </section>
   )
 }
+

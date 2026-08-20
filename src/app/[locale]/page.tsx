@@ -14,6 +14,7 @@ import { TestimonialsSection } from '@/components/home/TestimonialsSection'
 import { GallerySection } from '@/components/home/GallerySection'
 import { FaqSection } from '@/components/home/FaqSection'
 import { FinalCtaSection } from '@/components/home/FinalCtaSection'
+import { getFeaturedTeamMembers } from '@/services/team.service'
 
 // ─────────────────────────────────────────────
 // SEO METADATA
@@ -32,8 +33,8 @@ export async function generateMetadata({
       ? 'سانو لونا | عناية فاخرة في منزلك'
       : 'SANO LUNA | Luxury Wellness At Home',
     description: isAr
-      ? 'تجارب سبا وعناية راقية تصل إلى منزلك في الرياض — مساج، حمام مغربي، علاجات متخصصة، وأكثر.'
-      : 'Premium spa and wellness experiences delivered to your home in Riyadh — massage, Moroccan bath, specialist therapies, and more.',
+      ? 'تجارب سبا وعناية راقية تصل إلى منزلك في جدة — مساج، حمام مغربي، علاجات متخصصة، وأكثر.'
+      : 'Premium spa and wellness experiences delivered to your home in Jeddah — massage, Moroccan bath, specialist therapies, and more.',
     openGraph: {
       title: isAr ? 'سانو لونا | عناية فاخرة في منزلك' : 'SANO LUNA | Luxury Wellness At Home',
       description: isAr
@@ -56,7 +57,9 @@ export async function generateMetadata({
 // HOMEPAGE
 // ─────────────────────────────────────────────
 
-export default function HomePage() {
+export default async function HomePage() {
+  const staff = await getFeaturedTeamMembers()
+
   return (
     <>
       {/* 1. Hero — full viewport, transparent header overlay */}
@@ -90,7 +93,7 @@ export default function HomePage() {
       <HowItWorksSection />
 
       {/* 11. Team preview */}
-      <TeamSection />
+      <TeamSection initialStaff={staff} />
 
       {/* 12. Testimonials */}
       <TestimonialsSection />

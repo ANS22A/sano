@@ -18,10 +18,10 @@ export const locations: Location[] = [
   {
     id: 'riyadh-main',
     slug: 'riyadh-main',
-    name_ar: 'سانو لونا — الرياض',
-    name_en: 'SANO LUNA — Riyadh',
-    address_ar: 'الرياض، المملكة العربية السعودية',  // DEMO — update with real address
-    address_en: 'Riyadh, Saudi Arabia',               // DEMO — update with real address
+    name_ar: 'سانو لونا — جدة',
+    name_en: 'SANO LUNA — Jeddah',
+    address_ar: 'جدة، المملكة العربية السعودية',  // DEMO — update with real address
+    address_en: 'Jeddah, Saudi Arabia',               // DEMO — update with real address
     latitude: null,    // DEMO — update with real coordinates
     longitude: null,   // DEMO — update with real coordinates
     phone: '+966500000000', // DEMO — update with real phone

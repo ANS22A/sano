@@ -4,6 +4,8 @@ import { requireRole, writeAuditLog } from '@/lib/admin/auth'
 import { createClient } from '@/lib/supabase/server'
 import { z } from 'zod'
 import { revalidatePath } from 'next/cache'
+import { sendBookingCancellation, sendBookingReschedule } from '@/lib/notifications/email.service'
+import { resolveServiceName } from '@/services/availability.service'
 
 const PAGE_SIZE = 25
 
@@ -128,9 +130,19 @@ export async function updateBookingStatus(formData: FormData) {
     notes?: string 
   } = { status: parsed.data.status }
 
+  const { data: currentBooking } = await supabase
+    .from('bookings')
+    .select(`
+      booking_number, date, start_time, locale, notes, package_slug,
+      customers(full_name, email),
+      services(name_ar, name_en),
+      locations(name_ar, name_en)
+    `)
+    .eq('id', parsed.data.bookingId)
+    .single()
+
   if (parsed.data.status === 'cancelled' && parsed.data.cancellationReason) {
     // Fetch current notes to append
-    const { data: currentBooking } = await supabase.from('bookings').select('notes').eq('id', parsed.data.bookingId).single()
     const currentNotes = currentBooking?.notes || ''
     const newNotes = currentNotes 
       ? `${currentNotes}\n\n[Cancelled]: ${parsed.data.cancellationReason}`
@@ -158,6 +170,33 @@ export async function updateBookingStatus(formData: FormData) {
 
   revalidatePath('/admin/bookings')
   revalidatePath(`/admin/bookings/${parsed.data.bookingId}`)
+
+  // Send cancellation email asynchronously if cancelled
+  const customerData = currentBooking?.customers as unknown as { full_name: string; email: string } | null
+  const serviceData = currentBooking?.services as unknown as { name_ar: string; name_en: string } | null
+  const locationData = currentBooking?.locations as unknown as { name_ar: string; name_en: string } | null
+
+  if (parsed.data.status === 'cancelled' && currentBooking && customerData?.email) {
+    const serviceName = resolveServiceName(null, currentBooking.package_slug) // fallback for package
+    const resolvedNameAr = serviceData?.name_ar || serviceName.name_ar
+    const resolvedNameEn = serviceData?.name_en || serviceName.name_en
+    
+    sendBookingCancellation({
+      bookingNumber: currentBooking.booking_number,
+      date: currentBooking.date,
+      startTime: currentBooking.start_time,
+      serviceNameAr: resolvedNameAr,
+      serviceNameEn: resolvedNameEn,
+      locationNameAr: locationData?.name_ar || '',
+      locationNameEn: locationData?.name_en || '',
+      customerName: customerData?.full_name || '',
+      customerEmail: customerData?.email,
+      priceSar: 0, // not needed for cancellation
+      locale: currentBooking.locale === 'ar' ? 'ar' : 'en',
+      cancellationReason: parsed.data.cancellationReason,
+    }).catch(console.error)
+  }
+
   return { success: true }
 }
 
@@ -181,7 +220,12 @@ export async function rescheduleBooking(formData: FormData) {
   // 1. Get current booking
   const { data: booking, error: fetchError } = await supabase
     .from('bookings')
-    .select('*')
+    .select(`
+      *,
+      customers(full_name, email),
+      services(name_ar, name_en),
+      locations(name_ar, name_en)
+    `)
     .eq('id', parsed.data.bookingId)
     .single()
 
@@ -260,5 +304,33 @@ export async function rescheduleBooking(formData: FormData) {
   revalidatePath('/admin/bookings')
   revalidatePath(`/admin/bookings/${booking.id}`)
   revalidatePath('/admin/calendar')
+
+  // Send reschedule email asynchronously
+  const bookingCustomer = booking.customers as unknown as { full_name: string; email: string } | null
+  const bookingService = booking.services as unknown as { name_ar: string; name_en: string } | null
+  const bookingLocation = booking.locations as unknown as { name_ar: string; name_en: string } | null
+
+  if (bookingCustomer?.email) {
+    const serviceName = resolveServiceName(null, booking.package_slug)
+    const resolvedNameAr = bookingService?.name_ar || serviceName.name_ar
+    const resolvedNameEn = bookingService?.name_en || serviceName.name_en
+
+    sendBookingReschedule({
+      bookingNumber: booking.booking_number,
+      date: parsed.data.date,
+      startTime: parsed.data.startTime,
+      oldDate: booking.date,
+      oldStartTime: booking.start_time,
+      serviceNameAr: resolvedNameAr,
+      serviceNameEn: resolvedNameEn,
+      locationNameAr: bookingLocation?.name_ar || '',
+      locationNameEn: bookingLocation?.name_en || '',
+      customerName: bookingCustomer?.full_name || '',
+      customerEmail: bookingCustomer?.email,
+      priceSar: booking.price_sar,
+      locale: booking.locale === 'ar' ? 'ar' : 'en',
+    }).catch(console.error)
+  }
+
   return { success: true }
 }

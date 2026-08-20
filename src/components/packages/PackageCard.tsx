@@ -1,6 +1,7 @@
 'use client'
 
 import { cn } from '@/lib/utils/cn'
+import Image from 'next/image'
 import { Link } from '@/i18n/navigation'
 import type { Package } from '@/data/types'
 
@@ -21,9 +22,19 @@ export function PackageCard({ pkg, locale }: PackageCardProps) {
       'group relative flex flex-col bg-white border border-[var(--border-subtle)]',
       'rounded-sm overflow-hidden hover:shadow-md transition-shadow duration-300'
     )}>
-      {/* Image placeholder */}
-      <div className="h-48 bg-[var(--color-sand-100)] flex items-center justify-center">
-        <span className="text-4xl opacity-30">✦</span>
+      {/* Image */}
+      <div className="h-48 relative overflow-hidden bg-gradient-to-br from-surface to-accent flex items-center justify-center">
+        {pkg.image_url ? (
+          <Image
+            src={pkg.image_url}
+            alt={name}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          />
+        ) : (
+          <span className="text-4xl opacity-30">✦</span>
+        )}
       </div>
 
       <div className="flex flex-col flex-1 p-6 gap-4">
@@ -31,14 +42,14 @@ export function PackageCard({ pkg, locale }: PackageCardProps) {
         <div className={cn('flex items-start justify-between gap-4', isAr && 'flex-row-reverse')}>
           <div>
             {tagline && (
-              <p className="text-[var(--color-sand-500)] text-xs tracking-widest uppercase mb-1">
+              <p className="text-primary text-xs tracking-widest uppercase mb-1">
                 {tagline}
               </p>
             )}
-            <h2 className="font-serif text-xl text-[var(--color-sand-900)]">{name}</h2>
+            <h2 className="font-serif text-xl text-foreground">{name}</h2>
           </div>
           <div className="shrink-0 text-end">
-            <span className="text-lg font-semibold text-[var(--color-sand-800)]">
+            <span className="text-lg font-semibold text-foreground">
               {pkg.price_sar}
             </span>
             <span className="text-xs text-[var(--color-text-muted)] ms-1">
@@ -56,10 +67,10 @@ export function PackageCard({ pkg, locale }: PackageCardProps) {
         <ul className="space-y-1 flex-1">
           {includedServices.map((item, i) => (
             <li key={i} className={cn(
-              'flex items-center gap-2 text-sm text-[var(--color-sand-700)]',
+              'flex items-center gap-2 text-sm text-foreground',
               isAr && 'flex-row-reverse'
             )}>
-              <span className="text-[var(--color-sand-400)] text-xs">✦</span>
+              <span className="text-border text-xs">✦</span>
               {item}
             </li>
           ))}
@@ -83,9 +94,9 @@ export function PackageCard({ pkg, locale }: PackageCardProps) {
           href={`/booking?package=${pkg.slug}`}
           className={cn(
             'mt-2 inline-flex items-center justify-center gap-2',
-            'bg-[var(--color-sand-900)] text-white text-sm tracking-wide',
+            'bg-foreground text-white text-sm tracking-wide',
             'px-6 py-3 rounded-sm',
-            'hover:bg-[var(--color-sand-700)] transition-colors duration-200',
+            'hover:bg-foreground transition-colors duration-200',
             'focus:outline-none focus:ring-2 focus:ring-[var(--color-sand-700)] focus:ring-offset-2'
           )}
         >
@@ -95,3 +106,4 @@ export function PackageCard({ pkg, locale }: PackageCardProps) {
     </article>
   )
 }
+

@@ -26,6 +26,8 @@ import {
 } from '@/services/availability.service'
 import { activeLocations, getLocationById } from '@/data/locations.data'
 import type { BookingDraft, BookingResponse } from '@/data/booking.types'
+import { checkRateLimit } from '@/lib/rate-limit'
+import { sendBookingConfirmation } from '@/lib/notifications/email.service'
 
 // ─────────────────────────────────────────────
 // VALIDATION SCHEMA
@@ -68,6 +70,17 @@ function normalizePhone(phone: string): string {
 // ─────────────────────────────────────────────
 
 export async function createBooking(draft: BookingDraft): Promise<BookingResponse> {
+  // 0. Rate limiting (fail open safely)
+  const rateLimit = await checkRateLimit('booking')
+  if (!rateLimit.success) {
+    return {
+      success: false,
+      code: 'RATE_LIMIT_EXCEEDED',
+      message: 'Too many booking attempts. Please wait a few minutes and try again.',
+      messageAr: 'لقد تجاوزت الحد المسموح من المحاولات. يرجى الانتظار بضع دقائق والمحاولة مرة أخرى.',
+    }
+  }
+
   // 1. Validate incoming draft
   const parsed = BookingSchema.safeParse(draft)
   if (!parsed.success) {
@@ -247,10 +260,9 @@ export async function createBooking(draft: BookingDraft): Promise<BookingRespons
     }
   }
 
-  // 8. Return confirmation
   const serviceName = resolveServiceName(data.serviceId, data.packageSlug)
-
-  return {
+  
+  const result: BookingResponse = {
     success: true,
     bookingNumber: booking.booking_number,
     date: data.date,
@@ -268,6 +280,27 @@ export async function createBooking(draft: BookingDraft): Promise<BookingRespons
     customerEmail: data.customer.email,
     customerPhone: normalizedPhone,
   }
+
+  // 9. Send email notification asynchronously (never block or fail the booking)
+  // We use void to explicitly ignore the promise so Next.js doesn't wait for it if deployed as a background function,
+  // though Next.js Server Actions await all promises unless wrapped in after(). 
+  // In Next.js 15+ we could use unstable_after. For standard compatibility, just execute without await,
+  // or catch errors inside the service. The service catches all errors internally.
+  sendBookingConfirmation({
+    bookingNumber: booking.booking_number,
+    date: data.date,
+    startTime: data.startTime,
+    serviceNameAr: serviceName.name_ar,
+    serviceNameEn: serviceName.name_en,
+    locationNameAr: location.name_ar,
+    locationNameEn: location.name_en,
+    customerName: data.customer.fullName,
+    customerEmail: data.customer.email,
+    priceSar,
+    locale: draft.currency === 'SAR' ? 'ar' : 'en', // Infer locale from booking currency or draft
+  }).catch(console.error)
+
+  return result
 }
 
 // ─────────────────────────────────────────────
@@ -280,6 +313,12 @@ export async function getBookingSlots(
   locationId: string,
   date: string
 ): Promise<{ slots: import('@/data/booking.types').AvailableSlot[] }> {
+  // 0. Rate limiting (fail open safely)
+  const rateLimit = await checkRateLimit('slots')
+  if (!rateLimit.success) {
+    return { slots: [] }
+  }
+
   // Validate inputs before any DB access
   if (!locationId || !/^\S+$/.test(locationId)) return { slots: [] }
   if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return { slots: [] }

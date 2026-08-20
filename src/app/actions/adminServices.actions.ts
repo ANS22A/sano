@@ -100,3 +100,104 @@ export async function toggleServiceActive(id: string, isActive: boolean) {
   revalidatePath('/admin/services')
   return { success: true }
 }
+
+export async function uploadServiceImage(id: string, formData: FormData) {
+  const session = await requireRole('admin')
+  const file = formData.get('file') as File
+  if (!file) return { error: 'No file provided' }
+
+  // 1. Upload new image first
+  const { uploadImage, deleteImage } = await import('@/lib/storage/admin-storage')
+  const uploadResult = await uploadImage(file, 'services', id)
+  if (!uploadResult.success || !uploadResult.url) {
+    return { error: uploadResult.error ?? 'Upload failed' }
+  }
+
+  // 2. Fetch current image path
+  const supabase = await createClient()
+  const { data: currentService } = await supabase
+    .from('services')
+    .select('image_url')
+    .eq('id', id)
+    .single()
+
+  // 3. Update DB
+  const { error: dbError } = await supabase
+    .from('services')
+    .update({ image_url: uploadResult.url })
+    .eq('id', id)
+
+  if (dbError) {
+    // We could attempt to delete the newly uploaded file to avoid orphans, but it's complex
+    // Return error, the new file is orphaned but DB remains safe
+    return { error: 'Failed to update database with new image URL' }
+  }
+
+  // 4. Delete old image from storage if it exists and is from our bucket
+  if (currentService?.image_url) {
+    const bucketPath = '/storage/v1/object/public/sanoluna-media/'
+    const idx = currentService.image_url.indexOf(bucketPath)
+    if (idx !== -1) {
+      const oldPath = currentService.image_url.substring(idx + bucketPath.length)
+      // Delete in background/non-critical
+      deleteImage(oldPath).catch(console.error)
+    }
+  }
+
+  await writeAuditLog({
+    adminUserId: session.userId,
+    action: 'service.image_uploaded',
+    entityType: 'service',
+    entityId: id,
+  })
+  
+  revalidatePath('/admin/services')
+  revalidatePath(`/admin/services/${id}/edit`)
+  return { success: true, url: uploadResult.url }
+}
+
+export async function removeServiceImage(id: string) {
+  const session = await requireRole('admin')
+  
+  // 1. Fetch current image path
+  const supabase = await createClient()
+  const { data: currentService } = await supabase
+    .from('services')
+    .select('image_url')
+    .eq('id', id)
+    .single()
+
+  if (!currentService?.image_url) {
+    return { error: 'No image to remove' }
+  }
+
+  const bucketPath = '/storage/v1/object/public/sanoluna-media/'
+  const idx = currentService.image_url.indexOf(bucketPath)
+  if (idx !== -1) {
+    const oldPath = currentService.image_url.substring(idx + bucketPath.length)
+    const { deleteImage } = await import('@/lib/storage/admin-storage')
+    const deleteResult = await deleteImage(oldPath)
+    if (!deleteResult.success) {
+      return { error: 'Failed to delete image from storage' }
+    }
+  }
+
+  // 2. Clear DB
+  const { error: dbError } = await supabase
+    .from('services')
+    .update({ image_url: null })
+    .eq('id', id)
+
+  if (dbError) return { error: 'Failed to clear image URL in database' }
+
+  await writeAuditLog({
+    adminUserId: session.userId,
+    action: 'service.image_removed',
+    entityType: 'service',
+    entityId: id,
+  })
+
+  revalidatePath('/admin/services')
+  revalidatePath(`/admin/services/${id}/edit`)
+  return { success: true }
+}

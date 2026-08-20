@@ -16,6 +16,9 @@ export function ComposeSection() {
     { num: '03', label: t('step3') },
   ]
 
+  // Compose section hidden gracefully until feature is implemented
+  return null
+
   return (
     <section
       ref={ref}
@@ -41,7 +44,7 @@ export function ComposeSection() {
                   <div
                     className={cn(
                       'w-8 h-8 flex-shrink-0 rounded-sm flex items-center justify-center',
-                      'bg-[var(--color-sand-100)] text-[var(--color-sand-700)]',
+                      'bg-background text-foreground',
                       'text-xs font-medium tabular-nums'
                     )}
                     aria-hidden="true"
@@ -77,7 +80,7 @@ export function ComposeSection() {
               {[0, 1, 2].map((i) => (
                 <motion.div
                   key={i}
-                  className="absolute inset-0 rounded-full border border-[var(--color-sand-300)]"
+                  className="absolute inset-0 rounded-full border border-accent"
                   style={{ margin: `${i * 28}px` }}
                   animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
                   transition={{
@@ -89,8 +92,8 @@ export function ComposeSection() {
               ))}
               {/* Centre */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-20 h-20 rounded-full bg-[var(--color-sand-100)] flex items-center justify-center">
-                  <span className="text-2xl text-[var(--color-sand-600)]">✦</span>
+                <div className="w-20 h-20 rounded-full bg-background flex items-center justify-center">
+                  <span className="text-2xl text-primary">✦</span>
                 </div>
               </div>
             </div>
@@ -100,3 +103,4 @@ export function ComposeSection() {
     </section>
   )
 }
+

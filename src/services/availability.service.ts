@@ -159,8 +159,8 @@ export async function getAvailableSlots(params: GetAvailableSlotsParams): Promis
     : 0
 
   for (let start = openMin; start + duration <= closeMin; start += SLOT_INTERVAL_MINUTES) {
-    // Skip past slots on today's date
-    if (isToday && start <= nowMinutes) continue
+    // Skip past slots on today's date (enforce 30-minute minimum lead time)
+    if (isToday && start < nowMinutes + 30) continue
 
     const end = start + duration
     const conflict = occupied.some((o) => start < o.end && end > o.start)

@@ -185,6 +185,19 @@ export const adminT = {
       completed: 'Completed',
       no_show: 'No-Show',
     },
+    // Media Upload
+    media: {
+      uploadImage: 'Upload Image',
+      replaceImage: 'Replace Image',
+      removeImage: 'Remove Image',
+      uploading: 'Uploading…',
+      uploadSuccessful: 'Upload successful.',
+      invalidFileType: 'Invalid file type. Only JPG, PNG, and WebP are allowed.',
+      fileTooLarge: 'File is too large. Maximum size is 5MB.',
+      uploadFailed: 'Upload failed. Please try again.',
+      removeFailed: 'Failed to remove image. Please try again.',
+      emptyState: 'No image uploaded',
+    },
   },
 
   ar: {
@@ -345,6 +358,18 @@ export const adminT = {
       cancelled: 'ملغى',
       completed: 'مكتمل',
       no_show: 'غياب',
+    },
+    media: {
+      uploadImage: 'رفع صورة',
+      replaceImage: 'استبدال الصورة',
+      removeImage: 'حذف الصورة',
+      uploading: 'جارٍ الرفع…',
+      uploadSuccessful: 'تم رفع الصورة بنجاح.',
+      invalidFileType: 'نوع الملف غير صالح. يُسمح فقط بصيغ JPG و PNG و WebP.',
+      fileTooLarge: 'حجم الملف كبير جداً. الحد الأقصى هو 5 ميجابايت.',
+      uploadFailed: 'فشل الرفع. يرجى المحاولة مرة أخرى.',
+      removeFailed: 'فشل حذف الصورة. يرجى المحاولة مرة أخرى.',
+      emptyState: 'لم يتم رفع صورة',
     },
   },
 } as const

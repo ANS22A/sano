@@ -121,7 +121,7 @@ export default async function ServiceDetailPage({
     provider: {
       '@type': 'LocalBusiness',
       name: 'SANO LUNA',
-      areaServed: 'Riyadh, Saudi Arabia',
+      areaServed: 'Jeddah, Saudi Arabia',
     },
     offers: {
       '@type': 'Offer',

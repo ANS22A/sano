@@ -34,7 +34,7 @@ const sizeClasses = {
 
 const variantClasses = {
   auto:  'text-foreground',
-  dark:  'text-[#1A1714]',
+  dark:  'text-foreground',
   light: 'text-white',
 }
 
@@ -64,7 +64,7 @@ function LogoMark({
           variant === 'light'
             ? 'bg-white/70'
             : variant === 'dark'
-            ? 'bg-[#C9A882]'
+            ? 'bg-accent'
             : 'bg-accent'
         )}
         aria-hidden="true"
@@ -105,3 +105,4 @@ export function Logo({
     </Link>
   )
 }
+

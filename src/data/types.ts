@@ -146,43 +146,6 @@ export interface Package {
 }
 
 // ─────────────────────────────────────────────
-// TESTIMONIAL TYPES
-// ─────────────────────────────────────────────
-
-export interface Testimonial {
-  id: string
-  author_name: string    // first name only for privacy
-  author_initial: string // e.g. "م.ن" or "S."
-  rating: number         // 1-5
-  review_ar: string
-  review_en: string
-  service_name_ar?: string
-  service_name_en?: string
-  is_featured: boolean
-  is_placeholder: boolean // true = dev placeholder, not real review
-}
-
-// ─────────────────────────────────────────────
-// TEAM TYPES
-// ─────────────────────────────────────────────
-
-export interface TeamMember {
-  id: string
-  name_ar: string
-  name_en: string
-  title_ar: string
-  title_en: string
-  bio_ar: string
-  bio_en: string
-  image_url: string | null
-  specialties_ar: string[]
-  specialties_en: string[]
-  is_featured: boolean
-  is_placeholder: boolean // true = dev placeholder
-  sort_order: number
-}
-
-// ─────────────────────────────────────────────
 // FAQ TYPES
 // ─────────────────────────────────────────────
 

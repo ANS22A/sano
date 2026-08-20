@@ -47,10 +47,10 @@ export const services: Service[] = [
     is_popular: true,
     is_active: true,
     sort_order: 10,
-    seo_title_ar: 'المساج السويدي في المنزل — سانو لونا | الرياض',
-    seo_title_en: 'Swedish Massage at Home — SANO LUNA | Riyadh',
-    seo_description_ar: 'احجزي جلسة مساج سويدي فاخرة في منزلك في الرياض. سانو لونا — خصوصية كاملة وعناية راقية.',
-    seo_description_en: 'Book a premium Swedish massage at your home in Riyadh. SANO LUNA — full privacy, exceptional care.',
+    seo_title_ar: 'المساج السويدي في المنزل — سانو لونا | جدة',
+    seo_title_en: 'Swedish Massage at Home — SANO LUNA | Jeddah',
+    seo_description_ar: 'احجزي جلسة مساج سويدي فاخرة في منزلك في جدة. سانو لونا — خصوصية كاملة وعناية راقية.',
+    seo_description_en: 'Book a premium Swedish massage at your home in Jeddah. SANO LUNA — full privacy, exceptional care.',
   },
 
   {
@@ -414,10 +414,10 @@ export const services: Service[] = [
     is_popular: false,
     is_active: true,
     sort_order: 135,
-    seo_title_ar: 'الأحجار الساخنة العلاجية — سانو لونا | الرياض',
-    seo_title_en: 'Therapeutic Hot Stone — SANO LUNA | Riyadh',
-    seo_description_ar: 'علاج عميق بالأحجار الساخنة لمعالجة التوترات المزمنة في منزلك. سانو لونا الرياض.',
-    seo_description_en: 'Deep therapeutic hot stone treatment for chronic tension — at your home with SANO LUNA Riyadh.',
+    seo_title_ar: 'الأحجار الساخنة العلاجية — سانو لونا | جدة',
+    seo_title_en: 'Therapeutic Hot Stone — SANO LUNA | Jeddah',
+    seo_description_ar: 'علاج عميق بالأحجار الساخنة لمعالجة التوترات المزمنة في منزلك. سانو لونا جدة.',
+    seo_description_en: 'Deep therapeutic hot stone treatment for chronic tension — at your home with SANO LUNA Jeddah.',
   },
 
   {
@@ -486,8 +486,8 @@ export const services: Service[] = [
     sort_order: 210,
     seo_title_ar: 'الحمام المغربي في المنزل — سانو لونا',
     seo_title_en: 'Moroccan Bath Ritual at Home — SANO LUNA',
-    seo_description_ar: 'طقس الحمام المغربي الأصيل في منزلك في الرياض — تجديد البشرة وعناية تراثية مع سانو لونا.',
-    seo_description_en: 'Authentic Moroccan bath ritual at your home in Riyadh — skin renewal and heritage care with SANO LUNA.',
+    seo_description_ar: 'طقس الحمام المغربي الأصيل في منزلك في جدة — تجديد البشرة وعناية تراثية مع سانو لونا.',
+    seo_description_en: 'Authentic Moroccan bath ritual at your home in Jeddah — skin renewal and heritage care with SANO LUNA.',
   },
 
   // ═══════════════════════════════════════════

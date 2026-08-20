@@ -28,9 +28,9 @@ export function BookingProgress({ currentStep, completedSteps, isAr }: BookingPr
               <div className="flex flex-col items-center gap-1.5">
                 <div className={cn(
                   'w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold transition-all duration-300',
-                  isActive && 'bg-[var(--color-sand-900)] text-white ring-4 ring-[var(--color-sand-200)]',
-                  isPast && 'bg-[var(--color-sand-700)] text-white',
-                  !isActive && !isPast && 'bg-[var(--color-sand-100)] text-[var(--color-sand-400)] border border-[var(--border-subtle)]'
+                  isActive && 'bg-foreground text-white ring-4 ring-[var(--color-sand-200)]',
+                  isPast && 'bg-foreground text-white',
+                  !isActive && !isPast && 'bg-background text-border border border-[var(--border-subtle)]'
                 )}>
                   {isPast ? (
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
@@ -42,7 +42,7 @@ export function BookingProgress({ currentStep, completedSteps, isAr }: BookingPr
                 </div>
                 <span className={cn(
                   'text-xs text-center whitespace-nowrap transition-colors',
-                  isActive ? 'text-[var(--color-sand-900)] font-medium' : 'text-[var(--color-text-muted)]'
+                  isActive ? 'text-foreground font-medium' : 'text-[var(--color-text-muted)]'
                 )}>
                   {isAr ? step.labelAr : step.labelEn}
                 </span>
@@ -52,7 +52,7 @@ export function BookingProgress({ currentStep, completedSteps, isAr }: BookingPr
               {idx < BOOKING_STEPS.length - 1 && (
                 <div className={cn(
                   'flex-1 h-px mx-3 mb-5 transition-colors duration-300',
-                  completedSteps.includes(step.id) ? 'bg-[var(--color-sand-700)]' : 'bg-[var(--border-subtle)]'
+                  completedSteps.includes(step.id) ? 'bg-foreground' : 'bg-[var(--border-subtle)]'
                 )} />
               )}
             </li>
@@ -71,9 +71,9 @@ export function BookingProgress({ currentStep, completedSteps, isAr }: BookingPr
                 key={step.id}
                 className={cn(
                   'rounded-full transition-all duration-300',
-                  isActive ? 'w-6 h-2 bg-[var(--color-sand-900)]' : '',
-                  isPast ? 'w-2 h-2 bg-[var(--color-sand-600)]' : '',
-                  !isActive && !isPast ? 'w-2 h-2 bg-[var(--color-sand-200)]' : ''
+                  isActive ? 'w-6 h-2 bg-foreground' : '',
+                  isPast ? 'w-2 h-2 bg-primary' : '',
+                  !isActive && !isPast ? 'w-2 h-2 bg-surface' : ''
                 )}
                 aria-hidden="true"
               />
@@ -92,3 +92,4 @@ export function BookingProgress({ currentStep, completedSteps, isAr }: BookingPr
     </nav>
   )
 }
+

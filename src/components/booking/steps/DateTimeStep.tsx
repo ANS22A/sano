@@ -72,7 +72,7 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
   return (
     <div className="flex flex-col gap-6">
       <div className={cn('flex flex-col gap-1', isAr && 'items-end')}>
-        <h2 className="font-serif text-2xl text-[var(--color-sand-900)]">{t.title}</h2>
+        <h2 className="font-serif text-2xl text-foreground">{t.title}</h2>
         {draft.date && (
           <p className="text-[var(--color-text-muted)] text-sm">{formatDisplayDate(draft.date, isAr)}</p>
         )}
@@ -100,7 +100,7 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
           ) : isPending ? (
             <div className="h-32 flex items-center justify-center">
               <div className="flex flex-col items-center gap-3">
-                <div className="w-5 h-5 border-2 border-[var(--color-sand-300)] border-t-[var(--color-sand-700)] rounded-full animate-spin" />
+                <div className="w-5 h-5 border-2 border-accent border-t-[var(--color-sand-700)] rounded-full animate-spin" />
                 <p className="text-xs text-[var(--color-text-muted)]">{t.loading}</p>
               </div>
             </div>
@@ -122,8 +122,8 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
                     className={cn(
                       'px-3 py-2 text-sm rounded-sm border transition-all duration-150',
                       'focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-1',
-                      isSelected && 'bg-[var(--color-sand-900)] text-white border-[var(--color-sand-900)]',
-                      slot.available && !isSelected && 'border-[var(--border-subtle)] hover:border-[var(--color-sand-400)] hover:bg-[var(--color-sand-50)]',
+                      isSelected && 'bg-foreground text-white border-foreground',
+                      slot.available && !isSelected && 'border-[var(--border-subtle)] hover:border-border hover:bg-[var(--color-sand-50)]',
                       !slot.available && 'border-[var(--border-subtle)] text-[var(--color-text-muted)] opacity-40 cursor-not-allowed line-through'
                     )}
                   >
@@ -151,8 +151,8 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
             'px-8 py-2.5 rounded-sm text-sm tracking-wide transition-all duration-200',
             'focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2',
             canContinue
-              ? 'bg-[var(--color-sand-900)] text-white hover:bg-[var(--color-sand-700)]'
-              : 'bg-[var(--color-sand-100)] text-[var(--color-text-muted)] cursor-not-allowed'
+              ? 'bg-foreground text-white hover:bg-foreground'
+              : 'bg-background text-[var(--color-text-muted)] cursor-not-allowed'
           )}
         >
           {t.continue}
@@ -161,3 +161,4 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
     </div>
   )
 }
+

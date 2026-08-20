@@ -71,7 +71,6 @@ export function BookingDetailClient({ booking }: BookingDetailClientProps) {
     let active = true
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsLoadingSlots(true)
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setRescheduleError('')
     getBookingSlots(booking.service_id, booking.package_slug, booking.location_id, rescheduleDate)
       .then((res) => {

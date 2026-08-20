@@ -58,7 +58,7 @@ export function BookingConfirmation({ result, isAr }: BookingConfirmationProps) 
   return (
     <div className="flex flex-col items-center gap-8 py-8 max-w-lg mx-auto text-center">
       {/* Success icon */}
-      <div className="w-16 h-16 rounded-full bg-[var(--color-sand-100)] flex items-center justify-center">
+      <div className="w-16 h-16 rounded-full bg-background flex items-center justify-center">
         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
           <circle cx="14" cy="14" r="13" stroke="var(--color-sand-600)" strokeWidth="1.5" />
           <path d="M8 14l4 4 8-8" stroke="var(--color-sand-700)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -67,14 +67,14 @@ export function BookingConfirmation({ result, isAr }: BookingConfirmationProps) 
 
       {/* Title */}
       <div className="flex flex-col gap-2">
-        <h1 className="font-serif text-3xl text-[var(--color-sand-900)]">{t.title}</h1>
+        <h1 className="font-serif text-3xl text-foreground">{t.title}</h1>
         <p className="text-[var(--color-text-muted)]">{t.subtitle}</p>
       </div>
 
       {/* Booking number */}
       <div className="w-full px-6 py-4 bg-[var(--color-sand-50)] border border-[var(--border-subtle)] rounded-sm">
         <p className="text-xs text-[var(--color-text-muted)] tracking-widest uppercase mb-1">{t.bookingNumber}</p>
-        <p className="text-2xl font-mono font-semibold text-[var(--color-sand-900)] tracking-wider">
+        <p className="text-2xl font-mono font-semibold text-foreground tracking-wider">
           {result.bookingNumber}
         </p>
       </div>
@@ -123,8 +123,8 @@ export function BookingConfirmation({ result, isAr }: BookingConfirmationProps) 
         <Link
           href="/"
           className={cn(
-            'flex-1 px-5 py-3 bg-[var(--color-sand-900)] text-white rounded-sm text-sm text-center',
-            'hover:bg-[var(--color-sand-700)] transition-colors',
+            'flex-1 px-5 py-3 bg-foreground text-white rounded-sm text-sm text-center',
+            'hover:bg-foreground transition-colors',
             'focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2'
           )}
         >
@@ -142,3 +142,4 @@ export function BookingConfirmation({ result, isAr }: BookingConfirmationProps) 
     </div>
   )
 }
+

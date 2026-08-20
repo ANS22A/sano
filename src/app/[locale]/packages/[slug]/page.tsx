@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { packages } from '@/data/content.data'
 import { Link } from '@/i18n/navigation'
+import Image from 'next/image'
 import { cn } from '@/lib/utils/cn'
 
 export async function generateStaticParams() {
@@ -68,8 +69,19 @@ export default async function PackageDetailPage({
         <div className="container mx-auto px-6 max-w-5xl">
           <div className={cn('grid grid-cols-1 lg:grid-cols-2 gap-12 items-start', isAr && 'lg:grid-flow-col-dense')}>
             {/* Image */}
-            <div className="aspect-[4/3] bg-[var(--color-sand-100)] rounded-sm flex items-center justify-center">
-              <span className="text-6xl opacity-20">✦</span>
+            <div className="aspect-[4/3] bg-[var(--color-sand-100)] rounded-sm flex items-center justify-center relative overflow-hidden">
+              {pkg.image_url ? (
+                <Image
+                  src={pkg.image_url}
+                  alt={name}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                />
+              ) : (
+                <span className="text-6xl opacity-20">✦</span>
+              )}
             </div>
 
             {/* Info */}

@@ -8,6 +8,7 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { PageTransition } from '@/components/layout/PageTransition'
 import type { Locale } from '@/types/ui.types'
+import '../globals.css'
 
 export async function generateMetadata({
   params,

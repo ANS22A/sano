@@ -20,8 +20,8 @@ export async function generateMetadata({
       ? 'الخدمات | سانو لونا — عناية فاخرة في منزلك'
       : 'Services | SANO LUNA — Luxury Wellness At Home',
     description: isAr
-      ? 'اكتشفي مجموعة سانو لونا الكاملة من العلاجات والخدمات — مساج، حمام مغربي، رعاية الحامل، وأكثر. خدمة في منزلك في الرياض.'
-      : 'Explore the complete SANO LUNA treatment collection — massage, Moroccan bath, prenatal care and more. At-home service in Riyadh.',
+      ? 'اكتشفي مجموعة سانو لونا الكاملة من العلاجات والخدمات — مساج، حمام مغربي، رعاية الحامل، وأكثر. خدمة في منزلك في جدة.'
+      : 'Explore the complete SANO LUNA treatment collection — massage, Moroccan bath, prenatal care and more. At-home service in Jeddah.',
     openGraph: {
       title: isAr ? 'الخدمات — سانو لونا' : 'Services — SANO LUNA',
       description: isAr

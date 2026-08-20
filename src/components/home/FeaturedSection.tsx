@@ -77,7 +77,7 @@ export function FeaturedSection() {
                 'rounded-sm border border-[var(--border-subtle)]',
                 'bg-background',
                 'transition-all duration-350',
-                'hover:border-[var(--color-sand-400)]',
+                'hover:border-border',
                 'hover:shadow-[0_12px_40px_rgba(26,23,20,0.1)]',
               )}
             >
@@ -85,13 +85,13 @@ export function FeaturedSection() {
               <div
                 className={cn(
                   'relative h-52 w-full flex-shrink-0 overflow-hidden',
-                  'bg-gradient-to-br from-[var(--color-sand-100)] to-[var(--color-sand-200)]'
+                  'bg-gradient-to-br from-background to-surface'
                 )}
                 aria-hidden="true"
               >
                 {/* Placeholder pattern */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-20">
-                  <span className="text-5xl font-display font-light text-[var(--color-sand-600)]">✦</span>
+                  <span className="text-5xl font-display font-light text-primary">✦</span>
                 </div>
                 {/* Popular badge */}
                 {service.is_popular && (
@@ -177,3 +177,4 @@ export function FeaturedSection() {
     </section>
   )
 }
+

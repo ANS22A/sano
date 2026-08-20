@@ -35,7 +35,7 @@ function ReviewRow({ label, value, step, onGoToStep, editLabel, isAr, className 
         {step && onGoToStep && (
           <button
             onClick={() => onGoToStep(step)}
-            className="text-xs text-[var(--color-sand-500)] hover:text-[var(--color-sand-700)] transition-colors shrink-0 underline underline-offset-2"
+            className="text-xs text-primary hover:text-foreground transition-colors shrink-0 underline underline-offset-2"
           >
             {editLabel ?? 'Edit'}
           </button>
@@ -123,7 +123,7 @@ export function ReviewStep({ draft, onBack, onConfirmed, isAr, onGoToStep }: Rev
   return (
     <div className="flex flex-col gap-6">
       <div className={cn('flex flex-col gap-1', isAr && 'items-end')}>
-        <h2 className="font-serif text-2xl text-[var(--color-sand-900)]">{t.title}</h2>
+        <h2 className="font-serif text-2xl text-foreground">{t.title}</h2>
       </div>
 
       <dl className="bg-[var(--color-sand-50)] border border-[var(--border-subtle)] rounded-sm px-5 py-1 max-w-lg">
@@ -157,7 +157,7 @@ export function ReviewStep({ draft, onBack, onConfirmed, isAr, onGoToStep }: Rev
           isAr={isAr}
           label={t.price}
           value={<span className="text-base font-semibold">{price} <span className="text-xs font-normal">{t.sar}</span></span>}
-          className="!border-t-2 !border-[var(--color-sand-200)]"
+          className="!border-t-2 !border-surface"
         />
       </dl>
 
@@ -189,8 +189,8 @@ export function ReviewStep({ draft, onBack, onConfirmed, isAr, onGoToStep }: Rev
           onClick={handleConfirm}
           disabled={isPending}
           className={cn(
-            'px-8 py-2.5 bg-[var(--color-sand-900)] text-white rounded-sm text-sm tracking-wide',
-            'hover:bg-[var(--color-sand-700)] transition-colors',
+            'px-8 py-2.5 bg-foreground text-white rounded-sm text-sm tracking-wide',
+            'hover:bg-foreground transition-colors',
             'focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2',
             'disabled:opacity-70 disabled:cursor-wait',
             'flex items-center gap-2'
@@ -205,3 +205,4 @@ export function ReviewStep({ draft, onBack, onConfirmed, isAr, onGoToStep }: Rev
     </div>
   )
 }
+

@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { getAdminCustomers } from '@/app/actions/adminLocations.actions'
+import { getAdminCustomers } from '@/app/actions/adminCustomers.actions'
 import { AdminEmptyState } from '@/components/admin/ui/AdminEmptyState'
 import { AdminPagination } from '@/components/admin/ui/AdminPagination'
 import { AdminSearchBar } from '@/components/admin/ui/AdminSearchBar'
+import { CustomerFormWrapper } from '@/components/admin/ui/CustomerFormWrapper'
 import { Users } from 'lucide-react'
 import { cookies } from 'next/headers'
-import { adminT, type AdminLang } from '@/lib/admin/translations'
+import { adminT, type AdminLang, ADMIN_DIR } from '@/lib/admin/translations'
 
 export const metadata: Metadata = { title: 'Customers' }
 
@@ -18,6 +19,7 @@ export default async function AdminCustomersPage({
   const sp = await searchParams
   const cookieStore = await cookies()
   const lang = (cookieStore.get('admin_lang')?.value ?? 'en') as AdminLang
+  const dir = ADMIN_DIR[lang]
   const t = adminT[lang]
 
   const { customers, total } = await getAdminCustomers({ page: Number(sp.page ?? 1), q: sp.q })
@@ -25,8 +27,11 @@ export default async function AdminCustomersPage({
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-3">
-        <h1 className="text-xl font-bold text-[#2a2118]">{t.customers.title}</h1>
-        <p className="text-sm text-[#9a8a7a]">{total} total</p>
+        <div>
+          <h1 className="text-xl font-bold text-[#2a2118]">{t.customers.title}</h1>
+          <p className="text-sm text-[#9a8a7a]">{total} total</p>
+        </div>
+        <CustomerFormWrapper t={t} dir={dir} />
       </div>
 
       <AdminSearchBar placeholder={t.customers.search} paramName="q" />
@@ -50,10 +55,11 @@ export default async function AdminCustomersPage({
                     <td className="px-4 py-3 font-medium text-[#2a2118]">{c.full_name}</td>
                     <td className="px-4 py-3 text-[#7a6a57] font-mono text-xs">{c.phone}</td>
                     <td className="px-4 py-3 text-[#7a6a57]">{c.email ?? '—'}</td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3 flex items-center gap-3">
                       <Link href={`/admin/customers/${c.id}`} className="text-xs font-medium text-[#c9a96e] hover:underline">
                         {t.common.view}
                       </Link>
+                      <CustomerFormWrapper t={t} dir={dir} customer={{ id: c.id, full_name: c.full_name, phone: c.phone, email: c.email }} variant="icon" />
                     </td>
                   </tr>
                 ))}

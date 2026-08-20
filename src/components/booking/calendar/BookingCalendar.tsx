@@ -97,7 +97,7 @@ export function BookingCalendar({ selectedDate, onSelectDate, isAr, minDate }: B
           aria-label={isAr ? 'الشهر التالي' : 'Previous month'}
           className={cn(
             'w-8 h-8 flex items-center justify-center rounded-full transition-colors',
-            'hover:bg-[var(--color-sand-100)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)]',
+            'hover:bg-background focus:outline-none focus:ring-2 focus:ring-[var(--ring)]',
             (!canGoPrev && !isAr) && 'opacity-30 pointer-events-none'
           )}
         >
@@ -114,7 +114,7 @@ export function BookingCalendar({ selectedDate, onSelectDate, isAr, minDate }: B
           aria-label={isAr ? 'الشهر السابق' : 'Next month'}
           className={cn(
             'w-8 h-8 flex items-center justify-center rounded-full transition-colors',
-            'hover:bg-[var(--color-sand-100)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)]',
+            'hover:bg-background focus:outline-none focus:ring-2 focus:ring-[var(--ring)]',
             (!canGoPrev && isAr) && 'opacity-30 pointer-events-none'
           )}
         >
@@ -154,9 +154,9 @@ export function BookingCalendar({ selectedDate, onSelectDate, isAr, minDate }: B
                 className={cn(
                   'w-full aspect-square flex items-center justify-center rounded-full text-sm',
                   'transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-1',
-                  isSelected && 'bg-[var(--color-sand-900)] text-white font-semibold',
-                  !isSelected && !isPast && isToday && 'ring-1 ring-[var(--color-sand-400)] text-[var(--color-sand-900)] font-medium',
-                  !isSelected && !isPast && !isToday && 'hover:bg-[var(--color-sand-100)] text-foreground',
+                  isSelected && 'bg-foreground text-white font-semibold',
+                  !isSelected && !isPast && isToday && 'ring-1 ring-[var(--color-sand-400)] text-foreground font-medium',
+                  !isSelected && !isPast && !isToday && 'hover:bg-background text-foreground',
                   isPast && 'text-[var(--color-text-muted)] opacity-35 cursor-not-allowed'
                 )}
               >
@@ -169,3 +169,4 @@ export function BookingCalendar({ selectedDate, onSelectDate, isAr, minDate }: B
     </div>
   )
 }
+

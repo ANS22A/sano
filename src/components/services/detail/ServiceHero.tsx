@@ -29,7 +29,7 @@ export function ServiceHero({ service }: ServiceHeroProps) {
         {/* Image panel */}
         <div className={cn(
           'relative h-64 lg:h-auto flex-shrink-0 overflow-hidden',
-          'bg-gradient-to-br from-[var(--color-sand-100)] to-[var(--color-sand-300)]',
+          'bg-gradient-to-br from-background to-accent',
           isAr ? 'lg:order-last' : 'lg:order-first'
         )}>
           {service.image_url ? (
@@ -44,7 +44,7 @@ export function ServiceHero({ service }: ServiceHeroProps) {
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">
               <span
-                className="text-[120px] text-[var(--color-sand-300)] font-display font-light opacity-40 select-none"
+                className="text-[120px] text-accent font-display font-light opacity-40 select-none"
                 aria-hidden="true"
               >
                 ✦
@@ -110,3 +110,4 @@ export function ServiceHero({ service }: ServiceHeroProps) {
     </section>
   )
 }
+

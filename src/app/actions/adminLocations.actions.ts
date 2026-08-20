@@ -4,71 +4,6 @@ import { requireRole, writeAuditLog } from '@/lib/admin/auth'
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 
-const PAGE_SIZE = 25
-
-export async function getAdminCustomers(params: { page?: number; q?: string }) {
-  await requireRole('manager')
-  const supabase = await createClient()
-  const page = params.page ?? 1
-  const from = (page - 1) * PAGE_SIZE
-
-  let query = supabase
-    .from('customers')
-    .select('id, full_name, phone, email, created_at', { count: 'exact' })
-    .order('created_at', { ascending: false })
-    .range(from, from + PAGE_SIZE - 1)
-
-  if (params.q) {
-    query = query.or(`full_name.ilike.%${params.q}%,phone.ilike.%${params.q}%,email.ilike.%${params.q}%`)
-  }
-
-  const { data, count } = await query
-  return { customers: data ?? [], total: count ?? 0 }
-}
-
-export async function getCustomerWithBookings(customerId: string) {
-  await requireRole('manager')
-  const supabase = await createClient()
-
-  const [{ data: customer }, { data: bookings }] = await Promise.all([
-    supabase.from('customers').select('*').eq('id', customerId).single(),
-    supabase
-      .from('bookings')
-      .select('id, booking_number, date, start_time, status, price_sar, services(name_en)')
-      .eq('customer_id', customerId)
-      .order('date', { ascending: false }),
-  ])
-
-  return { customer, bookings: bookings ?? [] }
-}
-
-export async function getAdminStaff() {
-  await requireRole('manager')
-  const supabase = await createClient()
-  const { data } = await supabase.from('staff').select('*').order('sort_order')
-  return data ?? []
-}
-
-export async function getAdminStaffById(id: string) {
-  await requireRole('admin')
-  const supabase = await createClient()
-  const [{ data: staff }, { data: availability }] = await Promise.all([
-    supabase.from('staff').select('*').eq('id', id).single(),
-    supabase.from('staff_availability').select('*').eq('staff_id', id),
-  ])
-  return { staff, availability: availability ?? [] }
-}
-
-export async function updateStaffActive(id: string, isActive: boolean) {
-  const session = await requireRole('admin')
-  const supabase = await createClient()
-  const { error } = await supabase.from('staff').update({ is_active: isActive }).eq('id', id)
-  if (error) return { error: error.message }
-  await writeAuditLog({ adminUserId: session.userId, action: isActive ? 'staff.activate' : 'staff.deactivate', entityType: 'staff', entityId: id })
-  revalidatePath('/admin/staff')
-  return { success: true }
-}
-
 export async function getAdminLocations() {
   await requireRole('manager')
   const supabase = await createClient()
@@ -136,45 +71,76 @@ export async function removeBlackoutDate(id: string) {
   const { error } = await supabase.from('blackout_dates').update({ is_active: false }).eq('id', id)
   if (error) return { error: error.message }
   await writeAuditLog({ adminUserId: session.userId, action: 'blackout.remove', entityType: 'blackout_date', entityId: id })
-  revalidatePath('/admin/settings/blackout-dates')
   return { success: true }
 }
 
-export async function getAdminReports(params: { from: string; to: string }) {
-  await requireRole('manager')
+export async function createAdminLocation(formData: FormData) {
+  const session = await requireRole('manager')
   const supabase = await createClient()
 
-  const [{ data: bookings }, { data: byService }] = await Promise.all([
-    supabase
-      .from('bookings')
-      .select('status, price_sar, date')
-      .gte('date', params.from)
-      .lte('date', params.to),
-    supabase
-      .from('bookings')
-      .select('services(name_en), price_sar')
-      .gte('date', params.from)
-      .lte('date', params.to)
-      .neq('status', 'cancelled')
-      .not('service_id', 'is', null),
-  ])
+  const nameEn = formData.get('name_en')?.toString().trim()
+  const nameAr = formData.get('name_ar')?.toString().trim()
+  const addressEn = formData.get('address_en')?.toString().trim() || ''
+  const addressAr = formData.get('address_ar')?.toString().trim() || ''
+  const phone = formData.get('phone')?.toString().trim() || null
+  const slug = formData.get('slug')?.toString().trim()
+  const latitude = formData.get('latitude') ? Number(formData.get('latitude')) : null
+  const longitude = formData.get('longitude') ? Number(formData.get('longitude')) : null
+  const is_active = formData.get('is_active') === 'true'
 
-  const all = bookings ?? []
-  const totalRevenue = all.filter(b => b.status !== 'cancelled').reduce((s, b) => s + Number(b.price_sar), 0)
-  const totalBookings = all.length
-  const confirmed = all.filter(b => b.status === 'confirmed').length
-  const cancelled = all.filter(b => b.status === 'cancelled').length
-  const completed = all.filter(b => b.status === 'completed').length
+  if (!nameEn || !nameAr || !slug) return { error: 'Name (EN/AR) and slug are required.' }
 
-  // Top services by booking count
-  const serviceMap: Record<string, { name: string; count: number; revenue: number }> = {}
-  for (const b of byService ?? []) {
-    const name = (b.services as { name_en: string } | null)?.name_en ?? 'Unknown'
-    if (!serviceMap[name]) serviceMap[name] = { name, count: 0, revenue: 0 }
-    serviceMap[name].count++
-    serviceMap[name].revenue += Number(b.price_sar)
-  }
-  const topServices = Object.values(serviceMap).sort((a, b) => b.count - a.count).slice(0, 10)
+  const { data, error } = await supabase.from('locations').insert({
+    name_en: nameEn,
+    name_ar: nameAr,
+    address_en: addressEn,
+    address_ar: addressAr,
+    phone,
+    slug,
+    latitude,
+    longitude,
+    is_active: is_active,
+    sort_order: 0
+  }).select('id').single()
 
-  return { totalRevenue, totalBookings, confirmed, cancelled, completed, topServices }
+  if (error) return { error: error.message }
+
+  await writeAuditLog({ adminUserId: session.userId, action: 'location.created', entityType: 'location', entityId: data.id })
+  revalidatePath('/admin/locations')
+  return { success: true, id: data.id }
+}
+
+export async function updateAdminLocation(id: string, formData: FormData) {
+  const session = await requireRole('manager')
+  const supabase = await createClient()
+
+  const nameEn = formData.get('name_en')?.toString().trim()
+  const nameAr = formData.get('name_ar')?.toString().trim()
+  const addressEn = formData.get('address_en')?.toString().trim() || ''
+  const addressAr = formData.get('address_ar')?.toString().trim() || ''
+  const phone = formData.get('phone')?.toString().trim() || null
+  const slug = formData.get('slug')?.toString().trim()
+  const latitude = formData.get('latitude') ? Number(formData.get('latitude')) : null
+  const longitude = formData.get('longitude') ? Number(formData.get('longitude')) : null
+  const is_active = formData.get('is_active') === 'true'
+
+  if (!nameEn || !nameAr || !slug) return { error: 'Name (EN/AR) and slug are required.' }
+
+  const { error } = await supabase.from('locations').update({
+    name_en: nameEn,
+    name_ar: nameAr,
+    address_en: addressEn,
+    address_ar: addressAr,
+    phone,
+    slug,
+    latitude,
+    longitude,
+    is_active
+  }).eq('id', id)
+
+  if (error) return { error: error.message }
+
+  await writeAuditLog({ adminUserId: session.userId, action: 'location.updated', entityType: 'location', entityId: id })
+  revalidatePath('/admin/locations')
+  return { success: true }
 }

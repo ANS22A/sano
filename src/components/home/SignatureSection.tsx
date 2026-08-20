@@ -43,7 +43,7 @@ export function SignatureSection() {
             animate={controls}
             variants={{ visible: { opacity: 1, x: 0, transition: { duration: 0.85 } } }}
           >
-            <p className="text-[var(--color-sand-300)] text-xs tracking-[0.2em] uppercase mb-4">{t('overline')}</p>
+            <p className="text-accent text-xs tracking-[0.2em] uppercase mb-4">{t('overline')}</p>
 
             <h2 id="signature-heading" className={cn(
               'font-display font-light leading-[1.05] mb-6',
@@ -84,8 +84,8 @@ export function SignatureSection() {
                 href="/booking"
                 className={cn(
                   'btn btn-lg',
-                  'bg-[var(--color-sand-300)] text-[var(--color-charcoal,#1a1714)]',
-                  'hover:bg-[var(--color-sand-200)]',
+                  'bg-accent text-foreground',
+                  'hover:bg-surface',
                   'transition-colors duration-200'
                 )}
               >
@@ -159,3 +159,4 @@ export function SignatureSection() {
     </section>
   )
 }
+

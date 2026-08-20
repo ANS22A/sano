@@ -32,7 +32,7 @@
     "experienceTitle": "Experience",
     "contactTitle": "Contact",
     "followTitle": "Follow",
-    "address": "Riyadh, Saudi Arabia",
+    "address": "Jeddah, Saudi Arabia",
     "phone": "+966 50 000 0000",
     "email": "hello@sanoluna.com",
     "hours": "Sat – Thu: 9am – 9pm",
@@ -378,6 +378,39 @@
       "duration": "Duration",
       "price": "Price",
       "nothingSelected": "No experience selected yet"
+    }
+  },
+  "email": {
+    "bookingConfirmation": {
+      "subject": "Booking Confirmation - SANO LUNA #{bookingNumber}",
+      "greeting": "Hello {name},",
+      "body": "Your booking has been successfully confirmed. We look forward to welcoming you for an exceptional experience.",
+      "bookingRef": "Booking Ref:",
+      "experience": "Experience:",
+      "date": "Date:",
+      "time": "Time:",
+      "location": "Location:",
+      "price": "Price:",
+      "footer": "If you need to modify or cancel your booking, please contact us.",
+      "thanks": "Thank you for choosing SANO LUNA."
+    },
+    "bookingCancellation": {
+      "subject": "Booking Cancellation - SANO LUNA #{bookingNumber}",
+      "greeting": "Hello {name},",
+      "body": "We are writing to confirm that your booking has been cancelled.",
+      "reason": "Reason:",
+      "thanks": "We hope to welcome you to SANO LUNA in the future."
+    },
+    "bookingReschedule": {
+      "subject": "Booking Rescheduled - SANO LUNA #{bookingNumber}",
+      "greeting": "Hello {name},",
+      "body": "Your booking has been successfully rescheduled. Here are your updated details:",
+      "previousTime": "Previous Time: {date} at {time}",
+      "newDate": "New Date:",
+      "newTime": "New Time:"
+    },
+    "common": {
+      "inquiries": "For any inquiries, please contact us at:"
     }
   }
 }

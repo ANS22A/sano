@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useTranslations, useLocale } from 'next-intl'
+import Image from 'next/image'
 import { Link } from '@/i18n/navigation'
 import { useReveal } from '@/lib/motion/use-reveal'
 import { staggerContainer, staggerItem } from '@/lib/motion/variants'
@@ -71,25 +72,36 @@ export function PackagesSection() {
                 'rounded-sm border border-[var(--border-subtle)] bg-background',
                 'overflow-hidden',
                 'transition-all duration-350',
-                'hover:border-[var(--color-sand-400)]',
+                'hover:border-border',
                 'hover:shadow-[0_12px_40px_rgba(26,23,20,0.1)]',
               )}
             >
-              {/* Image placeholder */}
+              {/* Image */}
               <div
                 className={cn(
                   'h-48 w-full flex-shrink-0',
-                  'bg-gradient-to-br from-[var(--color-sand-200)] to-[var(--color-sand-300)]',
+                  'bg-gradient-to-br from-surface to-accent',
                   'flex items-center justify-center relative overflow-hidden'
                 )}
                 aria-hidden="true"
               >
+                {pkg.image_url ? (
+                  <Image
+                    src={pkg.image_url}
+                    alt={isAr ? pkg.name_ar : pkg.name_en}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                ) : (
+                  <span className="text-5xl text-primary opacity-40 font-display font-light">✧</span>
+                )}
+                
                 {pkg.max_guests > 1 && (
-                  <div className="absolute top-3 start-3 px-2.5 py-1 rounded-sm bg-background/90 text-[10px] tracking-[0.15em] uppercase font-medium">
+                  <div className="absolute top-3 start-3 z-10 px-2.5 py-1 rounded-sm bg-background/90 text-[10px] tracking-[0.15em] uppercase font-medium backdrop-blur-[4px]">
                     {isAr ? 'للاثنين' : 'For 2'}
                   </div>
                 )}
-                <span className="text-5xl text-[var(--color-sand-500)] opacity-40 font-display font-light">✧</span>
               </div>
 
               {/* Content */}
@@ -119,7 +131,7 @@ export function PackagesSection() {
                   <ul className="space-y-1">
                     {(isAr ? pkg.included_services_ar : pkg.included_services_en).map((s) => (
                       <li key={s} className="text-xs text-foreground flex items-start gap-1.5">
-                        <span className="text-[var(--color-sand-500)] mt-0.5 flex-shrink-0" aria-hidden="true">◇</span>
+                        <span className="text-primary mt-0.5 flex-shrink-0" aria-hidden="true">◇</span>
                         {s}
                       </li>
                     ))}
@@ -159,3 +171,4 @@ export function PackagesSection() {
     </section>
   )
 }
+

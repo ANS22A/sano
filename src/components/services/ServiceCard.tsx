@@ -31,7 +31,7 @@ export function ServiceCard({ service, category, index = 0 }: ServiceCardProps) 
         'group flex flex-col overflow-hidden rounded-sm',
         'border border-[var(--border-subtle)] bg-background',
         'transition-all duration-300',
-        'hover:border-[var(--color-sand-400)]',
+        'hover:border-border',
         'hover:shadow-[0_12px_40px_rgba(26,23,20,0.09)]'
       )}
     >
@@ -40,10 +40,10 @@ export function ServiceCard({ service, category, index = 0 }: ServiceCardProps) 
         className={cn(
           'relative h-52 flex-shrink-0 overflow-hidden',
           'bg-gradient-to-br',
-          index % 4 === 0 && 'from-[var(--color-sand-100)] to-[var(--color-sand-200)]',
-          index % 4 === 1 && 'from-[var(--color-sand-200)] to-[var(--color-sand-300)]',
-          index % 4 === 2 && 'from-[var(--color-sand-100)] to-[var(--color-sand-300)]',
-          index % 4 === 3 && 'from-[var(--color-surface-warm)] to-[var(--color-sand-200)]',
+          index % 4 === 0 && 'from-background to-surface',
+          index % 4 === 1 && 'from-surface to-accent',
+          index % 4 === 2 && 'from-background to-accent',
+          index % 4 === 3 && 'from-background to-surface',
         )}
         aria-hidden="true"
       >
@@ -57,7 +57,7 @@ export function ServiceCard({ service, category, index = 0 }: ServiceCardProps) 
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center opacity-20">
-            <span className="text-5xl text-[var(--color-sand-600)] font-display font-light">✦</span>
+            <span className="text-5xl text-primary font-display font-light">✦</span>
           </div>
         )}
 
@@ -141,3 +141,4 @@ export function ServiceCard({ service, category, index = 0 }: ServiceCardProps) 
     </motion.article>
   )
 }
+

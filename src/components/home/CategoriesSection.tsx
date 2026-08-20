@@ -82,7 +82,7 @@ export function CategoriesSection() {
                   'border border-[var(--border-subtle)]',
                   'bg-[var(--color-surface-warm)]',
                   'transition-all duration-300',
-                  'hover:border-[var(--color-sand-400)]',
+                  'hover:border-border',
                   'hover:shadow-[0_8px_32px_rgba(26,23,20,0.08)]',
                   'hover:-translate-y-1'
                 )}
@@ -91,9 +91,9 @@ export function CategoriesSection() {
                 <div
                   className={cn(
                     'w-12 h-12 rounded-full flex items-center justify-center mb-4',
-                    'bg-[var(--color-sand-100)] text-[var(--color-sand-700)]',
+                    'bg-background text-foreground',
                     'text-xl',
-                    'group-hover:bg-[var(--color-sand-200)] transition-colors duration-300'
+                    'group-hover:bg-surface transition-colors duration-300'
                   )}
                   aria-hidden="true"
                 >
@@ -130,3 +130,4 @@ export function CategoriesSection() {
     </section>
   )
 }
+

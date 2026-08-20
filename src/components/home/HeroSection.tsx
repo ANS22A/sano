@@ -119,7 +119,7 @@ export function HeroSection() {
                 'block',
                 'text-[clamp(3rem,7vw,6.5rem)]',
                 'font-light tracking-tight',
-                'text-[var(--color-sand-200)]'
+                'text-surface'
               )}
             >
               {t('titleLine2')}
@@ -190,7 +190,7 @@ export function HeroSection() {
                   i > 0 && 'hidden sm:flex'
                 )}
               >
-                <span className="text-[var(--color-sand-300)] text-xs" aria-hidden="true">
+                <span className="text-accent text-xs" aria-hidden="true">
                   {item.icon}
                 </span>
                 <span className="text-white/70 text-xs tracking-wide">
@@ -222,3 +222,4 @@ export function HeroSection() {
     </section>
   )
 }
+

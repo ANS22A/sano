@@ -54,11 +54,11 @@ export function HowItWorksSection() {
               <div
                 className={cn(
                   'w-20 h-20 rounded-full flex flex-col items-center justify-center mb-5',
-                  'bg-[var(--color-sand-100)] border border-[var(--color-sand-300)]',
+                  'bg-background border border-accent',
                   'transition-colors duration-300'
                 )}
               >
-                <span className="text-[var(--color-sand-600)] text-sm mb-1" aria-hidden="true">
+                <span className="text-primary text-sm mb-1" aria-hidden="true">
                   {step.icon}
                 </span>
                 <span className="text-[10px] text-[var(--color-text-muted)] tabular-nums">
@@ -79,3 +79,4 @@ export function HowItWorksSection() {
     </section>
   )
 }
+

@@ -15,7 +15,7 @@
 /* 1. FONT IMPORTS                                                               */
 /* --------------------------------------------------------------------------- */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&family=Tajawal:wght@300;400;500;700&family=Cairo:wght@300;400;500;600;700&display=swap');
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -47,7 +47,7 @@
   --color-secondary-hover:     var(--secondary-hover);
   --color-secondary-foreground: var(--secondary-foreground);
 
-  --color-accent:              var(--accent);
+  --color-accent:              #D4AF37;
   --color-accent-foreground:   var(--accent-foreground);
   --color-accent-subtle:       var(--accent-subtle);
 
@@ -165,7 +165,7 @@
 
   /* Text */
   --foreground:       #1A1714;    /* Deep warm charcoal */
-  --foreground-secondary: #4A4542; /* Secondary text */
+  --foreground-secondary: #6F4E7C; /* Secondary text */
 
   /* Cards / Popover */
   --card:             #FFFFFF;
@@ -181,16 +181,16 @@
   /* Secondary — Stone */
   --secondary:        #F0EDE8;    /* Light stone — secondary buttons */
   --secondary-hover:  #E8E4DF;
-  --secondary-foreground: #1A1714;
+  --secondary-foreground: #2E1F38;
 
   /* Accent — Champagne Gold */
   --accent:           #C9A882;    /* Champagne — highlights, decorations */
-  --accent-foreground: #1A1714;
+  --accent-foreground: #2E1F38;
   --accent-subtle:    #F2EBE1;    /* Barely-there accent tint */
 
   /* Muted */
   --muted:            #EDE9E4;
-  --muted-foreground: #9B9189;   /* Warm stone grey */
+  --muted-foreground: #6F4E7C;   /* Warm stone grey */
 
   /* Borders */
   --border:           #E8E4DF;    /* Standard border */
@@ -1360,25 +1360,25 @@
 
 /* ─── Sand color scale (referenced as var(--color-sand-*)) ─── */
 :root {
-  --color-sand-50:  rgba(250, 249, 247, 0.8);
-  --color-sand-100: #F5F2EE;  /* = --surface */
-  --color-sand-200: #EDE9E4;  /* = --muted */
-  --color-sand-300: #C9A882;  /* = --accent */
-  --color-sand-400: #B89672;  /* slightly darker accent */
-  --color-sand-500: #9B896E;  /* warm mid-tone */
-  --color-sand-600: #7A6A58;  /* muted warm brown */
-  --color-sand-700: #6B5E52;  /* = --primary */
-  --color-sand-800: #5A4F45;  /* deep warm */
-  --color-sand-900: #1A1714;  /* = charcoal = --foreground */
+  --color-sand-50:  rgba(231, 219, 236, 0.8);
+  --color-sand-100: #E7DBEC;  /* = --surface */
+  --color-sand-200: #D6C2D9;  /* = --muted */
+  --color-sand-300: #D4AF37;  /* = --accent */
+  --color-sand-400: #A98FB8;  /* slightly darker accent */
+  --color-sand-500: #6F4E7C;  /* warm mid-tone */
+  --color-sand-600: #6F4E7C;  /* muted warm brown */
+  --color-sand-700: #2E1F38;  /* = --primary */
+  --color-sand-800: #2E1F38;  /* deep warm */
+  --color-sand-900: #2E1F38;  /* = charcoal = --foreground */
 
   /* Surface warm — slightly elevated warm ivory */
-  --color-surface-warm: #F7F5F1;
+  --color-surface-warm: #E7DBEC;
 
   /* Text muted alias */
-  --color-text-muted: #9B9189;  /* = --muted-foreground */
+  --color-text-muted: #6F4E7C;  /* = --muted-foreground */
 
   /* Accent shorthand */
-  --color-accent: #C9A882;      /* = --accent */
+  --color-accent: #D4AF37;      /* = --accent */
 }
 
 @layer utilities {
@@ -1500,3 +1500,4 @@
     font-size: 0.875rem;
   }
 }
+

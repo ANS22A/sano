@@ -38,7 +38,7 @@ export function GiftCardsSection() {
               animate={controls}
               variants={{ visible: { opacity: 1, y: 0, transition: { duration: 0.75 } } }}
             >
-              <p className="text-[var(--color-sand-300)] text-xs tracking-[0.2em] uppercase mb-4">
+              <p className="text-accent text-xs tracking-[0.2em] uppercase mb-4">
                 {t('overline')}
               </p>
               <h2 id="gift-cards-heading" className={cn(
@@ -77,8 +77,8 @@ export function GiftCardsSection() {
                 href="/gift-cards"
                 className={cn(
                   'btn btn-lg',
-                  'bg-[var(--color-sand-300)] text-[#1a1714]',
-                  'hover:bg-[var(--color-sand-200)]',
+                  'bg-accent text-foreground',
+                  'hover:bg-surface',
                   'transition-colors duration-200',
                   'whitespace-nowrap'
                 )}
@@ -92,3 +92,4 @@ export function GiftCardsSection() {
     </section>
   )
 }
+

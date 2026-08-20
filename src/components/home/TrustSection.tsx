@@ -53,16 +53,16 @@ export function TrustSection() {
                   'rounded-sm border border-[var(--border-subtle)]',
                   'bg-background',
                   'transition-all duration-300',
-                  'hover:border-[var(--color-sand-400)] hover:shadow-[0_4px_24px_rgba(26,23,20,0.06)]'
+                  'hover:border-border hover:shadow-[0_4px_24px_rgba(26,23,20,0.06)]'
                 )}
               >
                 {/* Icon */}
                 <div
                   className={cn(
                     'w-10 h-10 rounded-sm flex items-center justify-center mb-5',
-                    'bg-[var(--color-sand-100)] text-[var(--color-sand-700)]',
+                    'bg-background text-foreground',
                     'text-lg font-light',
-                    'group-hover:bg-[var(--color-sand-200)] transition-colors duration-300'
+                    'group-hover:bg-surface transition-colors duration-300'
                   )}
                   aria-hidden="true"
                 >
@@ -84,3 +84,4 @@ export function TrustSection() {
     </section>
   )
 }
+

@@ -68,7 +68,7 @@ export function ServiceSearch({ value, onChange }: ServiceSearchProps) {
           'placeholder:text-[var(--color-text-muted)]',
           'transition-colors duration-200',
           'focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-1',
-          'focus:border-[var(--color-sand-700)]',
+          'focus:border-foreground',
           isAr ? 'pr-9 pl-4' : 'pl-9 pr-4'
         )}
       />
@@ -90,3 +90,4 @@ export function ServiceSearch({ value, onChange }: ServiceSearchProps) {
     </div>
   )
 }
+

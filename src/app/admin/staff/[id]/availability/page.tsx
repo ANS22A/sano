@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { getAdminStaffById } from '@/app/actions/adminLocations.actions'
+import { getAdminStaffById } from '@/app/actions/adminStaff.actions'
 import { ArrowLeft } from 'lucide-react'
 
 export const metadata: Metadata = { title: 'Staff Availability' }

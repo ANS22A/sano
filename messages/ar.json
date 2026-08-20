@@ -32,7 +32,7 @@
     "experienceTitle": "التجربة",
     "contactTitle": "تواصلي معنا",
     "followTitle": "تابعينا",
-    "address": "الرياض، المملكة العربية السعودية",
+    "address": "جدة، المملكة العربية السعودية",
     "phone": "+966 50 000 0000",
     "email": "hello@sanoluna.com",
     "hours": "السبت – الخميس: ٩ص – ٩م",
@@ -377,8 +377,40 @@
       "time": "الوقت",
       "duration": "المدة",
       "price": "السعر",
-      "nothingSelected": "لم تختاري تجربة بعد"
+      "nothingSelected": "لم يتم تحديد أي تجربة بعد"
+    }
+  },
+  "email": {
+    "bookingConfirmation": {
+      "subject": "تأكيد الحجز - سانو لونا #{bookingNumber}",
+      "greeting": "مرحباً {name}،",
+      "body": "تم تأكيد حجزك بنجاح. نحن بانتظارك في سانو لونا لتجربة استثنائية.",
+      "bookingRef": "رقم الحجز:",
+      "experience": "الخدمة:",
+      "date": "التاريخ:",
+      "time": "الوقت:",
+      "location": "الموقع:",
+      "price": "المبلغ:",
+      "footer": "إذا كنت بحاجة إلى تعديل أو إلغاء حجزك، يرجى التواصل معنا.",
+      "thanks": "شكراً لاختيارك سانو لونا."
+    },
+    "bookingCancellation": {
+      "subject": "إلغاء الحجز - سانو لونا #{bookingNumber}",
+      "greeting": "مرحباً {name}،",
+      "body": "نود إعلامك بأنه تم إلغاء حجزك بنجاح.",
+      "reason": "سبب الإلغاء:",
+      "thanks": "نتمنى أن نراك قريباً في سانو لونا."
+    },
+    "bookingReschedule": {
+      "subject": "تعديل موعد الحجز - سانو لونا #{bookingNumber}",
+      "greeting": "مرحباً {name}،",
+      "body": "تم تعديل موعد حجزك بنجاح. إليك التفاصيل المحدثة:",
+      "previousTime": "الموعد السابق: {date} الساعة {time}",
+      "newDate": "الموعد الجديد:",
+      "newTime": "الوقت الجديد:"
+    },
+    "common": {
+      "inquiries": "لأي استفسار، يرجى التواصل معنا عبر:"
     }
   }
 }
-

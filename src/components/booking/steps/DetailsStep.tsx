@@ -72,13 +72,13 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
     'focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-1',
     hasError
       ? 'border-red-400 focus:ring-red-300'
-      : 'border-[var(--border-subtle)] focus:border-[var(--color-sand-600)]'
+      : 'border-[var(--border-subtle)] focus:border-primary'
   )
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6" noValidate>
       <div className={cn('flex flex-col gap-1', isAr && 'items-end')}>
-        <h2 className="font-serif text-2xl text-[var(--color-sand-900)]">{t.title}</h2>
+        <h2 className="font-serif text-2xl text-foreground">{t.title}</h2>
         <p className="text-[var(--color-text-muted)] text-sm">{t.subtitle}</p>
       </div>
 
@@ -86,7 +86,7 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
         {/* Full Name */}
         <div className={cn('flex flex-col gap-1', isAr && 'items-end')}>
           <label htmlFor="fullName" className="text-sm font-medium text-foreground">
-            {t.fullName} <span aria-hidden="true" className="text-[var(--color-sand-400)]">*</span>
+            {t.fullName} <span aria-hidden="true" className="text-border">*</span>
           </label>
           <input
             id="fullName"
@@ -109,7 +109,7 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
         {/* Phone */}
         <div className={cn('flex flex-col gap-1', isAr && 'items-end')}>
           <label htmlFor="phone" className="text-sm font-medium text-foreground">
-            {t.phone} <span aria-hidden="true" className="text-[var(--color-sand-400)]">*</span>
+            {t.phone} <span aria-hidden="true" className="text-border">*</span>
           </label>
           <input
             id="phone"
@@ -133,7 +133,7 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
         {/* Email */}
         <div className={cn('flex flex-col gap-1', isAr && 'items-end')}>
           <label htmlFor="email" className="text-sm font-medium text-foreground">
-            {t.email} <span aria-hidden="true" className="text-[var(--color-sand-400)]">*</span>
+            {t.email} <span aria-hidden="true" className="text-border">*</span>
           </label>
           <input
             id="email"
@@ -187,7 +187,7 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
         </button>
         <button
           type="submit"
-          className="px-8 py-2.5 bg-[var(--color-sand-900)] text-white rounded-sm text-sm tracking-wide hover:bg-[var(--color-sand-700)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2"
+          className="px-8 py-2.5 bg-foreground text-white rounded-sm text-sm tracking-wide hover:bg-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2"
         >
           {t.continue}
         </button>
@@ -195,3 +195,4 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
     </form>
   )
 }
+

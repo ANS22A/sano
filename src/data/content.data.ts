@@ -7,7 +7,7 @@
  * Team members marked is_placeholder=true are NOT real people.
  */
 
-import type { Package, Testimonial, TeamMember, FAQ, BrandPrinciple, HowItWorksStep } from './types'
+import type { Package, FAQ, BrandPrinciple, HowItWorksStep } from './types'
 
 // ─────────────────────────────────────────────
 // PACKAGES
@@ -111,118 +111,7 @@ export const packages: Package[] = [
 
 export const featuredPackages = packages.filter((p) => p.is_featured && p.is_active)
 
-// ─────────────────────────────────────────────
-// TESTIMONIALS — Development Placeholders
-// @placeholder — NOT real reviews
-// ─────────────────────────────────────────────
-
-export const testimonials: Testimonial[] = [
-  {
-    id: 'testimonial-1',
-    author_name: 'م. السيف',
-    author_initial: 'م',
-    rating: 5,
-    review_ar: 'تجربة لا تُقدّر. الاحترافية والهدوء والاهتمام بكل تفصيل جعلا من هذه الزيارة لحظة حقيقية من التجديد.',
-    review_en: 'An experience beyond measure. The professionalism, calm, and attention to every detail made this visit a genuine moment of renewal.',
-    service_name_ar: 'مساج الأحجار الساخنة',
-    service_name_en: 'Hot Stone Massage',
-    is_featured: true,
-    is_placeholder: true,
-  },
-  {
-    id: 'testimonial-2',
-    author_name: 'ن. العتيبي',
-    author_initial: 'ن',
-    rating: 5,
-    review_ar: 'الحمام المغربي كان تجربة لا أصفها إلا بالفاخرة. شعرت وكأنني في منتجع، وأنا في بيتي.',
-    review_en: 'The Moroccan bath ritual was nothing short of luxurious. I felt as though I was at a destination spa — from the comfort of my own home.',
-    service_name_ar: 'طقس المغرب والسكينة',
-    service_name_en: 'Moroccan & Serenity Ritual',
-    is_featured: true,
-    is_placeholder: true,
-  },
-  {
-    id: 'testimonial-3',
-    author_name: 'ر. الشهري',
-    author_initial: 'ر',
-    rating: 5,
-    review_ar: 'من أفضل قرارات العناية بالنفس اتخذتُها. الأخصائية كانت محترفة تماماً والنتيجة أكثر مما توقعت.',
-    review_en: 'One of the best self-care decisions I\'ve made. The specialist was completely professional and the results exceeded every expectation.',
-    service_name_ar: 'اللمفاوي وكاسات الهواء',
-    service_name_en: 'Lymphatic & Cupping',
-    is_featured: true,
-    is_placeholder: true,
-  },
-  {
-    id: 'testimonial-4',
-    author_name: 'د. القحطاني',
-    author_initial: 'د',
-    rating: 5,
-    review_ar: 'طقس سانو لونا الكامل كان هدية حقيقية لنفسي. ثلاث ساعات من الهدوء والعناية الكاملة.',
-    review_en: 'The complete SANO LUNA ritual was a true gift to myself. Three hours of calm and complete care.',
-    service_name_ar: 'طقس سانو لونا الكامل',
-    service_name_en: 'The SANO LUNA Ritual',
-    is_featured: true,
-    is_placeholder: true,
-  },
-]
-
-export const featuredTestimonials = testimonials.filter((t) => t.is_featured)
-
-// ─────────────────────────────────────────────
-// TEAM MEMBERS — Placeholder
-// @placeholder — NOT real people
-// ─────────────────────────────────────────────
-
-export const teamMembers: TeamMember[] = [
-  {
-    id: 'team-1',
-    name_ar: 'سارة',
-    name_en: 'Sarah',
-    title_ar: 'أخصائية مساج معتمدة',
-    title_en: 'Certified Massage Specialist',
-    bio_ar: 'خبرة أكثر من خمس سنوات في علاجات المساج التقليدية والحديثة.',
-    bio_en: 'More than five years of experience in traditional and contemporary massage therapies.',
-    image_url: '/images/team/therapist-1.jpg',
-    specialties_ar: ['المساج السويدي', 'الأحجار الساخنة', 'مساج الحامل'],
-    specialties_en: ['Swedish Massage', 'Hot Stone', 'Prenatal Massage'],
-    is_featured: true,
-    is_placeholder: true,
-    sort_order: 1,
-  },
-  {
-    id: 'team-2',
-    name_ar: 'نورة',
-    name_en: 'Noura',
-    title_ar: 'أخصائية الحمام المغربي',
-    title_en: 'Moroccan Bath Specialist',
-    bio_ar: 'متخصصة في طقوس الحمام المغربي الأصيلة والعناية بالبشرة.',
-    bio_en: 'Specialist in authentic Moroccan bath rituals and skin care.',
-    image_url: '/images/team/therapist-2.jpg',
-    specialties_ar: ['الحمام المغربي', 'العناية بالبشرة', 'الطقوس التراثية'],
-    specialties_en: ['Moroccan Bath', 'Skin Care', 'Heritage Rituals'],
-    is_featured: true,
-    is_placeholder: true,
-    sort_order: 2,
-  },
-  {
-    id: 'team-3',
-    name_ar: 'رنا',
-    name_en: 'Rana',
-    title_ar: 'أخصائية العلاجات المتخصصة',
-    title_en: 'Specialty Therapies Specialist',
-    bio_ar: 'خبيرة في العلاجات المتقدمة: اللمفاوي، الكاسات، والأحجار العلاجية.',
-    bio_en: 'Expert in advanced therapies: lymphatic drainage, cupping, and therapeutic stones.',
-    image_url: '/images/team/therapist-3.jpg',
-    specialties_ar: ['المساج اللمفاوي', 'كاسات الهواء', 'المساج العلاجي'],
-    specialties_en: ['Lymphatic Drainage', 'Cupping Therapy', 'Therapeutic Massage'],
-    is_featured: true,
-    is_placeholder: true,
-    sort_order: 3,
-  },
-]
-
-export const featuredTeam = teamMembers.filter((m) => m.is_featured)
+// Removed Dummy Testimonial and Team Member Data
 
 // ─────────────────────────────────────────────
 // FAQ — Homepage Preview

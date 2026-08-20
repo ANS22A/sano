@@ -18,7 +18,10 @@ export async function getTeamMembers(): Promise<DbStaff[]> {
     .eq('is_active', true)
     .order('sort_order', { ascending: true })
 
-  if (error) throw new Error(`Failed to fetch team members: ${error.message}`)
+  if (error) {
+    console.error(`Failed to fetch team members: ${error.message}`)
+    return []
+  }
   return data ?? []
 }
 
@@ -31,6 +34,9 @@ export async function getFeaturedTeamMembers(): Promise<DbStaff[]> {
     .order('sort_order', { ascending: true })
     .limit(6)
 
-  if (error) throw new Error(`Failed to fetch team members: ${error.message}`)
+  if (error) {
+    console.error(`Failed to fetch team members: ${error.message}`)
+    return []
+  }
   return data ?? []
 }

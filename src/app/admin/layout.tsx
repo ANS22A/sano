@@ -10,6 +10,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { AdminShell } from '@/components/admin/shell/AdminShell'
 import type { AdminLang } from '@/lib/admin/translations'
+import '../globals.css'
 
 export const metadata: Metadata = {
   title: { template: '%s — SANO LUNA Admin', default: 'SANO LUNA Admin' },
@@ -41,7 +42,7 @@ export default async function AdminLayout({
 
   return (
     <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'} className="h-full antialiased">
-      <body className="h-full bg-[#f7f4f1] text-[#2a2118]">
+      <body className="h-full bg-background text-foreground">
         <AdminShell profile={profile} lang={lang}>
           {children}
         </AdminShell>
@@ -49,3 +50,4 @@ export default async function AdminLayout({
     </html>
   )
 }
+

@@ -117,6 +117,7 @@ export interface BookingError {
     | 'DOUBLE_BOOKING'
     | 'VALIDATION_ERROR'
     | 'SERVER_ERROR'
+    | 'RATE_LIMIT_EXCEEDED'
   message: string
   messageAr: string
 }

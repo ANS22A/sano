@@ -30,7 +30,7 @@ export function CategoryFilter({ categories, activeCategory, onChange }: Categor
             'border whitespace-nowrap',
             activeCategory === null
               ? 'bg-foreground text-background border-foreground'
-              : 'bg-background text-foreground border-[var(--border-subtle)] hover:border-[var(--color-sand-400)]'
+              : 'bg-background text-foreground border-[var(--border-subtle)] hover:border-border'
           )}
         >
           {t('allCategories')}
@@ -46,7 +46,7 @@ export function CategoryFilter({ categories, activeCategory, onChange }: Categor
               'border whitespace-nowrap',
               activeCategory === cat.slug
                 ? 'bg-foreground text-background border-foreground'
-                : 'bg-background text-foreground border-[var(--border-subtle)] hover:border-[var(--color-sand-400)]'
+                : 'bg-background text-foreground border-[var(--border-subtle)] hover:border-border'
             )}
           >
             <span aria-hidden="true" className="text-xs">{cat.icon}</span>
@@ -57,3 +57,4 @@ export function CategoryFilter({ categories, activeCategory, onChange }: Categor
     </nav>
   )
 }
+
