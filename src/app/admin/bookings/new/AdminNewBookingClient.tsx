@@ -1,0 +1,785 @@
+'use client'
+
+import { useState, useTransition, useCallback, useEffect, useMemo } from 'react'
+import { useAdmin } from '@/components/admin/shell/AdminShell'
+import {
+  createAdminBooking,
+  searchCustomersForBooking,
+  getServicesForBooking,
+  getAdminBookingSlots,
+  type BookingSource,
+  type AdminBookingInput,
+} from '@/app/actions/adminManualBooking.actions'
+import type { AvailableSlot } from '@/data/booking.types'
+import {
+  ArrowLeft, Search, User, Phone, Mail, MapPin,
+  CalendarDays, Clock, FileText, CheckCircle, Loader2,
+  Plus, MessageCircle,
+} from 'lucide-react'
+import Link from 'next/link'
+
+// ─── Translations ────────────────────────────
+
+const t9b = {
+  en: {
+    title: 'New Booking',
+    subtitle: 'Create a manual booking',
+    // Steps
+    stepCustomer: 'Customer',
+    stepService: 'Service',
+    stepSchedule: 'Date & Time',
+    stepReview: 'Review & Confirm',
+    // Customer
+    searchCustomer: 'Search existing customer…',
+    orCreateNew: 'Or create a new customer',
+    customerName: 'Full Name',
+    customerPhone: 'Phone',
+    customerEmail: 'Email (optional)',
+    customerAddress: 'Service Address',
+    customerAddressHint: 'Where the service will be provided',
+    selectExisting: 'Select',
+    newCustomer: 'New Customer',
+    existingCustomer: 'Existing Customer',
+    noCustomersFound: 'No customers found',
+    // Source
+    bookingSource: 'Booking Source',
+    sourceWebsite: 'Website',
+    sourceWhatsapp: 'WhatsApp',
+    sourcePhone: 'Phone',
+    sourceAdmin: 'Admin',
+    sourceOther: 'Other',
+    // Service
+    selectService: 'Select a service',
+    price: 'Price',
+    duration: 'Duration',
+    minUnit: 'min',
+    // Schedule
+    selectDate: 'Select Date',
+    selectTime: 'Select Time',
+    noSlots: 'No available slots for this date',
+    loadingSlots: 'Loading available times…',
+    // Notes
+    notes: 'Internal Notes',
+    notesHint: 'Admin-only notes (not visible to customer)',
+    // Review
+    reviewTitle: 'Review Booking',
+    customer: 'Customer',
+    service: 'Service',
+    date: 'Date',
+    time: 'Time',
+    source: 'Source',
+    address: 'Address',
+    // Actions
+    back: 'Back',
+    next: 'Next',
+    createBooking: 'Create Booking',
+    creating: 'Creating…',
+    // Success
+    bookingCreated: 'Booking Created!',
+    bookingNumber: 'Booking Number',
+    viewBookings: 'View All Bookings',
+    createAnother: 'Create Another',
+    // Errors
+    errorRequired: 'This field is required',
+    errorPhone: 'Invalid phone number',
+  },
+  ar: {
+    title: 'حجز جديد',
+    subtitle: 'إنشاء حجز يدوي',
+    stepCustomer: 'العميلة',
+    stepService: 'الخدمة',
+    stepSchedule: 'التاريخ والوقت',
+    stepReview: 'المراجعة والتأكيد',
+    searchCustomer: 'البحث عن عميلة…',
+    orCreateNew: 'أو إنشاء عميلة جديدة',
+    customerName: 'الاسم الكامل',
+    customerPhone: 'رقم الجوال',
+    customerEmail: 'البريد الإلكتروني (اختياري)',
+    customerAddress: 'عنوان الخدمة',
+    customerAddressHint: 'مكان تقديم الخدمة',
+    selectExisting: 'اختيار',
+    newCustomer: 'عميلة جديدة',
+    existingCustomer: 'عميلة مسجلة',
+    noCustomersFound: 'لا توجد عميلات',
+    bookingSource: 'مصدر الحجز',
+    sourceWebsite: 'الموقع',
+    sourceWhatsapp: 'واتساب',
+    sourcePhone: 'هاتف',
+    sourceAdmin: 'إدارة',
+    sourceOther: 'أخرى',
+    selectService: 'اختيار الخدمة',
+    price: 'السعر',
+    duration: 'المدة',
+    minUnit: 'د',
+    selectDate: 'اختيار التاريخ',
+    selectTime: 'اختيار الوقت',
+    noSlots: 'لا توجد مواعيد متاحة لهذا التاريخ',
+    loadingSlots: 'جارٍ تحميل المواعيد…',
+    notes: 'ملاحظات داخلية',
+    notesHint: 'ملاحظات للإدارة فقط (غير مرئية للعميلة)',
+    reviewTitle: 'مراجعة الحجز',
+    customer: 'العميلة',
+    service: 'الخدمة',
+    date: 'التاريخ',
+    time: 'الوقت',
+    source: 'المصدر',
+    address: 'العنوان',
+    back: 'رجوع',
+    next: 'التالي',
+    createBooking: 'إنشاء الحجز',
+    creating: 'جارٍ الإنشاء…',
+    bookingCreated: 'تم إنشاء الحجز!',
+    bookingNumber: 'رقم الحجز',
+    viewBookings: 'عرض الحجوزات',
+    createAnother: 'إنشاء حجز آخر',
+    errorRequired: 'هذا الحقل مطلوب',
+    errorPhone: 'رقم الجوال غير صحيح',
+  },
+} as const
+
+const SOURCE_OPTIONS: { value: BookingSource; iconKey: string }[] = [
+  { value: 'whatsapp', iconKey: 'whatsapp' },
+  { value: 'phone', iconKey: 'phone' },
+  { value: 'admin', iconKey: 'admin' },
+  { value: 'website', iconKey: 'website' },
+  { value: 'other', iconKey: 'other' },
+]
+
+// ─── Types ───────────────────────────────────
+
+interface ServiceOption {
+  id: string
+  name_en: string
+  name_ar: string
+  price_sar: number
+  duration_minutes: number
+}
+
+interface CustomerResult {
+  id: string
+  full_name: string
+  phone: string
+  email: string | null
+}
+
+type Step = 'customer' | 'service' | 'schedule' | 'review' | 'success'
+
+// ─── Component ───────────────────────────────
+
+export function AdminNewBookingClient({ locationId }: { locationId: string }) {
+  const { lang } = useAdmin()
+  const labels = t9b[lang]
+  const [isPending, startTransition] = useTransition()
+
+  // Step state
+  const [step, setStep] = useState<Step>('customer')
+
+  // Customer state
+  const [customerSearch, setCustomerSearch] = useState('')
+  const [searchResults, setSearchResults] = useState<CustomerResult[]>([])
+  const [isSearching, setIsSearching] = useState(false)
+  const [customerMode, setCustomerMode] = useState<'search' | 'new'>('search')
+  const [customerName, setCustomerName] = useState('')
+  const [customerPhone, setCustomerPhone] = useState('')
+  const [customerEmail, setCustomerEmail] = useState('')
+  const [customerAddress, setCustomerAddress] = useState('')
+  const [selectedCustomer, setSelectedCustomer] = useState<CustomerResult | null>(null)
+
+  // Source state
+  const [source, setSource] = useState<BookingSource>('whatsapp')
+
+  // Service state
+  const [services, setServices] = useState<ServiceOption[]>([])
+  const [selectedService, setSelectedService] = useState<ServiceOption | null>(null)
+  const [servicesLoaded, setServicesLoaded] = useState(false)
+
+  // Schedule state
+  const [date, setDate] = useState('')
+  const [slots, setSlots] = useState<AvailableSlot[]>([])
+  const [selectedSlot, setSelectedSlot] = useState('')
+  const [isLoadingSlots, setIsLoadingSlots] = useState(false)
+
+  // Notes
+  const [notes, setNotes] = useState('')
+
+  // Success
+  const [bookingNumber, setBookingNumber] = useState('')
+
+  // Error
+  const [error, setError] = useState('')
+
+  // ── Customer search ─────────────────────────
+  const doSearch = useCallback(async (q: string) => {
+    if (q.length < 2) { setSearchResults([]); return }
+    setIsSearching(true)
+    try {
+      const results = await searchCustomersForBooking(q)
+      setSearchResults(results as CustomerResult[])
+    } catch { setSearchResults([]) }
+    setIsSearching(false)
+  }, [])
+
+  useEffect(() => {
+    const timeout = setTimeout(() => doSearch(customerSearch), 300)
+    return () => clearTimeout(timeout)
+  }, [customerSearch, doSearch])
+
+  // ── Load services ───────────────────────────
+  useEffect(() => {
+    if (servicesLoaded) return
+    getServicesForBooking().then((s) => {
+      setServices(s as ServiceOption[])
+      setServicesLoaded(true)
+    })
+  }, [servicesLoaded])
+
+  // ── Load slots when date changes ────────────
+  useEffect(() => {
+    if (!date || !selectedService) return
+    let active = true
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsLoadingSlots(true)
+    setSelectedSlot('')
+    getAdminBookingSlots(selectedService.id, null, locationId, date).then((res) => {
+      if (active) {
+        setSlots(res.slots)
+        setIsLoadingSlots(false)
+      }
+    })
+    return () => { active = false }
+  }, [date, selectedService, locationId])
+
+  // ── Select existing customer ────────────────
+  function selectCustomer(c: CustomerResult) {
+    setSelectedCustomer(c)
+    setCustomerName(c.full_name)
+    setCustomerPhone(c.phone)
+    setCustomerEmail(c.email ?? '')
+    setCustomerMode('search')
+  }
+
+  // ── Validation ──────────────────────────────
+  function canAdvance(): boolean {
+    switch (step) {
+      case 'customer':
+        return customerName.trim().length >= 2 && customerPhone.trim().length >= 9
+      case 'service':
+        return selectedService !== null
+      case 'schedule':
+        return date !== '' && selectedSlot !== ''
+      case 'review':
+        return true
+      default:
+        return false
+    }
+  }
+
+  function advanceStep() {
+    setError('')
+    switch (step) {
+      case 'customer': setStep('service'); break
+      case 'service': setStep('schedule'); break
+      case 'schedule': setStep('review'); break
+      case 'review': submitBooking(); break
+    }
+  }
+
+  function goBack() {
+    setError('')
+    switch (step) {
+      case 'service': setStep('customer'); break
+      case 'schedule': setStep('service'); break
+      case 'review': setStep('schedule'); break
+    }
+  }
+
+  // ── Submit ──────────────────────────────────
+  function submitBooking() {
+    setError('')
+    startTransition(async () => {
+      const input: AdminBookingInput = {
+        customerName: customerName.trim(),
+        customerPhone: customerPhone.trim(),
+        customerEmail: customerEmail.trim() || undefined,
+        customerAddress: customerAddress.trim() || undefined,
+        serviceId: selectedService!.id,
+        packageSlug: null,
+        locationId,
+        date,
+        startTime: selectedSlot,
+        source,
+        notes: notes.trim() || undefined,
+      }
+
+      const result = await createAdminBooking(input)
+      if (result.success && result.bookingNumber) {
+        setBookingNumber(result.bookingNumber)
+        setStep('success')
+      } else {
+        setError(result.error ?? 'Unknown error')
+      }
+    })
+  }
+
+  // ── Reset ───────────────────────────────────
+  function resetForm() {
+    setStep('customer')
+    setCustomerSearch('')
+    setSearchResults([])
+    setCustomerMode('search')
+    setCustomerName('')
+    setCustomerPhone('')
+    setCustomerEmail('')
+    setCustomerAddress('')
+    setSelectedCustomer(null)
+    setSource('whatsapp')
+    setSelectedService(null)
+    setDate('')
+    setSlots([])
+    setSelectedSlot('')
+    setNotes('')
+    setBookingNumber('')
+    setError('')
+  }
+
+  // ── Source label ─────────────────────────────
+  function sourceLabel(s: BookingSource): string {
+    const map = {
+      website: labels.sourceWebsite,
+      whatsapp: labels.sourceWhatsapp,
+      phone: labels.sourcePhone,
+      admin: labels.sourceAdmin,
+      other: labels.sourceOther,
+    }
+    return map[s]
+  }
+
+  // ── Today string ────────────────────────────
+  // eslint-disable-next-line react-hooks/purity
+  const today = useMemo(() => new Date(Date.now() + 3 * 60 * 60 * 1000).toISOString().slice(0, 10), [])
+
+  // ── Steps indicator ─────────────────────────
+  const steps: { key: Step; label: string }[] = [
+    { key: 'customer', label: labels.stepCustomer },
+    { key: 'service', label: labels.stepService },
+    { key: 'schedule', label: labels.stepSchedule },
+    { key: 'review', label: labels.stepReview },
+  ]
+  const stepIndex = steps.findIndex((s) => s.key === step)
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center gap-3">
+        <Link href="/admin/bookings" className="p-2 rounded-xl hover:bg-[#f5ede0] transition-colors">
+          <ArrowLeft className="w-5 h-5 text-[#7a6a57]" />
+        </Link>
+        <div>
+          <h1 className="text-xl font-bold text-[#2a2118]">{labels.title}</h1>
+          <p className="text-sm text-[#9a8a7a]">{labels.subtitle}</p>
+        </div>
+      </div>
+
+      {/* Steps indicator */}
+      {step !== 'success' && (
+        <div className="flex gap-1">
+          {steps.map((s, i) => (
+            <div key={s.key} className="flex-1">
+              <div className={`h-1.5 rounded-full transition-colors ${
+                i <= stepIndex ? 'bg-[#6F4E7C]' : 'bg-[#E7DBEC]'
+              }`} />
+              <p className={`text-xs mt-1 ${
+                i <= stepIndex ? 'text-[#6F4E7C] font-medium' : 'text-[#9a8a7a]'
+              }`}>{s.label}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Error */}
+      {error && (
+        <div className="bg-red-50 text-red-700 text-sm p-3 rounded-xl border border-red-200">
+          {error}
+        </div>
+      )}
+
+      {/* ─── STEP: Customer ─── */}
+      {step === 'customer' && (
+        <div className="bg-white rounded-2xl border border-[#e8ddd0] p-5 space-y-5">
+          {/* Booking Source */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-[#2a2118]">{labels.bookingSource}</label>
+            <div className="flex flex-wrap gap-2">
+              {SOURCE_OPTIONS.map((opt) => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => setSource(opt.value)}
+                  className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium border transition-colors ${
+                    source === opt.value
+                      ? 'bg-[#6F4E7C] text-white border-[#6F4E7C]'
+                      : 'bg-white text-[#7a6a57] border-[#e8ddd0] hover:bg-[#f5ede0]'
+                  }`}
+                >
+                  {opt.value === 'whatsapp' && <MessageCircle className="w-3.5 h-3.5" />}
+                  {opt.value === 'phone' && <Phone className="w-3.5 h-3.5" />}
+                  {opt.value === 'admin' && <User className="w-3.5 h-3.5" />}
+                  {sourceLabel(opt.value)}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Customer mode toggle */}
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={() => { setCustomerMode('search'); setSelectedCustomer(null) }}
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium border transition-colors ${
+                customerMode === 'search'
+                  ? 'bg-[#2a2118] text-white border-[#2a2118]'
+                  : 'bg-white text-[#7a6a57] border-[#e8ddd0] hover:bg-[#f5ede0]'
+              }`}
+            >
+              <Search className="w-3.5 h-3.5" />
+              {labels.existingCustomer}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setCustomerMode('new')
+                setSelectedCustomer(null)
+                setCustomerName('')
+                setCustomerPhone('')
+                setCustomerEmail('')
+              }}
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium border transition-colors ${
+                customerMode === 'new'
+                  ? 'bg-[#2a2118] text-white border-[#2a2118]'
+                  : 'bg-white text-[#7a6a57] border-[#e8ddd0] hover:bg-[#f5ede0]'
+              }`}
+            >
+              <Plus className="w-3.5 h-3.5" />
+              {labels.newCustomer}
+            </button>
+          </div>
+
+          {/* Search existing */}
+          {customerMode === 'search' && !selectedCustomer && (
+            <div className="space-y-3">
+              <div className="relative">
+                <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9a8a7a]" />
+                <input
+                  type="text"
+                  value={customerSearch}
+                  onChange={(e) => setCustomerSearch(e.target.value)}
+                  placeholder={labels.searchCustomer}
+                  className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-[#e8ddd0] bg-white text-[#2a2118] focus:border-[#6F4E7C] focus:ring-1 focus:ring-[#6F4E7C] outline-none transition-all text-start"
+                />
+              </div>
+              {isSearching && (
+                <div className="flex items-center gap-2 text-sm text-[#9a8a7a]">
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                </div>
+              )}
+              {searchResults.length > 0 && (
+                <div className="border border-[#e8ddd0] rounded-xl overflow-hidden divide-y divide-[#f0e8de]">
+                  {searchResults.map((c) => (
+                    <button
+                      key={c.id}
+                      type="button"
+                      onClick={() => selectCustomer(c)}
+                      className="w-full flex items-center justify-between px-4 py-3 hover:bg-[#faf7f4] transition-colors text-start"
+                    >
+                      <div>
+                        <p className="text-sm font-medium text-[#2a2118]">{c.full_name}</p>
+                        <p className="text-xs text-[#9a8a7a]">{c.phone}</p>
+                      </div>
+                      <span className="text-xs text-[#6F4E7C] font-medium">{labels.selectExisting}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+              {customerSearch.length >= 2 && !isSearching && searchResults.length === 0 && (
+                <p className="text-sm text-[#9a8a7a]">{labels.noCustomersFound}</p>
+              )}
+            </div>
+          )}
+
+          {/* Selected customer banner */}
+          {selectedCustomer && (
+            <div className="flex items-center justify-between bg-[#E7DBEC] p-3 rounded-xl">
+              <div className="flex items-center gap-2">
+                <User className="w-4 h-4 text-[#6F4E7C]" />
+                <span className="text-sm font-medium text-[#2E1F38]">{selectedCustomer.full_name}</span>
+                <span className="text-xs text-[#6F4E7C]">{selectedCustomer.phone}</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => { setSelectedCustomer(null); setCustomerName(''); setCustomerPhone(''); setCustomerEmail('') }}
+                className="text-xs text-[#6F4E7C] hover:underline"
+              >
+                {labels.back}
+              </button>
+            </div>
+          )}
+
+          {/* Customer form (new or editing selected) */}
+          {(customerMode === 'new' || selectedCustomer) && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-[#7a6a57]">{labels.customerName}</label>
+                <div className="relative">
+                  <User className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9a8a7a]" />
+                  <input
+                    type="text"
+                    value={customerName}
+                    onChange={(e) => setCustomerName(e.target.value)}
+                    className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-[#e8ddd0] bg-white text-[#2a2118] focus:border-[#6F4E7C] focus:ring-1 focus:ring-[#6F4E7C] outline-none transition-all text-start"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-[#7a6a57]">{labels.customerPhone}</label>
+                <div className="relative">
+                  <Phone className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9a8a7a]" />
+                  <input
+                    type="tel"
+                    value={customerPhone}
+                    onChange={(e) => setCustomerPhone(e.target.value)}
+                    placeholder="05X XXX XXXX"
+                    className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-[#e8ddd0] bg-white text-[#2a2118] focus:border-[#6F4E7C] focus:ring-1 focus:ring-[#6F4E7C] outline-none transition-all text-start"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-[#7a6a57]">{labels.customerEmail}</label>
+                <div className="relative">
+                  <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9a8a7a]" />
+                  <input
+                    type="email"
+                    value={customerEmail}
+                    onChange={(e) => setCustomerEmail(e.target.value)}
+                    className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-[#e8ddd0] bg-white text-[#2a2118] focus:border-[#6F4E7C] focus:ring-1 focus:ring-[#6F4E7C] outline-none transition-all text-start"
+                  />
+                </div>
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-[#7a6a57]">{labels.customerAddress}</label>
+                <div className="relative">
+                  <MapPin className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9a8a7a]" />
+                  <input
+                    type="text"
+                    value={customerAddress}
+                    onChange={(e) => setCustomerAddress(e.target.value)}
+                    placeholder={labels.customerAddressHint}
+                    className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-[#e8ddd0] bg-white text-[#2a2118] focus:border-[#6F4E7C] focus:ring-1 focus:ring-[#6F4E7C] outline-none transition-all text-start"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ─── STEP: Service ─── */}
+      {step === 'service' && (
+        <div className="bg-white rounded-2xl border border-[#e8ddd0] p-5 space-y-4">
+          <h2 className="text-sm font-bold text-[#2a2118]">{labels.selectService}</h2>
+          {services.length === 0 ? (
+            <div className="flex items-center gap-2 text-sm text-[#9a8a7a]">
+              <Loader2 className="w-4 h-4 animate-spin" />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {services.map((s) => (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => setSelectedService(s)}
+                  className={`text-start p-4 rounded-xl border transition-all ${
+                    selectedService?.id === s.id
+                      ? 'border-[#6F4E7C] bg-[#E7DBEC] ring-1 ring-[#6F4E7C]'
+                      : 'border-[#e8ddd0] hover:border-[#A98FB8] hover:bg-[#faf7f4]'
+                  }`}
+                >
+                  <p className="text-sm font-medium text-[#2a2118]">
+                    {lang === 'ar' ? s.name_ar : s.name_en}
+                  </p>
+                  <div className="flex items-center gap-3 mt-1.5">
+                    <span className="text-xs text-[#6F4E7C] font-medium">
+                      {s.price_sar} {lang === 'ar' ? 'ريال' : 'SAR'}
+                    </span>
+                    <span className="text-xs text-[#9a8a7a]">
+                      {s.duration_minutes} {labels.minUnit}
+                    </span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ─── STEP: Schedule ─── */}
+      {step === 'schedule' && (
+        <div className="bg-white rounded-2xl border border-[#e8ddd0] p-5 space-y-5">
+          {/* Date */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-[#2a2118] flex items-center gap-1.5">
+              <CalendarDays className="w-4 h-4 text-[#6F4E7C]" />
+              {labels.selectDate}
+            </label>
+            <input
+              type="date"
+              value={date}
+              min={today}
+              onChange={(e) => setDate(e.target.value)}
+              className="w-full sm:w-64 px-3 py-2.5 rounded-xl text-sm border border-[#e8ddd0] bg-white text-[#2a2118] focus:border-[#6F4E7C] focus:ring-1 focus:ring-[#6F4E7C] outline-none transition-all"
+            />
+          </div>
+
+          {/* Time slots */}
+          {date && (
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-[#2a2118] flex items-center gap-1.5">
+                <Clock className="w-4 h-4 text-[#6F4E7C]" />
+                {labels.selectTime}
+              </label>
+              {isLoadingSlots ? (
+                <div className="flex items-center gap-2 text-sm text-[#9a8a7a]">
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  {labels.loadingSlots}
+                </div>
+              ) : slots.filter(s => s.available).length === 0 ? (
+                <p className="text-sm text-[#9a8a7a]">{labels.noSlots}</p>
+              ) : (
+                <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 gap-2">
+                  {slots.filter(s => s.available).map((s) => (
+                    <button
+                      key={s.startTime}
+                      type="button"
+                      onClick={() => setSelectedSlot(s.startTime)}
+                      className={`px-3 py-2 rounded-xl text-sm font-medium border transition-colors ${
+                        selectedSlot === s.startTime
+                          ? 'bg-[#6F4E7C] text-white border-[#6F4E7C]'
+                          : 'bg-white text-[#2a2118] border-[#e8ddd0] hover:border-[#A98FB8]'
+                      }`}
+                    >
+                      {s.startTime}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Notes */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-[#2a2118] flex items-center gap-1.5">
+              <FileText className="w-4 h-4 text-[#6F4E7C]" />
+              {labels.notes}
+            </label>
+            <textarea
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              rows={3}
+              placeholder={labels.notesHint}
+              className="w-full px-3 py-2.5 rounded-xl text-sm border border-[#e8ddd0] bg-white text-[#2a2118] focus:border-[#6F4E7C] focus:ring-1 focus:ring-[#6F4E7C] outline-none transition-all resize-none text-start"
+            />
+          </div>
+        </div>
+      )}
+
+      {/* ─── STEP: Review ─── */}
+      {step === 'review' && (
+        <div className="bg-white rounded-2xl border border-[#e8ddd0] p-5 space-y-4">
+          <h2 className="text-sm font-bold text-[#2a2118]">{labels.reviewTitle}</h2>
+          <div className="divide-y divide-[#f0e8de]">
+            <ReviewRow icon={<User className="w-4 h-4" />} label={labels.customer} value={`${customerName} — ${customerPhone}`} />
+            <ReviewRow icon={<FileText className="w-4 h-4" />} label={labels.service} value={selectedService ? (lang === 'ar' ? selectedService.name_ar : selectedService.name_en) : ''} />
+            <ReviewRow icon={<CalendarDays className="w-4 h-4" />} label={labels.date} value={date} />
+            <ReviewRow icon={<Clock className="w-4 h-4" />} label={labels.time} value={selectedSlot} />
+            <ReviewRow icon={<MessageCircle className="w-4 h-4" />} label={labels.source} value={sourceLabel(source)} />
+            {selectedService && (
+              <ReviewRow icon={<FileText className="w-4 h-4" />} label={labels.price} value={`${selectedService.price_sar} ${lang === 'ar' ? 'ريال' : 'SAR'}`} />
+            )}
+            {customerAddress && (
+              <ReviewRow icon={<MapPin className="w-4 h-4" />} label={labels.address} value={customerAddress} />
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ─── STEP: Success ─── */}
+      {step === 'success' && (
+        <div className="bg-white rounded-2xl border border-[#e8ddd0] p-8 text-center space-y-4">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-50">
+            <CheckCircle className="w-8 h-8 text-green-600" />
+          </div>
+          <h2 className="text-lg font-bold text-[#2a2118]">{labels.bookingCreated}</h2>
+          <p className="text-sm text-[#9a8a7a]">
+            {labels.bookingNumber}: <span className="font-mono text-[#6F4E7C] font-bold">{bookingNumber}</span>
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
+            <Link
+              href="/admin/bookings"
+              className="px-5 py-2.5 rounded-xl text-sm font-medium bg-[#6F4E7C] text-white hover:bg-[#5a3d66] transition-colors"
+            >
+              {labels.viewBookings}
+            </Link>
+            <button
+              type="button"
+              onClick={resetForm}
+              className="px-5 py-2.5 rounded-xl text-sm font-medium border border-[#e8ddd0] text-[#7a6a57] hover:bg-[#f5ede0] transition-colors"
+            >
+              {labels.createAnother}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ─── Navigation ─── */}
+      {step !== 'success' && (
+        <div className="flex items-center justify-between">
+          {step !== 'customer' ? (
+            <button
+              type="button"
+              onClick={goBack}
+              className="px-5 py-2.5 rounded-xl text-sm font-medium border border-[#e8ddd0] text-[#7a6a57] hover:bg-[#f5ede0] transition-colors"
+            >
+              {labels.back}
+            </button>
+          ) : <div />}
+
+          <button
+            type="button"
+            onClick={advanceStep}
+            disabled={!canAdvance() || isPending}
+            className="px-6 py-2.5 rounded-xl text-sm font-medium bg-[#6F4E7C] text-white hover:bg-[#5a3d66] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+          >
+            {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
+            {step === 'review'
+              ? (isPending ? labels.creating : labels.createBooking)
+              : labels.next
+            }
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ─── Review Row ──────────────────────────────
+
+function ReviewRow({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
+  return (
+    <div className="flex items-center gap-3 py-3">
+      <div className="text-[#6F4E7C]">{icon}</div>
+      <span className="text-xs text-[#9a8a7a] w-20 shrink-0">{label}</span>
+      <span className="text-sm text-[#2a2118] font-medium">{value}</span>
+    </div>
+  )
+}

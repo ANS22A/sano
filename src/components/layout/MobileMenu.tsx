@@ -25,6 +25,7 @@ import type { NavItem } from '@/types/ui.types'
 interface MobileMenuProps {
   isOpen: boolean
   onClose: () => void
+  isAuthenticated?: boolean
 }
 
 // Typed easing curves
@@ -55,7 +56,7 @@ const panelVariants = {
   }),
 }
 
-export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
+export function MobileMenu({ isOpen, onClose, isAuthenticated = false }: MobileMenuProps) {
   const t = useTranslations('nav')
   const tHeader = useTranslations('header')
   const tAria = useTranslations('aria')
@@ -203,14 +204,22 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               }}
               className="px-6 py-6 border-t border-border-subtle space-y-4"
             >
+              {/* Auth CTA */}
+              <Link
+                href={isAuthenticated ? "/account" : "/login"}
+                onClick={onClose}
+                className="block w-full py-4 text-center rounded-xl font-medium tracking-wide border border-[var(--border)]
+                  text-foreground hover:bg-[var(--surface-hover)] transition-colors mt-4"
+              >
+                {isAuthenticated ? tHeader('account') : tHeader('signIn')}
+              </Link>
+
               {/* Booking CTA */}
               <Link
                 href="/booking"
                 onClick={onClose}
-                className={cn(
-                  'btn btn-primary btn-md w-full justify-center',
-                  'text-center'
-                )}
+                className="block w-full py-4 text-center rounded-xl bg-primary text-primary-foreground font-medium tracking-wide
+                  shadow-md hover:bg-primary/90 transition-all active:scale-[0.98] mt-3"
               >
                 {tHeader('bookCta')}
               </Link>

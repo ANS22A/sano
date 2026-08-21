@@ -2,10 +2,6 @@ import 'server-only'
 import { Resend } from 'resend'
 import { contactConfig } from '@/config/site.config'
 
-// Define the expected environment variables for documentation
-// RESEND_API_KEY
-// RESEND_FROM_EMAIL
-
 let resend: Resend | null = null
 
 try {
@@ -13,28 +9,35 @@ try {
     resend = new Resend(process.env.RESEND_API_KEY)
   }
 } catch (e) {
-  console.error('[EmailService] Failed to initialize Resend', e)
+  console.error('[EmailService] Failed to initialize Resend client:', e)
 }
 
-const defaultFrom = process.env.RESEND_FROM_EMAIL || 'no-reply@sanoluna.com'
-const brandColor = '#D4AF37'
-const textColor = '#2E1F38'
+const defaultFrom = process.env.RESEND_FROM_EMAIL || 'SANO LUNA <no-reply@sanoluna.com>'
+const brandGold = '#D4AF37'
+const brandPurple = '#2E1F38'
+const brandMauve = '#6F4E7C'
+const brandLavender = '#A98FB8'
+const brandPinkMauve = '#D6C2D9'
+const brandLightLilac = '#E7DBEC'
 
 export interface EmailBookingDetails {
   bookingNumber: string
   date: string
   startTime: string
+  durationMinutes?: number
   serviceNameAr: string
   serviceNameEn: string
   locationNameAr: string
   locationNameEn: string
   customerName: string
-  customerEmail: string
+  customerEmail?: string | null
   priceSar: number
+  status?: string
   locale?: 'en' | 'ar'
   cancellationReason?: string
   oldDate?: string
   oldStartTime?: string
+  notes?: string
 }
 
 function getBaseTemplate(title: string, content: string, locale: 'en' | 'ar' = 'en') {
@@ -42,78 +45,164 @@ function getBaseTemplate(title: string, content: string, locale: 'en' | 'ar' = '
   const dir = isRtl ? 'rtl' : 'ltr'
   const align = isRtl ? 'right' : 'left'
   const contact = contactConfig
+  const fontFamily = isRtl
+    ? "'Tajawal', 'Cairo', Tahoma, Arial, sans-serif"
+    : "'Montserrat', 'Helvetica Neue', Arial, sans-serif"
 
   return `
     <!DOCTYPE html>
     <html lang="${locale}" dir="${dir}">
     <head>
       <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>${title}</title>
+      <style>
+        body, table, td, p, a, li, blockquote {
+          -webkit-text-size-adjust: 100%;
+          -ms-text-size-adjust: 100%;
+        }
+      </style>
     </head>
-    <body style="font-family: Arial, sans-serif; background-color: #E7DBEC; color: ${textColor}; line-height: 1.6; margin: 0; padding: 20px;">
-      <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #A98FB8;">
-        <div style="background-color: #2E1F38; padding: 30px; text-align: center;">
-          <h1 style="color: ${brandColor}; margin: 0; font-size: 24px; font-weight: normal; letter-spacing: 2px;">SANO LUNA</h1>
-          <p style="color: #D4AF37; margin: 5px 0 0 0; font-size: 14px;">سانو لونا</p>
-        </div>
-        
-        <div style="padding: 40px 30px; text-align: ${align};">
-          ${content}
-        </div>
-        
-        <div style="background-color: #D6C2D9; padding: 20px; text-align: center; font-size: 13px; color: #7a6a57;">
-          <p style="margin: 0 0 10px 0;">${isRtl ? 'لأي استفسار، يرجى التواصل معنا عبر' : 'For any inquiries, please contact us at'}:</p>
-          <p style="margin: 0;">${contact.email} | ${contact.phone}</p>
-        </div>
-      </div>
+    <body style="font-family: ${fontFamily}; background-color: #FAF7F4; color: ${brandPurple}; line-height: 1.7; margin: 0; padding: 24px 12px;">
+      <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #FAF7F4;">
+        <tr>
+          <td align="center">
+            <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; background-color: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid ${brandLightLilac}; box-shadow: 0 4px 20px rgba(46, 31, 56, 0.05);">
+              
+              <!-- Header -->
+              <tr>
+                <td style="background-color: ${brandPurple}; padding: 36px 24px; text-align: center;">
+                  <h1 style="color: ${brandGold}; margin: 0; font-family: 'Cinzel', ${fontFamily}; font-size: 26px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase;">SANO LUNA</h1>
+                  <p style="color: ${brandPinkMauve}; margin: 6px 0 0 0; font-size: 14px; letter-spacing: 1px;">سانو لونا — سبا منزلي فاخر</p>
+                </td>
+              </tr>
+              
+              <!-- Main Content -->
+              <tr>
+                <td style="padding: 36px 28px; text-align: ${align};" dir="${dir}">
+                  ${content}
+                </td>
+              </tr>
+              
+              <!-- Footer -->
+              <tr>
+                <td style="background-color: #FAF7F4; border-top: 1px solid ${brandLightLilac}; padding: 24px; text-align: center; font-size: 13px; color: ${brandMauve};">
+                  <p style="margin: 0 0 8px 0; font-weight: 500;">${isRtl ? 'لأي استفسار أو مساعدة، يرجى التواصل معنا عبر:' : 'For any inquiries or assistance, please reach out to us at:'}</p>
+                  <p style="margin: 0; color: ${brandPurple}; font-weight: 600;">
+                    <a href="mailto:${contact.email}" style="color: ${brandMauve}; text-decoration: none;">${contact.email}</a>
+                    &nbsp;|&nbsp;
+                    <a href="tel:${contact.phone}" style="color: ${brandMauve}; text-decoration: none;" dir="ltr">${contact.phone}</a>
+                  </p>
+                  <p style="margin: 16px 0 0 0; font-size: 11px; color: ${brandLavender};">© ${new Date().getFullYear()} SANO LUNA. All rights reserved.</p>
+                </td>
+              </tr>
+              
+            </table>
+          </td>
+        </tr>
+      </table>
     </body>
     </html>
   `
 }
 
 /**
- * Send Booking Confirmation Email
+ * 1. Send Booking Created / Received Notification Email
  */
-export async function sendBookingConfirmation(details: EmailBookingDetails) {
-  if (!resend || !details.customerEmail) return { success: true } // Fail open
+export async function sendBookingCreated(details: EmailBookingDetails): Promise<{ success: boolean; error?: string }> {
+  if (!resend || !details.customerEmail || !details.customerEmail.includes('@')) {
+    return { success: true }
+  }
 
   const isRtl = details.locale === 'ar'
-  const subject = isRtl 
-    ? `تأكيد الحجز - سانو لونا #${details.bookingNumber}`
-    : `Booking Confirmation - SANO LUNA #${details.bookingNumber}`
-  
+  const subject = isRtl
+    ? `تم استلام طلب حجزك - سانو لونا #${details.bookingNumber}`
+    : `Booking Request Received - SANO LUNA #${details.bookingNumber}`
+
+  const durationStr = details.durationMinutes
+    ? (isRtl ? `${details.durationMinutes} دقيقة` : `${details.durationMinutes} mins`)
+    : ''
+
+  const locationName = isRtl ? (details.locationNameAr || 'الرياض') : (details.locationNameEn || 'Riyadh')
+
   const content = isRtl
     ? `
-      <h2 style="color: ${brandColor}; margin-top: 0;">مرحباً ${details.customerName}،</h2>
-      <p>تم تأكيد حجزك بنجاح. نحن بانتظارك في سانو لونا لتجربة استثنائية.</p>
+      <h2 style="color: ${brandPurple}; margin-top: 0; font-size: 20px; font-weight: 600;">مرحباً ${details.customerName}،</h2>
+      <p style="color: ${brandMauve}; font-size: 15px;">تم استلام طلب حجزك بنجاح في سانو لونا. سنقوم بمراجعة الطلب وتأكيده لك في أقرب وقت.</p>
       
-      <div style="background-color: #E7DBEC; padding: 20px; border-radius: 8px; margin: 25px 0;">
-        <p style="margin: 0 0 10px 0;"><strong>رقم الحجز:</strong> ${details.bookingNumber}</p>
-        <p style="margin: 0 0 10px 0;"><strong>الخدمة:</strong> ${details.serviceNameAr}</p>
-        <p style="margin: 0 0 10px 0;"><strong>التاريخ:</strong> ${details.date}</p>
-        <p style="margin: 0 0 10px 0;"><strong>الوقت:</strong> ${details.startTime}</p>
-        <p style="margin: 0 0 10px 0;"><strong>الموقع:</strong> ${details.locationNameAr}</p>
-        <p style="margin: 0;"><strong>المبلغ:</strong> ${details.priceSar} ريال</p>
+      <div style="background-color: #FAF7F4; border: 1px solid ${brandLightLilac}; border-radius: 12px; padding: 22px; margin: 24px 0;">
+        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="6" style="font-size: 14px; color: ${brandPurple};">
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600; width: 35%;">رقم الحجز:</td>
+            <td style="font-weight: 700; color: ${brandPurple}; font-family: monospace;">${details.bookingNumber}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">الخدمة:</td>
+            <td style="font-weight: 600;">${details.serviceNameAr || details.serviceNameEn}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">التاريخ:</td>
+            <td>${details.date}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">الوقت:</td>
+            <td dir="ltr" style="text-align: right;">${details.startTime.slice(0, 5)} ${durationStr ? `(${durationStr})` : ''}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">المنطقة / الموقع:</td>
+            <td>${locationName}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">المبلغ الإجمالي:</td>
+            <td style="color: ${brandGold}; font-weight: 700; font-size: 15px;">${details.priceSar} ريال سعودي</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">الحالة:</td>
+            <td><span style="background-color: #FEF9C3; color: #854D0E; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px;">قيد المعالجة</span></td>
+          </tr>
+        </table>
       </div>
       
-      <p>إذا كنت بحاجة إلى تعديل أو إلغاء حجزك، يرجى التواصل معنا.</p>
-      <p>شكراً لاختيارك سانو لونا.</p>
+      <p style="color: ${brandMauve}; font-size: 14px;">شكراً لاختيارك سانو لونا. نتطلع لتقديم تجربة استرخاء لا تُنسى في راحة منزلك.</p>
     `
     : `
-      <h2 style="color: ${brandColor}; margin-top: 0;">Hello ${details.customerName},</h2>
-      <p>Your booking has been successfully confirmed. We look forward to welcoming you for an exceptional experience.</p>
+      <h2 style="color: ${brandPurple}; margin-top: 0; font-size: 20px; font-weight: 600;">Hello ${details.customerName},</h2>
+      <p style="color: ${brandMauve}; font-size: 15px;">We have received your booking request at SANO LUNA. Our team will review and confirm your reservation shortly.</p>
       
-      <div style="background-color: #E7DBEC; padding: 20px; border-radius: 8px; margin: 25px 0;">
-        <p style="margin: 0 0 10px 0;"><strong>Booking Ref:</strong> ${details.bookingNumber}</p>
-        <p style="margin: 0 0 10px 0;"><strong>Experience:</strong> ${details.serviceNameEn}</p>
-        <p style="margin: 0 0 10px 0;"><strong>Date:</strong> ${details.date}</p>
-        <p style="margin: 0 0 10px 0;"><strong>Time:</strong> ${details.startTime}</p>
-        <p style="margin: 0 0 10px 0;"><strong>Location:</strong> ${details.locationNameEn}</p>
-        <p style="margin: 0;"><strong>Price:</strong> SAR ${details.priceSar}</p>
+      <div style="background-color: #FAF7F4; border: 1px solid ${brandLightLilac}; border-radius: 12px; padding: 22px; margin: 24px 0;">
+        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="6" style="font-size: 14px; color: ${brandPurple};">
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600; width: 35%;">Booking Ref:</td>
+            <td style="font-weight: 700; color: ${brandPurple}; font-family: monospace;">${details.bookingNumber}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">Experience:</td>
+            <td style="font-weight: 600;">${details.serviceNameEn || details.serviceNameAr}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">Date:</td>
+            <td>${details.date}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">Time:</td>
+            <td>${details.startTime.slice(0, 5)} ${durationStr ? `(${durationStr})` : ''}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">Location:</td>
+            <td>${locationName}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">Total Price:</td>
+            <td style="color: ${brandGold}; font-weight: 700; font-size: 15px;">SAR ${details.priceSar}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">Status:</td>
+            <td><span style="background-color: #FEF9C3; color: #854D0E; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px;">Pending</span></td>
+          </tr>
+        </table>
       </div>
       
-      <p>If you need to modify or cancel your booking, please contact us.</p>
-      <p>Thank you for choosing SANO LUNA.</p>
+      <p style="color: ${brandMauve}; font-size: 14px;">Thank you for choosing SANO LUNA. We look forward to delivering a tranquil luxury spa experience in the comfort of your home.</p>
     `
 
   const html = getBaseTemplate(subject, content, details.locale)
@@ -125,16 +214,137 @@ export async function sendBookingConfirmation(details: EmailBookingDetails) {
       subject,
       html,
     })
+    return { success: true }
   } catch (error) {
-    console.error('[EmailService] Failed to send confirmation email:', error)
+    console.error('[EmailService] Failed to send booking created email:', error)
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
   }
 }
 
 /**
- * Send Booking Cancellation Email
+ * 2. Send Booking Confirmation Notification Email
  */
-export async function sendBookingCancellation(details: EmailBookingDetails) {
-  if (!resend || !details.customerEmail) return { success: true }
+export async function sendBookingConfirmation(details: EmailBookingDetails): Promise<{ success: boolean; error?: string }> {
+  if (!resend || !details.customerEmail || !details.customerEmail.includes('@')) {
+    return { success: true }
+  }
+
+  const isRtl = details.locale === 'ar'
+  const subject = isRtl 
+    ? `تأكيد الحجز - سانو لونا #${details.bookingNumber}`
+    : `Booking Confirmation - SANO LUNA #${details.bookingNumber}`
+
+  const durationStr = details.durationMinutes
+    ? (isRtl ? `${details.durationMinutes} دقيقة` : `${details.durationMinutes} mins`)
+    : ''
+
+  const locationName = isRtl ? (details.locationNameAr || 'الرياض') : (details.locationNameEn || 'Riyadh')
+
+  const content = isRtl
+    ? `
+      <h2 style="color: ${brandPurple}; margin-top: 0; font-size: 20px; font-weight: 600;">مرحباً ${details.customerName}،</h2>
+      <p style="color: ${brandMauve}; font-size: 15px;">يسعدنا إعلامك بأنه تم تأكيد حجزك بنجاح. نحن بانتظارك في سانو لونا لتجربة استثنائية من العناية والاسترخاء.</p>
+      
+      <div style="background-color: #FAF7F4; border: 1px solid ${brandLightLilac}; border-radius: 12px; padding: 22px; margin: 24px 0;">
+        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="6" style="font-size: 14px; color: ${brandPurple};">
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600; width: 35%;">رقم الحجز:</td>
+            <td style="font-weight: 700; color: ${brandPurple}; font-family: monospace;">${details.bookingNumber}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">الخدمة:</td>
+            <td style="font-weight: 600;">${details.serviceNameAr || details.serviceNameEn}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">التاريخ:</td>
+            <td>${details.date}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">الوقت:</td>
+            <td dir="ltr" style="text-align: right;">${details.startTime.slice(0, 5)} ${durationStr ? `(${durationStr})` : ''}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">الموقع / المنطقة:</td>
+            <td>${locationName}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">المبلغ الإجمالي:</td>
+            <td style="color: ${brandGold}; font-weight: 700; font-size: 15px;">${details.priceSar} ريال سعودي</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">الحالة:</td>
+            <td><span style="background-color: #DCFCE7; color: #15803D; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px;">مؤكد</span></td>
+          </tr>
+        </table>
+      </div>
+      
+      <p style="color: ${brandMauve}; font-size: 14px;">إذا كنت بحاجة إلى أي تعديل، يرجى التواصل معنا قبل موعد الجلسة بوقت كافٍ.</p>
+      <p style="color: ${brandMauve}; font-size: 14px;">شكراً لاختيارك سانو لونا.</p>
+    `
+    : `
+      <h2 style="color: ${brandPurple}; margin-top: 0; font-size: 20px; font-weight: 600;">Hello ${details.customerName},</h2>
+      <p style="color: ${brandMauve}; font-size: 15px;">Your booking has been successfully confirmed. We look forward to welcoming you for an exceptional home spa experience.</p>
+      
+      <div style="background-color: #FAF7F4; border: 1px solid ${brandLightLilac}; border-radius: 12px; padding: 22px; margin: 24px 0;">
+        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="6" style="font-size: 14px; color: ${brandPurple};">
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600; width: 35%;">Booking Ref:</td>
+            <td style="font-weight: 700; color: ${brandPurple}; font-family: monospace;">${details.bookingNumber}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">Experience:</td>
+            <td style="font-weight: 600;">${details.serviceNameEn || details.serviceNameAr}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">Date:</td>
+            <td>${details.date}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">Time:</td>
+            <td>${details.startTime.slice(0, 5)} ${durationStr ? `(${durationStr})` : ''}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">Location:</td>
+            <td>${locationName}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">Total Price:</td>
+            <td style="color: ${brandGold}; font-weight: 700; font-size: 15px;">SAR ${details.priceSar}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">Status:</td>
+            <td><span style="background-color: #DCFCE7; color: #15803D; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px;">Confirmed</span></td>
+          </tr>
+        </table>
+      </div>
+      
+      <p style="color: ${brandMauve}; font-size: 14px;">If you need to modify your booking, please reach out to us with sufficient notice.</p>
+      <p style="color: ${brandMauve}; font-size: 14px;">Thank you for choosing SANO LUNA.</p>
+    `
+
+  const html = getBaseTemplate(subject, content, details.locale)
+
+  try {
+    await resend.emails.send({
+      from: defaultFrom,
+      to: details.customerEmail,
+      subject,
+      html,
+    })
+    return { success: true }
+  } catch (error) {
+    console.error('[EmailService] Failed to send confirmation email:', error)
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
+  }
+}
+
+/**
+ * 3. Send Booking Cancellation Notification Email
+ */
+export async function sendBookingCancellation(details: EmailBookingDetails): Promise<{ success: boolean; error?: string }> {
+  if (!resend || !details.customerEmail || !details.customerEmail.includes('@')) {
+    return { success: true }
+  }
 
   const isRtl = details.locale === 'ar'
   const subject = isRtl 
@@ -142,37 +352,73 @@ export async function sendBookingCancellation(details: EmailBookingDetails) {
     : `Booking Cancellation - SANO LUNA #${details.bookingNumber}`
   
   const reasonText = details.cancellationReason 
-    ? (isRtl ? `<p><strong>سبب الإلغاء:</strong> ${details.cancellationReason}</p>` : `<p><strong>Reason:</strong> ${details.cancellationReason}</p>`)
+    ? (isRtl ? `<tr><td style="color: #991b1b; font-weight: 600;">سبب الإلغاء:</td><td>${details.cancellationReason}</td></tr>` : `<tr><td style="color: #991b1b; font-weight: 600;">Reason:</td><td>${details.cancellationReason}</td></tr>`)
     : ''
 
   const content = isRtl
     ? `
-      <h2 style="color: #991b1b; margin-top: 0;">مرحباً ${details.customerName}،</h2>
-      <p>نود إعلامك بأنه تم إلغاء حجزك بنجاح.</p>
+      <h2 style="color: ${brandPurple}; margin-top: 0; font-size: 20px; font-weight: 600;">مرحباً ${details.customerName}،</h2>
+      <p style="color: ${brandMauve}; font-size: 15px;">نود إعلامك بأنه تم إلغاء حجزك في سانو لونا وفق التفاصيل أدناه:</p>
       
-      <div style="background-color: #fef2f2; padding: 20px; border-radius: 8px; border: 1px solid #fecaca; margin: 25px 0;">
-        <p style="margin: 0 0 10px 0;"><strong>رقم الحجز:</strong> ${details.bookingNumber}</p>
-        <p style="margin: 0 0 10px 0;"><strong>الخدمة:</strong> ${details.serviceNameAr}</p>
-        <p style="margin: 0 0 10px 0;"><strong>التاريخ:</strong> ${details.date}</p>
-        <p style="margin: 0;"><strong>الوقت:</strong> ${details.startTime}</p>
-        ${reasonText}
+      <div style="background-color: #FEF2F2; border: 1px solid #FECACA; border-radius: 12px; padding: 22px; margin: 24px 0;">
+        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="6" style="font-size: 14px; color: ${brandPurple};">
+          <tr>
+            <td style="color: #991B1B; font-weight: 600; width: 35%;">رقم الحجز:</td>
+            <td style="font-weight: 700; font-family: monospace;">${details.bookingNumber}</td>
+          </tr>
+          <tr>
+            <td style="color: #991B1B; font-weight: 600;">الخدمة:</td>
+            <td style="font-weight: 600;">${details.serviceNameAr || details.serviceNameEn}</td>
+          </tr>
+          <tr>
+            <td style="color: #991B1B; font-weight: 600;">التاريخ:</td>
+            <td>${details.date}</td>
+          </tr>
+          <tr>
+            <td style="color: #991B1B; font-weight: 600;">الوقت:</td>
+            <td dir="ltr" style="text-align: right;">${details.startTime.slice(0, 5)}</td>
+          </tr>
+          <tr>
+            <td style="color: #991B1B; font-weight: 600;">الحالة:</td>
+            <td><span style="background-color: #FEE2E2; color: #B91C1C; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px;">ملغي</span></td>
+          </tr>
+          ${reasonText}
+        </table>
       </div>
       
-      <p>نتمنى أن نراك قريباً في سانو لونا.</p>
+      <p style="color: ${brandMauve}; font-size: 14px;">نتمنى أن نراك قريباً في سانو لونا لحجز تجربة جديدة.</p>
     `
     : `
-      <h2 style="color: #991b1b; margin-top: 0;">Hello ${details.customerName},</h2>
-      <p>We are writing to confirm that your booking has been cancelled.</p>
+      <h2 style="color: ${brandPurple}; margin-top: 0; font-size: 20px; font-weight: 600;">Hello ${details.customerName},</h2>
+      <p style="color: ${brandMauve}; font-size: 15px;">We are writing to confirm that your booking with SANO LUNA has been cancelled according to the details below:</p>
       
-      <div style="background-color: #fef2f2; padding: 20px; border-radius: 8px; border: 1px solid #fecaca; margin: 25px 0;">
-        <p style="margin: 0 0 10px 0;"><strong>Booking Ref:</strong> ${details.bookingNumber}</p>
-        <p style="margin: 0 0 10px 0;"><strong>Experience:</strong> ${details.serviceNameEn}</p>
-        <p style="margin: 0 0 10px 0;"><strong>Date:</strong> ${details.date}</p>
-        <p style="margin: 0;"><strong>Time:</strong> ${details.startTime}</p>
-        ${reasonText}
+      <div style="background-color: #FEF2F2; border: 1px solid #FECACA; border-radius: 12px; padding: 22px; margin: 24px 0;">
+        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="6" style="font-size: 14px; color: ${brandPurple};">
+          <tr>
+            <td style="color: #991B1B; font-weight: 600; width: 35%;">Booking Ref:</td>
+            <td style="font-weight: 700; font-family: monospace;">${details.bookingNumber}</td>
+          </tr>
+          <tr>
+            <td style="color: #991B1B; font-weight: 600;">Experience:</td>
+            <td style="font-weight: 600;">${details.serviceNameEn || details.serviceNameAr}</td>
+          </tr>
+          <tr>
+            <td style="color: #991B1B; font-weight: 600;">Date:</td>
+            <td>${details.date}</td>
+          </tr>
+          <tr>
+            <td style="color: #991B1B; font-weight: 600;">Time:</td>
+            <td>${details.startTime.slice(0, 5)}</td>
+          </tr>
+          <tr>
+            <td style="color: #991B1B; font-weight: 600;">Status:</td>
+            <td><span style="background-color: #FEE2E2; color: #B91C1C; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px;">Cancelled</span></td>
+          </tr>
+          ${reasonText}
+        </table>
       </div>
       
-      <p>We hope to welcome you to SANO LUNA in the future.</p>
+      <p style="color: ${brandMauve}; font-size: 14px;">We look forward to welcoming you to SANO LUNA for a future ritual.</p>
     `
 
   const html = getBaseTemplate(subject, content, details.locale)
@@ -184,52 +430,108 @@ export async function sendBookingCancellation(details: EmailBookingDetails) {
       subject,
       html,
     })
+    return { success: true }
   } catch (error) {
     console.error('[EmailService] Failed to send cancellation email:', error)
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
   }
 }
 
 /**
- * Send Booking Reschedule Email
+ * 4. Send Booking Reschedule / Details Updated Notification Email
  */
-export async function sendBookingReschedule(details: EmailBookingDetails) {
-  if (!resend || !details.customerEmail) return { success: true }
+export async function sendBookingReschedule(details: EmailBookingDetails): Promise<{ success: boolean; error?: string }> {
+  if (!resend || !details.customerEmail || !details.customerEmail.includes('@')) {
+    return { success: true }
+  }
 
   const isRtl = details.locale === 'ar'
   const subject = isRtl 
-    ? `تعديل موعد الحجز - سانو لونا #${details.bookingNumber}`
+    ? `تحديث موعد الحجز - سانو لونا #${details.bookingNumber}`
     : `Booking Rescheduled - SANO LUNA #${details.bookingNumber}`
   
   const content = isRtl
     ? `
-      <h2 style="color: ${brandColor}; margin-top: 0;">مرحباً ${details.customerName}،</h2>
-      <p>تم تعديل موعد حجزك بنجاح. إليك التفاصيل المحدثة:</p>
+      <h2 style="color: ${brandPurple}; margin-top: 0; font-size: 20px; font-weight: 600;">مرحباً ${details.customerName}،</h2>
+      <p style="color: ${brandMauve}; font-size: 15px;">تم تعديل موعد حجزك بنجاح في سانو لونا. إليك التفاصيل المحدثة:</p>
       
-      <div style="background-color: #E7DBEC; padding: 20px; border-radius: 8px; margin: 25px 0;">
-        <p style="margin: 0 0 10px 0;"><strong>رقم الحجز:</strong> ${details.bookingNumber}</p>
-        <p style="margin: 0 0 10px 0;"><strong>الخدمة:</strong> ${details.serviceNameAr}</p>
-        ${details.oldDate ? `<p style="margin: 0 0 10px 0; color: #7a6a57; text-decoration: line-through;">الموعد السابق: ${details.oldDate} الساعة ${details.oldStartTime}</p>` : ''}
-        <p style="margin: 0 0 10px 0; color: #166534; font-weight: bold;"><strong>الموعد الجديد:</strong> ${details.date}</p>
-        <p style="margin: 0 0 10px 0; color: #166534; font-weight: bold;"><strong>الوقت الجديد:</strong> ${details.startTime}</p>
-        <p style="margin: 0;"><strong>الموقع:</strong> ${details.locationNameAr}</p>
+      <div style="background-color: #FAF7F4; border: 1px solid ${brandLightLilac}; border-radius: 12px; padding: 22px; margin: 24px 0;">
+        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="6" style="font-size: 14px; color: ${brandPurple};">
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600; width: 35%;">رقم الحجز:</td>
+            <td style="font-weight: 700; color: ${brandPurple}; font-family: monospace;">${details.bookingNumber}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">الخدمة:</td>
+            <td style="font-weight: 600;">${details.serviceNameAr || details.serviceNameEn}</td>
+          </tr>
+          ${details.oldDate ? `
+          <tr>
+            <td style="color: #7A6A57; font-weight: 600;">الموعد السابق:</td>
+            <td style="color: #7A6A57; text-decoration: line-through;">${details.oldDate} الساعة ${details.oldStartTime?.slice(0, 5)}</td>
+          </tr>
+          ` : ''}
+          <tr>
+            <td style="color: #166534; font-weight: 700;">الموعد الجديد:</td>
+            <td style="color: #166534; font-weight: 700;">${details.date}</td>
+          </tr>
+          <tr>
+            <td style="color: #166534; font-weight: 700;">الوقت الجديد:</td>
+            <td dir="ltr" style="text-align: right; color: #166534; font-weight: 700;">${details.startTime.slice(0, 5)}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">الموقع:</td>
+            <td>${details.locationNameAr || 'الرياض'}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">الحالة:</td>
+            <td><span style="background-color: #DCFCE7; color: #15803D; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px;">محدث ومؤكد</span></td>
+          </tr>
+        </table>
       </div>
       
-      <p>شكراً لاختيارك سانو لونا.</p>
+      <p style="color: ${brandMauve}; font-size: 14px;">شكراً لاختيارك سانو لونا. نحن بانتظارك!</p>
     `
     : `
-      <h2 style="color: ${brandColor}; margin-top: 0;">Hello ${details.customerName},</h2>
-      <p>Your booking has been successfully rescheduled. Here are your updated details:</p>
+      <h2 style="color: ${brandPurple}; margin-top: 0; font-size: 20px; font-weight: 600;">Hello ${details.customerName},</h2>
+      <p style="color: ${brandMauve}; font-size: 15px;">Your booking with SANO LUNA has been successfully updated. Here are your new details:</p>
       
-      <div style="background-color: #E7DBEC; padding: 20px; border-radius: 8px; margin: 25px 0;">
-        <p style="margin: 0 0 10px 0;"><strong>Booking Ref:</strong> ${details.bookingNumber}</p>
-        <p style="margin: 0 0 10px 0;"><strong>Experience:</strong> ${details.serviceNameEn}</p>
-        ${details.oldDate ? `<p style="margin: 0 0 10px 0; color: #7a6a57; text-decoration: line-through;">Previous Time: ${details.oldDate} at ${details.oldStartTime}</p>` : ''}
-        <p style="margin: 0 0 10px 0; color: #166534; font-weight: bold;"><strong>New Date:</strong> ${details.date}</p>
-        <p style="margin: 0 0 10px 0; color: #166534; font-weight: bold;"><strong>New Time:</strong> ${details.startTime}</p>
-        <p style="margin: 0;"><strong>Location:</strong> ${details.locationNameEn}</p>
+      <div style="background-color: #FAF7F4; border: 1px solid ${brandLightLilac}; border-radius: 12px; padding: 22px; margin: 24px 0;">
+        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="6" style="font-size: 14px; color: ${brandPurple};">
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600; width: 35%;">Booking Ref:</td>
+            <td style="font-weight: 700; color: ${brandPurple}; font-family: monospace;">${details.bookingNumber}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">Experience:</td>
+            <td style="font-weight: 600;">${details.serviceNameEn || details.serviceNameAr}</td>
+          </tr>
+          ${details.oldDate ? `
+          <tr>
+            <td style="color: #7A6A57; font-weight: 600;">Previous Time:</td>
+            <td style="color: #7A6A57; text-decoration: line-through;">${details.oldDate} at ${details.oldStartTime?.slice(0, 5)}</td>
+          </tr>
+          ` : ''}
+          <tr>
+            <td style="color: #166534; font-weight: 700;">New Date:</td>
+            <td style="color: #166534; font-weight: 700;">${details.date}</td>
+          </tr>
+          <tr>
+            <td style="color: #166534; font-weight: 700;">New Time:</td>
+            <td style="color: #166534; font-weight: 700;">${details.startTime.slice(0, 5)}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">Location:</td>
+            <td>${details.locationNameEn || 'Riyadh'}</td>
+          </tr>
+          <tr>
+            <td style="color: ${brandMauve}; font-weight: 600;">Status:</td>
+            <td><span style="background-color: #DCFCE7; color: #15803D; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px;">Updated</span></td>
+          </tr>
+        </table>
       </div>
       
-      <p>Thank you for choosing SANO LUNA.</p>
+      <p style="color: ${brandMauve}; font-size: 14px;">Thank you for choosing SANO LUNA. We look forward to your session.</p>
     `
 
   const html = getBaseTemplate(subject, content, details.locale)
@@ -241,8 +543,9 @@ export async function sendBookingReschedule(details: EmailBookingDetails) {
       subject,
       html,
     })
+    return { success: true }
   } catch (error) {
     console.error('[EmailService] Failed to send reschedule email:', error)
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
   }
 }
-

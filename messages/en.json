@@ -1,4 +1,39 @@
 {
+  "account": {
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "bookings": "My Bookings",
+    "logout": "Sign Out",
+    "welcome": "Welcome back",
+    "upcomingBooking": "Next Booking",
+    "noUpcoming": "No upcoming bookings",
+    "history": "Booking History",
+    "status": "Status",
+    "service": "Service",
+    "date": "Date",
+    "time": "Time",
+    "price": "Price",
+    "duration": "Duration",
+    "viewDetails": "View Details",
+    "saveChanges": "Save Changes",
+    "updating": "Updating...",
+    "profileUpdated": "Profile updated successfully.",
+    "accountSettings": "Account Settings"
+  },
+  "auth": {
+    "login": "Sign In",
+    "register": "Create Account",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "resetPassword": "Reset Password",
+    "sendResetLink": "Send Reset Link",
+    "newPassword": "New Password",
+    "updatePassword": "Update Password",
+    "backToLogin": "Back to Sign In",
+    "resetSent": "If an account exists, a reset link was sent.",
+    "accountCreated": "Account created successfully."
+  },
   "site": {
     "name": "SANO LUNA",
     "tagline": "Renewed Wellness, Tranquil Spirit",
@@ -19,6 +54,8 @@
     "policies": "Policies"
   },
   "header": {
+    "account": "Account",
+    "signIn": "Sign In",
     "bookCta": "Book an Experience",
     "openMenu": "Open navigation menu",
     "closeMenu": "Close menu",

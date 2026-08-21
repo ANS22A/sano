@@ -43,6 +43,15 @@ export const can = {
   viewReports: (role: string) => hasMinRole(role, 'manager'),
   exportReports: (role: string) => hasMinRole(role, 'admin'),
 
+  // Financial (Outflows)
+  viewExpenses: (role: string) => hasMinRole(role, 'manager'),
+  manageExpenses: (role: string) => hasMinRole(role, 'manager'),
+  viewPurchases: (role: string) => hasMinRole(role, 'manager'),
+  managePurchases: (role: string) => hasMinRole(role, 'manager'),
+  viewSuppliers: (role: string) => hasMinRole(role, 'manager'),
+  manageSuppliers: (role: string) => hasMinRole(role, 'manager'),
+  manageExpenseCategories: (role: string) => hasMinRole(role, 'manager'),
+
   // Admin management
   manageAdmins: (role: string) => hasMinRole(role, 'super_admin'),
   viewAuditLogs: (role: string) => hasMinRole(role, 'super_admin'),
@@ -59,6 +68,10 @@ export function getNavItems(role: string) {
     customers: can.viewCustomers(role),
     staff: can.viewStaff(role),
     locations: can.viewLocations(role),
+    expenses: can.viewExpenses(role),
+    purchases: can.viewPurchases(role),
+    suppliers: can.viewSuppliers(role),
+    expenseCategories: can.manageExpenseCategories(role),
     settings: can.manageHours(role),
     reports: can.viewReports(role),
   }

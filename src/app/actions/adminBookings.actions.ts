@@ -4,7 +4,7 @@ import { requireRole, writeAuditLog } from '@/lib/admin/auth'
 import { createClient } from '@/lib/supabase/server'
 import { z } from 'zod'
 import { revalidatePath } from 'next/cache'
-import { sendBookingCancellation, sendBookingReschedule } from '@/lib/notifications/email.service'
+import { sendBookingConfirmation, sendBookingCancellation, sendBookingReschedule } from '@/lib/notifications/email.service'
 import { resolveServiceName } from '@/services/availability.service'
 
 const PAGE_SIZE = 25
@@ -23,6 +23,8 @@ export interface AdminBookingRow {
   customer_phone: string
   service_name: string
   location_name: string
+  source: string
+  created_by_name: string | null
 }
 
 export async function getAdminBookings(params: {
@@ -32,6 +34,7 @@ export async function getAdminBookings(params: {
   date?: string
   serviceId?: string
   locationId?: string
+  source?: string
 }) {
   const session = await requireRole('manager')
   const supabase = await createClient()
@@ -42,10 +45,11 @@ export async function getAdminBookings(params: {
   let query = supabase
     .from('bookings')
     .select(`
-      id, booking_number, date, start_time, end_time, status, price_sar, notes, created_at,
+      id, booking_number, date, start_time, end_time, status, price_sar, notes, created_at, source, created_by,
       customers(full_name, phone),
       services(name_en),
-      locations(name_en)
+      locations(name_en),
+      profiles:created_by(full_name)
     `, { count: 'exact' })
     .order('created_at', { ascending: false })
     .range(from, to)
@@ -61,6 +65,9 @@ export async function getAdminBookings(params: {
   }
   if (params.locationId && params.locationId !== 'all') {
     query = query.eq('location_id', params.locationId)
+  }
+  if (params.source && params.source !== 'all') {
+    query = query.eq('source', params.source)
   }
   if (params.q) {
     query = query.or(`booking_number.ilike.%${params.q}%`)
@@ -84,6 +91,8 @@ export async function getAdminBookings(params: {
       customer_phone: (b.customers as { phone: string } | null)?.phone ?? '',
       service_name: (b.services as { name_en: string } | null)?.name_en ?? '—',
       location_name: (b.locations as { name_en: string } | null)?.name_en ?? '—',
+      source: (b as { source?: string }).source ?? 'website',
+      created_by_name: (b as { profiles?: { full_name: string } | null }).profiles?.full_name ?? null,
     })) as AdminBookingRow[],
     total: count ?? 0,
   }
@@ -99,7 +108,8 @@ export async function getAdminBookingById(id: string) {
       *, 
       customers(*),
       services(name_en, name_ar),
-      locations(name_en, name_ar, address_en, address_ar)
+      locations(name_en, name_ar, address_en, address_ar),
+      profiles:created_by(full_name)
     `)
     .eq('id', id)
     .single()
@@ -133,9 +143,9 @@ export async function updateBookingStatus(formData: FormData) {
   const { data: currentBooking } = await supabase
     .from('bookings')
     .select(`
-      booking_number, date, start_time, locale, notes, package_slug,
+      booking_number, date, start_time, locale, notes, package_slug, price_sar,
       customers(full_name, email),
-      services(name_ar, name_en),
+      services(name_ar, name_en, duration_minutes),
       locations(name_ar, name_en)
     `)
     .eq('id', parsed.data.bookingId)
@@ -171,30 +181,48 @@ export async function updateBookingStatus(formData: FormData) {
   revalidatePath('/admin/bookings')
   revalidatePath(`/admin/bookings/${parsed.data.bookingId}`)
 
-  // Send cancellation email asynchronously if cancelled
+  // Send status change emails asynchronously if customer has email
   const customerData = currentBooking?.customers as unknown as { full_name: string; email: string } | null
-  const serviceData = currentBooking?.services as unknown as { name_ar: string; name_en: string } | null
+  const serviceData = currentBooking?.services as unknown as { name_ar: string; name_en: string; duration_minutes?: number } | null
   const locationData = currentBooking?.locations as unknown as { name_ar: string; name_en: string } | null
 
-  if (parsed.data.status === 'cancelled' && currentBooking && customerData?.email) {
+  if (currentBooking && customerData?.email) {
     const serviceName = resolveServiceName(null, currentBooking.package_slug) // fallback for package
     const resolvedNameAr = serviceData?.name_ar || serviceName.name_ar
     const resolvedNameEn = serviceData?.name_en || serviceName.name_en
-    
-    sendBookingCancellation({
-      bookingNumber: currentBooking.booking_number,
-      date: currentBooking.date,
-      startTime: currentBooking.start_time,
-      serviceNameAr: resolvedNameAr,
-      serviceNameEn: resolvedNameEn,
-      locationNameAr: locationData?.name_ar || '',
-      locationNameEn: locationData?.name_en || '',
-      customerName: customerData?.full_name || '',
-      customerEmail: customerData?.email,
-      priceSar: 0, // not needed for cancellation
-      locale: currentBooking.locale === 'ar' ? 'ar' : 'en',
-      cancellationReason: parsed.data.cancellationReason,
-    }).catch(console.error)
+
+    if (parsed.data.status === 'confirmed') {
+      sendBookingConfirmation({
+        bookingNumber: currentBooking.booking_number,
+        date: currentBooking.date,
+        startTime: currentBooking.start_time,
+        durationMinutes: serviceData?.duration_minutes,
+        serviceNameAr: resolvedNameAr,
+        serviceNameEn: resolvedNameEn,
+        locationNameAr: locationData?.name_ar || '',
+        locationNameEn: locationData?.name_en || '',
+        customerName: customerData?.full_name || '',
+        customerEmail: customerData?.email,
+        priceSar: currentBooking.price_sar ?? 0,
+        locale: currentBooking.locale === 'ar' ? 'ar' : 'en',
+      }).catch(console.error)
+    } else if (parsed.data.status === 'cancelled') {
+      sendBookingCancellation({
+        bookingNumber: currentBooking.booking_number,
+        date: currentBooking.date,
+        startTime: currentBooking.start_time,
+        durationMinutes: serviceData?.duration_minutes,
+        serviceNameAr: resolvedNameAr,
+        serviceNameEn: resolvedNameEn,
+        locationNameAr: locationData?.name_ar || '',
+        locationNameEn: locationData?.name_en || '',
+        customerName: customerData?.full_name || '',
+        customerEmail: customerData?.email,
+        priceSar: currentBooking.price_sar ?? 0,
+        locale: currentBooking.locale === 'ar' ? 'ar' : 'en',
+        cancellationReason: parsed.data.cancellationReason,
+      }).catch(console.error)
+    }
   }
 
   return { success: true }

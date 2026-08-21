@@ -22,7 +22,7 @@ import { Link } from '@/i18n/navigation'
 
 const SCROLL_THRESHOLD = 48 // px before state changes
 
-export function Header() {
+export function Header({ isAuthenticated = false }: { isAuthenticated?: boolean }) {
   const t = useTranslations('header')
   const tAria = useTranslations('aria')
   
@@ -94,6 +94,17 @@ export function Header() {
               aria-hidden="true"
             />
 
+            {/* Account CTA */}
+            <Link
+              href={isAuthenticated ? "/account" : "/login"}
+              className={cn(
+                'text-sm font-medium transition-colors',
+                isScrolled ? 'text-foreground hover:text-accent' : 'text-white/90 hover:text-white'
+              )}
+            >
+              {isAuthenticated ? t('account') : t('signIn')}
+            </Link>
+
             {/* Booking CTA */}
             <Link
               href="/booking"
@@ -158,7 +169,7 @@ export function Header() {
       </header>
 
       {/* Mobile Menu */}
-      <MobileMenu isOpen={menuOpen} onClose={closeMenu} />
+      <MobileMenu isOpen={menuOpen} onClose={closeMenu} isAuthenticated={isAuthenticated} />
     </>
   )
 }

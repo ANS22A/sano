@@ -1,4 +1,39 @@
 {
+  "account": {
+    "dashboard": "لوحة التحكم",
+    "profile": "الملف الشخصي",
+    "bookings": "حجوزاتي",
+    "logout": "تسجيل الخروج",
+    "welcome": "أهلاً بك مجدداً",
+    "upcomingBooking": "الحجز القادم",
+    "noUpcoming": "لا توجد حجوزات قادمة",
+    "history": "سجل الحجوزات",
+    "status": "الحالة",
+    "service": "الخدمة",
+    "date": "التاريخ",
+    "time": "الوقت",
+    "price": "السعر",
+    "duration": "المدة",
+    "viewDetails": "عرض التفاصيل",
+    "saveChanges": "حفظ التغييرات",
+    "updating": "جارٍ التحديث...",
+    "profileUpdated": "تم تحديث الملف الشخصي بنجاح.",
+    "accountSettings": "إعدادات الحساب"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "resetPassword": "إعادة تعيين كلمة المرور",
+    "sendResetLink": "إرسال رابط إعادة التعيين",
+    "newPassword": "كلمة المرور الجديدة",
+    "updatePassword": "تحديث كلمة المرور",
+    "backToLogin": "العودة لتسجيل الدخول",
+    "resetSent": "إذا كان هناك حساب، تم إرسال رابط إعادة التعيين.",
+    "accountCreated": "تم إنشاء الحساب بنجاح."
+  },
   "site": {
     "name": "سانو لونا",
     "tagline": "عناية تُجدِّد، وروح تسكن",
@@ -19,6 +54,8 @@
     "policies": "السياسات"
   },
   "header": {
+    "account": "الحساب",
+    "signIn": "تسجيل الدخول",
     "bookCta": "احجزي تجربتك",
     "openMenu": "فتح قائمة التنقل",
     "closeMenu": "إغلاق القائمة",

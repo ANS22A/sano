@@ -290,6 +290,7 @@ export async function createBooking(draft: BookingDraft): Promise<BookingRespons
     bookingNumber: booking.booking_number,
     date: data.date,
     startTime: data.startTime,
+    durationMinutes,
     serviceNameAr: serviceName.name_ar,
     serviceNameEn: serviceName.name_en,
     locationNameAr: location.name_ar,

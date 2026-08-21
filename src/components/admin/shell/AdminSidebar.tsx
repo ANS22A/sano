@@ -8,6 +8,7 @@ import { getNavItems } from '@/lib/admin/permissions'
 import {
   LayoutDashboard, CalendarDays, BookOpen, Package2,
   Users, UserCheck, MapPin, Clock, BarChart3, X,
+  Receipt, ShoppingBag, Building2, Tag,
 } from 'lucide-react'
 
 const NAV_GROUPS = [
@@ -31,6 +32,15 @@ const NAV_GROUPS = [
       { key: 'customers', href: '/admin/customers', icon: Users },
       { key: 'staff', href: '/admin/staff', icon: UserCheck },
       { key: 'locations', href: '/admin/locations', icon: MapPin },
+    ],
+  },
+  {
+    label: 'Financial',
+    items: [
+      { key: 'expenses', href: '/admin/expenses', icon: Receipt },
+      { key: 'purchases', href: '/admin/purchases', icon: ShoppingBag },
+      { key: 'suppliers', href: '/admin/suppliers', icon: Building2 },
+      { key: 'expenseCategories', href: '/admin/expenses/categories', icon: Tag },
     ],
   },
   {

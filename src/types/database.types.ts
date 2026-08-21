@@ -1,4 +1,4 @@
-﻿export type Json =
+export type Json =
   | string
   | number
   | boolean
@@ -131,6 +131,7 @@ export type Database = {
         Row: {
           booking_number: string
           created_at: string
+          created_by: string | null
           currency: string
           customer_id: string
           date: string
@@ -142,6 +143,7 @@ export type Database = {
           package_slug: string | null
           price_sar: number
           service_id: string | null
+          source: string
           staff_id: string | null
           start_time: string
           status: Database["public"]["Enums"]["booking_status"]
@@ -150,6 +152,7 @@ export type Database = {
         Insert: {
           booking_number?: string
           created_at?: string
+          created_by?: string | null
           currency?: string
           customer_id: string
           date: string
@@ -161,6 +164,7 @@ export type Database = {
           package_slug?: string | null
           price_sar: number
           service_id?: string | null
+          source?: string
           staff_id?: string | null
           start_time: string
           status?: Database["public"]["Enums"]["booking_status"]
@@ -169,6 +173,7 @@ export type Database = {
         Update: {
           booking_number?: string
           created_at?: string
+          created_by?: string | null
           currency?: string
           customer_id?: string
           date?: string
@@ -180,6 +185,7 @@ export type Database = {
           package_slug?: string | null
           price_sar?: number
           service_id?: string | null
+          source?: string
           staff_id?: string | null
           start_time?: string
           status?: Database["public"]["Enums"]["booking_status"]
@@ -212,6 +218,13 @@ export type Database = {
             columns: ["staff_id"]
             isOneToOne: false
             referencedRelation: "staff"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bookings_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -253,6 +266,7 @@ export type Database = {
       }
       customers: {
         Row: {
+          auth_user_id: string | null
           created_at: string
           email: string | null
           full_name: string
@@ -261,6 +275,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          auth_user_id?: string | null
           created_at?: string
           email?: string | null
           full_name: string
@@ -269,6 +284,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          auth_user_id?: string | null
           created_at?: string
           email?: string | null
           full_name?: string
@@ -702,6 +718,220 @@ export type Database = {
             columns: ["staff_id"]
             isOneToOne: false
             referencedRelation: "staff"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      expense_categories: {
+        Row: {
+          id: string
+          name_en: string
+          name_ar: string
+          is_archived: boolean
+          created_at: string
+          updated_at: string
+          created_by: string
+        }
+        Insert: {
+          id?: string
+          name_en: string
+          name_ar: string
+          is_archived?: boolean
+          created_at?: string
+          updated_at?: string
+          created_by: string
+        }
+        Update: {
+          id?: string
+          name_en?: string
+          name_ar?: string
+          is_archived?: boolean
+          created_at?: string
+          updated_at?: string
+          created_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "expense_categories_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      expenses: {
+        Row: {
+          id: string
+          reference: string | null
+          category_id: string
+          description: string
+          amount: number
+          date: string
+          payment_method: string
+          notes: string | null
+          attachment_url: string | null
+          is_archived: boolean
+          created_at: string
+          updated_at: string
+          created_by: string
+        }
+        Insert: {
+          id?: string
+          reference?: string | null
+          category_id: string
+          description: string
+          amount: number
+          date: string
+          payment_method: string
+          notes?: string | null
+          attachment_url?: string | null
+          is_archived?: boolean
+          created_at?: string
+          updated_at?: string
+          created_by: string
+        }
+        Update: {
+          id?: string
+          reference?: string | null
+          category_id?: string
+          description?: string
+          amount?: number
+          date?: string
+          payment_method?: string
+          notes?: string | null
+          attachment_url?: string | null
+          is_archived?: boolean
+          created_at?: string
+          updated_at?: string
+          created_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "expenses_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "expense_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "expenses_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      suppliers: {
+        Row: {
+          id: string
+          name: string
+          phone: string | null
+          email: string | null
+          address: string | null
+          notes: string | null
+          is_active: boolean
+          created_at: string
+          updated_at: string
+          created_by: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          phone?: string | null
+          email?: string | null
+          address?: string | null
+          notes?: string | null
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+          created_by: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          phone?: string | null
+          email?: string | null
+          address?: string | null
+          notes?: string | null
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+          created_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "suppliers_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      purchases: {
+        Row: {
+          id: string
+          reference: string | null
+          supplier_id: string
+          date: string
+          description: string
+          amount: number
+          payment_method: string
+          payment_status: string
+          notes: string | null
+          attachment_url: string | null
+          is_archived: boolean
+          created_at: string
+          updated_at: string
+          created_by: string
+        }
+        Insert: {
+          id?: string
+          reference?: string | null
+          supplier_id: string
+          date: string
+          description: string
+          amount: number
+          payment_method: string
+          payment_status: string
+          notes?: string | null
+          attachment_url?: string | null
+          is_archived?: boolean
+          created_at?: string
+          updated_at?: string
+          created_by: string
+        }
+        Update: {
+          id?: string
+          reference?: string | null
+          supplier_id?: string
+          date?: string
+          description?: string
+          amount?: number
+          payment_method?: string
+          payment_status?: string
+          notes?: string | null
+          attachment_url?: string | null
+          is_archived?: boolean
+          created_at?: string
+          updated_at?: string
+          created_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "purchases_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "suppliers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "purchases_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]

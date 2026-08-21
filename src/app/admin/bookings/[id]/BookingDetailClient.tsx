@@ -152,6 +152,8 @@ export function BookingDetailClient({ booking }: BookingDetailClientProps) {
                 [`${booking.start_time.slice(0,5)} → ${booking.end_time.slice(0,5)}`, t.bookings.time],
                 [booking.locations ? (lang === 'ar' ? booking.locations.name_ar : booking.locations.name_en) : '—', t.bookings.location ?? 'Location'],
                 [`${booking.price_sar} ${t.common.sar}`, t.bookings.price],
+                [(booking as { source?: string }).source ?? 'website', lang === 'ar' ? 'المصدر' : 'Source'],
+                [(booking as { profiles?: { full_name: string } | null }).profiles?.full_name ?? '—', lang === 'ar' ? 'أُنشئ بواسطة' : 'Created By'],
               ].map(([value, label]) => (
                 <div key={label} className="flex px-6 py-3.5 gap-4">
                   <dt className="text-xs font-medium text-[#9a8a7a] w-32 shrink-0 flex items-center">{label}</dt>
