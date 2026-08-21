@@ -597,10 +597,274 @@ export type Database = {
           },
         ]
       }
+      employee_advances: {
+        Row: {
+          amount: number
+          created_at: string
+          created_by: string
+          date: string
+          id: string
+          is_archived: boolean
+          notes: string | null
+          payment_method: string
+          reference: string
+          salary_id: string | null
+          staff_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          created_by: string
+          date: string
+          id?: string
+          is_archived?: boolean
+          notes?: string | null
+          payment_method: string
+          reference: string
+          salary_id?: string | null
+          staff_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          created_by?: string
+          date?: string
+          id?: string
+          is_archived?: boolean
+          notes?: string | null
+          payment_method?: string
+          reference?: string
+          salary_id?: string | null
+          staff_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "employee_advances_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "employee_advances_salary_id_fkey"
+            columns: ["salary_id"]
+            isOneToOne: false
+            referencedRelation: "salaries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "employee_advances_staff_id_fkey"
+            columns: ["staff_id"]
+            isOneToOne: false
+            referencedRelation: "staff"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partner_withdrawals: {
+        Row: {
+          amount: number
+          attachment_url: string | null
+          created_at: string
+          created_by: string
+          date: string
+          id: string
+          is_archived: boolean
+          notes: string | null
+          partner_id: string
+          payment_method: string
+          reference: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          attachment_url?: string | null
+          created_at?: string
+          created_by: string
+          date: string
+          id?: string
+          is_archived?: boolean
+          notes?: string | null
+          partner_id: string
+          payment_method: string
+          reference: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          attachment_url?: string | null
+          created_at?: string
+          created_by?: string
+          date?: string
+          id?: string
+          is_archived?: boolean
+          notes?: string | null
+          partner_id?: string
+          payment_method?: string
+          reference?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_withdrawals_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_withdrawals_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partners: {
+        Row: {
+          created_at: string
+          created_by: string
+          email: string | null
+          id: string
+          is_active: boolean
+          name: string
+          notes: string | null
+          ownership_percentage: number | null
+          phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          email?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          notes?: string | null
+          ownership_percentage?: number | null
+          phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          email?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          notes?: string | null
+          ownership_percentage?: number | null
+          phone?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partners_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      salaries: {
+        Row: {
+          advances_deducted: number
+          attachment_url: string | null
+          bonuses: number
+          created_at: string
+          created_by: string
+          gross_salary: number
+          id: string
+          is_archived: boolean
+          month: string
+          net_salary: number
+          notes: string | null
+          other_deductions: number
+          payment_date: string | null
+          payment_method: string | null
+          payment_status: string
+          reference: string
+          staff_id: string
+          updated_at: string
+        }
+        Insert: {
+          advances_deducted?: number
+          attachment_url?: string | null
+          bonuses?: number
+          created_at?: string
+          created_by: string
+          gross_salary: number
+          id?: string
+          is_archived?: boolean
+          month: string
+          net_salary: number
+          notes?: string | null
+          other_deductions?: number
+          payment_date?: string | null
+          payment_method?: string | null
+          payment_status?: string
+          reference: string
+          staff_id: string
+          updated_at?: string
+        }
+        Update: {
+          advances_deducted?: number
+          attachment_url?: string | null
+          bonuses?: number
+          created_at?: string
+          created_by?: string
+          gross_salary?: number
+          id?: string
+          is_archived?: boolean
+          month?: string
+          net_salary?: number
+          notes?: string | null
+          other_deductions?: number
+          payment_date?: string | null
+          payment_method?: string | null
+          payment_status?: string
+          reference?: string
+          staff_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "salaries_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "salaries_staff_id_fkey"
+            columns: ["staff_id"]
+            isOneToOne: false
+            referencedRelation: "staff"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       staff: {
         Row: {
           bio_ar: string
           bio_en: string
+          base_salary: number | null
+          employment_start_date: string | null
+          employment_status: string | null
+          iban: string | null
+          national_id: string | null
+          salary_basis: string | null
           created_at: string
           id: string
           image_url: string | null
@@ -614,6 +878,12 @@ export type Database = {
         Insert: {
           bio_ar?: string
           bio_en?: string
+          base_salary?: number | null
+          employment_start_date?: string | null
+          employment_status?: string | null
+          iban?: string | null
+          national_id?: string | null
+          salary_basis?: string | null
           created_at?: string
           id?: string
           image_url?: string | null
@@ -627,6 +897,12 @@ export type Database = {
         Update: {
           bio_ar?: string
           bio_en?: string
+          base_salary?: number | null
+          employment_start_date?: string | null
+          employment_status?: string | null
+          iban?: string | null
+          national_id?: string | null
+          salary_basis?: string | null
           created_at?: string
           id?: string
           image_url?: string | null
@@ -929,6 +1205,82 @@ export type Database = {
           },
           {
             foreignKeyName: "purchases_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sales: {
+        Row: {
+          id: string
+          reference: string
+          booking_id: string | null
+          customer_id: string | null
+          amount: number
+          payment_method: string
+          type: string
+          status: string
+          source: string
+          notes: string | null
+          attachment_url: string | null
+          is_archived: boolean
+          created_at: string
+          updated_at: string
+          created_by: string
+        }
+        Insert: {
+          id?: string
+          reference: string
+          booking_id?: string | null
+          customer_id?: string | null
+          amount: number
+          payment_method: string
+          type: string
+          status?: string
+          source: string
+          notes?: string | null
+          attachment_url?: string | null
+          is_archived?: boolean
+          created_at?: string
+          updated_at?: string
+          created_by: string
+        }
+        Update: {
+          id?: string
+          reference?: string
+          booking_id?: string | null
+          customer_id?: string | null
+          amount?: number
+          payment_method?: string
+          type?: string
+          status?: string
+          source?: string
+          notes?: string | null
+          attachment_url?: string | null
+          is_archived?: boolean
+          created_at?: string
+          updated_at?: string
+          created_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sales_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "bookings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "sales_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "sales_created_by_fkey"
             columns: ["created_by"]
             isOneToOne: false
             referencedRelation: "profiles"

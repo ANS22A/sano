@@ -202,6 +202,10 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
   // Notes
   const [notes, setNotes] = useState('')
 
+  // Payment Recording
+  const [recordPaymentNow, setRecordPaymentNow] = useState(false)
+  const [paymentMethod, setPaymentMethod] = useState<'cash' | 'credit_card' | 'mada' | 'bank_transfer' | 'apple_pay' | 'stc_pay' | 'other'>('mada')
+
   // Success
   const [bookingNumber, setBookingNumber] = useState('')
 
@@ -309,6 +313,8 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
         startTime: selectedSlot,
         source,
         notes: notes.trim() || undefined,
+        recordPaymentNow,
+        paymentMethod: recordPaymentNow ? paymentMethod : undefined,
       }
 
       const result = await createAdminBooking(input)
@@ -708,6 +714,45 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
             )}
             {customerAddress && (
               <ReviewRow icon={<MapPin className="w-4 h-4" />} label={labels.address} value={customerAddress} />
+            )}
+          </div>
+
+          {/* Optional: Record Payment Now */}
+          <div className="pt-4 border-t border-[#f0e8de] space-y-3">
+            <label className="flex items-center gap-2.5 cursor-pointer text-sm font-medium text-[#2a2118]">
+              <input
+                type="checkbox"
+                checked={recordPaymentNow}
+                onChange={(e) => setRecordPaymentNow(e.target.checked)}
+                className="w-4 h-4 rounded border-[#e8ddd0] text-[#6F4E7C] focus:ring-[#6F4E7C]"
+              />
+              <span>{lang === 'ar' ? 'تسجيل استلام الدفعة الآن في سجل المبيعات' : 'Record payment now into sales ledger'}</span>
+            </label>
+
+            {recordPaymentNow && (
+              <div className="p-3.5 bg-[#FAF7F4] rounded-xl border border-[#e8ddd0] space-y-2">
+                <label className="block text-xs font-semibold text-[#7a6a57]">
+                  {lang === 'ar' ? 'طريقة الدفع' : 'Payment Method'}
+                </label>
+                <select
+                  value={paymentMethod}
+                  onChange={(e) => setPaymentMethod(e.target.value as typeof paymentMethod)}
+                  className="w-full text-sm rounded-lg border border-[#e8ddd0] bg-white px-3 py-2 text-[#2a2118] outline-none focus:border-[#6F4E7C]"
+                >
+                  <option value="mada">{lang === 'ar' ? 'مدى' : 'Mada'}</option>
+                  <option value="credit_card">{lang === 'ar' ? 'بطاقة ائتمانية' : 'Credit Card'}</option>
+                  <option value="apple_pay">Apple Pay</option>
+                  <option value="stc_pay">STC Pay</option>
+                  <option value="cash">{lang === 'ar' ? 'نقدي' : 'Cash'}</option>
+                  <option value="bank_transfer">{lang === 'ar' ? 'تحويل بنكي' : 'Bank Transfer'}</option>
+                  <option value="other">{lang === 'ar' ? 'أخرى' : 'Other'}</option>
+                </select>
+                <p className="text-xs text-[#9a8a7a]">
+                  {lang === 'ar'
+                    ? `سيتم تسجيل عملية قبض بقيمة ${selectedService?.price_sar ?? 0} ريال وإضافتها لسجل المبيعات.`
+                    : `Will record a payment transaction of ${selectedService?.price_sar ?? 0} SAR into the sales ledger.`}
+                </p>
+              </div>
             )}
           </div>
         </div>

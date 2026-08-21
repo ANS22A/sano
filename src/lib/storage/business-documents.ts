@@ -18,7 +18,7 @@ const EXTENSION_MAP: Record<string, string> = {
   'application/pdf': 'pdf',
 }
 
-export type BusinessDocFolder = 'expenses' | 'purchases' | 'suppliers'
+export type BusinessDocFolder = 'expenses' | 'purchases' | 'suppliers' | 'sales' | 'refunds' | 'partners' | 'payroll'
 
 export interface UploadDocResult {
   success: boolean

@@ -43,7 +43,9 @@ export const can = {
   viewReports: (role: string) => hasMinRole(role, 'manager'),
   exportReports: (role: string) => hasMinRole(role, 'admin'),
 
-  // Financial (Outflows)
+  // Financial
+  viewSales: (role: string) => hasMinRole(role, 'manager'),
+  manageSales: (role: string) => hasMinRole(role, 'manager'),
   viewExpenses: (role: string) => hasMinRole(role, 'manager'),
   manageExpenses: (role: string) => hasMinRole(role, 'manager'),
   viewPurchases: (role: string) => hasMinRole(role, 'manager'),
@@ -55,6 +57,12 @@ export const can = {
   // Admin management
   manageAdmins: (role: string) => hasMinRole(role, 'super_admin'),
   viewAuditLogs: (role: string) => hasMinRole(role, 'super_admin'),
+
+  // Phase 9-D.3 - Partners & Payroll
+  viewPartners: (role: string) => hasMinRole(role, 'admin'),
+  managePartners: (role: string) => hasMinRole(role, 'admin'),
+  viewPayroll: (role: string) => hasMinRole(role, 'admin'),
+  managePayroll: (role: string) => hasMinRole(role, 'admin'),
 }
 
 /** Navigation items visible to a given role */
@@ -68,10 +76,13 @@ export function getNavItems(role: string) {
     customers: can.viewCustomers(role),
     staff: can.viewStaff(role),
     locations: can.viewLocations(role),
+    sales: can.viewSales(role),
     expenses: can.viewExpenses(role),
     purchases: can.viewPurchases(role),
     suppliers: can.viewSuppliers(role),
     expenseCategories: can.manageExpenseCategories(role),
+    partners: can.viewPartners(role),
+    payroll: can.viewPayroll(role),
     settings: can.manageHours(role),
     reports: can.viewReports(role),
   }

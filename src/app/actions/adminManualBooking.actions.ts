@@ -40,6 +40,8 @@ export interface AdminBookingInput {
   startTime: string
   source: BookingSource
   notes?: string
+  recordPaymentNow?: boolean
+  paymentMethod?: 'cash' | 'credit_card' | 'mada' | 'bank_transfer' | 'apple_pay' | 'stc_pay' | 'other'
 }
 
 export interface AdminBookingResult {
@@ -66,6 +68,8 @@ const AdminBookingSchema = z.object({
   startTime: z.string().regex(/^\d{2}:\d{2}$/),
   source: z.enum(['website', 'whatsapp', 'phone', 'admin', 'other']),
   notes: z.string().max(1000).optional().or(z.literal('')),
+  recordPaymentNow: z.boolean().optional(),
+  paymentMethod: z.enum(['cash', 'credit_card', 'mada', 'bank_transfer', 'apple_pay', 'stc_pay', 'other']).optional(),
 }).refine(
   (d) => d.serviceId != null || d.packageSlug != null,
   { message: 'Either serviceId or packageSlug is required' }
@@ -221,12 +225,52 @@ export async function createAdminBooking(input: AdminBookingInput): Promise<Admi
       source: data.source,
       customerPhone: normalizedPhone,
       bookingNumber: booking.booking_number,
+      paymentRecorded: !!data.recordPaymentNow,
     },
   })
+
+  // 9.5 Optional: Record initial payment into sales ledger
+  if (data.recordPaymentNow) {
+    const generatedRef = `SAL-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`
+    const { data: sale } = await supabase
+      .from('sales')
+      .insert({
+        reference: generatedRef,
+        booking_id: booking.id,
+        customer_id: customerId,
+        amount: priceSar,
+        payment_method: data.paymentMethod || 'mada',
+        type: 'payment',
+        status: 'completed',
+        source: 'admin',
+        notes: 'Recorded during manual booking creation',
+        created_by: session.userId,
+      })
+      .select('id, reference')
+      .single()
+
+    if (sale) {
+      await writeAuditLog({
+        adminUserId: session.userId,
+        action: 'sale.payment_recorded',
+        entityType: 'sale',
+        entityId: sale.id,
+        metadata: {
+          reference: sale.reference,
+          amount: priceSar,
+          payment_method: data.paymentMethod || 'mada',
+          booking_id: booking.id,
+          customer_id: customerId,
+          source: 'admin',
+        },
+      })
+    }
+  }
 
   // 10. Revalidate admin pages
   revalidatePath('/admin/bookings')
   revalidatePath('/admin/calendar')
+  revalidatePath('/admin/sales')
 
   // 11. Send notification email asynchronously (never block or fail the booking)
   if (data.customerEmail) {
