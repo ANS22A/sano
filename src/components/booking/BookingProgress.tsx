@@ -14,10 +14,7 @@ export function BookingProgress({ currentStep, completedSteps, isAr }: BookingPr
   return (
     <nav aria-label={isAr ? 'خطوات الحجز' : 'Booking steps'} className="w-full">
       {/* Desktop: horizontal stepper */}
-      <ol className={cn(
-        'hidden md:flex items-center justify-center gap-0',
-        isAr && 'flex-row-reverse'
-      )}>
+      <ol className="hidden md:flex items-center justify-center gap-0">
         {BOOKING_STEPS.map((step, idx) => {
           const isActive = currentStep === step.id
           const isPast = step.id < currentStep
@@ -62,7 +59,7 @@ export function BookingProgress({ currentStep, completedSteps, isAr }: BookingPr
 
       {/* Mobile: compact — dots + current step label */}
       <div className="flex md:hidden items-center justify-between px-1">
-        <div className={cn('flex items-center gap-1.5', isAr && 'flex-row-reverse')}>
+        <div className="flex items-center gap-1.5">
           {BOOKING_STEPS.map((step) => {
             const isActive = currentStep === step.id
             const isPast = step.id < currentStep

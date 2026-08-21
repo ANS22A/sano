@@ -38,7 +38,6 @@ export function SignatureSection() {
         )}>
           {/* Content */}
           <motion.div
-            className={cn(isAr ? 'lg:order-2' : 'lg:order-1')}
             initial={{ opacity: 0, x: isAr ? 32 : -32 }}
             animate={controls}
             variants={{ visible: { opacity: 1, x: 0, transition: { duration: 0.85 } } }}
@@ -107,11 +106,7 @@ export function SignatureSection() {
 
           {/* Visual side — decorative */}
           <motion.div
-            className={cn(
-              'relative hidden lg:flex',
-              isAr ? 'lg:order-1' : 'lg:order-2',
-              'items-center justify-center'
-            )}
+            className="relative hidden lg:flex items-center justify-center"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={controls}
             variants={{ visible: { opacity: 1, scale: 1, transition: { duration: 1, delay: 0.2 } } }}

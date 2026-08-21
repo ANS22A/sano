@@ -121,8 +121,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             className={cn(
               'fixed top-0 bottom-0 z-50 w-full max-w-sm',
               'bg-background flex flex-col',
-              'shadow-luxury',
-              dir === 'rtl' ? 'left-0' : 'right-0'
+              'shadow-luxury end-0'
             )}
           >
             {/* Panel header */}

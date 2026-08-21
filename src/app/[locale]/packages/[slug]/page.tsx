@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation'
 import { packages } from '@/data/content.data'
 import { Link } from '@/i18n/navigation'
 import Image from 'next/image'
-import { cn } from '@/lib/utils/cn'
 
 export async function generateStaticParams() {
   return packages
@@ -46,19 +45,19 @@ export default async function PackageDetailPage({
       {/* Breadcrumb */}
       <nav className="pt-28 pb-4" aria-label="breadcrumb">
         <div className="container mx-auto px-6 max-w-5xl">
-          <ol className={cn('flex items-center gap-2 text-sm text-[var(--color-text-muted)]', isAr && 'flex-row-reverse')}>
+          <ol className="flex items-center gap-2 text-sm text-[var(--color-text-muted)]">
             <li>
               <Link href="/" className="hover:text-foreground transition-colors">
                 {isAr ? 'الرئيسية' : 'Home'}
               </Link>
             </li>
-            <li aria-hidden="true" className="text-[var(--color-sand-300)]">{isAr ? '←' : '→'}</li>
+            <li aria-hidden="true" className="text-[var(--color-sand-300)] rtl:rotate-180">→</li>
             <li>
               <Link href="/packages" className="hover:text-foreground transition-colors">
                 {isAr ? 'الباقات' : 'Packages'}
               </Link>
             </li>
-            <li aria-hidden="true" className="text-[var(--color-sand-300)]">{isAr ? '←' : '→'}</li>
+            <li aria-hidden="true" className="text-[var(--color-sand-300)] rtl:rotate-180">→</li>
             <li className="text-foreground font-medium truncate">{name}</li>
           </ol>
         </div>
@@ -67,7 +66,7 @@ export default async function PackageDetailPage({
       {/* Hero */}
       <section className="py-12 bg-[var(--color-sand-50)]">
         <div className="container mx-auto px-6 max-w-5xl">
-          <div className={cn('grid grid-cols-1 lg:grid-cols-2 gap-12 items-start', isAr && 'lg:grid-flow-col-dense')}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             {/* Image */}
             <div className="aspect-[4/3] bg-[var(--color-sand-100)] rounded-sm flex items-center justify-center relative overflow-hidden">
               {pkg.image_url ? (
@@ -85,7 +84,7 @@ export default async function PackageDetailPage({
             </div>
 
             {/* Info */}
-            <div className={cn('flex flex-col gap-6', isAr && 'items-end text-right')}>
+            <div className="flex flex-col gap-6">
               {tagline && (
                 <p className="text-[var(--color-sand-500)] text-xs tracking-[0.25em] uppercase">{tagline}</p>
               )}
@@ -93,7 +92,7 @@ export default async function PackageDetailPage({
               <p className="text-[var(--color-text-muted)] leading-relaxed">{description}</p>
 
               {/* Meta badges */}
-              <div className={cn('flex flex-wrap gap-3', isAr && 'flex-row-reverse')}>
+              <div className="flex flex-wrap gap-3">
                 <span className="px-3 py-1 bg-[var(--color-sand-100)] text-[var(--color-sand-700)] text-sm rounded-full">
                   {pkg.total_duration_minutes} {isAr ? 'دقيقة' : 'min'}
                 </span>
@@ -105,7 +104,7 @@ export default async function PackageDetailPage({
               </div>
 
               {/* Price + CTA */}
-              <div className={cn('flex items-center gap-6', isAr && 'flex-row-reverse')}>
+              <div className="flex items-center gap-6">
                 <div>
                   <span className="text-3xl font-semibold text-[var(--color-sand-900)]">{pkg.price_sar}</span>
                   <span className="text-sm text-[var(--color-text-muted)] ms-1">{isAr ? 'ريال' : 'SAR'}</span>
@@ -125,15 +124,12 @@ export default async function PackageDetailPage({
       {/* Included Services */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6 max-w-5xl">
-          <h2 className={cn('font-serif text-2xl text-[var(--color-sand-900)] mb-8', isAr && 'text-right')}>
+          <h2 className="font-serif text-2xl text-[var(--color-sand-900)] mb-8">
             {isAr ? 'يشمل هذا الطقس' : 'What\'s Included'}
           </h2>
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {includedServices.map((item, i) => (
-              <li key={i} className={cn(
-                'flex items-center gap-3 p-4 border border-[var(--border-subtle)] rounded-sm',
-                isAr && 'flex-row-reverse text-right'
-              )}>
+              <li key={i} className="flex items-center gap-3 p-4 border border-[var(--border-subtle)] rounded-sm">
                 <span className="text-[var(--color-sand-400)] shrink-0">✦</span>
                 <span className="text-[var(--color-sand-800)]">{item}</span>
               </li>

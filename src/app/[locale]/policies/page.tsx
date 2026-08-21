@@ -1,1 +1,5 @@
-export default function Page() { return <main className="p-8"><h1 className="text-2xl font-bold">Page</h1></main> }
+import { notFound } from 'next/navigation'
+
+export default function PoliciesPage() {
+  notFound()
+}

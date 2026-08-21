@@ -42,7 +42,7 @@ export function RecentBookings({ bookings, t }: Props) {
             <thead>
               <tr className="bg-[#faf7f4]">
                 {[t.bookingNumber, t.customer, t.service, t.date, t.status, t.price].map((h) => (
-                  <th key={h} className="text-left px-4 py-2.5 text-xs font-medium text-[#9a8a7a] whitespace-nowrap">
+                  <th key={h} className="text-start px-4 py-2.5 text-xs font-medium text-[#9a8a7a] whitespace-nowrap">
                     {h}
                   </th>
                 ))}

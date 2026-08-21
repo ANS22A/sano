@@ -43,12 +43,12 @@ export function AdminHeader({ profile, onMenuClick }: Props) {
       </h1>
 
       {/* Right actions */}
-      <div className={`flex items-center gap-2 ${lang === 'ar' ? 'flex-row-reverse' : ''}`}>
+      <div className="flex items-center gap-2">
         {/* Language toggle */}
         <LanguageToggle currentLang={lang} />
 
         {/* User avatar + name */}
-        <div className={`hidden sm:flex items-center gap-2 ${lang === 'ar' ? 'flex-row-reverse' : ''}`}>
+        <div className="hidden sm:flex items-center gap-2">
           <div className="w-8 h-8 rounded-full bg-[#c9a96e] flex items-center justify-center shrink-0">
             <span className="text-[#2a2118] text-xs font-bold">
               {(profile.full_name || profile.email).charAt(0).toUpperCase()}
@@ -67,7 +67,7 @@ export function AdminHeader({ profile, onMenuClick }: Props) {
           onClick={handleSignOut}
           disabled={isPending}
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-[#7a6a57]
-            hover:bg-[#f5ede0] hover:text-[#2a2118] disabled:opacity-50 transition-all duration-200 ml-2"
+            hover:bg-[#f5ede0] hover:text-[#2a2118] disabled:opacity-50 transition-all duration-200 ms-2"
           aria-label={t.nav.signOut}
         >
           <LogOut className="w-3.5 h-3.5" />

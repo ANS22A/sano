@@ -292,17 +292,21 @@ Source files: `messages/ar.json`, `messages/en.json`.
 - Phase 8-C: Visual / UX / Responsive audit
 - Phase 8-D: Official Brand Identity
 - Phase 8-F: Public Website Completion & Navigation Cleanup
-- Phase 8-G: Business Data Injection (CURRENTLY BLOCKED / NOT COMPLETED)
+- Phase 8-G: Business Data Injection (CURRENTLY BLOCKED)
+- Phase 8-H: Full Admin + Public Functional Audit
+- Phase 8-I: Complete RTL/LTR Directional Refactor
+- Phase 8-J: Final UI/UX Polish & Cross-Locale Visual QA
+- Phase 8-K: Production Business Data & Safe Jeddah Migration Audit
+- Phase 8-L: Final Admin Functionality & Data Integrity Audit
+- Phase 8-M: Pre-Production Checkpoint & Project State Backup
 
 ==================================================
 23. REMAINING ROADMAP
 ==================================================
-- Phase 8-G: Production Business Data Injection
-- Phase 8-H: Full Admin + Public Functional Audit
-- Phase 8-I: End-to-End QA
-- Phase 8-J: Security / Performance / SEO / Accessibility Audit
-- Phase 8-K: Production Environment Configuration
-- Phase 8-L: Final Deployment
+- Phase 8-G: Production Business Data Injection (Pending Data)
+- Phase 8-N: Final Jeddah Location Migration
+- Phase 8-O: Production Environment Configuration
+- Phase 8-P: Final Deployment
 *Do NOT recommend deployment until all previous phases are complete.*
 
 ==================================================
@@ -323,8 +327,8 @@ Source files: `messages/ar.json`, `messages/en.json`.
 12. Never add database tables merely for convenience.
 13. Preserve historical booking data.
 14. Keep Arabic/English parity.
-15. Keep RTL/LTR parity.
-16. Maintain the official SANO LUNA brand identity.
+15. Keep RTL/LTR parity (use `dir="rtl"` and CSS logical properties).
+16. Maintain the official SANO LUNA brand identity (`#2E1F38`, `#6F4E7C`, `#A98FB8`, `#D6C2D9`, `#E7DBEC`, `#D4AF37`, Cinzel/Montserrat/Tajawal/Cairo).
 
 ==================================================
 25. CONTINUATION INSTRUCTIONS FOR FUTURE AI
@@ -341,16 +345,31 @@ Source files: `messages/ar.json`, `messages/en.json`.
 9. Do not deploy until the final deployment phase is explicitly approved.
 
 ==================================================
-26. FINAL CURRENT STATUS
+26. PHASE 8-M CHECKPOINT
+==================================================
+- Date: 2026-08-21
+- Current branch: main (assumed)
+- Current project status: PRE-PRODUCTION — DO NOT DEPLOY
+- Last completed phase: Phase 8-L (Admin Audit)
+- Lint result: PASS
+- Build result: PASS
+- Database changes: NONE
+- Deployment status: NOT STARTED
+- Git status: Clean checkpoint committed locally.
+- Remaining blockers: Business Data for Jeddah Branch.
+- Next phase: Phase 8-N (Jeddah Migration Implementation once data is provided).
+
+==================================================
+27. FINAL CURRENT STATUS
 ==================================================
 PUBLIC WEBSITE:
-READY FOR FINAL QA
+READY FOR FINAL QA (Pending Business Data)
 
 ADMIN:
-FUNCTIONALLY COMPLETE — FINAL QA REQUIRED
+FUNCTIONALLY COMPLETE — READY FOR PRODUCTION USE
 
 BOOKING:
-PRODUCTION-READY ARCHITECTURE — FINAL E2E TEST REQUIRED
+PRODUCTION-READY ARCHITECTURE
 
 MEDIA:
 FOUNDATION + ADMIN UPLOAD COMPLETE
@@ -368,7 +387,7 @@ DATABASE:
 REQUIRES FINAL JEDDAH LOCATION DATA MIGRATION
 
 BUSINESS DATA:
-INCOMPLETE
+INCOMPLETE (BLOCKED)
 
 PRODUCTION ENVIRONMENT:
 NOT CONFIGURED

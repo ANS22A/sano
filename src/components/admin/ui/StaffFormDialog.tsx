@@ -142,7 +142,7 @@ export function StaffFormDialog({ open, onClose, t, staff }: StaffFormDialogProp
             </div>
 
             <div>
-              <label htmlFor="name_ar" className="block text-sm font-medium text-[#2a2118] mb-1 text-right">Name (AR) *</label>
+              <label htmlFor="name_ar" className="block text-sm font-medium text-[#2a2118] mb-1 text-start">Name (AR) *</label>
               <input
                 id="name_ar"
                 name="name_ar"
@@ -186,7 +186,7 @@ export function StaffFormDialog({ open, onClose, t, staff }: StaffFormDialogProp
             </div>
 
             <div>
-              <label htmlFor="bio_ar" className="block text-sm font-medium text-[#2a2118] mb-1 text-right">Bio (AR)</label>
+              <label htmlFor="bio_ar" className="block text-sm font-medium text-[#2a2118] mb-1 text-start">Bio (AR)</label>
               <textarea
                 id="bio_ar"
                 name="bio_ar"

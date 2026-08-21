@@ -161,7 +161,7 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
               </div>
 
               <div>
-                <label htmlFor="name_ar" className="block text-sm font-medium text-[#2a2118] mb-1 text-right">Name (AR) *</label>
+                <label htmlFor="name_ar" className="block text-sm font-medium text-[#2a2118] mb-1 text-start">Name (AR) *</label>
                 <input
                   id="name_ar"
                   name="name_ar"
@@ -221,7 +221,7 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
             </div>
 
             <div>
-              <label htmlFor="address_ar" className="block text-sm font-medium text-[#2a2118] mb-1 text-right">Address (AR)</label>
+              <label htmlFor="address_ar" className="block text-sm font-medium text-[#2a2118] mb-1 text-start">Address (AR)</label>
               <textarea
                 id="address_ar"
                 name="address_ar"

@@ -41,10 +41,7 @@ export function ServiceSearch({ value, onChange }: ServiceSearchProps) {
     <div className="relative">
       {/* Search icon */}
       <div
-        className={cn(
-          'absolute inset-y-0 flex items-center pointer-events-none text-[var(--color-text-muted)]',
-          isAr ? 'end-3' : 'start-3'
-        )}
+        className="absolute inset-y-0 start-3 flex items-center pointer-events-none text-[var(--color-text-muted)]"
         aria-hidden="true"
       >
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -61,15 +58,13 @@ export function ServiceSearch({ value, onChange }: ServiceSearchProps) {
         placeholder={t('searchPlaceholder')}
         value={displayValue}
         onChange={(e) => handleChange(e.target.value)}
-        dir={isAr ? 'rtl' : 'ltr'}
         className={cn(
           'w-full h-10 rounded-sm border border-[var(--border-subtle)]',
           'bg-background text-foreground text-sm',
           'placeholder:text-[var(--color-text-muted)]',
           'transition-colors duration-200',
           'focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-1',
-          'focus:border-foreground',
-          isAr ? 'pr-9 pl-4' : 'pl-9 pr-4'
+          'focus:border-foreground ps-9 pe-4'
         )}
       />
 
@@ -79,9 +74,8 @@ export function ServiceSearch({ value, onChange }: ServiceSearchProps) {
           onClick={handleClear}
           aria-label={isAr ? 'مسح البحث' : 'Clear search'}
           className={cn(
-            'absolute inset-y-0 flex items-center px-3',
-            'text-[var(--color-text-muted)] hover:text-foreground transition-colors',
-            isAr ? 'start-0' : 'end-0'
+            'absolute inset-y-0 end-0 flex items-center px-3',
+            'text-[var(--color-text-muted)] hover:text-foreground transition-colors'
           )}
         >
           ✕

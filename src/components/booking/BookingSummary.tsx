@@ -66,59 +66,53 @@ export function BookingSummary({ draft, isAr, className }: BookingSummaryProps) 
       'bg-[var(--color-sand-50)] border border-[var(--border-subtle)] rounded-sm p-5',
       className
     )}>
-      <h2 className={cn(
-        'text-xs tracking-[0.2em] uppercase text-[var(--color-text-muted)] font-medium mb-4',
-        isAr && 'text-right'
-      )}>
+      <h2 className="text-xs tracking-[0.2em] uppercase text-[var(--color-text-muted)] font-medium mb-4">
         {label('title')}
       </h2>
 
       {!hasSelection ? (
-        <p className={cn('text-sm text-[var(--color-text-muted)] italic', isAr && 'text-right')}>
+        <p className="text-sm text-[var(--color-text-muted)] italic">
           {label('nothing')}
         </p>
       ) : (
         <dl className="space-y-3">
           {/* Experience */}
           {name && (
-            <div className={cn('flex justify-between gap-3 text-sm', isAr && 'flex-row-reverse')}>
+            <div className="flex justify-between gap-3 text-sm">
               <dt className="text-[var(--color-text-muted)] shrink-0">{label('experience')}</dt>
-              <dd className={cn('text-foreground font-medium text-end', isAr && 'text-right')}>{name}</dd>
+              <dd className="text-foreground font-medium text-end">{name}</dd>
             </div>
           )}
 
           {/* Date */}
           {date && (
-            <div className={cn('flex justify-between gap-3 text-sm', isAr && 'flex-row-reverse')}>
+            <div className="flex justify-between gap-3 text-sm">
               <dt className="text-[var(--color-text-muted)] shrink-0">{label('date')}</dt>
-              <dd className={cn('text-foreground text-end', isAr && 'text-right')}>{formatDate(date, isAr)}</dd>
+              <dd className="text-foreground text-end">{formatDate(date, isAr)}</dd>
             </div>
           )}
 
           {/* Time */}
           {startTime && (
-            <div className={cn('flex justify-between gap-3 text-sm', isAr && 'flex-row-reverse')}>
+            <div className="flex justify-between gap-3 text-sm">
               <dt className="text-[var(--color-text-muted)] shrink-0">{label('time')}</dt>
-              <dd className="text-foreground">{startTime}{endTime && ` — ${endTime}`}</dd>
+              <dd className="text-foreground text-end">{startTime}{endTime && ` — ${endTime}`}</dd>
             </div>
           )}
 
           {/* Duration */}
           {duration && (
-            <div className={cn('flex justify-between gap-3 text-sm', isAr && 'flex-row-reverse')}>
+            <div className="flex justify-between gap-3 text-sm">
               <dt className="text-[var(--color-text-muted)] shrink-0">{label('duration')}</dt>
-              <dd className="text-foreground">{duration} {label('min')}</dd>
+              <dd className="text-foreground text-end">{duration} {label('min')}</dd>
             </div>
           )}
 
           {/* Price */}
           {price && (
-            <div className={cn(
-              'flex justify-between gap-3 text-sm pt-3 border-t border-[var(--border-subtle)]',
-              isAr && 'flex-row-reverse'
-            )}>
+            <div className="flex justify-between gap-3 text-sm pt-3 border-t border-[var(--border-subtle)]">
               <dt className="text-[var(--color-text-muted)] shrink-0">{label('price')}</dt>
-              <dd className="text-foreground font-semibold text-base">
+              <dd className="text-foreground font-semibold text-base text-end">
                 {price} <span className="text-xs font-normal">{label('sar')}</span>
               </dd>
             </div>

@@ -57,9 +57,9 @@ export default async function AdminReportsPage({
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-[#faf7f4] border-b border-[#e8ddd0]">
-                  <th className="text-left px-6 py-3 text-xs font-medium text-[#9a8a7a]">Service</th>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-[#9a8a7a]">Bookings</th>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-[#9a8a7a]">Revenue</th>
+                  <th className="text-start px-6 py-3 text-xs font-medium text-[#9a8a7a]">Service</th>
+                  <th className="text-start px-6 py-3 text-xs font-medium text-[#9a8a7a]">Bookings</th>
+                  <th className="text-start px-6 py-3 text-xs font-medium text-[#9a8a7a]">Revenue</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#f0e8de]">

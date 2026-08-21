@@ -94,9 +94,9 @@ export function BookingConfirmation({ result, isAr }: BookingConfirmationProps) 
             value: `${result.priceSar} ${t.sar}`,
           },
         ].map(({ label, value }) => (
-          <div key={label} className={cn('flex justify-between items-start gap-4 px-4 py-3', isAr && 'flex-row-reverse')}>
+          <div key={label} className="flex justify-between items-start gap-4 px-4 py-3">
             <dt className="text-xs text-[var(--color-text-muted)] shrink-0 mt-0.5">{label}</dt>
-            <dd className={cn('text-sm text-foreground font-medium whitespace-pre-line', isAr && 'text-right')}>
+            <dd className="text-sm text-foreground font-medium whitespace-pre-line text-end">
               {value}
             </dd>
           </div>

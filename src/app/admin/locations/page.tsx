@@ -33,7 +33,7 @@ export default async function AdminLocationsPage() {
           locations.map((loc) => (
             <div key={loc.id} className="bg-white rounded-2xl border border-[#e8ddd0] p-5 hover:border-[#c9a96e]/30 hover:shadow-[0_4px_20px_-4px_rgba(42,33,24,0.04)] transition-all duration-300 relative group">
               
-              <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="absolute top-4 end-4 opacity-0 group-hover:opacity-100 transition-opacity">
                 <LocationFormWrapper 
                   t={t} 
                   dir={dir} 
@@ -53,7 +53,7 @@ export default async function AdminLocationsPage() {
                 />
               </div>
 
-              <div className="flex items-start justify-between gap-3 mb-3 pr-10">
+              <div className="flex items-start justify-between gap-3 mb-3 pe-10">
                 <div>
                   <h2 className="font-semibold text-[#2a2118]">{loc.name_en}</h2>
                   <p className="text-sm text-[#9a8a7a]" dir="rtl">{loc.name_ar}</p>

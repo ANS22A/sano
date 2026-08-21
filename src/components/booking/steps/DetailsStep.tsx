@@ -77,14 +77,14 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6" noValidate>
-      <div className={cn('flex flex-col gap-1', isAr && 'items-end')}>
+      <div className="flex flex-col gap-1">
         <h2 className="font-serif text-2xl text-foreground">{t.title}</h2>
         <p className="text-[var(--color-text-muted)] text-sm">{t.subtitle}</p>
       </div>
 
-      <div className="flex flex-col gap-4 max-w-lg">
+      <div className="space-y-4 max-w-lg">
         {/* Full Name */}
-        <div className={cn('flex flex-col gap-1', isAr && 'items-end')}>
+        <div className="flex flex-col gap-1">
           <label htmlFor="fullName" className="text-sm font-medium text-foreground">
             {t.fullName} <span aria-hidden="true" className="text-border">*</span>
           </label>
@@ -100,14 +100,14 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
             className={inputClass(!!errors.fullName)}
           />
           {errors.fullName && (
-            <p id="fullName-error" role="alert" className={cn('text-xs text-red-500', isAr && 'text-right')}>
+            <p id="fullName-error" role="alert" className="text-xs text-red-500">
               {t.errors[errors.fullName.message ?? ''] ?? errors.fullName.message}
             </p>
           )}
         </div>
 
         {/* Phone */}
-        <div className={cn('flex flex-col gap-1', isAr && 'items-end')}>
+        <div className="flex flex-col gap-1">
           <label htmlFor="phone" className="text-sm font-medium text-foreground">
             {t.phone} <span aria-hidden="true" className="text-border">*</span>
           </label>
@@ -124,14 +124,14 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
             className={inputClass(!!errors.phone)}
           />
           {errors.phone && (
-            <p id="phone-error" role="alert" className={cn('text-xs text-red-500', isAr && 'text-right')}>
+            <p id="phone-error" role="alert" className="text-xs text-red-500">
               {t.errors[errors.phone.message ?? ''] ?? errors.phone.message}
             </p>
           )}
         </div>
 
         {/* Email */}
-        <div className={cn('flex flex-col gap-1', isAr && 'items-end')}>
+        <div className="flex flex-col gap-1">
           <label htmlFor="email" className="text-sm font-medium text-foreground">
             {t.email} <span aria-hidden="true" className="text-border">*</span>
           </label>
@@ -147,14 +147,14 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
             className={inputClass(!!errors.email)}
           />
           {errors.email && (
-            <p id="email-error" role="alert" className={cn('text-xs text-red-500', isAr && 'text-right')}>
+            <p id="email-error" role="alert" className="text-xs text-red-500">
               {t.errors[errors.email.message ?? ''] ?? errors.email.message}
             </p>
           )}
         </div>
 
         {/* Notes */}
-        <div className={cn('flex flex-col gap-1', isAr && 'items-end')}>
+        <div className="flex flex-col gap-1">
           <label htmlFor="notes" className="text-sm font-medium text-foreground">{t.notes}</label>
           <textarea
             id="notes"
@@ -168,7 +168,7 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
         </div>
 
         {/* Privacy note */}
-        <p className={cn('text-xs text-[var(--color-text-muted)] flex items-center gap-1.5', isAr && 'flex-row-reverse')}>
+        <p className="text-xs text-[var(--color-text-muted)] flex items-center gap-1.5">
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="M8 1L3 3.5V8c0 3 2.5 5.5 5 6.5C11.5 13.5 14 11 14 8V3.5L8 1z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
           </svg>
@@ -177,7 +177,7 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
       </div>
 
       {/* Navigation */}
-      <div className={cn('flex items-center gap-3 mt-2', isAr && 'flex-row-reverse')}>
+      <div className="flex items-center gap-3 mt-2">
         <button
           type="button"
           onClick={onBack}

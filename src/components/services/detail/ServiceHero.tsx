@@ -27,11 +27,7 @@ export function ServiceHero({ service }: ServiceHeroProps) {
         'lg:grid-cols-2 lg:min-h-[480px]'
       )}>
         {/* Image panel */}
-        <div className={cn(
-          'relative h-64 lg:h-auto flex-shrink-0 overflow-hidden',
-          'bg-gradient-to-br from-background to-accent',
-          isAr ? 'lg:order-last' : 'lg:order-first'
-        )}>
+        <div className="relative h-64 lg:h-auto flex-shrink-0 overflow-hidden bg-gradient-to-br from-background to-accent">
           {service.image_url ? (
             <Image
               src={service.image_url}

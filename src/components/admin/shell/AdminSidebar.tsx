@@ -49,7 +49,7 @@ interface Props {
 }
 
 export function AdminSidebar({ role, mobileOpen, onClose }: Props) {
-  const { t, lang } = useAdmin()
+  const { t } = useAdmin()
   const pathname = usePathname()
   const visible = getNavItems(role)
 
@@ -61,20 +61,17 @@ export function AdminSidebar({ role, mobileOpen, onClose }: Props) {
     <>
       {/* Desktop sidebar */}
       <aside className="hidden lg:flex flex-col w-64 shrink-0 min-h-screen bg-[#2a2118] text-white">
-        <SidebarContent t={t} visible={visible} isActive={isActive} lang={lang} />
+        <SidebarContent t={t} visible={visible} isActive={isActive} />
       </aside>
 
       {/* Mobile sidebar (slide-over) */}
       <aside
         className={cn(
-          'fixed inset-y-0 z-50 flex flex-col w-72 bg-[#2a2118] text-white',
+          'fixed inset-y-0 start-0 z-50 flex flex-col w-72 bg-[#2a2118] text-white',
           'transition-transform duration-300 ease-in-out lg:hidden',
-          lang === 'ar' ? 'right-0' : 'left-0',
           mobileOpen
             ? 'translate-x-0'
-            : lang === 'ar'
-              ? 'translate-x-full'
-              : '-translate-x-full'
+            : '-translate-x-full rtl:translate-x-full'
         )}
       >
         <div className="flex items-center justify-between p-4 border-b border-white/10">
@@ -87,7 +84,7 @@ export function AdminSidebar({ role, mobileOpen, onClose }: Props) {
             <X className="w-5 h-5" />
           </button>
         </div>
-        <SidebarContent t={t} visible={visible} isActive={isActive} lang={lang} onClose={onClose} />
+        <SidebarContent t={t} visible={visible} isActive={isActive} onClose={onClose} />
       </aside>
     </>
   )
@@ -108,12 +105,11 @@ function LogoMark() {
 }
 
 function SidebarContent({
-  t, visible, isActive, lang, onClose,
+  t, visible, isActive, onClose,
 }: {
   t: ReturnType<typeof useAdmin>['t']
   visible: ReturnType<typeof getNavItems>
   isActive: (href: string, exact?: boolean) => boolean
-  lang: string
   onClose?: () => void
 }) {
   const navLabels = t.nav
@@ -136,12 +132,7 @@ function SidebarContent({
 
           return (
             <div key={group.label} className="space-y-1">
-              <h3
-                className={cn(
-                  'px-3 text-[10px] font-bold uppercase tracking-wider text-white/30 mb-2',
-                  lang === 'ar' ? 'text-right' : 'text-left'
-                )}
-              >
+              <h3 className="px-3 text-[10px] font-bold uppercase tracking-wider text-white/30 mb-2 text-start">
                 {group.label}
               </h3>
               {groupVisibleItems.map((item) => {
@@ -157,10 +148,9 @@ function SidebarContent({
                     onClick={onClose}
                     className={cn(
                       'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200',
-                      lang === 'ar' ? 'flex-row-reverse text-right' : '',
                       active
                         ? 'bg-[#c9a96e] text-[#2a2118] shadow-sm'
-                        : 'text-white/70 hover:text-white hover:bg-white/10 hover:translate-x-1'
+                        : 'text-white/70 hover:text-white hover:bg-white/10 hover:translate-x-1 rtl:hover:-translate-x-1'
                     )}
                     aria-current={active ? 'page' : undefined}
                   >

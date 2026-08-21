@@ -39,7 +39,7 @@ export function PackageCard({ pkg, locale }: PackageCardProps) {
 
       <div className="flex flex-col flex-1 p-6 gap-4">
         {/* Price badge */}
-        <div className={cn('flex items-start justify-between gap-4', isAr && 'flex-row-reverse')}>
+        <div className="flex items-start justify-between gap-4">
           <div>
             {tagline && (
               <p className="text-primary text-xs tracking-widest uppercase mb-1">
@@ -66,10 +66,7 @@ export function PackageCard({ pkg, locale }: PackageCardProps) {
         {/* Included services list */}
         <ul className="space-y-1 flex-1">
           {includedServices.map((item, i) => (
-            <li key={i} className={cn(
-              'flex items-center gap-2 text-sm text-foreground',
-              isAr && 'flex-row-reverse'
-            )}>
+            <li key={i} className="flex items-center gap-2 text-sm text-foreground">
               <span className="text-border text-xs">✦</span>
               {item}
             </li>
@@ -77,10 +74,7 @@ export function PackageCard({ pkg, locale }: PackageCardProps) {
         </ul>
 
         {/* Meta */}
-        <div className={cn(
-          'flex items-center gap-4 text-xs text-[var(--color-text-muted)] border-t border-[var(--border-subtle)] pt-4',
-          isAr && 'flex-row-reverse'
-        )}>
+        <div className="flex items-center gap-4 text-xs text-[var(--color-text-muted)] border-t border-[var(--border-subtle)] pt-4">
           <span>{pkg.total_duration_minutes} {isAr ? 'دقيقة' : 'min'}</span>
           {pkg.max_guests > 1 && (
             <span>

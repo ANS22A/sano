@@ -18,20 +18,18 @@ interface RowProps {
   step?: 1 | 2 | 3
   onGoToStep?: (step: 1 | 2 | 3) => void
   editLabel?: string
-  isAr?: boolean
   className?: string
 }
 
-function ReviewRow({ label, value, step, onGoToStep, editLabel, isAr, className }: RowProps) {
+function ReviewRow({ label, value, step, onGoToStep, editLabel, className }: RowProps) {
   return (
     <div className={cn(
       'flex items-start justify-between gap-4 py-3 border-b border-[var(--border-subtle)] last:border-0',
-      isAr && 'flex-row-reverse',
       className
     )}>
       <dt className="text-sm text-[var(--color-text-muted)] shrink-0">{label}</dt>
-      <div className={cn('flex items-start gap-3', isAr && 'flex-row-reverse')}>
-        <dd className={cn('text-sm text-foreground font-medium', isAr && 'text-right')}>{value}</dd>
+      <div className="flex items-start gap-3">
+        <dd className="text-sm text-foreground font-medium">{value}</dd>
         {step && onGoToStep && (
           <button
             onClick={() => onGoToStep(step)}
@@ -122,24 +120,24 @@ export function ReviewStep({ draft, onBack, onConfirmed, isAr, onGoToStep }: Rev
 
   return (
     <div className="flex flex-col gap-6">
-      <div className={cn('flex flex-col gap-1', isAr && 'items-end')}>
+      <div className="flex flex-col gap-1">
         <h2 className="font-serif text-2xl text-foreground">{t.title}</h2>
       </div>
 
       <dl className="bg-[var(--color-sand-50)] border border-[var(--border-subtle)] rounded-sm px-5 py-1 max-w-lg">
-        <ReviewRow isAr={isAr} onGoToStep={onGoToStep} editLabel={t.edit} label={t.service} value={serviceName} step={1} />
+        <ReviewRow onGoToStep={onGoToStep} editLabel={t.edit} label={t.service} value={serviceName} step={1} />
         <ReviewRow
-          isAr={isAr} onGoToStep={onGoToStep} editLabel={t.edit}
+          onGoToStep={onGoToStep} editLabel={t.edit}
           label={t.dateTime}
           value={draft.date && draft.startTime
             ? `${formatDate(draft.date, isAr)}, ${draft.startTime}`
             : '—'}
           step={2}
         />
-        <ReviewRow isAr={isAr} label={t.location} value={locationName} />
-        <ReviewRow isAr={isAr} label={t.duration} value={`${duration} ${t.min}`} />
+        <ReviewRow label={t.location} value={locationName} />
+        <ReviewRow label={t.duration} value={`${duration} ${t.min}`} />
         <ReviewRow
-          isAr={isAr} onGoToStep={onGoToStep} editLabel={t.edit}
+          onGoToStep={onGoToStep} editLabel={t.edit}
           label={t.details}
           value={
             <span className="flex flex-col gap-0.5">
@@ -151,10 +149,9 @@ export function ReviewStep({ draft, onBack, onConfirmed, isAr, onGoToStep }: Rev
           step={3}
         />
         {draft.customer.notes && (
-          <ReviewRow isAr={isAr} label={t.notes} value={draft.customer.notes} />
+          <ReviewRow label={t.notes} value={draft.customer.notes} />
         )}
         <ReviewRow
-          isAr={isAr}
           label={t.price}
           value={<span className="text-base font-semibold">{price} <span className="text-xs font-normal">{t.sar}</span></span>}
           className="!border-t-2 !border-surface"
@@ -163,21 +160,18 @@ export function ReviewStep({ draft, onBack, onConfirmed, isAr, onGoToStep }: Rev
 
       {/* Error */}
       {errorMsg && (
-        <div role="alert" className={cn(
-          'px-4 py-3 bg-red-50 border border-red-200 rounded-sm text-sm text-red-700',
-          isAr && 'text-right'
-        )}>
+        <div role="alert" className="px-4 py-3 bg-red-50 border border-red-200 rounded-sm text-sm text-red-700">
           {errorMsg}
         </div>
       )}
 
       {/* Disclaimer */}
-      <p className={cn('text-xs text-[var(--color-text-muted)] max-w-lg', isAr && 'text-right')}>
+      <p className="text-xs text-[var(--color-text-muted)] max-w-lg">
         {t.disclaimer}
       </p>
 
       {/* Navigation */}
-      <div className={cn('flex items-center gap-3', isAr && 'flex-row-reverse')}>
+      <div className="flex items-center gap-3">
         <button
           onClick={onBack}
           disabled={isPending}

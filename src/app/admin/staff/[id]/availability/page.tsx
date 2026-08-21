@@ -16,7 +16,7 @@ export default async function StaffAvailabilityPage({ params }: { params: Promis
   return (
     <div className="max-w-2xl space-y-6">
       <Link href="/admin/staff" className="inline-flex items-center gap-2 text-sm text-[#9a8a7a] hover:text-[#2a2118]">
-        <ArrowLeft className="w-4 h-4" /> Back to Staff
+        <ArrowLeft className="w-4 h-4 rtl:rotate-180" /> Back to Staff
       </Link>
 
       <h1 className="text-xl font-bold text-[#2a2118]">{staff.name_en} — Availability</h1>

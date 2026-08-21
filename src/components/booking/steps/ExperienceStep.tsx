@@ -45,13 +45,13 @@ export function ExperienceStep({ draft, onUpdate, onContinue, isAr }: Experience
 
   return (
     <div className="flex flex-col gap-6">
-      <div className={cn('flex flex-col gap-1', isAr && 'items-end')}>
+      <div className="flex flex-col gap-1">
         <h2 className="font-serif text-2xl text-foreground">{t.title}</h2>
         <p className="text-[var(--color-text-muted)] text-sm">{t.subtitle}</p>
       </div>
 
       {/* Tab switcher */}
-      <div className={cn('flex gap-1 p-1 bg-background rounded-sm w-fit', isAr && 'flex-row-reverse')}>
+      <div className="flex gap-1 p-1 bg-background rounded-sm w-fit">
         {(['services', 'packages'] as Tab[]).map((tabKey) => (
           <button
             key={tabKey}
@@ -70,7 +70,7 @@ export function ExperienceStep({ draft, onUpdate, onContinue, isAr }: Experience
 
       {/* Service list */}
       {tab === 'services' && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[420px] overflow-y-auto pr-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[420px] overflow-y-auto pe-1">
           {activeServices.map((service) => {
             const isSelected = draft.serviceId === service.id
             const name = isAr ? service.name_ar : service.name_en
@@ -86,11 +86,10 @@ export function ExperienceStep({ draft, onUpdate, onContinue, isAr }: Experience
                   'focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-1',
                   isSelected
                     ? 'border-foreground bg-[var(--color-sand-50)] ring-1 ring-[var(--color-sand-200)]'
-                    : 'border-[var(--border-subtle)] hover:border-accent hover:bg-[var(--color-sand-50)]',
-                  isAr && 'text-right'
+                    : 'border-[var(--border-subtle)] hover:border-accent hover:bg-[var(--color-sand-50)]'
                 )}
               >
-                <div className={cn('flex items-start justify-between gap-2', isAr && 'flex-row-reverse')}>
+                <div className="flex items-start justify-between gap-2">
                   <span className="font-medium text-sm text-foreground leading-snug">{name}</span>
                   {isSelected && (
                     <span className="text-[10px] text-primary bg-background px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">
@@ -101,7 +100,7 @@ export function ExperienceStep({ draft, onUpdate, onContinue, isAr }: Experience
                 <p className="text-xs text-[var(--color-text-muted)] mt-1 line-clamp-2 leading-relaxed">
                   {shortDesc}
                 </p>
-                <div className={cn('flex items-center gap-3 mt-2 text-xs text-primary', isAr && 'flex-row-reverse')}>
+                <div className="flex items-center gap-3 mt-2 text-xs text-primary">
                   <span>{service.duration_minutes} {t.min}</span>
                   <span className="text-[var(--border-subtle)]">·</span>
                   <span className="font-medium">{Number(service.price_sar)} {t.sar}</span>
@@ -114,7 +113,7 @@ export function ExperienceStep({ draft, onUpdate, onContinue, isAr }: Experience
 
       {/* Package list */}
       {tab === 'packages' && (
-        <div className="grid grid-cols-1 gap-3 max-h-[420px] overflow-y-auto pr-1">
+        <div className="grid grid-cols-1 gap-3 max-h-[420px] overflow-y-auto pe-1">
           {packages.filter((p) => p.is_active).map((pkg) => {
             const isSelected = draft.packageSlug === pkg.slug
             const name = isAr ? pkg.name_ar : pkg.name_en
@@ -131,11 +130,10 @@ export function ExperienceStep({ draft, onUpdate, onContinue, isAr }: Experience
                   'focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-1',
                   isSelected
                     ? 'border-foreground bg-[var(--color-sand-50)] ring-1 ring-[var(--color-sand-200)]'
-                    : 'border-[var(--border-subtle)] hover:border-accent hover:bg-[var(--color-sand-50)]',
-                  isAr && 'text-right'
+                    : 'border-[var(--border-subtle)] hover:border-accent hover:bg-[var(--color-sand-50)]'
                 )}
               >
-                <div className={cn('flex items-start justify-between gap-2', isAr && 'flex-row-reverse')}>
+                <div className="flex items-start justify-between gap-2">
                   <div>
                     {tagline && <p className="text-[10px] text-primary tracking-widest uppercase mb-0.5">{tagline}</p>}
                     <span className="font-medium text-sm text-foreground">{name}</span>
@@ -147,7 +145,7 @@ export function ExperienceStep({ draft, onUpdate, onContinue, isAr }: Experience
                   )}
                 </div>
                 <p className="text-xs text-[var(--color-text-muted)] mt-1 line-clamp-2 leading-relaxed">{desc}</p>
-                <div className={cn('flex items-center gap-3 mt-2 text-xs text-primary', isAr && 'flex-row-reverse')}>
+                <div className="flex items-center gap-3 mt-2 text-xs text-primary">
                   <span>{pkg.total_duration_minutes} {t.min}</span>
                   <span>·</span>
                   <span className="font-medium">{pkg.price_sar} {t.sar}</span>

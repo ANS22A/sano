@@ -23,7 +23,7 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
   return (
     <div className="max-w-2xl space-y-6">
       <Link href="/admin/customers" className="inline-flex items-center gap-2 text-sm text-[#9a8a7a] hover:text-[#2a2118]">
-        <ArrowLeft className="w-4 h-4" /> {t.common.back}
+        <ArrowLeft className="w-4 h-4 rtl:rotate-180" /> {t.common.back}
       </Link>
 
       <div className="flex items-center justify-between gap-4">
@@ -59,7 +59,7 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
                 <thead>
                   <tr className="bg-[#faf7f4] border-b border-[#e8ddd0]">
                     {['Booking #', 'Service', 'Date', 'Status', 'Price'].map((h) => (
-                      <th key={h} className="text-left px-4 py-3 text-xs font-medium text-[#9a8a7a]">{h}</th>
+                      <th key={h} className="text-start px-4 py-3 text-xs font-medium text-[#9a8a7a]">{h}</th>
                     ))}
                   </tr>
                 </thead>

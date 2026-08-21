@@ -71,7 +71,7 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
 
   return (
     <div className="flex flex-col gap-6">
-      <div className={cn('flex flex-col gap-1', isAr && 'items-end')}>
+      <div className="flex flex-col gap-1">
         <h2 className="font-serif text-2xl text-foreground">{t.title}</h2>
         {draft.date && (
           <p className="text-[var(--color-text-muted)] text-sm">{formatDisplayDate(draft.date, isAr)}</p>
@@ -91,10 +91,7 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
         {/* Time slots */}
         <div className="w-full lg:w-64">
           {!draft.date ? (
-            <div className={cn(
-              'h-32 flex items-center justify-center text-sm text-[var(--color-text-muted)] italic',
-              isAr && 'text-right'
-            )}>
+            <div className="h-32 flex items-center justify-center text-sm text-[var(--color-text-muted)] italic">
               {t.selectDate}
             </div>
           ) : isPending ? (
@@ -105,7 +102,7 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
               </div>
             </div>
           ) : !hasSlots ? (
-            <div className={cn('flex flex-col gap-1 py-6', isAr && 'items-end')}>
+            <div className="flex flex-col gap-1 py-6">
               <p className="text-sm text-foreground font-medium">{t.noSlots}</p>
               <p className="text-xs text-[var(--color-text-muted)]">{t.noSlotsHint}</p>
             </div>
@@ -137,7 +134,7 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
       </div>
 
       {/* Navigation */}
-      <div className={cn('flex items-center gap-3 mt-2', isAr && 'flex-row-reverse')}>
+      <div className="flex items-center gap-3 mt-2">
         <button
           onClick={onBack}
           className="px-5 py-2.5 text-sm border border-[var(--border-subtle)] rounded-sm hover:bg-[var(--color-sand-50)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"

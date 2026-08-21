@@ -113,7 +113,7 @@ export function BookingDetailClient({ booking }: BookingDetailClientProps) {
     <div className="max-w-4xl space-y-6">
       {/* Back */}
       <Link href="/admin/bookings" className="inline-flex items-center gap-2 text-sm text-[#9a8a7a] hover:text-[#2a2118] transition-colors">
-        <ArrowLeft className="w-4 h-4" />
+        <ArrowLeft className="w-4 h-4 rtl:rotate-180" />
         {t.common.back}
       </Link>
 

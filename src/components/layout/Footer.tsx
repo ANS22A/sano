@@ -285,21 +285,11 @@ export function Footer() {
               )}
             </div>
 
-            {/* Legal Links */}
-            <div className="flex items-center gap-4 order-3 text-caption text-muted-foreground">
-              <Link
-                href="/policies"
-                className="hover:text-foreground transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
-              >
-                {t('privacyPolicy')}
-              </Link>
+            {/* Legal */}
+            <div className="flex items-center gap-3 order-3 text-caption text-muted-foreground">
+              <span>{t('privacyPolicy')}</span>
               <span aria-hidden="true">·</span>
-              <Link
-                href="/policies"
-                className="hover:text-foreground transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
-              >
-                {t('termsOfService')}
-              </Link>
+              <span>{t('termsOfService')}</span>
             </div>
           </div>
         </div>

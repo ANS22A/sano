@@ -90,18 +90,18 @@ export function BookingCalendar({ selectedDate, onSelectDate, isAr, minDate }: B
       aria-label={isAr ? 'التقويم' : 'Calendar'}
     >
       {/* Month navigation */}
-      <div className={cn('flex items-center justify-between mb-4', isAr && 'flex-row-reverse')}>
+      <div className="flex items-center justify-between mb-4">
         <button
-          onClick={isAr ? nextMonth : prevMonth}
-          disabled={isAr ? false : !canGoPrev}
-          aria-label={isAr ? 'الشهر التالي' : 'Previous month'}
+          onClick={prevMonth}
+          disabled={!canGoPrev}
+          aria-label={isAr ? 'الشهر السابق' : 'Previous month'}
           className={cn(
             'w-8 h-8 flex items-center justify-center rounded-full transition-colors',
             'hover:bg-background focus:outline-none focus:ring-2 focus:ring-[var(--ring)]',
-            (!canGoPrev && !isAr) && 'opacity-30 pointer-events-none'
+            !canGoPrev && 'opacity-30 pointer-events-none'
           )}
         >
-          {isAr ? '›' : '‹'}
+          <span className="rtl:rotate-180 inline-block">‹</span>
         </button>
 
         <h3 className="text-sm font-medium text-foreground">
@@ -109,16 +109,14 @@ export function BookingCalendar({ selectedDate, onSelectDate, isAr, minDate }: B
         </h3>
 
         <button
-          onClick={isAr ? prevMonth : nextMonth}
-          disabled={isAr ? !canGoPrev : false}
-          aria-label={isAr ? 'الشهر السابق' : 'Next month'}
+          onClick={nextMonth}
+          aria-label={isAr ? 'الشهر التالي' : 'Next month'}
           className={cn(
             'w-8 h-8 flex items-center justify-center rounded-full transition-colors',
-            'hover:bg-background focus:outline-none focus:ring-2 focus:ring-[var(--ring)]',
-            (!canGoPrev && isAr) && 'opacity-30 pointer-events-none'
+            'hover:bg-background focus:outline-none focus:ring-2 focus:ring-[var(--ring)]'
           )}
         >
-          {isAr ? '‹' : '›'}
+          <span className="rtl:rotate-180 inline-block">›</span>
         </button>
       </div>
 
