@@ -33,8 +33,9 @@ function toMinutes(time: string): number {
 
 /** Convert total minutes since midnight to 'HH:MM' */
 function toTimeString(minutes: number): string {
-  const h = Math.floor(minutes / 60)
-  const m = minutes % 60
+  const normalizedMinutes = minutes % 1440
+  const h = Math.floor(normalizedMinutes / 60)
+  const m = normalizedMinutes % 60
   return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`
 }
 
@@ -138,13 +139,26 @@ export async function getAvailableSlots(params: GetAvailableSlotsParams): Promis
   }
 
   const openMin = toMinutes(hours.open_time)
-  const closeMin = toMinutes(hours.close_time)
+  let closeMin = toMinutes(hours.close_time)
+
+  // Phase 8-O: Support overnight business hours (e.g., 15:00 -> 03:00)
+  if (closeMin < openMin) {
+    closeMin += 1440
+  }
 
   // 4. Build occupied intervals from existing bookings
-  const occupied: Array<{ start: number; end: number }> = existingBookings.map((b) => ({
-    start: toMinutes(b.start_time.slice(0, 5)),
-    end: toMinutes(b.end_time.slice(0, 5)),
-  }))
+  const occupied: Array<{ start: number; end: number }> = existingBookings.map((b) => {
+    let start = toMinutes(b.start_time.slice(0, 5))
+    let end = toMinutes(b.end_time.slice(0, 5))
+    
+    // If the booking is in the overnight hours (e.g., 01:00), shift it to the next day's minutes
+    if (start < openMin) start += 1440
+    if (end < openMin) end += 1440
+    // Fix for 23:00 -> 01:00 overlapping midnight
+    if (end < start) end += 1440
+
+    return { start, end }
+  })
 
   // 5. Generate slots
   const slots: AvailableSlot[] = []

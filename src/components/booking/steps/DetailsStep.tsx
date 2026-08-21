@@ -12,6 +12,7 @@ const schema = z.object({
   fullName: z.string().min(2, 'name_short').max(100, 'name_long').trim(),
   phone: z.string().regex(saudiPhoneRegex, 'phone_invalid').min(1, 'phone_required'),
   email: z.string().email('email_invalid').min(1, 'email_required'),
+  address: z.string().min(5, 'address_short').max(200, 'address_long').trim(),
   notes: z.string().max(500, 'notes_long').default(''),
 })
 
@@ -32,9 +33,11 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
     fullName: isAr ? 'الاسم الكامل' : 'Full Name',
     fullNamePlaceholder: isAr ? 'اسمك الكامل' : 'Your full name',
     phone: isAr ? 'رقم الجوال' : 'Phone Number',
-    phonePlaceholder: '+966 5X XXX XXXX',
+    phonePlaceholder: '055 185 4617',
     email: isAr ? 'البريد الإلكتروني' : 'Email Address',
     emailPlaceholder: isAr ? 'بريدك@example.com' : 'your@email.com',
+    address: isAr ? 'عنوان المنزل (جدة)' : 'Home Address (Jeddah)',
+    addressPlaceholder: isAr ? 'الحي، الشارع، رقم المبنى' : 'Neighborhood, Street, Building No.',
     notes: isAr ? 'ملاحظات (اختياري)' : 'Notes (optional)',
     notesPlaceholder: isAr ? 'أي تفضيلات أو طلبات خاصة؟' : 'Any preferences or special requests?',
     continue: isAr ? 'متابعة' : 'Continue',
@@ -43,16 +46,21 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
     errors: {
       name_short: isAr ? 'الاسم قصير جداً' : 'Name is too short',
       name_long: isAr ? 'الاسم طويل جداً' : 'Name is too long',
-      phone_invalid: isAr ? 'رقم جوال سعودي غير صحيح (+966)' : 'Enter a valid Saudi phone (+966)',
+      phone_invalid: isAr ? 'رقم جوال سعودي غير صحيح' : 'Enter a valid Saudi phone',
       phone_required: isAr ? 'رقم الجوال مطلوب' : 'Phone number is required',
       email_invalid: isAr ? 'بريد إلكتروني غير صحيح' : 'Enter a valid email address',
       email_required: isAr ? 'البريد الإلكتروني مطلوب' : 'Email is required',
+      address_short: isAr ? 'العنوان قصير جداً' : 'Address is too short',
+      address_long: isAr ? 'العنوان طويل جداً' : 'Address is too long',
     } as Record<string, string>,
   }
 
+  // Inject address into default values if not present
+  const defaultValues = { ...draft.customer, address: draft.customer?.address || '' }
+
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema) as unknown as Resolver<FormData>,
-    defaultValues: draft.customer,
+    defaultValues,
   })
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
@@ -60,6 +68,7 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
       fullName: data.fullName,
       phone: data.phone,
       email: data.email,
+      address: data.address,
       notes: data.notes ?? '',
     }
     onUpdate({ customer })
@@ -149,6 +158,29 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
           {errors.email && (
             <p id="email-error" role="alert" className="text-xs text-red-500">
               {t.errors[errors.email.message ?? ''] ?? errors.email.message}
+            </p>
+          )}
+        </div>
+
+        {/* Address */}
+        <div className="flex flex-col gap-1">
+          <label htmlFor="address" className="text-sm font-medium text-foreground">
+            {t.address} <span aria-hidden="true" className="text-border">*</span>
+          </label>
+          <input
+            id="address"
+            type="text"
+            dir={isAr ? 'rtl' : 'ltr'}
+            placeholder={t.addressPlaceholder}
+            autoComplete="street-address"
+            aria-required="true"
+            aria-describedby={errors.address ? 'address-error' : undefined}
+            {...register('address')}
+            className={inputClass(!!errors.address)}
+          />
+          {errors.address && (
+            <p id="address-error" role="alert" className="text-xs text-red-500">
+              {t.errors[errors.address.message ?? ''] ?? errors.address.message}
             </p>
           )}
         </div>

@@ -133,7 +133,7 @@ export function CustomerFormDialog({ open, onClose, t, dir, customer }: Customer
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               className="w-full px-3 py-2 rounded-xl text-sm border border-[#e8ddd0] bg-white text-[#2a2118] focus:border-[#c9a96e] focus:ring-1 focus:ring-[#c9a96e] outline-none transition-all text-start"
-              placeholder="+966500000000"
+              placeholder="05X XXX XXXX"
               disabled={isPending}
             />
           </div>

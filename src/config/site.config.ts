@@ -56,12 +56,12 @@ export const DEFAULT_LOCALE: Locale = 'ar'
 // ─────────────────────────────────────────────
 
 export const contactConfig = {
-  phone: '' as string,
-  whatsapp: '' as string,
-  email: '' as string,
+  phone: '0551854617' as string,
+  whatsapp: '0551854617' as string,
+  email: 'sanospa089@gmail.com' as string,
   address: {
-    ar: 'جدة، المملكة العربية السعودية',
-    en: 'Jeddah, Saudi Arabia',
+    ar: 'خدمات سبا منزلية في جميع أنحاء جدة',
+    en: 'Luxury spa services at your home across Jeddah',
   },
   hours: {
     ar: 'مفتوح طوال أيام الأسبوع مع ساعات عمل مرنة حسب المواعيد والحجوزات.',
@@ -74,9 +74,10 @@ export const contactConfig = {
 // ─────────────────────────────────────────────
 
 export const socialLinks = {
-  instagram: '' as string,
-  whatsapp: '' as string,
-  facebook: '' as string,
-  tiktok: '' as string,
+  instagram: 'https://www.instagram.com/sanoluna.co' as string,
+  whatsapp: 'https://wa.me/966551854617' as string,
+  facebook: 'https://www.facebook.com/share/1PTTnhTxWK/' as string,
+  tiktok: 'https://www.tiktok.com/@sano.luna7' as string,
+  snapchat: 'https://www.snapchat.com/@sanolunaone' as string,
 } as const
 

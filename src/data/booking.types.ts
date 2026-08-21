@@ -24,6 +24,7 @@ export interface BookingCustomer {
   fullName: string
   phone: string
   email: string
+  address: string
   notes: string
 }
 
@@ -66,6 +67,7 @@ export const BOOKING_DRAFT_INITIAL: BookingDraft = {
     fullName: '',
     phone: '',
     email: '',
+    address: '',
     notes: '',
   },
   durationMinutes: null,

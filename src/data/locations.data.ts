@@ -16,15 +16,15 @@ import type { Location, BusinessHour } from './types'
 
 export const locations: Location[] = [
   {
-    id: 'riyadh-main',
-    slug: 'riyadh-main',
-    name_ar: 'سانو لونا — جدة',
-    name_en: 'SANO LUNA — Jeddah',
-    address_ar: 'جدة، المملكة العربية السعودية',  // DEMO — update with real address
-    address_en: 'Jeddah, Saudi Arabia',               // DEMO — update with real address
-    latitude: null,    // DEMO — update with real coordinates
-    longitude: null,   // DEMO — update with real coordinates
-    phone: '+966500000000', // DEMO — update with real phone
+    id: '53b02143-24c8-4425-a0d3-fc14f12e962c',
+    slug: 'jeddah-main',
+    name_ar: 'سانو لونا',
+    name_en: 'SANO LUNA',
+    address_ar: 'جدة، المملكة العربية السعودية',
+    address_en: 'Jeddah, Saudi Arabia',
+    latitude: null,
+    longitude: null,
+    phone: '0551854617',
     is_active: true,
     sort_order: 1,
   },
@@ -36,20 +36,20 @@ export const locations: Location[] = [
 // ─────────────────────────────────────────────
 
 export const businessHours: BusinessHour[] = [
-  // Sunday (day off / closed) — 0
-  { id: 'bh-sun', location_id: 'riyadh-main', day_of_week: 0, open_time: '14:00', close_time: '21:00', is_closed: false },
-  // Monday — 1
-  { id: 'bh-mon', location_id: 'riyadh-main', day_of_week: 1, open_time: '09:00', close_time: '21:00', is_closed: false },
-  // Tuesday — 2
-  { id: 'bh-tue', location_id: 'riyadh-main', day_of_week: 2, open_time: '09:00', close_time: '21:00', is_closed: false },
-  // Wednesday — 3
-  { id: 'bh-wed', location_id: 'riyadh-main', day_of_week: 3, open_time: '09:00', close_time: '21:00', is_closed: false },
-  // Thursday — 4
-  { id: 'bh-thu', location_id: 'riyadh-main', day_of_week: 4, open_time: '09:00', close_time: '21:00', is_closed: false },
-  // Friday — 5 (shorter hours)
-  { id: 'bh-fri', location_id: 'riyadh-main', day_of_week: 5, open_time: '14:00', close_time: '21:00', is_closed: false },
-  // Saturday — 6
-  { id: 'bh-sat', location_id: 'riyadh-main', day_of_week: 6, open_time: '09:00', close_time: '21:00', is_closed: false },
+  // Sunday
+  { id: 'bh-sun', location_id: '53b02143-24c8-4425-a0d3-fc14f12e962c', day_of_week: 0, open_time: '15:00', close_time: '03:00', is_closed: false },
+  // Monday
+  { id: 'bh-mon', location_id: '53b02143-24c8-4425-a0d3-fc14f12e962c', day_of_week: 1, open_time: '15:00', close_time: '03:00', is_closed: false },
+  // Tuesday
+  { id: 'bh-tue', location_id: '53b02143-24c8-4425-a0d3-fc14f12e962c', day_of_week: 2, open_time: '15:00', close_time: '03:00', is_closed: false },
+  // Wednesday
+  { id: 'bh-wed', location_id: '53b02143-24c8-4425-a0d3-fc14f12e962c', day_of_week: 3, open_time: '15:00', close_time: '03:00', is_closed: false },
+  // Thursday
+  { id: 'bh-thu', location_id: '53b02143-24c8-4425-a0d3-fc14f12e962c', day_of_week: 4, open_time: '15:00', close_time: '03:00', is_closed: false },
+  // Friday
+  { id: 'bh-fri', location_id: '53b02143-24c8-4425-a0d3-fc14f12e962c', day_of_week: 5, open_time: '15:00', close_time: '03:00', is_closed: false },
+  // Saturday
+  { id: 'bh-sat', location_id: '53b02143-24c8-4425-a0d3-fc14f12e962c', day_of_week: 6, open_time: '15:00', close_time: '03:00', is_closed: false },
 ]
 
 // ─────────────────────────────────────────────
