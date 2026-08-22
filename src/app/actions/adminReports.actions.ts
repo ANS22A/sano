@@ -2,6 +2,7 @@
 
 import { requireRole } from '@/lib/admin/auth'
 import { createClient } from '@/lib/supabase/server'
+import { z } from 'zod'
 
 export async function getAdminReports(params: { from: string; to: string }) {
   await requireRole('manager')
@@ -41,3 +42,257 @@ export async function getAdminReports(params: { from: string; to: string }) {
 
   return { totalRevenue, totalBookings, confirmed, cancelled, completed, topServices }
 }
+
+export interface OwnerFinancialStats {
+  realized_revenue: number
+  operating_expenses: number
+  purchases: number
+  salaries_paid: number
+  partner_withdrawals: number
+  net_operating_profit: number
+  net_cash_movement: number
+  expected_revenue: number
+  outstanding_balance: number
+  bookings_total: number
+  bookings_completed: number
+  bookings_cancelled: number
+  bookings_pending: number
+  customer_count: number
+}
+
+const dateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Invalid date format, expected YYYY-MM-DD')
+
+export async function getOwnerFinancialStats(startDate: string, endDate: string): Promise<OwnerFinancialStats> {
+  // 1. RBAC: Only admin can access owner stats
+  await requireRole('admin')
+
+  // 2. Input Validation
+  try {
+    dateSchema.parse(startDate)
+    dateSchema.parse(endDate)
+  } catch {
+    throw new Error('Invalid date format. Expected YYYY-MM-DD.')
+  }
+
+  if (startDate > endDate) {
+    throw new Error('Start date must be before or equal to end date')
+  }
+
+  const supabase = await createClient()
+
+  // 3. RPC Call
+  // @ts-expect-error RPC might not be in database.types.ts yet
+  const { data, error } = await supabase.rpc('get_owner_financial_stats', {
+    p_start_date: startDate,
+    p_end_date: endDate
+  })
+
+  if (error) {
+    console.error('Error fetching owner financial stats:', error)
+    throw new Error('Failed to retrieve financial statistics.')
+  }
+
+  return data as unknown as OwnerFinancialStats
+}
+export async function getReportSales(startDate: string, endDate: string) {
+  await requireRole('admin')
+  const supabase = await createClient()
+
+  // Note: we might need to query the database using the UTC bounds if 'created_at' is used,
+  // but let's query the sales table. Wait, in Phase 9-D.4.1 we queried:
+  // (created_at AT TIME ZONE 'UTC' AT TIME ZONE 'Asia/Riyadh')::date >= p_start_date
+  // But from JS we can just fetch and filter, or we can use `.gte('created_at', startUTC).lte('created_at', endUTC)`
+  
+  // Let's create the UTC bounds for Asia/Riyadh
+  const startUTC = new Date(`${startDate}T00:00:00+03:00`).toISOString()
+  const endUTC = new Date(`${endDate}T23:59:59.999+03:00`).toISOString()
+
+  const { data, error } = await supabase
+    .from('sales')
+    .select(`
+      id,
+      amount,
+      type,
+      payment_method,
+      source,
+      status,
+      created_at,
+      bookings ( id, booking_number, customers ( full_name ) )
+    `)
+    .gte('created_at', startUTC)
+    .lte('created_at', endUTC)
+    .eq('is_archived', false)
+    .order('created_at', { ascending: false })
+
+  if (error) throw new Error('Failed to fetch sales report')
+  return data
+}
+
+export async function getReportExpenses(startDate: string, endDate: string) {
+  await requireRole('admin')
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from('expenses')
+    .select(`
+      id,
+      amount,
+      date,
+      category,
+      reference,
+      payment_method,
+      suppliers ( name )
+    `)
+    .gte('date', startDate)
+    .lte('date', endDate)
+    .eq('is_archived', false)
+    .order('date', { ascending: false })
+
+  if (error) throw new Error('Failed to fetch expenses report')
+  return data
+}
+
+export async function getReportPurchases(startDate: string, endDate: string) {
+  await requireRole('admin')
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from('purchases')
+    .select(`
+      id,
+      amount,
+      date,
+      reference,
+      payment_status,
+      suppliers ( name )
+    `)
+    .gte('date', startDate)
+    .lte('date', endDate)
+    .eq('is_archived', false)
+    .order('date', { ascending: false })
+
+  if (error) throw new Error('Failed to fetch purchases report')
+  return data
+}
+
+export async function getReportPayroll(startDate: string, endDate: string) {
+  await requireRole('admin')
+  const supabase = await createClient()
+
+  const [salariesRes, withdrawalsRes] = await Promise.all([
+    supabase
+      .from('salaries')
+      .select(`
+        id,
+        payment_date,
+        month,
+        gross_salary,
+        bonuses,
+        advances_deducted,
+        other_deductions,
+        net_salary,
+        payment_status,
+        staff ( name )
+      `)
+      .gte('payment_date', startDate)
+      .lte('payment_date', endDate)
+      .eq('is_archived', false)
+      .order('payment_date', { ascending: false }),
+    supabase
+      .from('partner_withdrawals')
+      .select(`
+        id,
+        date,
+        amount,
+        status,
+        reference,
+        partners ( name )
+      `)
+      .gte('date', startDate)
+      .lte('date', endDate)
+      .eq('is_archived', false)
+      .order('date', { ascending: false })
+  ])
+
+  if (salariesRes.error || withdrawalsRes.error) {
+    throw new Error('Failed to fetch payroll report')
+  }
+
+  return {
+    salaries: salariesRes.data,
+    withdrawals: withdrawalsRes.data
+  }
+}
+
+export async function getReportReceivables(startDate: string, endDate: string) {
+  await requireRole('admin')
+  const supabase = await createClient()
+
+  // 1. Fetch completed bookings in range
+  const { data: bookings, error: bookingsErr } = await supabase
+    .from('bookings')
+    .select(`
+      id,
+      booking_number,
+      date,
+      price_sar,
+      status,
+      customers ( full_name )
+    `)
+    .eq('status', 'completed')
+    .gte('date', startDate)
+    .lte('date', endDate)
+    .order('date', { ascending: false })
+
+  if (bookingsErr) throw new Error('Failed to fetch bookings for receivables')
+  if (!bookings || bookings.length === 0) return []
+
+  const bookingIds = bookings.map(b => b.id)
+
+  // 2. Fetch all completed, non-archived sales linked to these bookings (ANY DATE)
+  const { data: sales, error: salesErr } = await supabase
+    .from('sales')
+    .select('booking_id, amount, type')
+    .in('booking_id', bookingIds)
+    .eq('status', 'completed')
+    .eq('is_archived', false)
+
+  if (salesErr) throw new Error('Failed to fetch sales for receivables')
+
+  // 3. Aggregate net realized sales per booking
+  const salesByBooking: Record<string, { paid: number, refunded: number, net: number }> = {}
+  for (const s of sales || []) {
+    if (!s.booking_id) continue
+    if (!salesByBooking[s.booking_id]) {
+      salesByBooking[s.booking_id] = { paid: 0, refunded: 0, net: 0 }
+    }
+    const amt = Number(s.amount)
+    if (s.type === 'payment') {
+      salesByBooking[s.booking_id].paid += amt
+      salesByBooking[s.booking_id].net += amt
+    } else if (s.type === 'refund') {
+      salesByBooking[s.booking_id].refunded += amt
+      salesByBooking[s.booking_id].net -= amt
+    }
+  }
+
+  // 4. Calculate outstanding balance
+  return bookings.map(b => {
+    const price = Number(b.price_sar || 0)
+    const stats = salesByBooking[b.id] || { paid: 0, refunded: 0, net: 0 }
+    const outstanding = Math.max(price - stats.net, 0)
+    
+    return {
+      id: b.id,
+      booking_number: b.booking_number,
+      date: b.date,
+      customer_name: b.customers?.full_name || 'Unknown',
+      price_sar: price,
+      amount_paid: stats.paid,
+      amount_refunded: stats.refunded,
+      outstanding_balance: outstanding,
+      status: b.status
+    }
+  })
+}
+
