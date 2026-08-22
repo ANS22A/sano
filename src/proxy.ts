@@ -11,10 +11,10 @@ export async function proxy(request: NextRequest) {
   // ─── Localized admin routes → redirect to standalone /admin ────────────────
   // The admin portal lives at /admin (not /ar/admin or /en/admin).
   // next-intl must not intercept these routes.
-  const localizedAdminMatch = pathname.match(/^\/(?:ar|en)(\/admin(?:\/.*)?)?$/)
+  const localizedAdminMatch = pathname.match(/^\/(?:ar|en)\/admin(\/.*)?$/)
   if (localizedAdminMatch) {
-    const adminPath = localizedAdminMatch[1] ?? '/admin'
-    const target = new URL(adminPath === '' ? '/admin' : adminPath, request.url)
+    const subPath = localizedAdminMatch[1] ?? ''
+    const target = new URL(`/admin${subPath}`, request.url)
     return NextResponse.redirect(target)
   }
 
