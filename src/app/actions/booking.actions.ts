@@ -179,37 +179,65 @@ export async function createBooking(draft: BookingDraft): Promise<BookingRespons
     }
   }
 
-  // 6. Upsert customer by phone (phone is the unique identifier)
+  // 6. Upsert customer by phone / auth_user_id
   const normalizedPhone = normalizePhone(data.customer.phone)
 
   // Use service-role client for DB writes — public booking creates records on
-  // behalf of anonymous visitors; RLS blocks anon INSERTs by design.
-  // All validation is complete above; service-role is used only here.
+  // behalf of anonymous or new visitors; RLS blocks anon INSERTs by design.
+  // All validation is complete above; service-role is used strictly on the server.
   const supabaseAdmin = createAdminClient()
 
-  const { data: existingCustomer } = await supabaseAdmin
-    .from('customers')
-    .select('id')
-    .eq('phone', normalizedPhone)
-    .maybeSingle()
+  // Check if current user is logged in via Supabase Auth
+  const supabaseUser = await createClient()
+  const {
+    data: { user: authUser },
+  } = await supabaseUser.auth.getUser()
 
-  let customerId: string
+  let customerId: string | null = null
 
-  if (existingCustomer) {
-    customerId = existingCustomer.id
-    // Update name/email if provided
-    await supabaseAdmin
+  // 6a. Try to match by auth_user_id first if authenticated
+  if (authUser?.id) {
+    const { data: cAuth } = await supabaseAdmin
       .from('customers')
-      .update({
+      .select('id')
+      .eq('auth_user_id', authUser.id)
+      .maybeSingle()
+    if (cAuth) customerId = cAuth.id
+  }
+
+  // 6b. If not matched yet, search by normalized phone
+  if (!customerId) {
+    const { data: existingCustomer } = await supabaseAdmin
+      .from('customers')
+      .select('id, auth_user_id')
+      .eq('phone', normalizedPhone)
+      .maybeSingle()
+
+    if (existingCustomer) {
+      customerId = existingCustomer.id
+      const updatePayload: {
+        full_name: string
+        email: string
+        updated_at: string
+        auth_user_id?: string
+      } = {
         full_name: data.customer.fullName,
         email: data.customer.email,
         updated_at: new Date().toISOString(),
-      })
-      .eq('id', customerId)
-  } else {
+      }
+      if (authUser?.id && !existingCustomer.auth_user_id) {
+        updatePayload.auth_user_id = authUser.id
+      }
+      await supabaseAdmin.from('customers').update(updatePayload).eq('id', customerId)
+    }
+  }
+
+  // 6c. If still not found, insert new customer record
+  if (!customerId) {
     const { data: newCustomer, error: customerError } = await supabaseAdmin
       .from('customers')
       .insert({
+        auth_user_id: authUser?.id ?? null,
         full_name: data.customer.fullName,
         phone: normalizedPhone,
         email: data.customer.email,
@@ -218,6 +246,7 @@ export async function createBooking(draft: BookingDraft): Promise<BookingRespons
       .single()
 
     if (customerError || !newCustomer) {
+      console.error('[createBooking] Customer creation error:', customerError?.message, customerError?.code)
       return {
         success: false,
         code: 'SERVER_ERROR',
@@ -228,18 +257,66 @@ export async function createBooking(draft: BookingDraft): Promise<BookingRespons
     customerId = newCustomer.id
   }
 
+  // 6d. Resolve service UUID from public.services table (since client/data layer may pass slug)
+  let dbServiceId: string | null = null
+  if (data.serviceId) {
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(data.serviceId)
+    if (isUuid) {
+      dbServiceId = data.serviceId
+    } else {
+      const { data: srv } = await supabaseAdmin
+        .from('services')
+        .select('id')
+        .eq('slug', data.serviceId)
+        .maybeSingle()
+      dbServiceId = srv?.id ?? null
+    }
+  }
+
+  // 6e. Resolve location UUID from public.locations table
+  let dbLocationId: string | null = null
+  if (locationId) {
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(locationId)
+    if (isUuid) {
+      const { data: loc } = await supabaseAdmin
+        .from('locations')
+        .select('id')
+        .eq('id', locationId)
+        .maybeSingle()
+      if (loc) dbLocationId = loc.id
+    }
+    if (!dbLocationId) {
+      const { data: loc } = await supabaseAdmin
+        .from('locations')
+        .select('id')
+        .eq('slug', locationId)
+        .maybeSingle()
+      if (loc) dbLocationId = loc.id
+    }
+  }
+  if (!dbLocationId) {
+    const { data: loc } = await supabaseAdmin
+      .from('locations')
+      .select('id')
+      .eq('is_active', true)
+      .order('sort_order', { ascending: true })
+      .limit(1)
+      .maybeSingle()
+    dbLocationId = loc?.id ?? null
+  }
+
   // 7. Create booking — DB unique index on (location_id, date, start_time) WHERE status != cancelled
   // prevents double-booking at the DB level even under concurrent requests
   const { data: booking, error: bookingError } = await supabaseAdmin
     .from('bookings')
     .insert({
       locale: draft.currency === 'SAR' ? 'ar' : 'en', // fallback
-      service_id: data.serviceId ?? null,
+      service_id: dbServiceId,
       package_slug: data.packageSlug ?? null,
-      location_id: locationId,
+      location_id: dbLocationId,
       date: data.date,
-      start_time: data.startTime + ':00',
-      end_time: endTime + ':00',
+      start_time: data.startTime.length === 5 ? data.startTime + ':00' : data.startTime,
+      end_time: endTime.length === 5 ? endTime + ':00' : endTime,
       customer_id: customerId,
       price_sar: priceSar,
       currency: 'SAR',
@@ -249,6 +326,7 @@ export async function createBooking(draft: BookingDraft): Promise<BookingRespons
     .single()
 
   if (bookingError || !booking) {
+    console.error('[createBooking] Booking creation error:', bookingError?.message, bookingError?.code, bookingError?.details)
     // Check for unique constraint violation (double booking race)
     if (bookingError?.code === '23505') {
       return {
