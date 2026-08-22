@@ -40,7 +40,7 @@ const tAuth = {
     hasAccount: 'Already have an account?',
     back: 'Back to Home',
     otpTitle: 'Verify your email',
-    otpSubtitle: 'Enter the 6-digit verification code we sent to your email.',
+    otpSubtitle: 'Enter the 8-digit verification code we sent to your email.',
     otpButton: 'Verify Code',
     otpVerifying: 'Verifying...',
     resendCountdown: 'Resend code in ({seconds}s)',
@@ -67,7 +67,7 @@ const tAuth = {
     hasAccount: 'لديك حساب بالفعل؟',
     back: 'العودة للرئيسية',
     otpTitle: 'تحقق من بريدك الإلكتروني',
-    otpSubtitle: 'أدخل رمز التحقق المكون من 6 أرقام الذي أرسلناه إلى بريدك الإلكتروني.',
+    otpSubtitle: 'أدخل رمز التحقق المكون من 8 أرقام الذي أرسلناه إلى بريدك الإلكتروني.',
     otpButton: 'تأكيد الرمز',
     otpVerifying: 'جارٍ التحقق...',
     resendCountdown: 'إعادة الإرسال بعد ({seconds} ثانية)',
@@ -96,7 +96,7 @@ function CustomerAuthFormContent({
   const [successInfo, setSuccessInfo] = useState('')
   const [requiresOtp, setRequiresOtp] = useState(false)
   const [registeredEmail, setRegisteredEmail] = useState('')
-  const [otpDigits, setOtpDigits] = useState<string[]>(['', '', '', '', '', ''])
+  const [otpDigits, setOtpDigits] = useState<string[]>(['', '', '', '', '', '', '', ''])
   const [countdown, setCountdown] = useState(60)
   const [isPending, startTransition] = useTransition()
   const [isResending, startResendTransition] = useTransition()
@@ -127,14 +127,14 @@ function CustomerAuthFormContent({
 
     // Handle paste of full or multi-digit code
     if (cleanVal.length > 1) {
-      const pastedDigits = cleanVal.slice(0, 6).split('')
+      const pastedDigits = cleanVal.slice(0, 8).split('')
       const nextDigits = [...otpDigits]
       pastedDigits.forEach((digit, i) => {
-        if (i < 6) nextDigits[i] = digit
+        if (i < 8) nextDigits[i] = digit
       })
       setOtpDigits(nextDigits)
       setError('')
-      const focusIndex = Math.min(pastedDigits.length, 5)
+      const focusIndex = Math.min(pastedDigits.length, 7)
       inputRefs.current[focusIndex]?.focus()
       return
     }
@@ -145,7 +145,7 @@ function CustomerAuthFormContent({
     setError('')
 
     // Move to next input if digit entered
-    if (cleanVal && index < 5) {
+    if (cleanVal && index < 7) {
       inputRefs.current[index + 1]?.focus()
     }
   }
@@ -155,7 +155,7 @@ function CustomerAuthFormContent({
       inputRefs.current[index - 1]?.focus()
     } else if (e.key === 'ArrowLeft' && index > 0) {
       inputRefs.current[index - 1]?.focus()
-    } else if (e.key === 'ArrowRight' && index < 5) {
+    } else if (e.key === 'ArrowRight' && index < 7) {
       inputRefs.current[index + 1]?.focus()
     }
   }
@@ -165,14 +165,14 @@ function CustomerAuthFormContent({
     const pastedData = e.clipboardData.getData('text').replace(/\D/g, '')
     if (!pastedData) return
 
-    const digits = pastedData.slice(0, 6).split('')
-    const nextDigits = ['', '', '', '', '', '']
+    const digits = pastedData.slice(0, 8).split('')
+    const nextDigits = ['', '', '', '', '', '', '', '']
     digits.forEach((digit, i) => {
       nextDigits[i] = digit
     })
     setOtpDigits(nextDigits)
     setError('')
-    const focusIndex = Math.min(digits.length, 5)
+    const focusIndex = Math.min(digits.length, 7)
     inputRefs.current[focusIndex]?.focus()
   }
 
@@ -182,11 +182,11 @@ function CustomerAuthFormContent({
     setSuccessInfo('')
     const token = otpDigits.join('')
 
-    if (token.length !== 6) {
+    if (token.length !== 8) {
       setError(
         isAr
-          ? 'يرجى إدخال رمز التحقق المكون من 6 أرقام كاملاً.'
-          : 'Please enter the complete 6-digit verification code.'
+          ? 'يرجى إدخال رمز التحقق المكون من 8 أرقام كاملاً.'
+          : 'Please enter the complete 8-digit verification code.'
       )
       return
     }
@@ -257,7 +257,7 @@ function CustomerAuthFormContent({
     })
   }
 
-  // ─── 6-DIGIT OTP VERIFICATION SCREEN ───────────────────────────────────────
+  // ─── 8-DIGIT OTP VERIFICATION SCREEN ───────────────────────────────────────
   if (requiresOtp) {
     return (
       <div
@@ -290,8 +290,8 @@ function CustomerAuthFormContent({
           {/* Card */}
           <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-[#E7DBEC]">
             <form onSubmit={handleVerifyOtp} className="space-y-6">
-              {/* 6-Digit OTP Input Row */}
-              <div className="flex items-center justify-center gap-2 sm:gap-3" dir="ltr">
+              {/* 8-Digit OTP Input Row */}
+              <div className="flex items-center justify-center gap-1 sm:gap-2" dir="ltr">
                 {otpDigits.map((digit, idx) => (
                   <input
                     key={idx}
@@ -307,7 +307,7 @@ function CustomerAuthFormContent({
                     onChange={(e) => handleOtpChange(idx, e.target.value)}
                     onKeyDown={(e) => handleOtpKeyDown(idx, e)}
                     onPaste={handleOtpPaste}
-                    className="w-11 h-13 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-bold rounded-xl border border-[#E7DBEC] bg-[#faf7f4] text-[#2E1F38] focus:outline-none focus:ring-2 focus:ring-[#c9a96e] focus:border-[#c9a96e] transition-all shadow-inner"
+                    className="w-8 h-12 sm:w-10 sm:h-14 text-center text-lg sm:text-2xl font-bold rounded-xl border border-[#E7DBEC] bg-[#faf7f4] text-[#2E1F38] focus:outline-none focus:ring-2 focus:ring-[#c9a96e] focus:border-[#c9a96e] transition-all shadow-inner"
                     aria-label={`Digit ${idx + 1}`}
                   />
                 ))}
@@ -330,7 +330,7 @@ function CustomerAuthFormContent({
               {/* Verify Button */}
               <button
                 type="submit"
-                disabled={isPending || otpDigits.join('').length !== 6}
+                disabled={isPending || otpDigits.join('').length !== 8}
                 className="w-full py-3.5 px-4 rounded-xl bg-[#2a2118] text-white text-sm font-bold tracking-wide
                   hover:bg-[#3a3128] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed
                   transition-all duration-200 shadow-md flex items-center justify-center gap-2"

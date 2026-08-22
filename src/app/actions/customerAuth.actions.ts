@@ -127,7 +127,7 @@ export async function verifyCustomerOtp({
   const parsed = z
     .object({
       email: z.string().email('Invalid email format').trim(),
-      token: z.string().regex(/^\d{6}$/, 'Verification code must be 6 digits'),
+      token: z.string().regex(/^\d{8}$/, 'Verification code must be 8 digits'),
     })
     .safeParse({ email, token })
 
@@ -135,18 +135,31 @@ export async function verifyCustomerOtp({
     return {
       error:
         locale === 'ar'
-          ? 'يرجى إدخال رمز تحقق صالح مكون من 6 أرقام.'
-          : 'Please enter a valid 6-digit verification code.',
+          ? 'يرجى إدخال رمز تحقق صالح مكون من 8 أرقام.'
+          : 'Please enter a valid 8-digit verification code.',
     }
   }
 
   const supabase = await createClient()
 
-  const { data, error } = await supabase.auth.verifyOtp({
+  let { data, error } = await supabase.auth.verifyOtp({
     email: parsed.data.email,
     token: parsed.data.token,
-    type: 'signup',
+    type: 'email',
   })
+
+  // Fallback to 'signup' type if 'email' type returned an error
+  if (error) {
+    const signupAttempt = await supabase.auth.verifyOtp({
+      email: parsed.data.email,
+      token: parsed.data.token,
+      type: 'signup',
+    })
+    if (!signupAttempt.error) {
+      data = signupAttempt.data
+      error = null
+    }
+  }
 
   if (error) {
     return {
@@ -158,7 +171,7 @@ export async function verifyCustomerOtp({
   }
 
   revalidatePath('/', 'layout')
-  return { success: true, hasSession: !!data.session }
+  return { success: true, hasSession: !!data?.session }
 }
 
 export async function resendCustomerOtp({
