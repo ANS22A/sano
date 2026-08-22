@@ -27,7 +27,7 @@ export function AdminFilterSelect({ paramName, options, defaultValue }: Props) {
 
   return (
     <select
-      className="appearance-none w-full sm:w-40 px-3 py-1.5 rounded-lg text-xs font-medium border border-border bg-white text-[#7a6a57] hover:bg-[#f5ede0] transition-colors cursor-pointer outline-none focus:border-accent"
+      className="appearance-none w-full sm:w-40 px-3 py-1.5 rounded-lg text-xs font-medium border border-border bg-white text-muted-foreground hover:bg-surface-muted transition-colors cursor-pointer outline-none focus:border-accent"
       value={currentValue}
       onChange={(e) => handleChange(e.target.value)}
     >

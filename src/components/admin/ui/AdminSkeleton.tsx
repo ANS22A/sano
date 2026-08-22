@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils/cn'
 
 // ─── Skeleton ────────────────────────────────────────────────────────────────
 function Skeleton({ className }: { className?: string }) {
-  return <div className={cn('animate-pulse rounded-lg bg-[#e8ddd0]', className)} />
+  return <div className={cn('animate-pulse rounded-lg bg-muted', className)} />
 }
 
 export function AdminTableSkeleton({ rows = 5, cols = 5 }: { rows?: number; cols?: number }) {

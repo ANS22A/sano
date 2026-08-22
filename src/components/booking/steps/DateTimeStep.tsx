@@ -72,7 +72,7 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-1">
-        <h2 className="font-serif text-2xl text-foreground">{t.title}</h2>
+        <h2 className="font-display text-2xl text-foreground">{t.title}</h2>
         {draft.date && (
           <p className="text-[var(--color-text-muted)] text-sm">{formatDisplayDate(draft.date, isAr)}</p>
         )}
@@ -80,7 +80,7 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8">
         {/* Calendar */}
-        <div className="bg-[var(--color-sand-50)] rounded-sm p-4 border border-[var(--border-subtle)]">
+        <div className="bg-[var(--surface)] rounded-sm p-4 border border-[var(--border-subtle)]">
           <BookingCalendar
             selectedDate={draft.date}
             onSelectDate={selectDate}
@@ -97,7 +97,7 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
           ) : isPending ? (
             <div className="h-32 flex items-center justify-center">
               <div className="flex flex-col items-center gap-3">
-                <div className="w-5 h-5 border-2 border-accent border-t-[var(--color-sand-700)] rounded-full animate-spin" />
+                <div className="w-5 h-5 border-2 border-accent border-t-[var(--primary)] rounded-full animate-spin" />
                 <p className="text-xs text-[var(--color-text-muted)]">{t.loading}</p>
               </div>
             </div>
@@ -120,7 +120,7 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
                       'px-3 py-2 text-sm rounded-sm border transition-all duration-150',
                       'focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-1',
                       isSelected && 'bg-foreground text-white border-foreground',
-                      slot.available && !isSelected && 'border-[var(--border-subtle)] hover:border-border hover:bg-[var(--color-sand-50)]',
+                      slot.available && !isSelected && 'border-[var(--border-subtle)] hover:border-border hover:bg-[var(--surface)]',
                       !slot.available && 'border-[var(--border-subtle)] text-[var(--color-text-muted)] opacity-40 cursor-not-allowed line-through'
                     )}
                   >
@@ -137,7 +137,7 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
       <div className="flex items-center gap-3 mt-2">
         <button
           onClick={onBack}
-          className="px-5 py-2.5 text-sm border border-[var(--border-subtle)] rounded-sm hover:bg-[var(--color-sand-50)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+          className="px-5 py-2.5 text-sm border border-[var(--border-subtle)] rounded-sm hover:bg-[var(--surface)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
         >
           {t.back}
         </button>

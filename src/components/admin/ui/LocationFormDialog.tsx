@@ -129,7 +129,7 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
           </h3>
           <button 
             onClick={onClose}
-            className="text-[#9a8a7a] hover:text-foreground transition-colors"
+            className="text-muted-foreground hover:text-foreground transition-colors"
             aria-label="Close"
           >
             ✕
@@ -286,14 +286,14 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
               type="button"
               onClick={onClose}
               disabled={isPending}
-              className="px-4 py-2 rounded-xl text-sm font-medium text-[#7a6a57] hover:bg-white hover:text-foreground transition-colors border border-transparent hover:border-border disabled:opacity-50"
+              className="px-4 py-2 rounded-xl text-sm font-medium text-muted-foreground hover:bg-white hover:text-foreground transition-colors border border-transparent hover:border-border disabled:opacity-50"
             >
               {t.common.cancel}
             </button>
             <button
               type="submit"
               disabled={isPending}
-              className="px-6 py-2 rounded-xl text-sm font-medium bg-primary text-white hover:bg-[#1a1412] transition-colors disabled:opacity-50"
+              className="px-6 py-2 rounded-xl text-sm font-medium bg-primary text-white hover:bg-primary transition-colors disabled:opacity-50"
             >
               {isPending ? t.common.saving : t.common.save}
             </button>

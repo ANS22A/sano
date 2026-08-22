@@ -29,7 +29,7 @@ export default async function AdminCustomersPage({
       <div className="flex items-center justify-between gap-3">
         <div>
           <h1 className="text-xl font-bold text-foreground">{t.customers.title}</h1>
-          <p className="text-sm text-[#9a8a7a]">{total} total</p>
+          <p className="text-sm text-muted-foreground">{total} total</p>
         </div>
         <CustomerFormWrapper t={t} dir={dir} />
       </div>
@@ -45,16 +45,16 @@ export default async function AdminCustomersPage({
               <thead>
                 <tr className="bg-surface border-b border-border">
                   {[t.customers.name, t.customers.phone, t.customers.email, t.common.actions].map((h) => (
-                    <th key={h} className="text-start px-4 py-3 text-xs font-medium text-[#9a8a7a] whitespace-nowrap">{h}</th>
+                    <th key={h} className="text-start px-4 py-3 text-xs font-medium text-muted-foreground whitespace-nowrap">{h}</th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#f0e8de]">
+              <tbody className="divide-y divide-border-subtle">
                 {customers.map((c) => (
                   <tr key={c.id} className="hover:bg-surface transition-colors group">
                     <td className="px-4 py-3 font-medium text-foreground">{c.full_name}</td>
-                    <td className="px-4 py-3 text-[#7a6a57] font-mono text-xs">{c.phone}</td>
-                    <td className="px-4 py-3 text-[#7a6a57]">{c.email ?? '—'}</td>
+                    <td className="px-4 py-3 text-muted-foreground font-mono text-xs">{c.phone}</td>
+                    <td className="px-4 py-3 text-muted-foreground">{c.email ?? '—'}</td>
                     <td className="px-4 py-3 flex items-center gap-3">
                       <Link href={`/admin/customers/${c.id}`} className="text-xs font-medium text-accent hover:underline">
                         {t.common.view}

@@ -51,7 +51,7 @@ export function SupplierForm({ supplier, isEdit }: Props) {
       <div className="flex items-center gap-3">
         <Link
           href="/admin/suppliers"
-          className="p-2 rounded-xl border border-border bg-white text-[#7a6a57] hover:text-foreground hover:bg-surface transition-colors"
+          className="p-2 rounded-xl border border-border bg-white text-muted-foreground hover:text-foreground hover:bg-surface transition-colors"
         >
           {isAr ? <ArrowRight className="w-4 h-4" /> : <ArrowLeft className="w-4 h-4" />}
         </Link>
@@ -65,7 +65,7 @@ export function SupplierForm({ supplier, isEdit }: Props) {
               ? 'إضافة مورد جديد'
               : 'Add New Supplier'}
           </h1>
-          <p className="text-xs text-[#7a6a57] mt-0.5">
+          <p className="text-xs text-muted-foreground mt-0.5">
             {isAr
               ? 'تسجيل جهات التوريد والشركات المتعامل معها'
               : 'Register vendors, companies, and business suppliers'}
@@ -82,7 +82,7 @@ export function SupplierForm({ supplier, isEdit }: Props) {
       <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-border p-6 shadow-sm space-y-5">
         {/* Name */}
         <div>
-          <label className="block text-xs font-semibold text-[#7a6a57] mb-1.5">
+          <label className="block text-xs font-semibold text-muted-foreground mb-1.5">
             {isAr ? 'اسم المورد / الشركة' : 'Supplier / Company Name'} *
           </label>
           <input
@@ -98,7 +98,7 @@ export function SupplierForm({ supplier, isEdit }: Props) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Phone */}
           <div>
-            <label className="block text-xs font-semibold text-[#7a6a57] mb-1.5">
+            <label className="block text-xs font-semibold text-muted-foreground mb-1.5">
               {isAr ? 'رقم الهاتف / الجوال' : 'Phone Number'}
             </label>
             <input
@@ -112,7 +112,7 @@ export function SupplierForm({ supplier, isEdit }: Props) {
 
           {/* Email */}
           <div>
-            <label className="block text-xs font-semibold text-[#7a6a57] mb-1.5">
+            <label className="block text-xs font-semibold text-muted-foreground mb-1.5">
               {isAr ? 'البريد الإلكتروني' : 'Email Address'}
             </label>
             <input
@@ -127,7 +127,7 @@ export function SupplierForm({ supplier, isEdit }: Props) {
 
         {/* Address */}
         <div>
-          <label className="block text-xs font-semibold text-[#7a6a57] mb-1.5">
+          <label className="block text-xs font-semibold text-muted-foreground mb-1.5">
             {isAr ? 'العنوان / المدينة' : 'Address / City'}
           </label>
           <input
@@ -141,7 +141,7 @@ export function SupplierForm({ supplier, isEdit }: Props) {
 
         {/* Notes */}
         <div>
-          <label className="block text-xs font-semibold text-[#7a6a57] mb-1.5">
+          <label className="block text-xs font-semibold text-muted-foreground mb-1.5">
             {isAr ? 'ملاحظات' : 'Notes'}
           </label>
           <textarea
@@ -163,7 +163,7 @@ export function SupplierForm({ supplier, isEdit }: Props) {
               defaultChecked={supplier ? supplier.is_active : true}
               className="sr-only peer"
             />
-            <div className="w-10 h-6 bg-[#e8ddd0] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+            <div className="w-10 h-6 bg-muted peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
           </label>
           <span className="text-xs font-medium text-foreground">
             {isAr ? 'مورد نشط (متاح لإجراء المشتريات)' : 'Active Supplier (available for purchases)'}
@@ -174,14 +174,14 @@ export function SupplierForm({ supplier, isEdit }: Props) {
         <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
           <Link
             href="/admin/suppliers"
-            className="px-4 py-2 rounded-xl text-sm font-medium border border-border text-[#7a6a57] hover:bg-surface transition-colors"
+            className="px-4 py-2 rounded-xl text-sm font-medium border border-border text-muted-foreground hover:bg-surface transition-colors"
           >
             {isAr ? 'إلغاء' : 'Cancel'}
           </Link>
           <button
             type="submit"
             disabled={isPending}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-medium hover:bg-[#3a3128] transition-colors shadow-sm disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-hover transition-colors shadow-sm disabled:opacity-50"
           >
             {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
             <span>{isAr ? 'حفظ المورد' : 'Save Supplier'}</span>

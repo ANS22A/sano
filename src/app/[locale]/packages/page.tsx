@@ -30,12 +30,12 @@ export default async function PackagesPage({
   return (
     <main className="min-h-screen">
       {/* Hero */}
-      <section className="pt-32 pb-16 bg-[var(--color-sand-50)]">
+      <section className="pt-32 pb-16 bg-[var(--surface)]">
         <div className="container mx-auto px-6 max-w-5xl text-center">
-          <p className="text-[var(--color-sand-600)] text-sm tracking-[0.2em] uppercase mb-4 font-medium">
+          <p className="text-[var(--muted-foreground)] text-sm tracking-[0.2em] uppercase mb-4 font-medium">
             {isAr ? 'تجارب متكاملة' : 'Complete Experiences'}
           </p>
-          <h1 className="font-serif text-4xl md:text-5xl text-[var(--color-sand-900)] mb-6">
+          <h1 className="font-display text-4xl md:text-5xl text-[var(--foreground)] mb-6">
             {isAr ? 'الباقات' : 'Packages'}
           </h1>
           <p className="text-[var(--color-text-muted)] max-w-2xl mx-auto text-lg leading-relaxed">
@@ -58,7 +58,7 @@ export default async function PackagesPage({
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-[var(--color-sand-50)]">
+      <section className="py-16 bg-[var(--surface)]">
         <div className="container mx-auto px-6 max-w-xl text-center">
           <p className="text-[var(--color-text-muted)] mb-6">
             {isAr
@@ -67,7 +67,7 @@ export default async function PackagesPage({
           </p>
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 text-[var(--color-sand-700)] border border-[var(--color-sand-300)] px-6 py-3 rounded-sm hover:bg-[var(--color-sand-100)] transition-colors text-sm tracking-wide"
+            className="inline-flex items-center gap-2 text-[var(--primary)] border border-[var(--border)] px-6 py-3 rounded-sm hover:bg-[var(--surface-muted)] transition-colors text-sm tracking-wide"
           >
             {isAr ? 'استعرض الخدمات' : 'Browse Services'}
           </Link>

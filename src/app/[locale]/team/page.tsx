@@ -65,14 +65,14 @@ export default async function TeamPage({
                       'group flex flex-col items-center text-center',
                       'p-8 rounded-sm border border-[var(--border-subtle)] bg-background',
                       'transition-all duration-300',
-                      'hover:border-[var(--color-sand-400)] hover:shadow-[0_8px_24px_rgba(26,23,20,0.06)]'
+                      'hover:border-[var(--border-strong)] hover:shadow-[0_8px_24px_rgba(26,23,20,0.06)]'
                     )}
                   >
                     {/* Avatar */}
                     <div
                       className={cn(
                         'w-32 h-32 rounded-full mb-6 flex-shrink-0 relative overflow-hidden',
-                        'bg-gradient-to-br from-[var(--color-sand-200)] to-[var(--color-sand-300)]'
+                        'bg-gradient-to-br from-[var(--secondary)] to-[var(--border)]'
                       )}
                       aria-hidden="true"
                     >
@@ -86,7 +86,7 @@ export default async function TeamPage({
                         />
                       ) : (
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-4xl text-[var(--color-sand-600)]">◌</span>
+                          <span className="text-4xl text-[var(--muted-foreground)]">◌</span>
                         </div>
                       )}
                     </div>

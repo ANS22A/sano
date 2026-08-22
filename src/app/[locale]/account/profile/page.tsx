@@ -52,7 +52,7 @@ export default function AccountProfilePage() {
 
   return (
     <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-subtle">
-      <h1 className="text-2xl font-bold text-foreground mb-8 font-serif">{t('profile')}</h1>
+      <h1 className="text-2xl font-bold text-foreground mb-8 font-display">{t('profile')}</h1>
 
       {message && (
         <div className="mb-6 p-4 rounded-xl bg-green-50 border border-green-100 text-sm text-green-700 font-medium">
@@ -120,7 +120,7 @@ export default function AccountProfilePage() {
           type="submit"
           disabled={isPending}
           className="w-full sm:w-auto py-3 px-8 rounded-xl bg-secondary text-white text-sm font-bold tracking-wide
-            hover:bg-[#5a3d66] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed
+            hover:bg-primary-hover active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed
             transition-all duration-200 shadow-md flex items-center justify-center gap-2 mt-8"
         >
           {isPending && <Loader2 className="w-4 h-4 animate-spin" />}

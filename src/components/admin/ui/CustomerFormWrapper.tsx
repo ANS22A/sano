@@ -40,7 +40,7 @@ export function CustomerFormWrapper({ t, dir, customer, variant = 'button' }: Cu
       {variant === 'button' ? (
         <button
           onClick={() => setOpen(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-primary text-white text-sm font-medium rounded-xl hover:bg-[#3a3128] transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-primary text-white text-sm font-medium rounded-xl hover:bg-primary-hover transition-colors"
         >
           {customer ? (
             <>
@@ -57,7 +57,7 @@ export function CustomerFormWrapper({ t, dir, customer, variant = 'button' }: Cu
       ) : (
         <button
           onClick={() => setOpen(true)}
-          className="p-2 text-[#9a8a7a] hover:text-foreground hover:bg-[#f5ede0] rounded-lg transition-colors"
+          className="p-2 text-muted-foreground hover:text-foreground hover:bg-surface-muted rounded-lg transition-colors"
           title={t.common.edit}
         >
           <Edit2 className="w-4 h-4" />

@@ -174,11 +174,11 @@ export function AdminGiftCardsClient({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-serif font-bold text-foreground flex items-center gap-2.5">
+          <h1 className="text-2xl font-display font-bold text-foreground flex items-center gap-2.5">
             <Gift className="w-6 h-6 text-accent" />
             <span>{t.title}</span>
           </h1>
-          <p className="text-xs text-[#7a6a57] mt-1">
+          <p className="text-xs text-muted-foreground mt-1">
             {isAr
               ? `متابعة وتأكيد دفع كروت الإهداء (${total} كرت إجمالي)`
               : `Manage WhatsApp manual payments and gift cards (${total} total)`}
@@ -187,7 +187,7 @@ export function AdminGiftCardsClient({
 
         <button
           onClick={() => setModalOpen(true)}
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-white text-sm font-bold hover:bg-[#3a3128] transition-colors shadow-sm"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-white text-sm font-bold hover:bg-primary-hover transition-colors shadow-sm"
         >
           <Plus className="w-4 h-4 text-accent" />
           <span>{t.newBtn}</span>
@@ -197,48 +197,48 @@ export function AdminGiftCardsClient({
       {/* KPI Stats Bar */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white p-5 rounded-2xl border border-border shadow-sm">
-          <div className="flex items-center justify-between text-[#9a8a7a] mb-2 text-xs font-semibold">
+          <div className="flex items-center justify-between text-muted-foreground mb-2 text-xs font-semibold">
             <span>{t.statPendingPayment}</span>
             <Clock className="w-4 h-4 text-amber-600" />
           </div>
-          <div className="text-2xl font-serif font-bold text-amber-700">
+          <div className="text-2xl font-display font-bold text-amber-700">
             {stats.pendingPaymentCount ?? 0}
           </div>
-          <div className="text-[11px] text-[#9a8a7a] mt-1">
+          <div className="text-[11px] text-muted-foreground mt-1">
             {isAr ? 'بانتظار تأكيد التحويل' : 'Awaiting payment confirmation'}
           </div>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-border shadow-sm">
-          <div className="flex items-center justify-between text-[#9a8a7a] mb-2 text-xs font-semibold">
+          <div className="flex items-center justify-between text-muted-foreground mb-2 text-xs font-semibold">
             <span>{t.statTotalIssued}</span>
             <DollarSign className="w-4 h-4 text-accent" />
           </div>
-          <div className="text-2xl font-serif font-bold text-foreground">
-            {stats.totalIssued.toLocaleString()} <span className="text-xs font-sans font-normal text-[#9a8a7a]">{t.sar}</span>
+          <div className="text-2xl font-display font-bold text-foreground">
+            {stats.totalIssued.toLocaleString()} <span className="text-xs font-sans font-normal text-muted-foreground">{t.sar}</span>
           </div>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-border shadow-sm">
-          <div className="flex items-center justify-between text-[#9a8a7a] mb-2 text-xs font-semibold">
+          <div className="flex items-center justify-between text-muted-foreground mb-2 text-xs font-semibold">
             <span>{t.statActiveBalance}</span>
             <CreditCard className="w-4 h-4 text-emerald-600" />
           </div>
-          <div className="text-2xl font-serif font-bold text-emerald-700">
-            {stats.activeBalance.toLocaleString()} <span className="text-xs font-sans font-normal text-[#9a8a7a]">{t.sar}</span>
+          <div className="text-2xl font-display font-bold text-emerald-700">
+            {stats.activeBalance.toLocaleString()} <span className="text-xs font-sans font-normal text-muted-foreground">{t.sar}</span>
           </div>
-          <div className="text-[11px] text-[#9a8a7a] mt-1">
+          <div className="text-[11px] text-muted-foreground mt-1">
             {stats.activeCount} {isAr ? 'كرت ساري ومتاح' : 'active available cards'}
           </div>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-border shadow-sm">
-          <div className="flex items-center justify-between text-[#9a8a7a] mb-2 text-xs font-semibold">
+          <div className="flex items-center justify-between text-muted-foreground mb-2 text-xs font-semibold">
             <span>{t.statRedeemed}</span>
-            <TrendingUp className="w-4 h-4 text-[#7a6a57]" />
+            <TrendingUp className="w-4 h-4 text-muted-foreground" />
           </div>
-          <div className="text-2xl font-serif font-bold text-foreground">
-            {stats.totalRedeemed.toLocaleString()} <span className="text-xs font-sans font-normal text-[#9a8a7a]">{t.sar}</span>
+          <div className="text-2xl font-display font-bold text-foreground">
+            {stats.totalRedeemed.toLocaleString()} <span className="text-xs font-sans font-normal text-muted-foreground">{t.sar}</span>
           </div>
         </div>
       </div>
@@ -247,7 +247,7 @@ export function AdminGiftCardsClient({
       <div className="bg-white p-4 rounded-2xl border border-border shadow-sm flex flex-col md:flex-row gap-3 items-center justify-between">
         {/* Search */}
         <form method="GET" className="relative w-full md:w-80">
-          <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9a8a7a]" />
+          <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <input
             type="text"
             name="q"
@@ -276,7 +276,7 @@ export function AdminGiftCardsClient({
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors whitespace-nowrap ${
                   isSelected
                     ? 'bg-primary text-accent'
-                    : 'bg-surface text-[#7a6a57] hover:bg-[#f5ede0]'
+                    : 'bg-surface text-muted-foreground hover:bg-surface-muted'
                 }`}
               >
                 {labelMap[st]}
@@ -297,7 +297,7 @@ export function AdminGiftCardsClient({
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-xs text-start">
-              <thead className="bg-surface border-b border-border text-[#7a6a57] font-semibold">
+              <thead className="bg-surface border-b border-border text-muted-foreground font-semibold">
                 <tr>
                   <th className="py-3.5 px-4 text-start">{t.orderRef}</th>
                   <th className="py-3.5 px-4 text-start">{t.code}</th>
@@ -309,7 +309,7 @@ export function AdminGiftCardsClient({
                   <th className="py-3.5 px-4 text-end">{t.actions}</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#e8ddd0]">
+              <tbody className="divide-y divide-border-subtle">
                 {giftCards.map((card) => {
                   const initial = Number(card.initial_amount) || 0
                   const remaining = Number(card.remaining_balance) || 0
@@ -329,7 +329,7 @@ export function AdminGiftCardsClient({
                       {/* Code */}
                       <td className="py-3.5 px-4">
                         {isPendingPayment ? (
-                          <span className="text-[11px] text-[#9a8a7a] italic">
+                          <span className="text-[11px] text-muted-foreground italic">
                             {isAr ? 'يُفعّل بعد الدفع' : 'Activates upon payment'}
                           </span>
                         ) : (
@@ -340,7 +340,7 @@ export function AdminGiftCardsClient({
                             <button
                               onClick={() => handleCopy(card.code)}
                               title={t.copyCode}
-                              className="p-1 text-[#9a8a7a] hover:text-foreground transition-colors"
+                              className="p-1 text-muted-foreground hover:text-foreground transition-colors"
                             >
                               {isCopied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                             </button>
@@ -351,13 +351,13 @@ export function AdminGiftCardsClient({
                       {/* Recipient */}
                       <td className="py-3.5 px-4">
                         <div className="font-semibold text-foreground">{card.recipient_name}</div>
-                        <div className="text-[11px] text-[#9a8a7a] dir-ltr text-start" dir="ltr">{card.recipient_email}</div>
+                        <div className="text-[11px] text-muted-foreground dir-ltr text-start" dir="ltr">{card.recipient_email}</div>
                       </td>
 
                       {/* Sender */}
                       <td className="py-3.5 px-4">
                         <div className="font-medium text-foreground">{card.sender_name}</div>
-                        <div className="text-[11px] text-[#9a8a7a] dir-ltr text-start" dir="ltr">{card.sender_email}</div>
+                        <div className="text-[11px] text-muted-foreground dir-ltr text-start" dir="ltr">{card.sender_email}</div>
                       </td>
 
                       {/* Amount & Balance Progress */}
@@ -366,7 +366,7 @@ export function AdminGiftCardsClient({
                           {isPendingPayment ? `${initial} ${t.sar}` : `${remaining} / ${initial} ${t.sar}`}
                         </div>
                         {!isPendingPayment && (
-                          <div className="w-20 h-1.5 rounded-full bg-[#e8ddd0] overflow-hidden">
+                          <div className="w-20 h-1.5 rounded-full bg-muted overflow-hidden">
                             <div
                               className={`h-full ${pct > 0 ? 'bg-emerald-500' : 'bg-gray-400'}`}
                               style={{ width: `${pct}%` }}
@@ -394,7 +394,7 @@ export function AdminGiftCardsClient({
                       </td>
 
                       {/* Dates */}
-                      <td className="py-3.5 px-4 text-[11px] text-[#7a6a57]">
+                      <td className="py-3.5 px-4 text-[11px] text-muted-foreground">
                         <div>{new Date(card.created_at).toLocaleDateString(isAr ? 'ar-SA' : 'en-GB')}</div>
                       </td>
 
@@ -411,7 +411,7 @@ export function AdminGiftCardsClient({
                           )}
                           <button
                             onClick={() => setSelectedCard(card)}
-                            className="p-1.5 rounded-lg border border-border text-[#7a6a57] hover:bg-surface hover:text-foreground transition-colors"
+                            className="p-1.5 rounded-lg border border-border text-muted-foreground hover:bg-surface hover:text-foreground transition-colors"
                             title={t.viewDetails}
                           >
                             <Eye className="w-3.5 h-3.5" />
@@ -446,26 +446,26 @@ export function AdminGiftCardsClient({
           <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-border space-y-6">
             <div className="flex items-center gap-3 text-amber-600">
               <AlertTriangle className="w-7 h-7 shrink-0" />
-              <h3 className="font-serif text-lg font-bold text-foreground">
+              <h3 className="font-display text-lg font-bold text-foreground">
                 {t.confirmModalTitle}
               </h3>
             </div>
 
-            <p className="text-xs text-[#7a6a57] leading-relaxed">
+            <p className="text-xs text-muted-foreground leading-relaxed">
               {t.confirmModalPrompt}
             </p>
 
             <div className="p-4 bg-surface rounded-2xl border border-border space-y-2 text-xs">
               <div className="flex justify-between">
-                <span className="text-[#9a8a7a]">{t.orderRef}:</span>
+                <span className="text-muted-foreground">{t.orderRef}:</span>
                 <span className="font-mono font-bold text-foreground dir-ltr" dir="ltr">{confirmActivationCard.order_reference}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#9a8a7a]">{t.recipient}:</span>
+                <span className="text-muted-foreground">{t.recipient}:</span>
                 <span className="font-semibold text-foreground">{confirmActivationCard.recipient_name} ({confirmActivationCard.recipient_email})</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#9a8a7a]">{t.sender}:</span>
+                <span className="text-muted-foreground">{t.sender}:</span>
                 <span className="font-semibold text-foreground">{confirmActivationCard.sender_name}</span>
               </div>
               <div className="flex justify-between font-bold text-emerald-700 text-sm pt-2 border-t border-border">
@@ -484,7 +484,7 @@ export function AdminGiftCardsClient({
               <button
                 type="button"
                 onClick={() => setConfirmActivationCard(null)}
-                className="flex-1 py-3 rounded-xl border border-border text-xs font-semibold text-[#7a6a57] hover:bg-surface"
+                className="flex-1 py-3 rounded-xl border border-border text-xs font-semibold text-muted-foreground hover:bg-surface"
               >
                 {t.cancel}
               </button>
@@ -507,13 +507,13 @@ export function AdminGiftCardsClient({
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-border space-y-6">
             <div className="flex justify-between items-center pb-3 border-b border-border">
-              <h3 className="font-serif text-lg font-bold text-foreground flex items-center gap-2">
+              <h3 className="font-display text-lg font-bold text-foreground flex items-center gap-2">
                 <Gift className="w-5 h-5 text-accent" />
                 <span>{t.viewDetails}</span>
               </h3>
               <button
                 onClick={() => setSelectedCard(null)}
-                className="p-1.5 rounded-lg text-[#9a8a7a] hover:bg-surface"
+                className="p-1.5 rounded-lg text-muted-foreground hover:bg-surface"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -525,27 +525,27 @@ export function AdminGiftCardsClient({
                 <span dir="ltr">{selectedCard.order_reference}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#9a8a7a]">{t.code}:</span>
+                <span className="text-muted-foreground">{t.code}:</span>
                 <span className="font-mono font-bold" dir="ltr">{selectedCard.code}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#9a8a7a]">{isAr ? 'القيمة الأصلية:' : 'Initial Amount:'}</span>
+                <span className="text-muted-foreground">{isAr ? 'القيمة الأصلية:' : 'Initial Amount:'}</span>
                 <span className="font-bold">{selectedCard.initial_amount} {t.sar}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#9a8a7a]">{isAr ? 'الرصيد المتبقي:' : 'Remaining Balance:'}</span>
+                <span className="text-muted-foreground">{isAr ? 'الرصيد المتبقي:' : 'Remaining Balance:'}</span>
                 <span className="font-bold text-emerald-700">{selectedCard.remaining_balance} {t.sar}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#9a8a7a]">{t.recipient}:</span>
+                <span className="text-muted-foreground">{t.recipient}:</span>
                 <span>{selectedCard.recipient_name} ({selectedCard.recipient_email})</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#9a8a7a]">{t.sender}:</span>
+                <span className="text-muted-foreground">{t.sender}:</span>
                 <span>{selectedCard.sender_name} ({selectedCard.sender_email})</span>
               </div>
               {selectedCard.personal_message && (
-                <div className="p-3 bg-surface rounded-xl border border-border italic text-[#7a6a57]">
+                <div className="p-3 bg-surface rounded-xl border border-border italic text-muted-foreground">
                   &ldquo;{selectedCard.personal_message}&rdquo;
                 </div>
               )}
@@ -553,7 +553,7 @@ export function AdminGiftCardsClient({
 
             <button
               onClick={() => setSelectedCard(null)}
-              className="w-full py-2.5 rounded-xl bg-primary text-white text-xs font-bold hover:bg-[#3a3128]"
+              className="w-full py-2.5 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary-hover"
             >
               {isAr ? 'إغلاق' : 'Close'}
             </button>
@@ -566,13 +566,13 @@ export function AdminGiftCardsClient({
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-border space-y-6">
             <div className="flex justify-between items-center pb-3 border-b border-border">
-              <h3 className="font-serif text-lg font-bold text-foreground flex items-center gap-2">
+              <h3 className="font-display text-lg font-bold text-foreground flex items-center gap-2">
                 <Plus className="w-5 h-5 text-accent" />
                 <span>{t.modalTitle}</span>
               </h3>
               <button
                 onClick={() => setModalOpen(false)}
-                className="p-1.5 rounded-lg text-[#9a8a7a] hover:bg-surface"
+                className="p-1.5 rounded-lg text-muted-foreground hover:bg-surface"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -680,14 +680,14 @@ export function AdminGiftCardsClient({
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="flex-1 py-2.5 rounded-xl border border-border text-xs font-semibold text-[#7a6a57] hover:bg-surface"
+                  className="flex-1 py-2.5 rounded-xl border border-border text-xs font-semibold text-muted-foreground hover:bg-surface"
                 >
                   {t.cancel}
                 </button>
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="flex-1 py-2.5 rounded-xl bg-primary text-white text-xs font-bold hover:bg-[#3a3128] flex items-center justify-center gap-2"
+                  className="flex-1 py-2.5 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary-hover flex items-center justify-center gap-2"
                 >
                   {isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle2 className="w-4 h-4 text-accent" />}
                   <span>{t.issue}</span>

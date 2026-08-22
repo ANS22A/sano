@@ -33,15 +33,15 @@ export default async function AdminStaffPage() {
               <thead>
                 <tr className="bg-surface border-b border-border">
                   {['Name (EN)', 'Name (AR)', 'Active', 'Actions'].map((h) => (
-                    <th key={h} className="text-start px-4 py-3 text-xs font-medium text-[#9a8a7a]">{h}</th>
+                    <th key={h} className="text-start px-4 py-3 text-xs font-medium text-muted-foreground">{h}</th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#f0e8de]">
+              <tbody className="divide-y divide-border-subtle">
                 {staff.map((s) => (
                   <tr key={s.id} className="hover:bg-surface transition-colors group">
                     <td className="px-4 py-3 font-medium text-foreground">{s.name_en}</td>
-                    <td className="px-4 py-3 text-[#7a6a57]" dir="rtl">{s.name_ar}</td>
+                    <td className="px-4 py-3 text-muted-foreground" dir="rtl">{s.name_ar}</td>
                     <td className="px-4 py-3">
                       <AdminBadge
                         status={s.is_active ? 'active' : 'inactive'}

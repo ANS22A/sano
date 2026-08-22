@@ -45,7 +45,7 @@ export function WhySection() {
                 'group bg-background p-8 lg:p-10',
                 'flex items-start gap-5',
                 'transition-colors duration-300',
-                'hover:bg-[var(--color-sand-50,rgba(250,249,247,0.8))]'
+                'hover:bg-[var(--surface)]'
               )}
             >
               {/* Step number */}

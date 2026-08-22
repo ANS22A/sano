@@ -55,7 +55,7 @@ export function ServiceForm({ service, categories, isEdit }: ServiceFormProps) {
   }
 
   const inputCls = 'w-full px-4 py-2.5 rounded-xl border border-border bg-white text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent'
-  const labelCls = 'block text-xs font-medium text-[#7a6a57] mb-1.5'
+  const labelCls = 'block text-xs font-medium text-muted-foreground mb-1.5'
 
   return (
     <div className="max-w-2xl space-y-6">
@@ -145,11 +145,11 @@ export function ServiceForm({ service, categories, isEdit }: ServiceFormProps) {
 
         <div className="flex items-center gap-6">
           <label className="flex items-center gap-2 cursor-pointer">
-            <input name="is_active" type="checkbox" defaultChecked={service?.is_active ?? true} value="true" className="w-4 h-4 rounded accent-[#c9a96e]" />
+            <input name="is_active" type="checkbox" defaultChecked={service?.is_active ?? true} value="true" className="w-4 h-4 rounded accent-accent" />
             <span className="text-sm text-foreground">{t.services.active}</span>
           </label>
           <label className="flex items-center gap-2 cursor-pointer">
-            <input name="is_featured" type="checkbox" defaultChecked={service?.is_featured ?? false} value="true" className="w-4 h-4 rounded accent-[#c9a96e]" />
+            <input name="is_featured" type="checkbox" defaultChecked={service?.is_featured ?? false} value="true" className="w-4 h-4 rounded accent-accent" />
             <span className="text-sm text-foreground">{t.services.featured}</span>
           </label>
         </div>
@@ -158,14 +158,14 @@ export function ServiceForm({ service, categories, isEdit }: ServiceFormProps) {
           <button
             type="submit"
             disabled={isPending}
-            className="px-6 py-2.5 rounded-xl bg-primary text-white text-sm font-medium hover:bg-[#3a3128] disabled:opacity-60 transition-colors"
+            className="px-6 py-2.5 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-hover disabled:opacity-60 transition-colors"
           >
             {isPending ? t.services.saving : t.services.save}
           </button>
           <button
             type="button"
             onClick={() => router.back()}
-            className="px-6 py-2.5 rounded-xl border border-border text-[#7a6a57] text-sm font-medium hover:bg-[#f5ede0] transition-colors"
+            className="px-6 py-2.5 rounded-xl border border-border text-muted-foreground text-sm font-medium hover:bg-surface-muted transition-colors"
           >
             {t.common.cancel}
           </button>

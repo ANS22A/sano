@@ -31,14 +31,14 @@ export function AdminSearchBar({ placeholder = 'Search…', paramName = 'q' }: P
 
   return (
     <div className="relative">
-      <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9a8a7a] pointer-events-none" />
+      <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
       <input
         type="search"
         defaultValue={searchParams.get(paramName) ?? ''}
         onChange={handleChange}
         placeholder={placeholder}
         className="w-full ps-9 pe-4 py-2 rounded-xl border border-border bg-white text-sm text-foreground
-          placeholder:text-[#b8a898] focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+          placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
       />
     </div>
   )

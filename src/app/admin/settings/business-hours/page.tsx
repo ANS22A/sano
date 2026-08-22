@@ -23,7 +23,7 @@ export default async function BusinessHoursPage({
     <div className="max-w-3xl space-y-6">
       <div>
         <h1 className="text-xl font-bold text-foreground">Business Hours</h1>
-        <p className="text-sm text-[#9a8a7a] mt-1">Manage opening hours for {activeLocation?.name_en ?? 'all locations'}</p>
+        <p className="text-sm text-muted-foreground mt-1">Manage opening hours for {activeLocation?.name_en ?? 'all locations'}</p>
       </div>
 
       <div className="bg-white rounded-2xl border border-border overflow-hidden">
@@ -31,7 +31,7 @@ export default async function BusinessHoursPage({
           <Clock className="w-5 h-5 text-accent" />
           <span className="text-sm font-medium text-foreground">Weekly Schedule</span>
         </div>
-        <div className="divide-y divide-[#f0e8de]">
+        <div className="divide-y divide-border-subtle">
           {hours.map((h) => (
             <BusinessHourRow
               key={h.id}
@@ -43,7 +43,7 @@ export default async function BusinessHoursPage({
             />
           ))}
           {hours.length === 0 && (
-            <div className="p-8 text-center text-[#9a8a7a] text-sm">No business hours configured for this location.</div>
+            <div className="p-8 text-center text-muted-foreground text-sm">No business hours configured for this location.</div>
           )}
         </div>
       </div>

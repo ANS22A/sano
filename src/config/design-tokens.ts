@@ -6,12 +6,12 @@ export const designTokens = {
     
     accent: '#D4AF37',
     accentForeground: '#2E1F38',
-    accentSubtle: '#F2EBE1',
+    accentSubtle: '#F7F3E8',
     
-    background: '#E7DBEC',
-    surface: '#D6C2D9',
+    background: '#FFFFFF',
+    surface: '#FAF7F4',
     surfaceElevated: '#FFFFFF',
-    surfaceMuted: '#D6C2D9',
+    surfaceMuted: '#E7DBEC',
     
     foreground: '#2E1F38',
     foregroundSecondary: '#6F4E7C',
@@ -34,8 +34,8 @@ export const designTokens = {
     fonts: {
       display: 'Cinzel, serif',
       body: 'Montserrat, sans-serif',
-      displayAr: 'Tajawal, sans-serif',
-      bodyAr: 'Cairo, sans-serif'
+      displayAr: 'Cairo, sans-serif',
+      bodyAr: 'Tajawal, sans-serif'
     },
     weights: {
       light: 300,

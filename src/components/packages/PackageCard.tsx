@@ -46,7 +46,7 @@ export function PackageCard({ pkg, locale }: PackageCardProps) {
                 {tagline}
               </p>
             )}
-            <h2 className="font-serif text-xl text-foreground">{name}</h2>
+            <h2 className="font-display text-xl text-foreground">{name}</h2>
           </div>
           <div className="shrink-0 text-end">
             <span className="text-lg font-semibold text-foreground">
@@ -91,7 +91,7 @@ export function PackageCard({ pkg, locale }: PackageCardProps) {
             'bg-foreground text-white text-sm tracking-wide',
             'px-6 py-3 rounded-sm',
             'hover:bg-foreground transition-colors duration-200',
-            'focus:outline-none focus:ring-2 focus:ring-[var(--color-sand-700)] focus:ring-offset-2'
+            'focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2'
           )}
         >
           {isAr ? 'احجزي الآن' : 'Book Now'}

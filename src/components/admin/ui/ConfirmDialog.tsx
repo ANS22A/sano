@@ -55,7 +55,7 @@ export function ConfirmDialog({
         <h2 id="confirm-title" className="text-base font-semibold text-foreground mb-2">
           {title}
         </h2>
-        <p id="confirm-desc" className="text-sm text-[#7a6a57] mb-4">
+        <p id="confirm-desc" className="text-sm text-muted-foreground mb-4">
           {description}
         </p>
         {children}
@@ -63,7 +63,7 @@ export function ConfirmDialog({
           <button
             onClick={onCancel}
             disabled={isPending}
-            className="px-4 py-2 rounded-xl text-sm font-medium text-[#7a6a57] border border-border hover:bg-[#f5ede0] transition-colors disabled:opacity-50"
+            className="px-4 py-2 rounded-xl text-sm font-medium text-muted-foreground border border-border hover:bg-surface-muted transition-colors disabled:opacity-50"
           >
             {cancelLabel}
           </button>
@@ -74,7 +74,7 @@ export function ConfirmDialog({
               'px-4 py-2 rounded-xl text-sm font-medium text-white transition-colors disabled:opacity-50',
               destructive
                 ? 'bg-red-600 hover:bg-red-700'
-                : 'bg-primary hover:bg-[#3a3128]'
+                : 'bg-primary hover:bg-primary-hover'
             )}
           >
             {isPending ? '…' : confirmLabel}

@@ -48,7 +48,7 @@ export function PasswordRecoveryForm({ type, locale }: { type: 'forgot' | 'reset
         
         {/* Back Link */}
         <div className="mb-8">
-          <Link href={`/${locale}/login`} className="inline-flex items-center gap-2 text-sm font-medium text-[#9a8a7a] hover:text-secondary transition-colors">
+          <Link href={`/${locale}/login`} className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-secondary transition-colors">
             <ArrowLeft className="w-4 h-4 rtl:rotate-180" />
             {tAuth('backToLogin')}
           </Link>
@@ -56,10 +56,10 @@ export function PasswordRecoveryForm({ type, locale }: { type: 'forgot' | 'reset
 
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary text-accent font-serif text-2xl font-bold tracking-widest mb-6 shadow-xl">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary text-accent font-display text-2xl font-bold tracking-widest mb-6 shadow-xl">
             SL
           </div>
-          <h1 className={`text-3xl font-bold text-foreground ${isAr ? 'font-arabic' : 'font-serif'}`}>
+          <h1 className={`text-3xl font-bold text-foreground ${isAr ? 'font-display' : 'font-display'}`}>
             {type === 'forgot' ? tAuth('forgotPassword') : tAuth('resetPassword')}
           </h1>
         </div>
@@ -116,7 +116,7 @@ export function PasswordRecoveryForm({ type, locale }: { type: 'forgot' | 'reset
               type="submit"
               disabled={isPending}
               className="w-full py-3 px-4 rounded-xl bg-secondary text-white text-sm font-bold tracking-wide
-                hover:bg-[#5a3d66] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed
+                hover:bg-primary-hover active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed
                 transition-all duration-200 shadow-md flex items-center justify-center gap-2"
             >
               {isPending && <Loader2 className="w-4 h-4 animate-spin" />}

@@ -39,9 +39,9 @@ export function BusinessHourRow({ id, day, openTime, closeTime, isClosed: initia
               (inp as HTMLInputElement).disabled = e.currentTarget.checked
             })
           }}
-          className="w-4 h-4 rounded accent-[#c9a96e]"
+          className="w-4 h-4 rounded accent-accent"
         />
-        <span className="text-sm text-[#7a6a57]">Closed</span>
+        <span className="text-sm text-muted-foreground">Closed</span>
       </label>
 
       <div className="flex items-center gap-2 flex-1">
@@ -52,7 +52,7 @@ export function BusinessHourRow({ id, day, openTime, closeTime, isClosed: initia
           disabled={initialClosed}
           className="px-3 py-1.5 rounded-lg border border-border text-sm text-foreground disabled:opacity-40 focus:outline-none focus:ring-2 focus:ring-accent"
         />
-        <span className="text-[#9a8a7a] text-sm">—</span>
+        <span className="text-muted-foreground text-sm">—</span>
         <input
           type="time"
           name="close_time"
@@ -65,7 +65,7 @@ export function BusinessHourRow({ id, day, openTime, closeTime, isClosed: initia
       <button
         type="submit"
         disabled={isPending}
-        className="px-4 py-1.5 rounded-lg bg-primary text-white text-xs font-medium hover:bg-[#3a3128] disabled:opacity-60 transition-colors"
+        className="px-4 py-1.5 rounded-lg bg-primary text-white text-xs font-medium hover:bg-primary-hover disabled:opacity-60 transition-colors"
       >
         {isPending ? '…' : 'Save'}
       </button>

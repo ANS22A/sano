@@ -42,7 +42,7 @@ export function AdminMobileNav({ role }: { role: string }) {
               href={href}
               className={cn(
                 'flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl transition-colors min-w-0',
-                active ? 'text-accent' : 'text-[#9a8a7a] hover:text-foreground'
+                active ? 'text-accent' : 'text-muted-foreground hover:text-foreground'
               )}
               aria-current={active ? 'page' : undefined}
             >

@@ -33,7 +33,7 @@ export default async function AdminServicesPage({
         <h1 className="text-xl font-bold text-foreground">{t.services.title}</h1>
         <Link
           href="/admin/services/new"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-[#3a3128] transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-hover transition-colors"
         >
           <Plus className="w-4 h-4" />
           {t.services.new}
@@ -47,7 +47,7 @@ export default async function AdminServicesPage({
         {['all', 'true', 'false'].map((a) => (
           <Link key={a} href={`/admin/services?active=${a}`}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors capitalize ${
-              (sp.active ?? 'all') === a ? 'bg-primary text-white border-[#2a2118]' : 'bg-white text-[#7a6a57] border-border hover:bg-[#f5ede0]'
+              (sp.active ?? 'all') === a ? 'bg-primary text-white border-primary' : 'bg-white text-muted-foreground border-border hover:bg-surface-muted'
             }`}
           >
             {a === 'all' ? t.common.all : a === 'true' ? t.common.active : t.common.inactive}
@@ -64,22 +64,22 @@ export default async function AdminServicesPage({
               <thead>
                 <tr className="bg-surface border-b border-border">
                   {[t.services.nameEn, t.services.category, t.services.price, t.services.duration, t.services.active, t.common.actions].map((h) => (
-                    <th key={h} className="text-start px-4 py-3 text-xs font-medium text-[#9a8a7a] whitespace-nowrap">{h}</th>
+                    <th key={h} className="text-start px-4 py-3 text-xs font-medium text-muted-foreground whitespace-nowrap">{h}</th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#f0e8de]">
+              <tbody className="divide-y divide-border-subtle">
                 {services.map((s) => (
                   <tr key={s.id} className="hover:bg-surface transition-colors group">
                     <td className="px-4 py-3">
                       <p className="font-medium text-foreground">{s.name_en}</p>
-                      <p className="text-xs text-[#9a8a7a]">{s.name_ar}</p>
+                      <p className="text-xs text-muted-foreground">{s.name_ar}</p>
                     </td>
-                    <td className="px-4 py-3 text-[#7a6a57] text-xs">
+                    <td className="px-4 py-3 text-muted-foreground text-xs">
                       {(s.service_categories as { name_en: string } | null)?.name_en ?? '—'}
                     </td>
                     <td className="px-4 py-3 text-foreground font-medium">{Number(s.price_sar).toLocaleString()} SAR</td>
-                    <td className="px-4 py-3 text-[#7a6a57]">{s.duration_minutes} {t.common.min}</td>
+                    <td className="px-4 py-3 text-muted-foreground">{s.duration_minutes} {t.common.min}</td>
                     <td className="px-4 py-3">
                       <AdminBadge
                         status={s.is_active ? 'active' : 'inactive'}

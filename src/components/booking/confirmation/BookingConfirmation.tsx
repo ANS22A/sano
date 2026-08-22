@@ -60,19 +60,19 @@ export function BookingConfirmation({ result, isAr }: BookingConfirmationProps) 
       {/* Success icon */}
       <div className="w-16 h-16 rounded-full bg-background flex items-center justify-center">
         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-          <circle cx="14" cy="14" r="13" stroke="var(--color-sand-600)" strokeWidth="1.5" />
-          <path d="M8 14l4 4 8-8" stroke="var(--color-sand-700)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="14" cy="14" r="13" stroke="var(--muted-foreground)" strokeWidth="1.5" />
+          <path d="M8 14l4 4 8-8" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </div>
 
       {/* Title */}
       <div className="flex flex-col gap-2">
-        <h1 className="font-serif text-3xl text-foreground">{t.title}</h1>
+        <h1 className="font-display text-3xl text-foreground">{t.title}</h1>
         <p className="text-[var(--color-text-muted)]">{t.subtitle}</p>
       </div>
 
       {/* Booking number */}
-      <div className="w-full px-6 py-4 bg-[var(--color-sand-50)] border border-[var(--border-subtle)] rounded-sm">
+      <div className="w-full px-6 py-4 bg-[var(--surface)] border border-[var(--border-subtle)] rounded-sm">
         <p className="text-xs text-[var(--color-text-muted)] tracking-widest uppercase mb-1">{t.bookingNumber}</p>
         <p className="text-2xl font-mono font-semibold text-foreground tracking-wider">
           {result.bookingNumber}
@@ -109,7 +109,7 @@ export function BookingConfirmation({ result, isAr }: BookingConfirmationProps) 
           onClick={handleICS}
           className={cn(
             'flex-1 px-5 py-3 border border-[var(--border-subtle)] rounded-sm text-sm',
-            'hover:bg-[var(--color-sand-50)] transition-colors text-foreground',
+            'hover:bg-[var(--surface)] transition-colors text-foreground',
             'focus:outline-none focus:ring-2 focus:ring-[var(--ring)]',
             'flex items-center justify-center gap-2'
           )}

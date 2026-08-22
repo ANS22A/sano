@@ -53,10 +53,10 @@ export function AdminCalendar({ initialBookings, currentMonth }: { initialBookin
       <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-surface shrink-0">
         <h2 className="text-lg font-bold text-foreground">{monthName}</h2>
         <div className="flex gap-2">
-          <Link href={`/admin/calendar?month=${prevMonth}`} className="p-1.5 rounded-lg border border-border text-[#7a6a57] hover:bg-[#f5ede0] transition-colors" aria-label="Previous month">
+          <Link href={`/admin/calendar?month=${prevMonth}`} className="p-1.5 rounded-lg border border-border text-muted-foreground hover:bg-surface-muted transition-colors" aria-label="Previous month">
             <ChevronLeft className="w-5 h-5 rtl:rotate-180" />
           </Link>
-          <Link href={`/admin/calendar?month=${nextMonth}`} className="p-1.5 rounded-lg border border-border text-[#7a6a57] hover:bg-[#f5ede0] transition-colors" aria-label="Next month">
+          <Link href={`/admin/calendar?month=${nextMonth}`} className="p-1.5 rounded-lg border border-border text-muted-foreground hover:bg-surface-muted transition-colors" aria-label="Next month">
             <ChevronRight className="w-5 h-5 rtl:rotate-180" />
           </Link>
         </div>
@@ -67,7 +67,7 @@ export function AdminCalendar({ initialBookings, currentMonth }: { initialBookin
         <div className="grid grid-cols-7 min-w-[800px] h-full border-s border-border">
           {/* Weekday headers */}
           {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((d) => (
-            <div key={d} className="px-2 py-3 border-b border-e border-border text-center text-xs font-semibold text-[#9a8a7a] uppercase tracking-wide bg-white sticky top-0 z-10">
+            <div key={d} className="px-2 py-3 border-b border-e border-border text-center text-xs font-semibold text-muted-foreground uppercase tracking-wide bg-white sticky top-0 z-10">
               {d}
             </div>
           ))}
@@ -84,7 +84,7 @@ export function AdminCalendar({ initialBookings, currentMonth }: { initialBookin
 
             return (
               <div key={day} className="border-b border-e border-border min-h-[120px] p-1.5 bg-white flex flex-col group">
-                <span className="text-xs font-medium text-[#7a6a57] ps-1 pt-1 mb-2 group-hover:text-foreground transition-colors">
+                <span className="text-xs font-medium text-muted-foreground ps-1 pt-1 mb-2 group-hover:text-foreground transition-colors">
                   {day}
                 </span>
                 <div className="flex-1 flex flex-col gap-1 overflow-y-auto max-h-[100px] pe-1 styled-scrollbar">

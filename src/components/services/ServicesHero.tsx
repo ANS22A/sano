@@ -24,7 +24,7 @@ export function ServicesHero() {
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
         aria-hidden="true"
         style={{
-          backgroundImage: 'radial-gradient(circle at 25% 50%, var(--color-sand-700) 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(circle at 25% 50%, var(--primary) 1px, transparent 1px)',
           backgroundSize: '40px 40px',
         }}
       />

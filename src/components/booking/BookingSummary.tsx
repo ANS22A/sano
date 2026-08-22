@@ -63,7 +63,7 @@ export function BookingSummary({ draft, isAr, className }: BookingSummaryProps) 
 
   return (
     <aside className={cn(
-      'bg-[var(--color-sand-50)] border border-[var(--border-subtle)] rounded-sm p-5',
+      'bg-[var(--surface)] border border-[var(--border-subtle)] rounded-sm p-5',
       className
     )}>
       <h2 className="text-xs tracking-[0.2em] uppercase text-[var(--color-text-muted)] font-medium mb-4">

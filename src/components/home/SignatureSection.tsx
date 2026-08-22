@@ -16,7 +16,7 @@ export function SignatureSection() {
   return (
     <section
       ref={ref}
-      className="relative section-sl overflow-hidden bg-[var(--color-charcoal,#1a1714)]"
+      className="relative section-sl overflow-hidden bg-[var(--primary)]"
       aria-labelledby="signature-heading"
     >
       {/* Background image — hero bg reused at lower opacity */}

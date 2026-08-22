@@ -468,8 +468,8 @@ export async function sendBookingReschedule(details: EmailBookingDetails): Promi
           </tr>
           ${details.oldDate ? `
           <tr>
-            <td style="color: #7A6A57; font-weight: 600;">الموعد السابق:</td>
-            <td style="color: #7A6A57; text-decoration: line-through;">${details.oldDate} الساعة ${details.oldStartTime?.slice(0, 5)}</td>
+            <td style="color: #6F4E7C; font-weight: 600;">الموعد السابق:</td>
+            <td style="color: #6F4E7C; text-decoration: line-through;">${details.oldDate} الساعة ${details.oldStartTime?.slice(0, 5)}</td>
           </tr>
           ` : ''}
           <tr>
@@ -509,8 +509,8 @@ export async function sendBookingReschedule(details: EmailBookingDetails): Promi
           </tr>
           ${details.oldDate ? `
           <tr>
-            <td style="color: #7A6A57; font-weight: 600;">Previous Time:</td>
-            <td style="color: #7A6A57; text-decoration: line-through;">${details.oldDate} at ${details.oldStartTime?.slice(0, 5)}</td>
+            <td style="color: #6F4E7C; font-weight: 600;">Previous Time:</td>
+            <td style="color: #6F4E7C; text-decoration: line-through;">${details.oldDate} at ${details.oldStartTime?.slice(0, 5)}</td>
           </tr>
           ` : ''}
           <tr>

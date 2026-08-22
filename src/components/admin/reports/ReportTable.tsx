@@ -85,14 +85,14 @@ export function ReportTable<T>({ data, columns, filename, currentRange, from, to
             <option value="all_time">All Time</option>
           </select>
           {currentRange === 'custom' && (
-            <div className="text-sm text-[#9a8a7a]">
+            <div className="text-sm text-muted-foreground">
               {from} - {to}
             </div>
           )}
         </div>
         <div className="flex items-center gap-3 w-full sm:w-auto">
           <div className="relative flex-1 sm:w-64">
-            <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9a8a7a]" />
+            <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
               type="text"
               placeholder={t.common?.search || 'Search...'}
@@ -103,7 +103,7 @@ export function ReportTable<T>({ data, columns, filename, currentRange, from, to
           </div>
           <button
             onClick={exportCSV}
-            className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-foreground bg-[#f5ede0] rounded-lg hover:bg-[#e8ddd0] transition-colors"
+            className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-foreground bg-surface-muted rounded-lg hover:bg-muted transition-colors"
           >
             <Download className="w-4 h-4" />
             <span>CSV</span>
@@ -118,16 +118,16 @@ export function ReportTable<T>({ data, columns, filename, currentRange, from, to
             <thead>
               <tr className="bg-surface border-b border-border">
                 {columns.map(c => (
-                  <th key={c.key} className="px-6 py-3 font-medium text-[#9a8a7a] text-start whitespace-nowrap">
+                  <th key={c.key} className="px-6 py-3 font-medium text-muted-foreground text-start whitespace-nowrap">
                     {c.title}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#f0e8de]">
+            <tbody className="divide-y divide-border-subtle">
               {filteredData.length === 0 ? (
                 <tr>
-                  <td colSpan={columns.length} className="px-6 py-8 text-center text-[#9a8a7a]">
+                  <td colSpan={columns.length} className="px-6 py-8 text-center text-muted-foreground">
                     {t.reports?.noData || 'No data found for this period.'}
                   </td>
                 </tr>

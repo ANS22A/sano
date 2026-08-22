@@ -46,7 +46,7 @@ export function ExperienceStep({ draft, onUpdate, onContinue, isAr }: Experience
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-1">
-        <h2 className="font-serif text-2xl text-foreground">{t.title}</h2>
+        <h2 className="font-display text-2xl text-foreground">{t.title}</h2>
         <p className="text-[var(--color-text-muted)] text-sm">{t.subtitle}</p>
       </div>
 
@@ -85,8 +85,8 @@ export function ExperienceStep({ draft, onUpdate, onContinue, isAr }: Experience
                   'text-start p-4 border rounded-sm transition-all duration-200',
                   'focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-1',
                   isSelected
-                    ? 'border-foreground bg-[var(--color-sand-50)] ring-1 ring-[var(--color-sand-200)]'
-                    : 'border-[var(--border-subtle)] hover:border-accent hover:bg-[var(--color-sand-50)]'
+                    ? 'border-foreground bg-[var(--surface)] ring-1 ring-[var(--secondary)]'
+                    : 'border-[var(--border-subtle)] hover:border-accent hover:bg-[var(--surface)]'
                 )}
               >
                 <div className="flex items-start justify-between gap-2">
@@ -129,8 +129,8 @@ export function ExperienceStep({ draft, onUpdate, onContinue, isAr }: Experience
                   'text-start p-4 border rounded-sm transition-all duration-200',
                   'focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-1',
                   isSelected
-                    ? 'border-foreground bg-[var(--color-sand-50)] ring-1 ring-[var(--color-sand-200)]'
-                    : 'border-[var(--border-subtle)] hover:border-accent hover:bg-[var(--color-sand-50)]'
+                    ? 'border-foreground bg-[var(--surface)] ring-1 ring-[var(--secondary)]'
+                    : 'border-[var(--border-subtle)] hover:border-accent hover:bg-[var(--surface)]'
                 )}
               >
                 <div className="flex items-start justify-between gap-2">

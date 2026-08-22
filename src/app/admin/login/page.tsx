@@ -20,7 +20,7 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#f5ede0] to-[#ede0cc] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-surface-muted to-secondary flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-10">
@@ -28,7 +28,7 @@ export default function AdminLoginPage() {
             <span className="text-accent text-xl font-bold tracking-widest">SL</span>
           </div>
           <h1 className="text-2xl font-semibold text-foreground tracking-tight">{t.login}</h1>
-          <p className="text-sm text-[#7a6a57] mt-1">{t.loginSubtitle}</p>
+          <p className="text-sm text-muted-foreground mt-1">{t.loginSubtitle}</p>
         </div>
 
         {/* Card */}
@@ -46,8 +46,8 @@ export default function AdminLoginPage() {
                 type="email"
                 required
                 autoComplete="email"
-                className="w-full px-4 py-2.5 rounded-xl border border-[#ddd0c0] bg-surface text-foreground text-sm
-                  placeholder:text-[#b8a898] focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent
+                className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-foreground text-sm
+                  placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent
                   transition-shadow"
                 placeholder="admin@sanoluna.com"
               />
@@ -63,8 +63,8 @@ export default function AdminLoginPage() {
                 type="password"
                 required
                 autoComplete="current-password"
-                className="w-full px-4 py-2.5 rounded-xl border border-[#ddd0c0] bg-surface text-foreground text-sm
-                  placeholder:text-[#b8a898] focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent
+                className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-foreground text-sm
+                  placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent
                   transition-shadow"
                 placeholder="••••••••"
               />
@@ -83,7 +83,7 @@ export default function AdminLoginPage() {
               type="submit"
               disabled={isPending}
               className="w-full py-2.5 px-4 rounded-xl bg-primary text-white text-sm font-medium
-                hover:bg-[#3a3128] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed
+                hover:bg-primary-hover active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed
                 transition-all duration-150 shadow-sm"
             >
               {isPending ? t.signingIn : t.signIn}
@@ -91,7 +91,7 @@ export default function AdminLoginPage() {
           </form>
         </div>
 
-        <p className="text-center text-xs text-[#9a8a7a] mt-6">
+        <p className="text-center text-xs text-muted-foreground mt-6">
           SANO LUNA Administration
         </p>
       </div>

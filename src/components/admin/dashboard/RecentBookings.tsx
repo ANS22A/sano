@@ -25,7 +25,7 @@ export function RecentBookings({ bookings, t }: Props) {
         <h2 className="text-sm font-semibold text-foreground">{t.recentBookings}</h2>
         <Link
           href="/admin/bookings"
-          className="text-xs font-medium text-accent hover:text-[#b8983d] transition-colors"
+          className="text-xs font-medium text-accent hover:text-accent transition-colors"
         >
           View all →
         </Link>
@@ -42,13 +42,13 @@ export function RecentBookings({ bookings, t }: Props) {
             <thead>
               <tr className="bg-surface">
                 {[t.bookingNumber, t.customer, t.service, t.date, t.status, t.price].map((h) => (
-                  <th key={h} className="text-start px-4 py-2.5 text-xs font-medium text-[#9a8a7a] whitespace-nowrap">
+                  <th key={h} className="text-start px-4 py-2.5 text-xs font-medium text-muted-foreground whitespace-nowrap">
                     {h}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#f0e8de]">
+            <tbody className="divide-y divide-border-subtle">
               {bookings.map((b) => (
                 <tr key={b.id} className="hover:bg-surface transition-colors group">
                   <td className="px-4 py-3">
@@ -60,8 +60,8 @@ export function RecentBookings({ bookings, t }: Props) {
                     </Link>
                   </td>
                   <td className="px-4 py-3 text-foreground font-medium">{b.customer_name}</td>
-                  <td className="px-4 py-3 text-[#7a6a57] max-w-40 truncate">{b.service_name}</td>
-                  <td className="px-4 py-3 text-[#7a6a57] whitespace-nowrap">
+                  <td className="px-4 py-3 text-muted-foreground max-w-40 truncate">{b.service_name}</td>
+                  <td className="px-4 py-3 text-muted-foreground whitespace-nowrap">
                     {b.date} {b.start_time.slice(0, 5)}
                   </td>
                   <td className="px-4 py-3">

@@ -108,7 +108,7 @@ export function CustomerFormDialog({ open, onClose, t, dir, customer }: Customer
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-[#7a6a57] mb-1">
+            <label className="block text-sm font-medium text-muted-foreground mb-1">
               {t.customers.name} *
             </label>
             <input
@@ -123,7 +123,7 @@ export function CustomerFormDialog({ open, onClose, t, dir, customer }: Customer
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#7a6a57] mb-1">
+            <label className="block text-sm font-medium text-muted-foreground mb-1">
               {t.customers.phone} *
             </label>
             <input
@@ -139,7 +139,7 @@ export function CustomerFormDialog({ open, onClose, t, dir, customer }: Customer
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#7a6a57] mb-1">
+            <label className="block text-sm font-medium text-muted-foreground mb-1">
               {t.customers.email}
             </label>
             <input
@@ -159,14 +159,14 @@ export function CustomerFormDialog({ open, onClose, t, dir, customer }: Customer
               type="button"
               onClick={onClose}
               disabled={isPending}
-              className="px-4 py-2 rounded-xl text-sm font-medium text-[#7a6a57] border border-border hover:bg-[#f5ede0] transition-colors disabled:opacity-50"
+              className="px-4 py-2 rounded-xl text-sm font-medium text-muted-foreground border border-border hover:bg-surface-muted transition-colors disabled:opacity-50"
             >
               {t.common.cancel}
             </button>
             <button
               type="submit"
               disabled={isPending}
-              className="px-4 py-2 rounded-xl text-sm font-medium text-white bg-primary hover:bg-[#3a3128] transition-colors disabled:opacity-50"
+              className="px-4 py-2 rounded-xl text-sm font-medium text-white bg-primary hover:bg-primary-hover transition-colors disabled:opacity-50"
             >
               {isPending ? t.common.saving : t.common.save}
             </button>

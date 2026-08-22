@@ -100,7 +100,7 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
           <h1 className="text-xl font-bold text-foreground">
             {isAr ? 'تصنيفات المصروفات' : 'Expense Categories'}
           </h1>
-          <p className="text-xs text-[#7a6a57] mt-0.5">
+          <p className="text-xs text-muted-foreground mt-0.5">
             {isAr
               ? 'إدارة التصنيفات التشغيلية للمصروفات والنفقات'
               : 'Manage operational taxonomy for expenses and outflows'}
@@ -112,8 +112,8 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
             onClick={() => setShowArchived(!showArchived)}
             className={`px-3 py-2 rounded-xl text-xs font-medium border transition-colors ${
               showArchived
-                ? 'bg-primary text-white border-[#2a2118]'
-                : 'bg-white text-[#7a6a57] border-border hover:bg-[#f5ede0]'
+                ? 'bg-primary text-white border-primary'
+                : 'bg-white text-muted-foreground border-border hover:bg-surface-muted'
             }`}
           >
             {showArchived
@@ -127,7 +127,7 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
           <button
             type="button"
             onClick={openCreate}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-[#3a3128] transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-hover transition-colors shadow-sm"
           >
             <Plus className="w-4 h-4" />
             <span>{isAr ? 'إضافة تصنيف' : 'New Category'}</span>
@@ -139,7 +139,7 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
       <div className="bg-white rounded-2xl border border-border overflow-hidden shadow-sm">
         {displayed.length === 0 ? (
           <AdminEmptyState
-            icon={<Tag className="w-6 h-6 text-[#9a8a7a]" />}
+            icon={<Tag className="w-6 h-6 text-muted-foreground" />}
             title={isAr ? 'لا توجد تصنيفات' : 'No expense categories found'}
           />
         ) : (
@@ -147,25 +147,25 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
             <table className="w-full text-sm text-start">
               <thead>
                 <tr className="bg-surface border-b border-border">
-                  <th className="text-start px-4 py-3 text-xs font-semibold text-[#9a8a7a]">
+                  <th className="text-start px-4 py-3 text-xs font-semibold text-muted-foreground">
                     {isAr ? 'الاسم (إنجليزي)' : 'English Name'}
                   </th>
-                  <th className="text-start px-4 py-3 text-xs font-semibold text-[#9a8a7a]">
+                  <th className="text-start px-4 py-3 text-xs font-semibold text-muted-foreground">
                     {isAr ? 'الاسم (عربي)' : 'Arabic Name'}
                   </th>
-                  <th className="text-start px-4 py-3 text-xs font-semibold text-[#9a8a7a]">
+                  <th className="text-start px-4 py-3 text-xs font-semibold text-muted-foreground">
                     {isAr ? 'الحالة' : 'Status'}
                   </th>
-                  <th className="text-end px-4 py-3 text-xs font-semibold text-[#9a8a7a]">
+                  <th className="text-end px-4 py-3 text-xs font-semibold text-muted-foreground">
                     {isAr ? 'الإجراءات' : 'Actions'}
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#f0e8de]">
+              <tbody className="divide-y divide-border-subtle">
                 {displayed.map((cat) => (
                   <tr key={cat.id} className="hover:bg-surface transition-colors">
                     <td className="px-4 py-3 font-medium text-foreground">{cat.name_en}</td>
-                    <td className="px-4 py-3 text-[#7a6a57]">{cat.name_ar}</td>
+                    <td className="px-4 py-3 text-muted-foreground">{cat.name_ar}</td>
                     <td className="px-4 py-3">
                       <AdminBadge
                         status={cat.is_archived ? 'inactive' : 'active'}
@@ -185,7 +185,7 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
                         <button
                           type="button"
                           onClick={() => openEdit(cat)}
-                          className="p-1.5 rounded-lg text-[#7a6a57] hover:text-foreground hover:bg-[#f5ede0] transition-colors"
+                          className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-surface-muted transition-colors"
                           title={isAr ? 'تعديل' : 'Edit'}
                         >
                           <Edit2 className="w-4 h-4" />
@@ -242,7 +242,7 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
               <button
                 type="button"
                 onClick={() => setShowModal(false)}
-                className="text-[#9a8a7a] hover:text-foreground text-sm"
+                className="text-muted-foreground hover:text-foreground text-sm"
               >
                 ✕
               </button>
@@ -250,7 +250,7 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-[#7a6a57] mb-1.5">
+                <label className="block text-xs font-semibold text-muted-foreground mb-1.5">
                   {isAr ? 'الاسم بالإنجليزية' : 'English Name'} *
                 </label>
                 <input
@@ -264,7 +264,7 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#7a6a57] mb-1.5">
+                <label className="block text-xs font-semibold text-muted-foreground mb-1.5">
                   {isAr ? 'الاسم بالعربية' : 'Arabic Name'} *
                 </label>
                 <input
@@ -281,14 +281,14 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2 rounded-xl text-sm font-medium border border-border text-[#7a6a57] hover:bg-surface transition-colors"
+                  className="px-4 py-2 rounded-xl text-sm font-medium border border-border text-muted-foreground hover:bg-surface transition-colors"
                 >
                   {isAr ? 'إلغاء' : 'Cancel'}
                 </button>
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-[#3a3128] transition-colors shadow-sm disabled:opacity-50"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-hover transition-colors shadow-sm disabled:opacity-50"
                 >
                   {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
                   <span>{isAr ? 'حفظ' : 'Save'}</span>

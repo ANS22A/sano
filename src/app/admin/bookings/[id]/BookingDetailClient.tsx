@@ -185,7 +185,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
         <div className="flex items-center gap-3">
           <Link
             href="/admin/bookings"
-            className="p-2 rounded-xl border border-border bg-white text-[#7a6a57] hover:text-foreground hover:bg-surface transition-colors"
+            className="p-2 rounded-xl border border-border bg-white text-muted-foreground hover:text-foreground hover:bg-surface transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
@@ -243,7 +243,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                 </span>
               )}
             </div>
-            <p className="text-xs text-[#9a8a7a] mt-0.5">
+            <p className="text-xs text-muted-foreground mt-0.5">
               {t.bookings.createdAt} {new Date(booking.created_at).toLocaleString()}
             </p>
           </div>
@@ -269,7 +269,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
             <div className="px-6 py-4 border-b border-border bg-surface">
               <h2 className="text-sm font-semibold text-foreground">{isAr ? 'تفاصيل الحجز' : 'Booking Details'}</h2>
             </div>
-            <dl className="divide-y divide-[#f0e8de]">
+            <dl className="divide-y divide-border-subtle">
               {[
                 [lang === 'ar' && svc ? svc.name_ar : svc?.name_en ?? '—', t.bookings.service],
                 [booking.date, t.bookings.date],
@@ -290,7 +290,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                 ],
               ].map(([value, label]) => (
                 <div key={label} className="flex px-6 py-3.5 gap-4">
-                  <dt className="text-xs font-medium text-[#9a8a7a] w-32 shrink-0 flex items-center">{label}</dt>
+                  <dt className="text-xs font-medium text-muted-foreground w-32 shrink-0 flex items-center">{label}</dt>
                   <dd className="text-sm text-foreground flex-1 font-medium">{value}</dd>
                 </div>
               ))}
@@ -325,7 +325,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                   }&customerName=${encodeURIComponent(
                     booking.customers?.full_name ?? ''
                   )}&amount=${balanceDue}`}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary text-white hover:bg-[#5D3D6A] text-xs font-medium transition-colors shadow-sm"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary text-white hover:bg-primary-hover text-xs font-medium transition-colors shadow-sm"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   {isAr ? 'تسجيل دفعة' : 'Record Payment'}
@@ -336,7 +336,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
             {/* Financial Summary KPIs */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-5 bg-surface/40 border-b border-border">
               <div className="p-3 bg-white rounded-xl border border-border/70">
-                <p className="text-xs text-[#9a8a7a] font-medium">{isAr ? 'سعر الحجز' : 'Booking Price'}</p>
+                <p className="text-xs text-muted-foreground font-medium">{isAr ? 'سعر الحجز' : 'Booking Price'}</p>
                 <p className="text-base font-bold text-foreground mt-1">{priceSar.toFixed(2)} SAR</p>
               </div>
               <div className="p-3 bg-white rounded-xl border border-border/70">
@@ -363,18 +363,18 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
 
             {/* Transactions Table / List */}
             <div className="p-5">
-              <h3 className="text-xs font-semibold text-[#7a6a57] uppercase tracking-wider mb-3">
+              <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
                 {isAr ? 'سجل المعاملات للحجز' : 'Transaction History'}
               </h3>
               {salesHistory.length === 0 ? (
                 <div className="text-center py-6 border border-dashed border-border rounded-xl">
-                  <Receipt className="w-8 h-8 text-[#9a8a7a] mx-auto mb-2 opacity-60" />
-                  <p className="text-xs font-medium text-[#7a6a57]">
+                  <Receipt className="w-8 h-8 text-muted-foreground mx-auto mb-2 opacity-60" />
+                  <p className="text-xs font-medium text-muted-foreground">
                     {isAr ? 'لم يتم تسجيل أي مدفوعات لهذا الحجز حتى الآن.' : 'No payment transactions recorded for this booking yet.'}
                   </p>
                 </div>
               ) : (
-                <div className="divide-y divide-[#f0e8de] border border-border rounded-xl overflow-hidden text-xs">
+                <div className="divide-y divide-border-subtle border border-border rounded-xl overflow-hidden text-xs">
                   {salesHistory.map((s) => {
                     const isRefund = s.type === 'refund'
                     return (
@@ -399,12 +399,12 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                               {isRefund ? (isAr ? 'استرجاع' : 'Refund') : (isAr ? 'قبض' : 'Payment')}
                             </span>
                             <span className="font-mono font-medium text-foreground">{s.reference}</span>
-                            <span className="text-[#9a8a7a]">
+                            <span className="text-muted-foreground">
                               ({s.payment_method.replace('_', ' ')})
                             </span>
                           </div>
-                          {s.notes && <p className="text-[#7a6a57]">{s.notes}</p>}
-                          <p className="text-[11px] text-[#9a8a7a]">
+                          {s.notes && <p className="text-muted-foreground">{s.notes}</p>}
+                          <p className="text-[11px] text-muted-foreground">
                             {new Date(s.created_at).toLocaleString()} • {s.profiles?.full_name || 'Admin'}
                           </p>
                         </div>
@@ -440,7 +440,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
               <h2 className="text-sm font-semibold text-foreground">Customer Notes</h2>
             </div>
             <div className="p-6">
-              <p className="text-sm text-[#7a6a57] whitespace-pre-wrap leading-relaxed">
+              <p className="text-sm text-muted-foreground whitespace-pre-wrap leading-relaxed">
                 {booking.notes || 'No notes provided.'}
               </p>
             </div>
@@ -454,19 +454,19 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
             <h2 className="text-sm font-semibold text-foreground">Customer</h2>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-[#f5ede0] flex items-center justify-center text-accent">
+                <div className="w-8 h-8 rounded-full bg-surface-muted flex items-center justify-center text-accent">
                   <User className="w-4 h-4" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-foreground truncate">{cust?.full_name ?? '—'}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3 text-sm text-[#7a6a57]">
-                <Phone className="w-4 h-4 shrink-0 text-[#9a8a7a]" />
+              <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                <Phone className="w-4 h-4 shrink-0 text-muted-foreground" />
                 <span dir="ltr">{cust?.phone ?? '—'}</span>
               </div>
-              <div className="flex items-center gap-3 text-sm text-[#7a6a57]">
-                <Mail className="w-4 h-4 shrink-0 text-[#9a8a7a]" />
+              <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                <Mail className="w-4 h-4 shrink-0 text-muted-foreground" />
                 <span className="truncate">{cust?.email ?? '—'}</span>
               </div>
               {cust?.id && (
@@ -518,7 +518,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                 </button>
               )}
               {['cancelled', 'completed', 'no_show'].includes(currentStatus) && (
-                <p className="text-xs text-[#9a8a7a] text-center">No further status actions available.</p>
+                <p className="text-xs text-muted-foreground text-center">No further status actions available.</p>
               )}
             </div>
           </div>
@@ -541,7 +541,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
           }}
         >
           <div className="mt-4">
-            <label className="block text-xs font-medium text-[#7a6a57] mb-1">Reason (optional)</label>
+            <label className="block text-xs font-medium text-muted-foreground mb-1">Reason (optional)</label>
             <textarea
               className="w-full p-2.5 rounded-lg border border-border bg-surface text-sm text-foreground outline-none focus:border-accent"
               rows={3}
@@ -569,7 +569,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
           <div className="bg-white w-full max-w-lg rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
             <div className="px-6 py-4 border-b border-border flex items-center justify-between">
               <h3 className="text-base font-bold text-foreground">Reschedule Booking</h3>
-              <button onClick={() => setIsRescheduling(false)} className="text-[#9a8a7a] hover:text-foreground">
+              <button onClick={() => setIsRescheduling(false)} className="text-muted-foreground hover:text-foreground">
                 ✕
               </button>
             </div>
@@ -595,9 +595,9 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">Available Slots</label>
                 {isLoadingSlots ? (
-                  <p className="text-sm text-[#9a8a7a] py-4 text-center">Loading slots...</p>
+                  <p className="text-sm text-muted-foreground py-4 text-center">Loading slots...</p>
                 ) : rescheduleSlots.length === 0 ? (
-                  <p className="text-sm text-[#9a8a7a] py-4 text-center">No available slots on this date.</p>
+                  <p className="text-sm text-muted-foreground py-4 text-center">No available slots on this date.</p>
                 ) : (
                   <div className="grid grid-cols-4 sm:grid-cols-5 gap-2">
                     {rescheduleSlots.map((slot) => (
@@ -607,7 +607,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                         onClick={() => setRescheduleSlot(slot.startTime)}
                         className={`py-2 text-xs font-medium rounded-lg border transition-all ${
                           !slot.available
-                            ? 'opacity-40 bg-[#f5ede0] text-[#9a8a7a] cursor-not-allowed border-transparent'
+                            ? 'opacity-40 bg-surface-muted text-muted-foreground cursor-not-allowed border-transparent'
                             : rescheduleSlot === slot.startTime
                             ? 'bg-accent text-white border-accent shadow-sm'
                             : 'bg-white text-foreground border-border hover:border-accent hover:bg-surface'
@@ -624,7 +624,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
             <div className="px-6 py-4 border-t border-border flex justify-end gap-3 bg-surface">
               <button
                 onClick={() => setIsRescheduling(false)}
-                className="px-4 py-2 rounded-xl text-sm font-medium text-[#7a6a57] hover:bg-white hover:text-foreground transition-colors border border-transparent hover:border-border"
+                className="px-4 py-2 rounded-xl text-sm font-medium text-muted-foreground hover:bg-white hover:text-foreground transition-colors border border-transparent hover:border-border"
                 disabled={isPending}
               >
                 Cancel
@@ -632,7 +632,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
               <button
                 onClick={doReschedule}
                 disabled={!rescheduleSlot || isPending}
-                className="px-6 py-2 rounded-xl text-sm font-medium bg-primary text-white hover:bg-[#1a1412] transition-colors disabled:opacity-50"
+                className="px-6 py-2 rounded-xl text-sm font-medium bg-primary text-white hover:bg-primary transition-colors disabled:opacity-50"
               >
                 {isPending ? 'Saving...' : 'Confirm Reschedule'}
               </button>
@@ -649,7 +649,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
               <h3 className="text-base font-bold text-foreground">
                 {isAr ? 'إصدار استرجاع مالي' : 'Issue Refund'}
               </h3>
-              <button onClick={() => setIsRefunding(false)} className="text-[#9a8a7a] hover:text-foreground">
+              <button onClick={() => setIsRefunding(false)} className="text-muted-foreground hover:text-foreground">
                 ✕
               </button>
             </div>
@@ -662,11 +662,11 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
               )}
 
               <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200 text-xs space-y-1">
-                <div className="flex justify-between text-[#7a6a57]">
+                <div className="flex justify-between text-muted-foreground">
                   <span>{isAr ? 'الصافي المدفوع للحجز:' : 'Net Paid on Booking:'}</span>
                   <span className="font-semibold text-emerald-600">+{netPaid.toFixed(2)} SAR</span>
                 </div>
-                <div className="flex justify-between text-[#7a6a57]">
+                <div className="flex justify-between text-muted-foreground">
                   <span>{isAr ? 'أقصى حد للاسترجاع:' : 'Max Refundable:'}</span>
                   <span className="font-bold text-foreground">{netPaid.toFixed(2)} SAR</span>
                 </div>
@@ -729,7 +729,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                 <button
                   type="button"
                   onClick={() => setIsRefunding(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-medium text-[#7a6a57] hover:bg-surface"
+                  className="px-4 py-2 rounded-xl text-xs font-medium text-muted-foreground hover:bg-surface"
                 >
                   {isAr ? 'إلغاء' : 'Cancel'}
                 </button>

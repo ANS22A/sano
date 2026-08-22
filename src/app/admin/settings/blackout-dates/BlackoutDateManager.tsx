@@ -38,7 +38,7 @@ export function BlackoutDateManager({ dates, locationId }: {
       <div className="p-6">
         <form onSubmit={handleAdd} className="flex flex-col sm:flex-row gap-3 items-end mb-6">
           <div className="flex-1 min-w-0">
-            <label className="block text-xs font-medium text-[#7a6a57] mb-1.5">Date *</label>
+            <label className="block text-xs font-medium text-muted-foreground mb-1.5">Date *</label>
             <input
               type="date"
               name="date"
@@ -47,7 +47,7 @@ export function BlackoutDateManager({ dates, locationId }: {
             />
           </div>
           <div className="flex-[2] min-w-0">
-            <label className="block text-xs font-medium text-[#7a6a57] mb-1.5">Reason (Optional)</label>
+            <label className="block text-xs font-medium text-muted-foreground mb-1.5">Reason (Optional)</label>
             <input
               type="text"
               name="reason"
@@ -58,21 +58,21 @@ export function BlackoutDateManager({ dates, locationId }: {
           <button
             type="submit"
             disabled={isPending}
-            className="px-6 py-2.5 rounded-xl bg-primary text-white text-sm font-medium hover:bg-[#3a3128] disabled:opacity-60 transition-colors shrink-0"
+            className="px-6 py-2.5 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-hover disabled:opacity-60 transition-colors shrink-0"
           >
             Add Date
           </button>
         </form>
 
-        <div className="divide-y divide-[#f0e8de] border-t border-border">
+        <div className="divide-y divide-border-subtle border-t border-border">
           {activeDates.length === 0 ? (
-            <p className="text-sm text-[#9a8a7a] py-4 text-center">No blackout dates configured.</p>
+            <p className="text-sm text-muted-foreground py-4 text-center">No blackout dates configured.</p>
           ) : (
             activeDates.map((d) => (
               <div key={d.id} className="flex items-center justify-between py-4">
                 <div>
                   <p className="text-sm font-medium text-foreground">{new Date(d.date).toLocaleDateString()}</p>
-                  {d.reason_en && <p className="text-xs text-[#7a6a57] mt-0.5">{d.reason_en}</p>}
+                  {d.reason_en && <p className="text-xs text-muted-foreground mt-0.5">{d.reason_en}</p>}
                 </div>
                 <button
                   onClick={() => handleRemove(d.id)}

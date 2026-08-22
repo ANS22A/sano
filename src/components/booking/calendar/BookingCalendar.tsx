@@ -153,7 +153,7 @@ export function BookingCalendar({ selectedDate, onSelectDate, isAr, minDate }: B
                   'w-full aspect-square flex items-center justify-center rounded-full text-sm',
                   'transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-1',
                   isSelected && 'bg-foreground text-white font-semibold',
-                  !isSelected && !isPast && isToday && 'ring-1 ring-[var(--color-sand-400)] text-foreground font-medium',
+                  !isSelected && !isPast && isToday && 'ring-1 ring-[var(--border-strong)] text-foreground font-medium',
                   !isSelected && !isPast && !isToday && 'hover:bg-background text-foreground',
                   isPast && 'text-[var(--color-text-muted)] opacity-35 cursor-not-allowed'
                 )}

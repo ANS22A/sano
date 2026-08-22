@@ -10,7 +10,7 @@ interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   level?: 'display-xl' | 'display' | 'h1' | 'h2' | 'h3' | 'h4'
   /** Semantic HTML element */
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'div' | 'span'
-  /** Italic variant (Cormorant looks beautiful in italic) */
+  /** Italic variant (Cinzel looks beautiful in italic) */
   italic?: boolean
   balance?: boolean
 }

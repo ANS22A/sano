@@ -19,13 +19,13 @@ export function StatCard({ title, value, subtitle, icon, trend, trendLabel, acce
     <div className={cn(
       'rounded-[20px] p-6 border transition-all duration-300 relative overflow-hidden',
       accent
-        ? 'bg-primary border-[#2a2118] text-white shadow-md'
+        ? 'bg-primary border-primary text-white shadow-md'
         : 'bg-white border-border text-foreground shadow-[0_2px_10px_-4px_rgba(42,33,24,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(42,33,24,0.08)] hover:border-accent/30 hover:-translate-y-0.5'
     )}>
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
           <p className={cn('text-xs font-medium uppercase tracking-wide mb-1',
-            accent ? 'text-white/50' : 'text-[#9a8a7a]'
+            accent ? 'text-white/50' : 'text-muted-foreground'
           )}>
             {title}
           </p>
@@ -35,7 +35,7 @@ export function StatCard({ title, value, subtitle, icon, trend, trendLabel, acce
             {value}
           </p>
           {subtitle && (
-            <p className={cn('text-xs mt-1', accent ? 'text-white/40' : 'text-[#9a8a7a]')}>
+            <p className={cn('text-xs mt-1', accent ? 'text-white/40' : 'text-muted-foreground')}>
               {subtitle}
             </p>
           )}

@@ -32,7 +32,7 @@ export function ReportsNavigation({ t }: Props) {
               className={cn(
                 isActive
                   ? 'border-accent text-accent'
-                  : 'border-transparent text-[#9a8a7a] hover:border-border hover:text-[#7a6a57]',
+                  : 'border-transparent text-muted-foreground hover:border-border hover:text-muted-foreground',
                 'whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium transition-colors'
               )}
               aria-current={isActive ? 'page' : undefined}

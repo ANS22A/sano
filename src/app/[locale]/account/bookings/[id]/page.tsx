@@ -35,7 +35,7 @@ export default async function AccountBookingDetailPage(props: PageProps) {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-8 pb-8 border-b border-subtle">
           <div>
-            <h1 className="text-2xl font-bold text-foreground font-serif mb-2">{serviceName}</h1>
+            <h1 className="text-2xl font-bold text-foreground font-display mb-2">{serviceName}</h1>
             <p className="text-secondary font-medium text-sm tracking-wide uppercase">Booking #{booking.id.slice(0, 8)}</p>
           </div>
           <span className={`inline-flex px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-wider

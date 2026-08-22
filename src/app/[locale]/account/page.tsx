@@ -23,7 +23,7 @@ export default async function AccountDashboardPage(props: PageProps) {
     <div className="space-y-8">
       {/* Welcome Section */}
       <div className="bg-white rounded-3xl p-8 shadow-sm border border-subtle">
-        <h1 className="text-3xl font-bold text-foreground mb-2 font-serif">
+        <h1 className="text-3xl font-bold text-foreground mb-2 font-display">
           {t('welcome')}, {profile?.full_name?.split(' ')[0] || ''}
         </h1>
         <p className="text-secondary font-medium">
@@ -34,7 +34,7 @@ export default async function AccountDashboardPage(props: PageProps) {
       {/* Next Booking */}
       <div className="bg-white rounded-3xl p-8 shadow-sm border border-subtle">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-foreground font-serif">{t('upcomingBooking')}</h2>
+          <h2 className="text-xl font-bold text-foreground font-display">{t('upcomingBooking')}</h2>
           <Link href={`/${locale}/account/bookings`} className="text-sm font-medium text-secondary hover:underline flex items-center gap-1">
             {t('bookings')}
             <ChevronRight className="w-4 h-4 rtl:rotate-180" />
@@ -56,7 +56,7 @@ export default async function AccountDashboardPage(props: PageProps) {
             </div>
             <Link
               href={`/${locale}/account/bookings/${nextBooking.id}`}
-              className="px-6 py-2.5 rounded-xl bg-primary text-accent font-bold text-sm tracking-wide hover:bg-[#1f1526] transition-colors"
+              className="px-6 py-2.5 rounded-xl bg-primary text-accent font-bold text-sm tracking-wide hover:bg-primary transition-colors"
             >
               {t('viewDetails')}
             </Link>

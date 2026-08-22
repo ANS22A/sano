@@ -121,10 +121,10 @@ export function ReviewStep({ draft, onBack, onConfirmed, isAr, onGoToStep }: Rev
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-1">
-        <h2 className="font-serif text-2xl text-foreground">{t.title}</h2>
+        <h2 className="font-display text-2xl text-foreground">{t.title}</h2>
       </div>
 
-      <dl className="bg-[var(--color-sand-50)] border border-[var(--border-subtle)] rounded-sm px-5 py-1 max-w-lg">
+      <dl className="bg-[var(--surface)] border border-[var(--border-subtle)] rounded-sm px-5 py-1 max-w-lg">
         <ReviewRow onGoToStep={onGoToStep} editLabel={t.edit} label={t.service} value={serviceName} step={1} />
         <ReviewRow
           onGoToStep={onGoToStep} editLabel={t.edit}
@@ -175,7 +175,7 @@ export function ReviewStep({ draft, onBack, onConfirmed, isAr, onGoToStep }: Rev
         <button
           onClick={onBack}
           disabled={isPending}
-          className="px-5 py-2.5 text-sm border border-[var(--border-subtle)] rounded-sm hover:bg-[var(--color-sand-50)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--ring)] disabled:opacity-50"
+          className="px-5 py-2.5 text-sm border border-[var(--border-subtle)] rounded-sm hover:bg-[var(--surface)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--ring)] disabled:opacity-50"
         >
           {t.back}
         </button>

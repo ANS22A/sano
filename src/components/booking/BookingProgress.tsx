@@ -25,7 +25,7 @@ export function BookingProgress({ currentStep, completedSteps, isAr }: BookingPr
               <div className="flex flex-col items-center gap-1.5">
                 <div className={cn(
                   'w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold transition-all duration-300',
-                  isActive && 'bg-foreground text-white ring-4 ring-[var(--color-sand-200)]',
+                  isActive && 'bg-foreground text-white ring-4 ring-[var(--secondary)]',
                   isPast && 'bg-foreground text-white',
                   !isActive && !isPast && 'bg-background text-border border border-[var(--border-subtle)]'
                 )}>

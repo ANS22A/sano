@@ -37,7 +37,7 @@ export function AdminDocumentLink({ path, label = 'View Document', getSignedUrlA
       type="button"
       onClick={handleClick}
       disabled={loading}
-      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-[#f5ede0] text-[#7a6a57] hover:text-foreground hover:bg-[#ebdcc8] transition-colors border border-border"
+      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-surface-muted text-muted-foreground hover:text-foreground hover:bg-surface-muted transition-colors border border-border"
     >
       {loading ? (
         <Loader2 className="w-3.5 h-3.5 animate-spin" />

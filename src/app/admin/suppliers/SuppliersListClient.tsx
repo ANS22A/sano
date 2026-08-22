@@ -77,7 +77,7 @@ export function SuppliersListClient({
           <h1 className="text-xl font-bold text-foreground">
             {isAr ? 'إدارة الموردين' : 'Suppliers Management'}
           </h1>
-          <p className="text-xs text-[#7a6a57] mt-0.5">
+          <p className="text-xs text-muted-foreground mt-0.5">
             {isAr
               ? 'دليل جهات التوريد والشركات ومزودي الخدمات'
               : 'Directory of vendor partners, companies, and product suppliers'}
@@ -86,7 +86,7 @@ export function SuppliersListClient({
         <div>
           <Link
             href="/admin/suppliers/new"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-[#3a3128] transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-hover transition-colors shadow-sm"
           >
             <Plus className="w-4 h-4" />
             <span>{isAr ? 'إضافة مورد' : 'Add Supplier'}</span>
@@ -113,8 +113,8 @@ export function SuppliersListClient({
                 onClick={() => handleFilterChange('active', opt === 'active' ? 'true' : '')}
                 className={`px-3 py-2 rounded-xl text-xs font-medium border transition-colors ${
                   isSelected
-                    ? 'bg-primary text-white border-[#2a2118]'
-                    : 'bg-surface text-[#7a6a57] border-border hover:bg-[#f5ede0]'
+                    ? 'bg-primary text-white border-primary'
+                    : 'bg-surface text-muted-foreground border-border hover:bg-surface-muted'
                 }`}
               >
                 {opt === 'all'
@@ -134,7 +134,7 @@ export function SuppliersListClient({
       <div className="bg-white rounded-2xl border border-border overflow-hidden shadow-sm">
         {suppliers.length === 0 ? (
           <AdminEmptyState
-            icon={<Building2 className="w-6 h-6 text-[#9a8a7a]" />}
+            icon={<Building2 className="w-6 h-6 text-muted-foreground" />}
             title={isAr ? 'لا يوجد موردون' : 'No suppliers found'}
           />
         ) : (
@@ -142,55 +142,55 @@ export function SuppliersListClient({
             <table className="w-full text-sm text-start">
               <thead>
                 <tr className="bg-surface border-b border-border">
-                  <th className="text-start px-4 py-3 text-xs font-semibold text-[#9a8a7a]">
+                  <th className="text-start px-4 py-3 text-xs font-semibold text-muted-foreground">
                     {isAr ? 'اسم المورد' : 'Supplier Name'}
                   </th>
-                  <th className="text-start px-4 py-3 text-xs font-semibold text-[#9a8a7a]">
+                  <th className="text-start px-4 py-3 text-xs font-semibold text-muted-foreground">
                     {isAr ? 'معلومات الاتصال' : 'Contact Info'}
                   </th>
-                  <th className="text-start px-4 py-3 text-xs font-semibold text-[#9a8a7a]">
+                  <th className="text-start px-4 py-3 text-xs font-semibold text-muted-foreground">
                     {isAr ? 'العنوان' : 'Address'}
                   </th>
-                  <th className="text-start px-4 py-3 text-xs font-semibold text-[#9a8a7a]">
+                  <th className="text-start px-4 py-3 text-xs font-semibold text-muted-foreground">
                     {isAr ? 'الحالة' : 'Status'}
                   </th>
-                  <th className="text-end px-4 py-3 text-xs font-semibold text-[#9a8a7a]">
+                  <th className="text-end px-4 py-3 text-xs font-semibold text-muted-foreground">
                     {isAr ? 'الإجراءات' : 'Actions'}
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#f0e8de]">
+              <tbody className="divide-y divide-border-subtle">
                 {suppliers.map((s) => (
                   <tr key={s.id} className="hover:bg-surface transition-colors">
                     <td className="px-4 py-3">
                       <p className="font-semibold text-foreground">{s.name}</p>
                       {s.notes && (
-                        <p className="text-xs text-[#9a8a7a] max-w-xs truncate">{s.notes}</p>
+                        <p className="text-xs text-muted-foreground max-w-xs truncate">{s.notes}</p>
                       )}
                     </td>
                     <td className="px-4 py-3 text-xs space-y-1">
                       {s.phone && (
-                        <div className="flex items-center gap-1.5 text-[#7a6a57]">
+                        <div className="flex items-center gap-1.5 text-muted-foreground">
                           <Phone className="w-3 h-3 text-accent" />
                           <span>{s.phone}</span>
                         </div>
                       )}
                       {s.email && (
-                        <div className="flex items-center gap-1.5 text-[#7a6a57]">
+                        <div className="flex items-center gap-1.5 text-muted-foreground">
                           <Mail className="w-3 h-3 text-accent" />
                           <span>{s.email}</span>
                         </div>
                       )}
-                      {!s.phone && !s.email && <span className="text-[#9a8a7a]">—</span>}
+                      {!s.phone && !s.email && <span className="text-muted-foreground">—</span>}
                     </td>
-                    <td className="px-4 py-3 text-xs text-[#7a6a57]">
+                    <td className="px-4 py-3 text-xs text-muted-foreground">
                       {s.address ? (
                         <div className="flex items-center gap-1.5 max-w-xs truncate">
                           <MapPin className="w-3 h-3 text-accent shrink-0" />
                           <span>{s.address}</span>
                         </div>
                       ) : (
-                        <span className="text-[#9a8a7a]">—</span>
+                        <span className="text-muted-foreground">—</span>
                       )}
                     </td>
                     <td className="px-4 py-3">
@@ -211,7 +211,7 @@ export function SuppliersListClient({
                       <div className="inline-flex items-center gap-1.5">
                         <Link
                           href={`/admin/suppliers/${s.id}/edit`}
-                          className="p-1.5 rounded-lg text-[#7a6a57] hover:text-foreground hover:bg-[#f5ede0] transition-colors"
+                          className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-surface-muted transition-colors"
                           title={isAr ? 'تعديل' : 'Edit'}
                         >
                           <Edit2 className="w-4 h-4" />

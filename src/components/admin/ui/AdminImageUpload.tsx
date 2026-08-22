@@ -65,7 +65,7 @@ export function AdminImageUpload({ entityId, imageUrl, onUpload, onRemove, t }: 
       )}
 
       <div className="flex flex-col sm:flex-row gap-6 items-start">
-        <div className="relative w-full sm:w-48 aspect-square bg-[#f9f8f6] rounded-2xl border border-border flex items-center justify-center overflow-hidden shrink-0">
+        <div className="relative w-full sm:w-48 aspect-square bg-surface rounded-2xl border border-border flex items-center justify-center overflow-hidden shrink-0">
           {imageUrl ? (
             <Image
               src={imageUrl}
@@ -76,8 +76,8 @@ export function AdminImageUpload({ entityId, imageUrl, onUpload, onRemove, t }: 
             />
           ) : (
             <div className="text-center p-4">
-              <span className="block text-2xl mb-2 text-[#9a8a7a]">🖼️</span>
-              <span className="text-sm text-[#7a6a57]">{t.media.emptyState}</span>
+              <span className="block text-2xl mb-2 text-muted-foreground">🖼️</span>
+              <span className="text-sm text-muted-foreground">{t.media.emptyState}</span>
             </div>
           )}
           {isPending && (
@@ -100,7 +100,7 @@ export function AdminImageUpload({ entityId, imageUrl, onUpload, onRemove, t }: 
             type="button"
             onClick={() => fileInputRef.current?.click()}
             disabled={isPending}
-            className="px-6 py-2.5 rounded-xl bg-primary text-white text-sm font-medium hover:bg-[#3a3128] disabled:opacity-60 transition-colors w-full sm:w-auto"
+            className="px-6 py-2.5 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-hover disabled:opacity-60 transition-colors w-full sm:w-auto"
           >
             {imageUrl ? t.media.replaceImage : t.media.uploadImage}
           </button>
@@ -116,7 +116,7 @@ export function AdminImageUpload({ entityId, imageUrl, onUpload, onRemove, t }: 
             </button>
           )}
 
-          <p className="text-xs text-[#7a6a57] mt-2" dir="ltr">
+          <p className="text-xs text-muted-foreground mt-2" dir="ltr">
             Max 5MB. JPG, PNG, or WebP.
           </p>
         </div>

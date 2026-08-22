@@ -267,17 +267,17 @@ function CustomerAuthFormContent({
         <div className="w-full max-w-md">
           {/* Header */}
           <div className="text-center mb-6">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary text-accent font-serif text-2xl font-bold tracking-widest mb-4 shadow-xl">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary text-accent font-display text-2xl font-bold tracking-widest mb-4 shadow-xl">
               SL
             </div>
             <h1
               className={`text-2xl sm:text-3xl font-bold text-foreground ${
-                isAr ? 'font-arabic' : 'font-serif'
+                isAr ? 'font-display' : 'font-display'
               }`}
             >
               {t.otpTitle}
             </h1>
-            <p className="text-[#7a6a57] mt-2 text-sm max-w-xs mx-auto leading-relaxed">
+            <p className="text-muted-foreground mt-2 text-sm max-w-xs mx-auto leading-relaxed">
               {t.otpSubtitle}
             </p>
             {registeredEmail && (
@@ -332,7 +332,7 @@ function CustomerAuthFormContent({
                 type="submit"
                 disabled={isPending || otpDigits.join('').length !== 8}
                 className="w-full py-3.5 px-4 rounded-xl bg-primary text-white text-sm font-bold tracking-wide
-                  hover:bg-[#3a3128] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed
+                  hover:bg-primary-hover active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed
                   transition-all duration-200 shadow-md flex items-center justify-center gap-2"
               >
                 {isPending ? (
@@ -350,7 +350,7 @@ function CustomerAuthFormContent({
             </form>
 
             {/* Resend Section */}
-            <div className="mt-6 pt-4 border-t border-subtle flex items-center justify-between text-xs sm:text-sm text-[#7a6a57]">
+            <div className="mt-6 pt-4 border-t border-subtle flex items-center justify-between text-xs sm:text-sm text-muted-foreground">
               <span>
                 {countdown > 0
                   ? t.resendCountdown.replace('{seconds}', String(countdown))
@@ -360,7 +360,7 @@ function CustomerAuthFormContent({
                 type="button"
                 onClick={handleResend}
                 disabled={countdown > 0 || isResending}
-                className="font-semibold text-secondary hover:text-[#5a3d66] disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex items-center gap-1"
+                className="font-semibold text-secondary hover:text-foreground disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex items-center gap-1"
               >
                 {isResending ? (
                   <>
@@ -386,7 +386,7 @@ function CustomerAuthFormContent({
                 setError('')
                 setSuccessInfo('')
               }}
-              className="text-xs text-[#9a8a7a] hover:text-secondary underline transition-colors"
+              className="text-xs text-muted-foreground hover:text-secondary underline transition-colors"
             >
               {t.changeEmail}
             </button>
@@ -407,7 +407,7 @@ function CustomerAuthFormContent({
         <div className="mb-8">
           <Link
             href={`/${locale}`}
-            className="inline-flex items-center gap-2 text-sm font-medium text-[#9a8a7a] hover:text-secondary transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-secondary transition-colors"
           >
             <ArrowLeft className="w-4 h-4 rtl:rotate-180" />
             {t.back}
@@ -416,17 +416,17 @@ function CustomerAuthFormContent({
 
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary text-accent font-serif text-2xl font-bold tracking-widest mb-6 shadow-xl">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary text-accent font-display text-2xl font-bold tracking-widest mb-6 shadow-xl">
             SL
           </div>
           <h1
             className={`text-3xl font-bold text-foreground ${
-              isAr ? 'font-arabic' : 'font-serif'
+              isAr ? 'font-display' : 'font-display'
             }`}
           >
             {type === 'login' ? t.loginTitle : t.registerTitle}
           </h1>
-          <p className="text-[#7a6a57] mt-2 text-sm">
+          <p className="text-muted-foreground mt-2 text-sm">
             {type === 'login' ? t.loginSubtitle : t.registerSubtitle}
           </p>
         </div>
@@ -524,7 +524,7 @@ function CustomerAuthFormContent({
               type="submit"
               disabled={isPending}
               className="w-full py-3 px-4 rounded-xl bg-secondary text-white text-sm font-bold tracking-wide
-                hover:bg-[#5a3d66] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed
+                hover:bg-primary-hover active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed
                 transition-all duration-200 shadow-md flex items-center justify-center gap-2"
             >
               {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
@@ -542,7 +542,7 @@ function CustomerAuthFormContent({
         {/* Footer Link */}
         <div className="mt-6 text-center">
           {type === 'login' ? (
-            <p className="text-sm text-[#7a6a57]">
+            <p className="text-sm text-muted-foreground">
               {t.noAccount}{' '}
               <Link
                 href={`/${locale}/register`}
@@ -552,7 +552,7 @@ function CustomerAuthFormContent({
               </Link>
             </p>
           ) : (
-            <p className="text-sm text-[#7a6a57]">
+            <p className="text-sm text-muted-foreground">
               {t.hasAccount}{' '}
               <Link
                 href={`/${locale}/login`}

@@ -31,7 +31,7 @@ export function AdminHeader({ profile, onMenuClick }: Props) {
       {/* Mobile menu button */}
       <button
         onClick={onMenuClick}
-        className="lg:hidden p-2 rounded-lg text-[#7a6a57] hover:bg-[#f5ede0] hover:text-foreground transition-colors"
+        className="lg:hidden p-2 rounded-lg text-muted-foreground hover:bg-surface-muted hover:text-foreground transition-colors"
         aria-label="Open navigation menu"
       >
         <Menu className="w-5 h-5" />
@@ -58,7 +58,7 @@ export function AdminHeader({ profile, onMenuClick }: Props) {
             <p className="text-xs font-medium text-foreground leading-tight truncate max-w-32">
               {profile.full_name || profile.email}
             </p>
-            <p className="text-xs text-[#9a8a7a] capitalize">{profile.role.replace('_', ' ')}</p>
+            <p className="text-xs text-muted-foreground capitalize">{profile.role.replace('_', ' ')}</p>
           </div>
         </div>
 
@@ -66,8 +66,8 @@ export function AdminHeader({ profile, onMenuClick }: Props) {
         <button
           onClick={handleSignOut}
           disabled={isPending}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-[#7a6a57]
-            hover:bg-[#f5ede0] hover:text-foreground disabled:opacity-50 transition-all duration-200 ms-2"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-muted-foreground
+            hover:bg-surface-muted hover:text-foreground disabled:opacity-50 transition-all duration-200 ms-2"
           aria-label={t.nav.signOut}
         >
           <LogOut className="w-3.5 h-3.5" />
@@ -97,8 +97,8 @@ function LanguageToggle({ currentLang }: { currentLang: string }) {
     <button
       onClick={toggle}
       disabled={isPending}
-      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-[#7a6a57]
-        hover:bg-[#f5ede0] hover:text-foreground disabled:opacity-50 transition-colors border border-border"
+      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-muted-foreground
+        hover:bg-surface-muted hover:text-foreground disabled:opacity-50 transition-colors border border-border"
       title="Switch language"
     >
       <Globe className="w-3.5 h-3.5" />

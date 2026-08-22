@@ -47,7 +47,7 @@ export function OwnerDashboardClient({ stats, t, currentRange, from, to }: Props
           <option value="all_time">All Time</option>
         </select>
         {currentRange === 'custom' && (
-          <div className="text-sm text-[#9a8a7a]">
+          <div className="text-sm text-muted-foreground">
             {from} - {to}
           </div>
         )}

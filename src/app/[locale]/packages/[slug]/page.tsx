@@ -51,24 +51,24 @@ export default async function PackageDetailPage({
                 {isAr ? 'الرئيسية' : 'Home'}
               </Link>
             </li>
-            <li aria-hidden="true" className="text-[var(--color-sand-300)] rtl:rotate-180">→</li>
+            <li aria-hidden="true" className="text-[var(--border)] rtl:rotate-180">→</li>
             <li>
               <Link href="/packages" className="hover:text-foreground transition-colors">
                 {isAr ? 'الباقات' : 'Packages'}
               </Link>
             </li>
-            <li aria-hidden="true" className="text-[var(--color-sand-300)] rtl:rotate-180">→</li>
+            <li aria-hidden="true" className="text-[var(--border)] rtl:rotate-180">→</li>
             <li className="text-foreground font-medium truncate">{name}</li>
           </ol>
         </div>
       </nav>
 
       {/* Hero */}
-      <section className="py-12 bg-[var(--color-sand-50)]">
+      <section className="py-12 bg-[var(--surface)]">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             {/* Image */}
-            <div className="aspect-[4/3] bg-[var(--color-sand-100)] rounded-sm flex items-center justify-center relative overflow-hidden">
+            <div className="aspect-[4/3] bg-[var(--surface-muted)] rounded-sm flex items-center justify-center relative overflow-hidden">
               {pkg.image_url ? (
                 <Image
                   src={pkg.image_url}
@@ -86,18 +86,18 @@ export default async function PackageDetailPage({
             {/* Info */}
             <div className="flex flex-col gap-6">
               {tagline && (
-                <p className="text-[var(--color-sand-500)] text-xs tracking-[0.25em] uppercase">{tagline}</p>
+                <p className="text-[var(--muted-foreground)] text-xs tracking-[0.25em] uppercase">{tagline}</p>
               )}
-              <h1 className="font-serif text-3xl md:text-4xl text-[var(--color-sand-900)]">{name}</h1>
+              <h1 className="font-display text-3xl md:text-4xl text-[var(--foreground)]">{name}</h1>
               <p className="text-[var(--color-text-muted)] leading-relaxed">{description}</p>
 
               {/* Meta badges */}
               <div className="flex flex-wrap gap-3">
-                <span className="px-3 py-1 bg-[var(--color-sand-100)] text-[var(--color-sand-700)] text-sm rounded-full">
+                <span className="px-3 py-1 bg-[var(--surface-muted)] text-[var(--primary)] text-sm rounded-full">
                   {pkg.total_duration_minutes} {isAr ? 'دقيقة' : 'min'}
                 </span>
                 {pkg.max_guests > 1 && (
-                  <span className="px-3 py-1 bg-[var(--color-sand-100)] text-[var(--color-sand-700)] text-sm rounded-full">
+                  <span className="px-3 py-1 bg-[var(--surface-muted)] text-[var(--primary)] text-sm rounded-full">
                     {isAr ? `${pkg.max_guests} ضيوف` : `Up to ${pkg.max_guests} guests`}
                   </span>
                 )}
@@ -106,12 +106,12 @@ export default async function PackageDetailPage({
               {/* Price + CTA */}
               <div className="flex items-center gap-6">
                 <div>
-                  <span className="text-3xl font-semibold text-[var(--color-sand-900)]">{pkg.price_sar}</span>
+                  <span className="text-3xl font-semibold text-[var(--foreground)]">{pkg.price_sar}</span>
                   <span className="text-sm text-[var(--color-text-muted)] ms-1">{isAr ? 'ريال' : 'SAR'}</span>
                 </div>
                 <Link
                   href={`/booking?package=${pkg.slug}`}
-                  className="inline-flex items-center justify-center px-8 py-3 bg-[var(--color-sand-900)] text-white text-sm tracking-wide rounded-sm hover:bg-[var(--color-sand-700)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-sand-700)] focus:ring-offset-2"
+                  className="inline-flex items-center justify-center px-8 py-3 bg-[var(--foreground)] text-white text-sm tracking-wide rounded-sm hover:bg-[var(--primary)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2"
                 >
                   {isAr ? 'احجزي الآن' : 'Book Now'}
                 </Link>
@@ -124,14 +124,14 @@ export default async function PackageDetailPage({
       {/* Included Services */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6 max-w-5xl">
-          <h2 className="font-serif text-2xl text-[var(--color-sand-900)] mb-8">
+          <h2 className="font-display text-2xl text-[var(--foreground)] mb-8">
             {isAr ? 'يشمل هذا الطقس' : 'What\'s Included'}
           </h2>
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {includedServices.map((item, i) => (
               <li key={i} className="flex items-center gap-3 p-4 border border-[var(--border-subtle)] rounded-sm">
-                <span className="text-[var(--color-sand-400)] shrink-0">✦</span>
-                <span className="text-[var(--color-sand-800)]">{item}</span>
+                <span className="text-[var(--border-strong)] shrink-0">✦</span>
+                <span className="text-[var(--foreground)]">{item}</span>
               </li>
             ))}
           </ul>

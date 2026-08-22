@@ -22,7 +22,7 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
 
   return (
     <div className="max-w-2xl space-y-6">
-      <Link href="/admin/customers" className="inline-flex items-center gap-2 text-sm text-[#9a8a7a] hover:text-foreground">
+      <Link href="/admin/customers" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft className="w-4 h-4 rtl:rotate-180" /> {t.common.back}
       </Link>
 
@@ -33,14 +33,14 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
 
       {/* Customer info */}
       <div className="bg-white rounded-2xl border border-border overflow-hidden">
-        <dl className="divide-y divide-[#f0e8de]">
+        <dl className="divide-y divide-border-subtle">
           {[
             ['Phone', customer.phone],
             ['Email', customer.email ?? '—'],
             ['Customer since', new Date(customer.created_at).toLocaleDateString()],
           ].map(([label, value]) => (
             <div key={label} className="flex px-6 py-3 gap-4">
-              <dt className="text-xs font-medium text-[#9a8a7a] w-32 shrink-0">{label}</dt>
+              <dt className="text-xs font-medium text-muted-foreground w-32 shrink-0">{label}</dt>
               <dd className="text-sm text-foreground">{value}</dd>
             </div>
           ))}
@@ -52,18 +52,18 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
         <h2 className="text-sm font-semibold text-foreground mb-3">Booking History ({bookings.length})</h2>
         <div className="bg-white rounded-2xl border border-border overflow-hidden">
           {bookings.length === 0 ? (
-            <p className="text-center text-sm text-[#9a8a7a] py-8">No bookings yet</p>
+            <p className="text-center text-sm text-muted-foreground py-8">No bookings yet</p>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="bg-surface border-b border-border">
                     {['Booking #', 'Service', 'Date', 'Status', 'Price'].map((h) => (
-                      <th key={h} className="text-start px-4 py-3 text-xs font-medium text-[#9a8a7a]">{h}</th>
+                      <th key={h} className="text-start px-4 py-3 text-xs font-medium text-muted-foreground">{h}</th>
                     ))}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#f0e8de]">
+                <tbody className="divide-y divide-border-subtle">
                   {bookings.map((b) => (
                     <tr key={b.id} className="hover:bg-surface">
                       <td className="px-4 py-3">
@@ -71,10 +71,10 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
                           {b.booking_number}
                         </Link>
                       </td>
-                      <td className="px-4 py-3 text-[#7a6a57]">
+                      <td className="px-4 py-3 text-muted-foreground">
                         {(b.services as { name_en: string } | null)?.name_en ?? '—'}
                       </td>
-                      <td className="px-4 py-3 text-[#7a6a57]">{b.date}</td>
+                      <td className="px-4 py-3 text-muted-foreground">{b.date}</td>
                       <td className="px-4 py-3"><AdminBadge status={b.status ?? ''} label={b.status ?? ''} /></td>
                       <td className="px-4 py-3 font-medium text-foreground">{Number(b.price_sar).toLocaleString()} SAR</td>
                     </tr>

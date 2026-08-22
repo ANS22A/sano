@@ -84,7 +84,7 @@ export default async function PayrollReportPage({
 
       <div>
         <h2 className="text-lg font-bold text-foreground mb-4">{t.ownerDashboard?.partnerWithdrawalsTitle || 'Partner Withdrawals (Capital Distributions)'}</h2>
-        <p className="text-sm text-[#9a8a7a] mb-4">{t.ownerDashboard?.partnerWithdrawalsNote || 'Note: Partner withdrawals are equity distributions and are not classified as operating expenses.'}</p>
+        <p className="text-sm text-muted-foreground mb-4">{t.ownerDashboard?.partnerWithdrawalsNote || 'Note: Partner withdrawals are equity distributions and are not classified as operating expenses.'}</p>
         <ReportTable 
           data={withdrawals || []}
           columns={withdrawalColumns}

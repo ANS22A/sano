@@ -63,7 +63,7 @@ export default async function ReceivablesReportPage({
     <div className="space-y-6">
       <div className="bg-white p-4 rounded-xl border border-border shadow-sm">
         <h2 className="text-sm font-semibold text-foreground">{t.ownerDashboard?.aboutReceivables || 'About Accounts Receivable'}</h2>
-        <p className="text-sm text-[#9a8a7a] mt-1">
+        <p className="text-sm text-muted-foreground mt-1">
           This report shows completed bookings where the net realized sales (payments minus refunds) is less than the expected booking price. Overpayments on one booking do not offset the balance of another.
         </p>
       </div>

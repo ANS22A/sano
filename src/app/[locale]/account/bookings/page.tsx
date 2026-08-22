@@ -54,10 +54,10 @@ export default async function AccountBookingsPage(props: PageProps) {
 
   return (
     <div className="space-y-12">
-      <h1 className="text-3xl font-bold text-foreground font-serif">{t('bookings')}</h1>
+      <h1 className="text-3xl font-bold text-foreground font-display">{t('bookings')}</h1>
 
       <div className="space-y-6">
-        <h2 className="text-xl font-bold text-foreground font-serif border-b border-subtle pb-4">{t('upcomingBooking')}</h2>
+        <h2 className="text-xl font-bold text-foreground font-display border-b border-subtle pb-4">{t('upcomingBooking')}</h2>
         {upcomingBookings.length > 0 ? (
           <div className="space-y-4">
             {upcomingBookings.map((booking) => (
@@ -73,7 +73,7 @@ export default async function AccountBookingsPage(props: PageProps) {
 
       {historyBookings.length > 0 && (
         <div className="space-y-6">
-          <h2 className="text-xl font-bold text-foreground font-serif border-b border-subtle pb-4">{t('history')}</h2>
+          <h2 className="text-xl font-bold text-foreground font-display border-b border-subtle pb-4">{t('history')}</h2>
           <div className="space-y-4 opacity-75 hover:opacity-100 transition-opacity">
             {historyBookings.map((booking) => (
               <BookingCard key={booking.id} booking={booking} />

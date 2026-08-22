@@ -79,7 +79,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
       <div className="flex items-center gap-3">
         <Link
           href="/admin/expenses"
-          className="p-2 rounded-xl border border-border bg-white text-[#7a6a57] hover:text-foreground hover:bg-surface transition-colors"
+          className="p-2 rounded-xl border border-border bg-white text-muted-foreground hover:text-foreground hover:bg-surface transition-colors"
         >
           {isAr ? <ArrowRight className="w-4 h-4" /> : <ArrowLeft className="w-4 h-4" />}
         </Link>
@@ -93,7 +93,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
               ? 'تسجيل مصروف جديد'
               : 'Record New Expense'}
           </h1>
-          <p className="text-xs text-[#7a6a57] mt-0.5">
+          <p className="text-xs text-muted-foreground mt-0.5">
             {isAr
               ? 'إدخال تفاصيل المصروف التشغيلي وإرفاق المستند'
               : 'Enter operational outflow details and attach supporting document'}
@@ -112,7 +112,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Category */}
           <div>
-            <label className="block text-xs font-semibold text-[#7a6a57] mb-1.5">
+            <label className="block text-xs font-semibold text-muted-foreground mb-1.5">
               {isAr ? 'التصنيف' : 'Category'} *
             </label>
             <select
@@ -131,7 +131,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
 
           {/* Date */}
           <div>
-            <label className="block text-xs font-semibold text-[#7a6a57] mb-1.5">
+            <label className="block text-xs font-semibold text-muted-foreground mb-1.5">
               {isAr ? 'التاريخ' : 'Date'} *
             </label>
             <input
@@ -146,7 +146,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
 
         {/* Description */}
         <div>
-          <label className="block text-xs font-semibold text-[#7a6a57] mb-1.5">
+          <label className="block text-xs font-semibold text-muted-foreground mb-1.5">
             {isAr ? 'الوصف / البيان' : 'Description'} *
           </label>
           <input
@@ -162,7 +162,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Amount */}
           <div>
-            <label className="block text-xs font-semibold text-[#7a6a57] mb-1.5">
+            <label className="block text-xs font-semibold text-muted-foreground mb-1.5">
               {isAr ? 'المبلغ (ريال سعودي)' : 'Amount (SAR)'} *
             </label>
             <input
@@ -179,7 +179,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
 
           {/* Payment Method */}
           <div>
-            <label className="block text-xs font-semibold text-[#7a6a57] mb-1.5">
+            <label className="block text-xs font-semibold text-muted-foreground mb-1.5">
               {isAr ? 'طريقة الدفع' : 'Payment Method'} *
             </label>
             <select
@@ -198,7 +198,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
 
         {/* Reference */}
         <div>
-          <label className="block text-xs font-semibold text-[#7a6a57] mb-1.5">
+          <label className="block text-xs font-semibold text-muted-foreground mb-1.5">
             {isAr ? 'رقم المرجع / الفاتورة (اختياري)' : 'Reference / Receipt # (Optional)'}
           </label>
           <input
@@ -212,7 +212,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
 
         {/* Notes */}
         <div>
-          <label className="block text-xs font-semibold text-[#7a6a57] mb-1.5">
+          <label className="block text-xs font-semibold text-muted-foreground mb-1.5">
             {isAr ? 'ملاحظات إضافية' : 'Notes'}
           </label>
           <textarea
@@ -226,7 +226,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
 
         {/* Document Attachment */}
         <div className="pt-2 border-t border-border">
-          <label className="block text-xs font-semibold text-[#7a6a57] mb-2">
+          <label className="block text-xs font-semibold text-muted-foreground mb-2">
             {isAr ? 'المستند المرفق (فاتورة / إيصال)' : 'Document Attachment (Invoice / Receipt)'}
           </label>
           
@@ -251,8 +251,8 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
           )}
 
           <div className="flex items-center gap-3">
-            <label className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-border bg-surface text-xs font-medium text-foreground hover:bg-[#f0e8de] cursor-pointer transition-colors">
-              <Upload className="w-4 h-4 text-[#7a6a57]" />
+            <label className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-border bg-surface text-xs font-medium text-foreground hover:bg-surface-muted cursor-pointer transition-colors">
+              <Upload className="w-4 h-4 text-muted-foreground" />
               <span>{selectedFile ? selectedFile.name : isAr ? 'اختيار ملف (JPG, PNG, WebP, PDF)' : 'Choose file (JPG, PNG, WebP, PDF)'}</span>
               <input
                 type="file"
@@ -272,7 +272,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
               </button>
             )}
           </div>
-          <p className="text-[11px] text-[#9a8a7a] mt-1.5">
+          <p className="text-[11px] text-muted-foreground mt-1.5">
             {isAr
               ? 'الحد الأقصى للحجم 5 ميجابايت. يتم حفظ المستند بشكل خاص وآمن.'
               : 'Max size 5MB. Document is stored privately and securely.'}
@@ -283,14 +283,14 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
         <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
           <Link
             href="/admin/expenses"
-            className="px-4 py-2 rounded-xl text-sm font-medium border border-border text-[#7a6a57] hover:bg-surface transition-colors"
+            className="px-4 py-2 rounded-xl text-sm font-medium border border-border text-muted-foreground hover:bg-surface transition-colors"
           >
             {isAr ? 'إلغاء' : 'Cancel'}
           </Link>
           <button
             type="submit"
             disabled={isPending}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-medium hover:bg-[#3a3128] transition-colors shadow-sm disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-hover transition-colors shadow-sm disabled:opacity-50"
           >
             {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
             <span>{isAr ? 'حفظ المصروف' : 'Save Expense'}</span>

@@ -21,7 +21,7 @@ export function GiftCardsSection() {
       <div className="container-sl">
         <div className={cn(
           'relative rounded-sm overflow-hidden',
-          'bg-gradient-to-br from-[var(--color-sand-900,#1a1714)] via-[var(--color-sand-800,#2a2420)] to-[var(--color-sand-900,#1a1714)]',
+          'bg-gradient-to-br from-[var(--primary)] via-[var(--primary-hover)] to-[var(--primary)]',
           'p-10 md:p-14 lg:p-16'
         )}>
           {/* Decorative elements */}

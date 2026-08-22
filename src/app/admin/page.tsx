@@ -64,7 +64,7 @@ export default async function AdminDashboardPage({
       <div className="space-y-6">
         <div>
           <h1 className="text-xl font-bold text-foreground">{t.dashboard.title}</h1>
-          <p className="text-sm text-[#9a8a7a] mt-0.5">{todayStr}</p>
+          <p className="text-sm text-muted-foreground mt-0.5">{todayStr}</p>
         </div>
         
         <OwnerDashboardClient 
@@ -89,7 +89,7 @@ export default async function AdminDashboardPage({
       {/* Page header */}
       <div>
         <h1 className="text-xl font-bold text-foreground">{t.dashboard.title}</h1>
-        <p className="text-sm text-[#9a8a7a] mt-0.5">{todayStr}</p>
+        <p className="text-sm text-muted-foreground mt-0.5">{todayStr}</p>
       </div>
 
       {/* KPI Grid */}

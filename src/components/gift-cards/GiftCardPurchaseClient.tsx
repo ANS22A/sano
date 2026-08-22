@@ -27,25 +27,25 @@ const THEMES: { id: CardTheme; nameAr: string; nameEn: string; bg: string; text:
     id: 'classic-gold',
     nameAr: 'الذهب الكلاسيكي',
     nameEn: 'Classic Gold',
-    bg: 'linear-gradient(135deg, #2a2118 0%, #1f1812 50%, #2a2118 100%)',
+    bg: 'linear-gradient(135deg, #2E1F38 0%, #6F4E7C 50%, #2E1F38 100%)',
     text: '#ffffff',
-    accent: '#c9a96e',
+    accent: '#D4AF37',
   },
   {
     id: 'rose-plum',
     nameAr: 'البرقوق والروز',
     nameEn: 'Rose Plum',
-    bg: 'linear-gradient(135deg, #2E1F38 0%, #3f2a4d 50%, #2E1F38 100%)',
+    bg: 'linear-gradient(135deg, #6F4E7C 0%, #A98FB8 50%, #6F4E7C 100%)',
     text: '#ffffff',
     accent: '#D4AF37',
   },
   {
     id: 'sandstone',
-    nameAr: 'حجر الرمل الهادئ',
-    nameEn: 'Sandstone Calm',
-    bg: 'linear-gradient(135deg, #4A3E3D 0%, #3a302f 50%, #4A3E3D 100%)',
-    text: '#FAF7F4',
-    accent: '#E5C378',
+    nameAr: 'الأرجواني الناعم',
+    nameEn: 'Soft Purple',
+    bg: 'linear-gradient(135deg, #D6C2D9 0%, #E7DBEC 50%, #D6C2D9 100%)',
+    text: '#2E1F38',
+    accent: '#D4AF37',
   },
   {
     id: 'emerald',
@@ -53,7 +53,7 @@ const THEMES: { id: CardTheme; nameAr: string; nameEn: string; bg: string; text:
     nameEn: 'Royal Emerald',
     bg: 'linear-gradient(135deg, #1B3B36 0%, #132a26 50%, #1B3B36 100%)',
     text: '#ffffff',
-    accent: '#E5C378',
+    accent: '#D4AF37',
   },
 ]
 
@@ -198,10 +198,10 @@ I would like to complete the payment and confirm my order.`
             <Gift className="w-3.5 h-3.5" />
             <span>{isAr ? 'كروت الإهداء — سانو لونا' : 'SANO LUNA Gifting'}</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-foreground font-light leading-tight mb-4">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display text-foreground font-light leading-tight mb-4">
             {t.title}
           </h1>
-          <p className="text-[#7a6a57] text-base leading-relaxed">
+          <p className="text-muted-foreground text-base leading-relaxed">
             {t.subtitle}
           </p>
         </div>
@@ -220,28 +220,28 @@ I would like to complete the payment and confirm my order.`
                 <CheckCircle2 className="w-8 h-8 text-accent" />
               </div>
 
-              <h2 className="text-2xl sm:text-3xl font-serif font-semibold text-foreground mb-3">
+              <h2 className="text-2xl sm:text-3xl font-display font-semibold text-foreground mb-3">
                 {t.successTitle}
               </h2>
-              <p className="text-sm text-[#7a6a57] leading-relaxed mb-6">
+              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
                 {t.successSubtitle}
               </p>
 
               {/* Order Reference & Summary Card */}
               <div className="bg-surface border border-border rounded-2xl p-5 mb-6 text-start">
                 <div className="flex justify-between items-center pb-3 border-b border-border">
-                  <span className="text-xs text-[#9a8a7a] font-medium">{t.orderRefLabel}</span>
+                  <span className="text-xs text-muted-foreground font-medium">{t.orderRefLabel}</span>
                   <span className="font-mono text-sm font-bold text-foreground dir-ltr" dir="ltr">
                     {orderResult.orderReference}
                   </span>
                 </div>
                 <div className="grid grid-cols-2 gap-3 pt-3 text-xs">
                   <div>
-                    <span className="text-[#9a8a7a] block">{isAr ? 'المستلمة:' : 'Recipient:'}</span>
+                    <span className="text-muted-foreground block">{isAr ? 'المستلمة:' : 'Recipient:'}</span>
                     <span className="font-semibold text-foreground">{orderResult.recipientName}</span>
                   </div>
                   <div>
-                    <span className="text-[#9a8a7a] block">{isAr ? 'القيمة:' : 'Amount:'}</span>
+                    <span className="text-muted-foreground block">{isAr ? 'القيمة:' : 'Amount:'}</span>
                     <span className="font-bold text-foreground">{orderResult.amount} {t.sar}</span>
                   </div>
                 </div>
@@ -266,7 +266,7 @@ I would like to complete the payment and confirm my order.`
                   <span>{t.whatsappBtn}</span>
                 </a>
 
-                <div className="text-xs text-[#9a8a7a]">
+                <div className="text-xs text-muted-foreground">
                   <span>{t.whatsappNumberLabel} </span>
                   <span className="font-semibold text-foreground dir-ltr" dir="ltr">0551854617</span>
                 </div>
@@ -281,7 +281,7 @@ I would like to complete the payment and confirm my order.`
                       setRecipientPhone('')
                       setPersonalMessage('')
                     }}
-                    className="text-xs font-semibold text-[#7a6a57] hover:text-foreground transition-colors"
+                    className="text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {t.newGiftCard}
                   </button>
@@ -296,7 +296,7 @@ I would like to complete the payment and confirm my order.`
                 <form onSubmit={handleSubmit} className="space-y-8">
                   {/* 1. Theme Selector */}
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-[#9a8a7a] mb-3">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">
                       1. {t.chooseTheme}
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -325,7 +325,7 @@ I would like to complete the payment and confirm my order.`
 
                   {/* 2. Amount Selector */}
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-[#9a8a7a] mb-3">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">
                       2. {t.chooseAmount}
                     </label>
                     <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-3">
@@ -338,7 +338,7 @@ I would like to complete the payment and confirm my order.`
                             onClick={() => handleAmountSelect(val)}
                             className={`py-3 px-2 rounded-xl text-sm font-bold border transition-all ${
                               isSelected
-                                ? 'bg-primary text-accent border-[#2a2118] shadow-sm'
+                                ? 'bg-primary text-accent border-primary shadow-sm'
                                 : 'bg-surface text-foreground border-border hover:bg-white'
                             }`}
                           >
@@ -357,8 +357,8 @@ I would like to complete the payment and confirm my order.`
                         }}
                         className={`py-3 px-2 rounded-xl text-xs font-bold border transition-all ${
                           isCustomAmount
-                            ? 'bg-primary text-accent border-[#2a2118] shadow-sm'
-                            : 'bg-surface text-[#7a6a57] border-border hover:bg-white'
+                            ? 'bg-primary text-accent border-primary shadow-sm'
+                            : 'bg-surface text-muted-foreground border-border hover:bg-white'
                         }`}
                       >
                         {t.customAmount}
@@ -380,16 +380,16 @@ I would like to complete the payment and confirm my order.`
                             placeholder="600"
                             className="flex-1 px-4 py-2.5 rounded-xl border border-border bg-white text-base font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
                           />
-                          <span className="font-bold text-sm text-[#7a6a57]">{t.sar}</span>
+                          <span className="font-bold text-sm text-muted-foreground">{t.sar}</span>
                         </div>
-                        <p className="text-[11px] text-[#9a8a7a] mt-1.5">{t.minMaxHint}</p>
+                        <p className="text-[11px] text-muted-foreground mt-1.5">{t.minMaxHint}</p>
                       </motion.div>
                     )}
                   </div>
 
                   {/* 3. Recipient & Sender Details */}
                   <div className="space-y-4 pt-2 border-t border-border">
-                    <label className="block text-xs font-bold uppercase tracking-wider text-[#9a8a7a] pt-2">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground pt-2">
                       3. {t.detailsTitle}
                     </label>
 
@@ -399,7 +399,7 @@ I would like to complete the payment and confirm my order.`
                           {t.recipientNameLabel}
                         </label>
                         <div className="relative">
-                          <User className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9a8a7a]" />
+                          <User className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                           <input
                             type="text"
                             required
@@ -416,7 +416,7 @@ I would like to complete the payment and confirm my order.`
                           {t.recipientEmailLabel}
                         </label>
                         <div className="relative">
-                          <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9a8a7a]" />
+                          <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                           <input
                             type="email"
                             required
@@ -427,7 +427,7 @@ I would like to complete the payment and confirm my order.`
                             dir="ltr"
                           />
                         </div>
-                        <p className="text-[11px] text-[#9a8a7a] mt-1">{t.recipientEmailHint}</p>
+                        <p className="text-[11px] text-muted-foreground mt-1">{t.recipientEmailHint}</p>
                       </div>
 
                       <div>
@@ -473,7 +473,7 @@ I would like to complete the payment and confirm my order.`
                           className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:bg-white transition-all text-start dir-ltr"
                           dir="ltr"
                         />
-                        <p className="text-[11px] text-[#9a8a7a] mt-1">{t.senderEmailHint}</p>
+                        <p className="text-[11px] text-muted-foreground mt-1">{t.senderEmailHint}</p>
                       </div>
                     </div>
 
@@ -489,7 +489,7 @@ I would like to complete the payment and confirm my order.`
                         placeholder={t.personalMessagePlaceholder}
                         className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:bg-white transition-all text-start resize-none"
                       />
-                      <div className="flex justify-between text-[11px] text-[#9a8a7a] mt-1">
+                      <div className="flex justify-between text-[11px] text-muted-foreground mt-1">
                         <span>{isAr ? 'رسالة تظهر مباشرة على كرت الإهداء' : 'Will appear directly on the gift voucher'}</span>
                         <span>{personalMessage.length}/300</span>
                       </div>
@@ -507,7 +507,7 @@ I would like to complete the payment and confirm my order.`
                     type="submit"
                     disabled={isPending}
                     className="w-full py-4 px-6 rounded-2xl bg-primary text-white text-base font-bold tracking-wide
-                      hover:bg-[#3a3128] active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed
+                      hover:bg-primary-hover active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed
                       transition-all duration-200 shadow-xl flex items-center justify-center gap-3 border border-accent/30"
                   >
                     {isPending ? (
@@ -528,7 +528,7 @@ I would like to complete the payment and confirm my order.`
               {/* Right Column: Live Interactive Card Preview (5 cols) */}
               <div className="lg:col-span-5 lg:sticky lg:top-24 space-y-6">
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#9a8a7a] mb-3">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">
                     {t.previewTitle}
                   </h3>
 
@@ -549,11 +549,11 @@ I would like to complete the payment and confirm my order.`
                         <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-accent mb-1">
                           SANO LUNA
                         </div>
-                        <div className="text-xs text-white/60 font-serif tracking-wider">
+                        <div className="text-xs text-white/60 font-display tracking-wider">
                           Home Spa & Wellness
                         </div>
                       </div>
-                      <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center font-serif text-accent font-bold text-lg shadow-inner">
+                      <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center font-display text-accent font-bold text-lg shadow-inner">
                         SL
                       </div>
                     </div>
@@ -561,7 +561,7 @@ I would like to complete the payment and confirm my order.`
                     {/* Card Body / Personal Message */}
                     <div className="my-6 relative z-10">
                       {personalMessage ? (
-                        <p className="text-sm font-serif italic text-white/90 line-clamp-3 leading-relaxed">
+                        <p className="text-sm font-display italic text-white/90 line-clamp-3 leading-relaxed">
                           &ldquo;{personalMessage}&rdquo;
                         </p>
                       ) : (
@@ -589,7 +589,7 @@ I would like to complete the payment and confirm my order.`
                       </div>
 
                       <div className="text-end">
-                        <span className="text-2xl sm:text-3xl font-serif font-bold text-white block leading-none">
+                        <span className="text-2xl sm:text-3xl font-display font-bold text-white block leading-none">
                           {amount} <span className="text-xs font-sans text-accent font-normal">{t.sar}</span>
                         </span>
                       </div>
@@ -598,7 +598,7 @@ I would like to complete the payment and confirm my order.`
                 </div>
 
                 {/* Feature Callouts */}
-                <div className="bg-white rounded-2xl p-5 border border-border space-y-3.5 text-xs text-[#7a6a57]">
+                <div className="bg-white rounded-2xl p-5 border border-border space-y-3.5 text-xs text-muted-foreground">
                   <div className="flex items-center gap-3">
                     <div className="w-7 h-7 rounded-lg bg-surface flex items-center justify-center text-accent shrink-0">
                       <Mail className="w-3.5 h-3.5" />

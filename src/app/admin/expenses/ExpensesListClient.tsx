@@ -108,7 +108,7 @@ export function ExpensesListClient({
           <h1 className="text-xl font-bold text-foreground">
             {isAr ? 'إدارة المصروفات' : 'Expenses Management'}
           </h1>
-          <p className="text-xs text-[#7a6a57] mt-0.5">
+          <p className="text-xs text-muted-foreground mt-0.5">
             {isAr
               ? 'سجل النفقات والمصروفات التشغيلية للمركز'
               : 'Ledger of operational expenditures and center outflows'}
@@ -117,13 +117,13 @@ export function ExpensesListClient({
         <div className="flex items-center gap-2">
           <Link
             href="/admin/expenses/categories"
-            className="px-3.5 py-2 rounded-xl text-xs font-medium border border-border bg-white text-[#7a6a57] hover:bg-[#f5ede0] hover:text-foreground transition-colors"
+            className="px-3.5 py-2 rounded-xl text-xs font-medium border border-border bg-white text-muted-foreground hover:bg-surface-muted hover:text-foreground transition-colors"
           >
             {isAr ? 'التصنيفات' : 'Categories'}
           </Link>
           <Link
             href="/admin/expenses/new"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-[#3a3128] transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-hover transition-colors shadow-sm"
           >
             <Plus className="w-4 h-4" />
             <span>{isAr ? 'تسجيل مصروف' : 'Record Expense'}</span>
@@ -134,11 +134,11 @@ export function ExpensesListClient({
       {/* KPI / Total Card */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="bg-white rounded-2xl border border-border p-4 flex items-center gap-3 shadow-xs">
-          <div className="w-10 h-10 rounded-xl bg-[#f5ede0] flex items-center justify-center text-accent">
+          <div className="w-10 h-10 rounded-xl bg-surface-muted flex items-center justify-center text-accent">
             <DollarSign className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-[#9a8a7a]">
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
               {isAr ? 'إجمالي المصروفات المعروضة' : 'Total Filtered Expenses'}
             </p>
             <p className="text-lg font-bold text-foreground">
@@ -148,11 +148,11 @@ export function ExpensesListClient({
         </div>
 
         <div className="bg-white rounded-2xl border border-border p-4 flex items-center gap-3 shadow-xs">
-          <div className="w-10 h-10 rounded-xl bg-[#f5ede0] flex items-center justify-center text-accent">
+          <div className="w-10 h-10 rounded-xl bg-surface-muted flex items-center justify-center text-accent">
             <Receipt className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-[#9a8a7a]">
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
               {isAr ? 'عدد العمليات' : 'Total Records'}
             </p>
             <p className="text-lg font-bold text-foreground">{total}</p>
@@ -200,7 +200,7 @@ export function ExpensesListClient({
 
             {/* Date from */}
             <div className="flex items-center gap-1.5 bg-surface px-2.5 py-1.5 rounded-xl border border-border">
-              <span className="text-[11px] text-[#9a8a7a]">{isAr ? 'من:' : 'From:'}</span>
+              <span className="text-[11px] text-muted-foreground">{isAr ? 'من:' : 'From:'}</span>
               <input
                 type="date"
                 defaultValue={currentFromDate}
@@ -211,7 +211,7 @@ export function ExpensesListClient({
 
             {/* Date to */}
             <div className="flex items-center gap-1.5 bg-surface px-2.5 py-1.5 rounded-xl border border-border">
-              <span className="text-[11px] text-[#9a8a7a]">{isAr ? 'إلى:' : 'To:'}</span>
+              <span className="text-[11px] text-muted-foreground">{isAr ? 'إلى:' : 'To:'}</span>
               <input
                 type="date"
                 defaultValue={currentToDate}
@@ -226,8 +226,8 @@ export function ExpensesListClient({
               onClick={() => handleFilterChange('archived', includeArchived ? '' : 'true')}
               className={`px-3 py-2 rounded-xl text-xs font-medium border transition-colors ${
                 includeArchived
-                  ? 'bg-primary text-white border-[#2a2118]'
-                  : 'bg-surface text-[#7a6a57] border-border hover:bg-[#f5ede0]'
+                  ? 'bg-primary text-white border-primary'
+                  : 'bg-surface text-muted-foreground border-border hover:bg-surface-muted'
               }`}
             >
               {includeArchived
@@ -246,7 +246,7 @@ export function ExpensesListClient({
       <div className="bg-white rounded-2xl border border-border overflow-hidden shadow-sm">
         {expenses.length === 0 ? (
           <AdminEmptyState
-            icon={<Receipt className="w-6 h-6 text-[#9a8a7a]" />}
+            icon={<Receipt className="w-6 h-6 text-muted-foreground" />}
             title={isAr ? 'لا توجد مصروفات مطابقة' : 'No expenses found'}
           />
         ) : (
@@ -254,38 +254,38 @@ export function ExpensesListClient({
             <table className="w-full text-sm text-start">
               <thead>
                 <tr className="bg-surface border-b border-border">
-                  <th className="text-start px-4 py-3 text-xs font-semibold text-[#9a8a7a]">
+                  <th className="text-start px-4 py-3 text-xs font-semibold text-muted-foreground">
                     {isAr ? 'التاريخ / المرجع' : 'Date / Ref'}
                   </th>
-                  <th className="text-start px-4 py-3 text-xs font-semibold text-[#9a8a7a]">
+                  <th className="text-start px-4 py-3 text-xs font-semibold text-muted-foreground">
                     {isAr ? 'التصنيف' : 'Category'}
                   </th>
-                  <th className="text-start px-4 py-3 text-xs font-semibold text-[#9a8a7a]">
+                  <th className="text-start px-4 py-3 text-xs font-semibold text-muted-foreground">
                     {isAr ? 'الوصف' : 'Description'}
                   </th>
-                  <th className="text-start px-4 py-3 text-xs font-semibold text-[#9a8a7a]">
+                  <th className="text-start px-4 py-3 text-xs font-semibold text-muted-foreground">
                     {isAr ? 'طريقة الدفع' : 'Payment'}
                   </th>
-                  <th className="text-start px-4 py-3 text-xs font-semibold text-[#9a8a7a]">
+                  <th className="text-start px-4 py-3 text-xs font-semibold text-muted-foreground">
                     {isAr ? 'المبلغ' : 'Amount'}
                   </th>
-                  <th className="text-start px-4 py-3 text-xs font-semibold text-[#9a8a7a]">
+                  <th className="text-start px-4 py-3 text-xs font-semibold text-muted-foreground">
                     {isAr ? 'المستند' : 'Document'}
                   </th>
-                  <th className="text-end px-4 py-3 text-xs font-semibold text-[#9a8a7a]">
+                  <th className="text-end px-4 py-3 text-xs font-semibold text-muted-foreground">
                     {isAr ? 'الإجراءات' : 'Actions'}
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#f0e8de]">
+              <tbody className="divide-y divide-border-subtle">
                 {expenses.map((e) => (
                   <tr key={e.id} className="hover:bg-surface transition-colors">
                     <td className="px-4 py-3">
                       <p className="font-medium text-foreground">{e.date}</p>
-                      <p className="text-[11px] font-mono text-[#9a8a7a]">{e.reference || '—'}</p>
+                      <p className="text-[11px] font-mono text-muted-foreground">{e.reference || '—'}</p>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="inline-block px-2 py-0.5 rounded-md bg-surface border border-border text-xs text-[#7a6a57]">
+                      <span className="inline-block px-2 py-0.5 rounded-md bg-surface border border-border text-xs text-muted-foreground">
                         {isAr
                           ? e.expense_categories?.name_ar || '—'
                           : e.expense_categories?.name_en || '—'}
@@ -294,10 +294,10 @@ export function ExpensesListClient({
                     <td className="px-4 py-3">
                       <p className="font-medium text-foreground max-w-xs truncate">{e.description}</p>
                       {e.notes && (
-                        <p className="text-xs text-[#9a8a7a] max-w-xs truncate">{e.notes}</p>
+                        <p className="text-xs text-muted-foreground max-w-xs truncate">{e.notes}</p>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-xs text-[#7a6a57] capitalize">
+                    <td className="px-4 py-3 text-xs text-muted-foreground capitalize">
                       {e.payment_method.replace('_', ' ')}
                     </td>
                     <td className="px-4 py-3 font-semibold text-foreground whitespace-nowrap">
@@ -311,14 +311,14 @@ export function ExpensesListClient({
                           getSignedUrlAction={getExpenseSignedUrl}
                         />
                       ) : (
-                        <span className="text-xs text-[#9a8a7a]">—</span>
+                        <span className="text-xs text-muted-foreground">—</span>
                       )}
                     </td>
                     <td className="px-4 py-3 text-end">
                       <div className="inline-flex items-center gap-1.5">
                         <Link
                           href={`/admin/expenses/${e.id}/edit`}
-                          className="p-1.5 rounded-lg text-[#7a6a57] hover:text-foreground hover:bg-[#f5ede0] transition-colors"
+                          className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-surface-muted transition-colors"
                           title={isAr ? 'تعديل' : 'Edit'}
                         >
                           <Edit2 className="w-4 h-4" />

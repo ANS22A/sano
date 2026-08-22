@@ -56,14 +56,14 @@ export default async function AdminLocationsPage() {
               <div className="flex items-start justify-between gap-3 mb-3 pe-10">
                 <div>
                   <h2 className="font-semibold text-foreground">{loc.name_en}</h2>
-                  <p className="text-sm text-[#9a8a7a]" dir="rtl">{loc.name_ar}</p>
+                  <p className="text-sm text-muted-foreground" dir="rtl">{loc.name_ar}</p>
                 </div>
                 <AdminBadge
                   status={loc.is_active ? 'active' : 'inactive'}
                   label={loc.is_active ? t.common.active : t.common.inactive}
                 />
               </div>
-              <p className="text-xs text-[#7a6a57] mb-4">{loc.address_en ?? '—'}</p>
+              <p className="text-xs text-muted-foreground mb-4">{loc.address_en ?? '—'}</p>
               <div className="flex gap-3">
                 <Link
                   href={`/admin/settings/business-hours?location=${loc.id}`}

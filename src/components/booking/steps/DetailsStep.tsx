@@ -87,7 +87,7 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6" noValidate>
       <div className="flex flex-col gap-1">
-        <h2 className="font-serif text-2xl text-foreground">{t.title}</h2>
+        <h2 className="font-display text-2xl text-foreground">{t.title}</h2>
         <p className="text-[var(--color-text-muted)] text-sm">{t.subtitle}</p>
       </div>
 
@@ -213,7 +213,7 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
         <button
           type="button"
           onClick={onBack}
-          className="px-5 py-2.5 text-sm border border-[var(--border-subtle)] rounded-sm hover:bg-[var(--color-sand-50)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+          className="px-5 py-2.5 text-sm border border-[var(--border-subtle)] rounded-sm hover:bg-[var(--surface)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
         >
           {t.back}
         </button>

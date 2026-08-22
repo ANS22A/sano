@@ -55,7 +55,7 @@ export function ServiceBenefits({ benefits_ar, benefits_en }: ServiceBenefitsPro
                 aria-hidden="true"
               >
                 <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
-                  <path d="M1 4l2.5 2.5L9 1" stroke="var(--color-sand-700)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M1 4l2.5 2.5L9 1" stroke="var(--primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </span>
               <span className="text-sm text-foreground leading-snug">{benefit}</span>

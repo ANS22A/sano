@@ -121,10 +121,10 @@ export function SalesListClient({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-foreground dark:text-[#f8f5f0]">
+          <h1 className="text-2xl font-bold text-foreground">
             {isAr ? 'سجل المبيعات والمدفوعات' : 'Sales & Revenue Ledger'}
           </h1>
-          <p className="text-sm text-[#7a6b61] dark:text-[#c4b5a5] mt-1">
+          <p className="text-sm text-muted-foreground dark:text-muted-foreground mt-1">
             {isAr
               ? 'تتبع الإيرادات المحققة والمعاملات المالية المباشرة والمرتجعات'
               : 'Track realized revenue, incoming payments, refunds, and direct transactions'}
@@ -133,7 +133,7 @@ export function SalesListClient({
         <div className="flex items-center gap-3">
           <Link
             href="/admin/sales/new"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-secondary text-white text-sm font-medium hover:bg-[#5D3D6A] transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-secondary text-white text-sm font-medium hover:bg-primary-hover transition-colors shadow-sm"
           >
             <Plus className="w-4 h-4" />
             {isAr ? 'تسجيل مبيعات / دفعة جديدة' : 'New Direct Sale / Payment'}
@@ -144,9 +144,9 @@ export function SalesListClient({
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Net Realized Revenue */}
-        <div className="bg-white dark:bg-[#1a141f] border border-[#e8e2d9] dark:border-[#382b42] p-5 rounded-xl shadow-sm">
+        <div className="bg-white border border-border-subtle p-5 rounded-xl shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-[#7a6b61] dark:text-[#c4b5a5] uppercase tracking-wider">
+            <span className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">
               {isAr ? 'صافي الإيراد المحقق' : 'Net Realized Revenue'}
             </span>
             <div className="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400">
@@ -156,18 +156,18 @@ export function SalesListClient({
           <div className="mt-3">
             <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
               {totalRealized.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}{' '}
-              <span className="text-sm font-normal text-[#7a6b61] dark:text-[#c4b5a5]">SAR</span>
+              <span className="text-sm font-normal text-muted-foreground dark:text-muted-foreground">SAR</span>
             </div>
-            <p className="text-xs text-[#7a6b61] dark:text-[#c4b5a5] mt-1">
+            <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
               {isAr ? 'المدفوعات ناقص الاسترجاعات' : 'Gross payments minus refunds'}
             </p>
           </div>
         </div>
 
         {/* Gross Payments */}
-        <div className="bg-white dark:bg-[#1a141f] border border-[#e8e2d9] dark:border-[#382b42] p-5 rounded-xl shadow-sm">
+        <div className="bg-white border border-border-subtle p-5 rounded-xl shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-[#7a6b61] dark:text-[#c4b5a5] uppercase tracking-wider">
+            <span className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">
               {isAr ? 'إجمالي المقبوضات' : 'Total Payments Received'}
             </span>
             <div className="p-2 rounded-lg bg-secondary/10 text-secondary dark:text-[#A98FB8]">
@@ -175,20 +175,20 @@ export function SalesListClient({
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-bold text-foreground dark:text-[#f8f5f0]">
+            <div className="text-2xl font-bold text-foreground">
               {totalPayments.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}{' '}
-              <span className="text-sm font-normal text-[#7a6b61] dark:text-[#c4b5a5]">SAR</span>
+              <span className="text-sm font-normal text-muted-foreground dark:text-muted-foreground">SAR</span>
             </div>
-            <p className="text-xs text-[#7a6b61] dark:text-[#c4b5a5] mt-1">
+            <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
               {isAr ? 'عمليات الدفع المكتملة' : 'Completed inflow transactions'}
             </p>
           </div>
         </div>
 
         {/* Total Refunds */}
-        <div className="bg-white dark:bg-[#1a141f] border border-[#e8e2d9] dark:border-[#382b42] p-5 rounded-xl shadow-sm">
+        <div className="bg-white border border-border-subtle p-5 rounded-xl shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-[#7a6b61] dark:text-[#c4b5a5] uppercase tracking-wider">
+            <span className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">
               {isAr ? 'إجمالي المرتجعات' : 'Total Refunds Issued'}
             </span>
             <div className="p-2 rounded-lg bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400">
@@ -198,18 +198,18 @@ export function SalesListClient({
           <div className="mt-3">
             <div className="text-2xl font-bold text-rose-600 dark:text-rose-400">
               {totalRefunds.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}{' '}
-              <span className="text-sm font-normal text-[#7a6b61] dark:text-[#c4b5a5]">SAR</span>
+              <span className="text-sm font-normal text-muted-foreground dark:text-muted-foreground">SAR</span>
             </div>
-            <p className="text-xs text-[#7a6b61] dark:text-[#c4b5a5] mt-1">
+            <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
               {isAr ? 'المبالغ المسترجعة للعملاء' : 'Refunds returned to customers'}
             </p>
           </div>
         </div>
 
         {/* Total Transactions */}
-        <div className="bg-white dark:bg-[#1a141f] border border-[#e8e2d9] dark:border-[#382b42] p-5 rounded-xl shadow-sm">
+        <div className="bg-white border border-border-subtle p-5 rounded-xl shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-[#7a6b61] dark:text-[#c4b5a5] uppercase tracking-wider">
+            <span className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">
               {isAr ? 'عدد المعاملات' : 'Total Transactions'}
             </span>
             <div className="p-2 rounded-lg bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400">
@@ -217,10 +217,10 @@ export function SalesListClient({
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-bold text-foreground dark:text-[#f8f5f0]">
+            <div className="text-2xl font-bold text-foreground">
               {total}
             </div>
-            <p className="text-xs text-[#7a6b61] dark:text-[#c4b5a5] mt-1">
+            <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
               {isAr ? 'معاملة مسجلة في السجل' : 'Transactions in ledger'}
             </p>
           </div>
@@ -228,7 +228,7 @@ export function SalesListClient({
       </div>
 
       {/* Filter Bar */}
-      <div className="bg-white dark:bg-[#1a141f] border border-[#e8e2d9] dark:border-[#382b42] p-4 rounded-xl shadow-sm space-y-3">
+      <div className="bg-white border border-border-subtle p-4 rounded-xl shadow-sm space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
           {/* Search */}
           <div className="sm:col-span-2">
@@ -244,7 +244,7 @@ export function SalesListClient({
             <select
               value={currentType}
               onChange={(e) => handleFilterChange('type', e.target.value)}
-              className="w-full text-sm rounded-lg border border-[#e8e2d9] dark:border-[#382b42] bg-[#f8f5f0] dark:bg-primary px-3 py-2 text-foreground dark:text-[#f8f5f0]"
+              className="w-full text-sm rounded-lg border border-border-subtle bg-surface px-3 py-2 text-foreground"
             >
               {transactionTypes.map((t) => (
                 <option key={t.value} value={t.value}>
@@ -259,7 +259,7 @@ export function SalesListClient({
             <select
               value={currentPaymentMethod}
               onChange={(e) => handleFilterChange('paymentMethod', e.target.value)}
-              className="w-full text-sm rounded-lg border border-[#e8e2d9] dark:border-[#382b42] bg-[#f8f5f0] dark:bg-primary px-3 py-2 text-foreground dark:text-[#f8f5f0]"
+              className="w-full text-sm rounded-lg border border-border-subtle bg-surface px-3 py-2 text-foreground"
             >
               {paymentMethods.map((m) => (
                 <option key={m.value} value={m.value}>
@@ -274,7 +274,7 @@ export function SalesListClient({
             <select
               value={currentSource}
               onChange={(e) => handleFilterChange('source', e.target.value)}
-              className="w-full text-sm rounded-lg border border-[#e8e2d9] dark:border-[#382b42] bg-[#f8f5f0] dark:bg-primary px-3 py-2 text-foreground dark:text-[#f8f5f0]"
+              className="w-full text-sm rounded-lg border border-border-subtle bg-surface px-3 py-2 text-foreground"
             >
               {sources.map((s) => (
                 <option key={s.value} value={s.value}>
@@ -289,7 +289,7 @@ export function SalesListClient({
             <select
               value={currentStatus}
               onChange={(e) => handleFilterChange('status', e.target.value)}
-              className="w-full text-sm rounded-lg border border-[#e8e2d9] dark:border-[#382b42] bg-[#f8f5f0] dark:bg-primary px-3 py-2 text-foreground dark:text-[#f8f5f0]"
+              className="w-full text-sm rounded-lg border border-border-subtle bg-surface px-3 py-2 text-foreground"
             >
               <option value="all">{isAr ? 'كل الحالات' : 'All Statuses'}</option>
               <option value="completed">{isAr ? 'مكتمل' : 'Completed'}</option>
@@ -299,12 +299,12 @@ export function SalesListClient({
 
           {/* Archived Toggle */}
           <div className="flex items-center gap-2">
-            <label className="flex items-center gap-2 text-xs font-medium text-[#7a6b61] dark:text-[#c4b5a5] cursor-pointer">
+            <label className="flex items-center gap-2 text-xs font-medium text-muted-foreground dark:text-muted-foreground cursor-pointer">
               <input
                 type="checkbox"
                 checked={includeArchived}
                 onChange={(e) => handleFilterChange('archived', e.target.checked ? 'true' : '')}
-                className="rounded border-[#e8e2d9] text-secondary focus:ring-ring"
+                className="rounded border-border-subtle text-secondary focus:ring-ring"
               />
               {isAr ? 'عرض الملغى / المؤرشف' : 'Show Void/Archived'}
             </label>
@@ -312,14 +312,14 @@ export function SalesListClient({
         </div>
 
         {/* Date Row */}
-        <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-[#e8e2d9]/50 dark:border-[#382b42]/50 text-xs text-[#7a6b61] dark:text-[#c4b5a5]">
+        <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-border-subtle/50/50 text-xs text-muted-foreground dark:text-muted-foreground">
           <div className="flex items-center gap-2">
             <span>{isAr ? 'من تاريخ:' : 'From:'}</span>
             <input
               type="date"
               value={currentFromDate}
               onChange={(e) => handleFilterChange('fromDate', e.target.value)}
-              className="rounded-lg border border-[#e8e2d9] dark:border-[#382b42] bg-[#f8f5f0] dark:bg-primary px-2.5 py-1 text-foreground dark:text-[#f8f5f0]"
+              className="rounded-lg border border-border-subtle bg-surface px-2.5 py-1 text-foreground"
             />
           </div>
           <div className="flex items-center gap-2">
@@ -328,7 +328,7 @@ export function SalesListClient({
               type="date"
               value={currentToDate}
               onChange={(e) => handleFilterChange('toDate', e.target.value)}
-              className="rounded-lg border border-[#e8e2d9] dark:border-[#382b42] bg-[#f8f5f0] dark:bg-primary px-2.5 py-1 text-foreground dark:text-[#f8f5f0]"
+              className="rounded-lg border border-border-subtle bg-surface px-2.5 py-1 text-foreground"
             />
           </div>
           {(currentFromDate || currentToDate || currentType !== 'all' || currentPaymentMethod !== 'all' || currentSource !== 'all') && (
@@ -355,7 +355,7 @@ export function SalesListClient({
           action={
             <Link
               href="/admin/sales/new"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-secondary text-white text-xs font-semibold hover:bg-[#5D3D6A] transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-secondary text-white text-xs font-semibold hover:bg-primary-hover transition-colors"
             >
               <Plus className="w-4 h-4" />
               {isAr ? 'تسجيل مبيعات جديدة' : 'Record New Sale'}
@@ -363,10 +363,10 @@ export function SalesListClient({
           }
         />
       ) : (
-        <div className="bg-white dark:bg-[#1a141f] border border-[#e8e2d9] dark:border-[#382b42] rounded-xl shadow-sm overflow-hidden">
+        <div className="bg-white border border-border-subtle rounded-xl shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-start text-sm">
-              <thead className="bg-[#f8f5f0] dark:bg-primary/60 text-[#7a6b61] dark:text-[#c4b5a5] border-b border-[#e8e2d9] dark:border-[#382b42]">
+              <thead className="bg-surface/60 text-muted-foreground dark:text-muted-foreground border-b border-border-subtle">
                 <tr>
                   <th className="py-3.5 px-4 font-medium text-start">{isAr ? 'المرجع / المعاملة' : 'Ref / Transaction'}</th>
                   <th className="py-3.5 px-4 font-medium text-start">{isAr ? 'المصدر / الحجز' : 'Source / Booking'}</th>
@@ -378,7 +378,7 @@ export function SalesListClient({
                   <th className="py-3.5 px-4 font-medium text-end">{isAr ? 'الإجراءات' : 'Actions'}</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#e8e2d9] dark:divide-[#382b42]">
+              <tbody className="divide-y divide-border-subtle">
                 {sales.map((sale) => {
                   const isRefund = sale.type === 'refund'
                   const isVoid = sale.status === 'void' || sale.is_archived
@@ -390,7 +390,7 @@ export function SalesListClient({
                   return (
                     <tr
                       key={sale.id}
-                      className={`hover:bg-[#f8f5f0]/50 dark:hover:bg-primary/30 transition-colors ${
+                      className={`hover:bg-surface/50 dark:hover:bg-primary/30 transition-colors ${
                         isVoid ? 'opacity-50 bg-neutral-50 dark:bg-neutral-900/40' : ''
                       }`}
                     >
@@ -411,12 +411,12 @@ export function SalesListClient({
                             )}
                             {isRefund ? (isAr ? 'استرجاع' : 'Refund') : (isAr ? 'قبض' : 'Payment')}
                           </span>
-                          <span className="font-mono text-xs font-semibold text-foreground dark:text-[#f8f5f0]">
+                          <span className="font-mono text-xs font-semibold text-foreground">
                             {sale.reference}
                           </span>
                         </div>
                         {sale.notes && (
-                          <p className="text-xs text-[#7a6b61] dark:text-[#c4b5a5] mt-1 max-w-xs truncate">
+                          <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1 max-w-xs truncate">
                             {sale.notes}
                           </p>
                         )}
@@ -433,7 +433,7 @@ export function SalesListClient({
                             <span>{sale.bookings.booking_number}</span>
                           </Link>
                         ) : (
-                          <span className="text-xs text-[#7a6b61] dark:text-[#c4b5a5] inline-flex items-center gap-1">
+                          <span className="text-xs text-muted-foreground dark:text-muted-foreground inline-flex items-center gap-1">
                             <Receipt className="w-3 h-3" />
                             {sale.source === 'direct_sale'
                               ? isAr
@@ -450,15 +450,15 @@ export function SalesListClient({
                       <td className="py-3.5 px-4">
                         {sale.customers ? (
                           <div>
-                            <p className="font-medium text-xs text-foreground dark:text-[#f8f5f0]">
+                            <p className="font-medium text-xs text-foreground">
                               {sale.customers.full_name}
                             </p>
-                            <p className="text-xs text-[#7a6b61] dark:text-[#c4b5a5]" dir="ltr">
+                            <p className="text-xs text-muted-foreground dark:text-muted-foreground" dir="ltr">
                               {sale.customers.phone}
                             </p>
                           </div>
                         ) : (
-                          <span className="text-xs text-[#7a6b61] dark:text-[#c4b5a5] italic">
+                          <span className="text-xs text-muted-foreground dark:text-muted-foreground italic">
                             {isAr ? 'عميل مباشر (غير مسجل)' : 'Walk-in Customer'}
                           </span>
                         )}
@@ -466,7 +466,7 @@ export function SalesListClient({
 
                       {/* Payment Method */}
                       <td className="py-3.5 px-4">
-                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary/5 dark:bg-primary text-foreground dark:text-[#f8f5f0] capitalize">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary/5 text-foreground capitalize">
                           {sale.payment_method.replace('_', ' ')}
                         </span>
                       </td>
@@ -521,8 +521,8 @@ export function SalesListClient({
 
                       {/* Date & Recorded By */}
                       <td className="py-3.5 px-4 text-xs">
-                        <div className="text-foreground dark:text-[#f8f5f0]">{dateFormatted}</div>
-                        <div className="text-[#7a6b61] dark:text-[#c4b5a5]">
+                        <div className="text-foreground">{dateFormatted}</div>
+                        <div className="text-muted-foreground dark:text-muted-foreground">
                           {sale.profiles?.full_name || 'System'}
                         </div>
                       </td>
@@ -557,7 +557,7 @@ export function SalesListClient({
           </div>
 
           {/* Pagination */}
-          <div className="p-4 border-t border-[#e8e2d9] dark:border-[#382b42]">
+          <div className="p-4 border-t border-border-subtle">
             <AdminPagination total={total} perPage={25} dir={isAr ? 'rtl' : 'ltr'} />
           </div>
         </div>

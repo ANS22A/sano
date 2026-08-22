@@ -44,7 +44,7 @@ export default async function AdminSettingsPage() {
     <div className="space-y-6">
       <div className="flex flex-col gap-1">
         <h1 className="text-2xl font-bold text-foreground tracking-tight">{t.nav.settings}</h1>
-        <p className="text-sm text-[#7a6a57]">
+        <p className="text-sm text-muted-foreground">
           {lang === 'ar' 
             ? 'إدارة إعدادات النظام، والفروع، وأوقات العمل.' 
             : 'Manage system settings, locations, and schedules.'}
@@ -64,7 +64,7 @@ export default async function AdminSettingsPage() {
                 <Icon className="w-5 h-5" />
               </div>
               <h2 className="text-base font-semibold text-foreground mb-1.5">{card.title}</h2>
-              <p className="text-sm text-[#9a8a7a] leading-relaxed line-clamp-2">{card.description}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">{card.description}</p>
             </Link>
           )
         })}
