@@ -21,7 +21,7 @@ export function ReportsNavigation({ t }: Props) {
   ]
 
   return (
-    <div className="border-b border-[#e8ddd0]">
+    <div className="border-b border-border">
       <nav className="-mb-px flex space-x-6 overflow-x-auto" aria-label="Tabs">
         {tabs.map((tab) => {
           const isActive = pathname === tab.href
@@ -31,8 +31,8 @@ export function ReportsNavigation({ t }: Props) {
               href={tab.href}
               className={cn(
                 isActive
-                  ? 'border-[#c9a96e] text-[#c9a96e]'
-                  : 'border-transparent text-[#9a8a7a] hover:border-[#e8ddd0] hover:text-[#7a6a57]',
+                  ? 'border-accent text-accent'
+                  : 'border-transparent text-[#9a8a7a] hover:border-border hover:text-[#7a6a57]',
                 'whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium transition-colors'
               )}
               aria-current={isActive ? 'page' : undefined}

@@ -22,17 +22,17 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
 
   return (
     <div className="max-w-2xl space-y-6">
-      <Link href="/admin/customers" className="inline-flex items-center gap-2 text-sm text-[#9a8a7a] hover:text-[#2a2118]">
+      <Link href="/admin/customers" className="inline-flex items-center gap-2 text-sm text-[#9a8a7a] hover:text-foreground">
         <ArrowLeft className="w-4 h-4 rtl:rotate-180" /> {t.common.back}
       </Link>
 
       <div className="flex items-center justify-between gap-4">
-        <h1 className="text-xl font-bold text-[#2a2118]">{customer.full_name}</h1>
+        <h1 className="text-xl font-bold text-foreground">{customer.full_name}</h1>
         <CustomerFormWrapper t={t} dir={dir} customer={{ id: customer.id, full_name: customer.full_name, phone: customer.phone, email: customer.email }} variant="button" />
       </div>
 
       {/* Customer info */}
-      <div className="bg-white rounded-2xl border border-[#e8ddd0] overflow-hidden">
+      <div className="bg-white rounded-2xl border border-border overflow-hidden">
         <dl className="divide-y divide-[#f0e8de]">
           {[
             ['Phone', customer.phone],
@@ -41,7 +41,7 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
           ].map(([label, value]) => (
             <div key={label} className="flex px-6 py-3 gap-4">
               <dt className="text-xs font-medium text-[#9a8a7a] w-32 shrink-0">{label}</dt>
-              <dd className="text-sm text-[#2a2118]">{value}</dd>
+              <dd className="text-sm text-foreground">{value}</dd>
             </div>
           ))}
         </dl>
@@ -49,15 +49,15 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
 
       {/* Booking history */}
       <div>
-        <h2 className="text-sm font-semibold text-[#2a2118] mb-3">Booking History ({bookings.length})</h2>
-        <div className="bg-white rounded-2xl border border-[#e8ddd0] overflow-hidden">
+        <h2 className="text-sm font-semibold text-foreground mb-3">Booking History ({bookings.length})</h2>
+        <div className="bg-white rounded-2xl border border-border overflow-hidden">
           {bookings.length === 0 ? (
             <p className="text-center text-sm text-[#9a8a7a] py-8">No bookings yet</p>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-[#faf7f4] border-b border-[#e8ddd0]">
+                  <tr className="bg-surface border-b border-border">
                     {['Booking #', 'Service', 'Date', 'Status', 'Price'].map((h) => (
                       <th key={h} className="text-start px-4 py-3 text-xs font-medium text-[#9a8a7a]">{h}</th>
                     ))}
@@ -65,9 +65,9 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
                 </thead>
                 <tbody className="divide-y divide-[#f0e8de]">
                   {bookings.map((b) => (
-                    <tr key={b.id} className="hover:bg-[#faf7f4]">
+                    <tr key={b.id} className="hover:bg-surface">
                       <td className="px-4 py-3">
-                        <Link href={`/admin/bookings/${b.id}`} className="font-mono text-xs text-[#c9a96e] hover:underline">
+                        <Link href={`/admin/bookings/${b.id}`} className="font-mono text-xs text-accent hover:underline">
                           {b.booking_number}
                         </Link>
                       </td>
@@ -76,7 +76,7 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
                       </td>
                       <td className="px-4 py-3 text-[#7a6a57]">{b.date}</td>
                       <td className="px-4 py-3"><AdminBadge status={b.status ?? ''} label={b.status ?? ''} /></td>
-                      <td className="px-4 py-3 font-medium text-[#2a2118]">{Number(b.price_sar).toLocaleString()} SAR</td>
+                      <td className="px-4 py-3 font-medium text-foreground">{Number(b.price_sar).toLocaleString()} SAR</td>
                     </tr>
                   ))}
                 </tbody>

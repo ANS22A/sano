@@ -117,19 +117,19 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2a2118]/40 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-primary/40 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-labelledby="location-dialog-title"
     >
       <div className="bg-white w-full max-w-lg rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
-        <div className="px-6 py-4 border-b border-[#f0e8de] flex items-center justify-between">
-          <h3 id="location-dialog-title" className="text-base font-bold text-[#2a2118]">
+        <div className="px-6 py-4 border-b border-border flex items-center justify-between">
+          <h3 id="location-dialog-title" className="text-base font-bold text-foreground">
             {location ? t.common.edit : `${t.locations.title} +`}
           </h3>
           <button 
             onClick={onClose}
-            className="text-[#9a8a7a] hover:text-[#2a2118] transition-colors"
+            className="text-[#9a8a7a] hover:text-foreground transition-colors"
             aria-label="Close"
           >
             ✕
@@ -146,13 +146,13 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="name_en" className="block text-sm font-medium text-[#2a2118] mb-1">Name (EN) *</label>
+                <label htmlFor="name_en" className="block text-sm font-medium text-foreground mb-1">Name (EN) *</label>
                 <input
                   id="name_en"
                   name="name_en"
                   type="text"
                   required
-                  className="w-full p-2.5 rounded-xl border border-[#e8ddd0] bg-white text-[#2a2118] outline-none focus:border-[#c9a96e]"
+                  className="w-full p-2.5 rounded-xl border border-border bg-white text-foreground outline-none focus:border-accent"
                   value={formData.name_en}
                   onChange={handleChange}
                   dir="ltr"
@@ -161,13 +161,13 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
               </div>
 
               <div>
-                <label htmlFor="name_ar" className="block text-sm font-medium text-[#2a2118] mb-1 text-start">Name (AR) *</label>
+                <label htmlFor="name_ar" className="block text-sm font-medium text-foreground mb-1 text-start">Name (AR) *</label>
                 <input
                   id="name_ar"
                   name="name_ar"
                   type="text"
                   required
-                  className="w-full p-2.5 rounded-xl border border-[#e8ddd0] bg-white text-[#2a2118] outline-none focus:border-[#c9a96e]"
+                  className="w-full p-2.5 rounded-xl border border-border bg-white text-foreground outline-none focus:border-accent"
                   value={formData.name_ar}
                   onChange={handleChange}
                   dir="rtl"
@@ -178,13 +178,13 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="slug" className="block text-sm font-medium text-[#2a2118] mb-1">Slug *</label>
+                <label htmlFor="slug" className="block text-sm font-medium text-foreground mb-1">Slug *</label>
                 <input
                   id="slug"
                   name="slug"
                   type="text"
                   required
-                  className="w-full p-2.5 rounded-xl border border-[#e8ddd0] bg-white text-[#2a2118] outline-none focus:border-[#c9a96e] font-mono text-sm"
+                  className="w-full p-2.5 rounded-xl border border-border bg-white text-foreground outline-none focus:border-accent font-mono text-sm"
                   value={formData.slug}
                   onChange={handleChange}
                   dir="ltr"
@@ -192,12 +192,12 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
                 />
               </div>
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-[#2a2118] mb-1">Phone</label>
+                <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-1">Phone</label>
                 <input
                   id="phone"
                   name="phone"
                   type="tel"
-                  className="w-full p-2.5 rounded-xl border border-[#e8ddd0] bg-white text-[#2a2118] outline-none focus:border-[#c9a96e]"
+                  className="w-full p-2.5 rounded-xl border border-border bg-white text-foreground outline-none focus:border-accent"
                   value={formData.phone}
                   onChange={handleChange}
                   dir="ltr"
@@ -207,12 +207,12 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
             </div>
 
             <div>
-              <label htmlFor="address_en" className="block text-sm font-medium text-[#2a2118] mb-1">Address (EN)</label>
+              <label htmlFor="address_en" className="block text-sm font-medium text-foreground mb-1">Address (EN)</label>
               <textarea
                 id="address_en"
                 name="address_en"
                 rows={2}
-                className="w-full p-2.5 rounded-xl border border-[#e8ddd0] bg-white text-[#2a2118] outline-none focus:border-[#c9a96e]"
+                className="w-full p-2.5 rounded-xl border border-border bg-white text-foreground outline-none focus:border-accent"
                 value={formData.address_en}
                 onChange={handleChange}
                 dir="ltr"
@@ -221,12 +221,12 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
             </div>
 
             <div>
-              <label htmlFor="address_ar" className="block text-sm font-medium text-[#2a2118] mb-1 text-start">Address (AR)</label>
+              <label htmlFor="address_ar" className="block text-sm font-medium text-foreground mb-1 text-start">Address (AR)</label>
               <textarea
                 id="address_ar"
                 name="address_ar"
                 rows={2}
-                className="w-full p-2.5 rounded-xl border border-[#e8ddd0] bg-white text-[#2a2118] outline-none focus:border-[#c9a96e]"
+                className="w-full p-2.5 rounded-xl border border-border bg-white text-foreground outline-none focus:border-accent"
                 value={formData.address_ar}
                 onChange={handleChange}
                 dir="rtl"
@@ -236,13 +236,13 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="latitude" className="block text-sm font-medium text-[#2a2118] mb-1">Latitude</label>
+                <label htmlFor="latitude" className="block text-sm font-medium text-foreground mb-1">Latitude</label>
                 <input
                   id="latitude"
                   name="latitude"
                   type="number"
                   step="any"
-                  className="w-full p-2.5 rounded-xl border border-[#e8ddd0] bg-white text-[#2a2118] outline-none focus:border-[#c9a96e] font-mono text-sm"
+                  className="w-full p-2.5 rounded-xl border border-border bg-white text-foreground outline-none focus:border-accent font-mono text-sm"
                   value={formData.latitude}
                   onChange={handleChange}
                   dir="ltr"
@@ -250,13 +250,13 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
                 />
               </div>
               <div>
-                <label htmlFor="longitude" className="block text-sm font-medium text-[#2a2118] mb-1">Longitude</label>
+                <label htmlFor="longitude" className="block text-sm font-medium text-foreground mb-1">Longitude</label>
                 <input
                   id="longitude"
                   name="longitude"
                   type="number"
                   step="any"
-                  className="w-full p-2.5 rounded-xl border border-[#e8ddd0] bg-white text-[#2a2118] outline-none focus:border-[#c9a96e] font-mono text-sm"
+                  className="w-full p-2.5 rounded-xl border border-border bg-white text-foreground outline-none focus:border-accent font-mono text-sm"
                   value={formData.longitude}
                   onChange={handleChange}
                   dir="ltr"
@@ -272,28 +272,28 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
                 checked={formData.is_active}
                 onChange={handleChange}
                 disabled={isPending}
-                className="w-4 h-4 rounded border-[#e8ddd0] text-[#2a2118] focus:ring-[#c9a96e]"
+                className="w-4 h-4 rounded border-border text-foreground focus:ring-accent"
               />
-              <span className="text-sm font-medium text-[#2a2118]">
+              <span className="text-sm font-medium text-foreground">
                 {formData.is_active ? t.common.active : t.common.inactive}
               </span>
             </label>
 
           </div>
 
-          <div className="px-6 py-4 border-t border-[#f0e8de] flex justify-end gap-3 bg-[#faf7f4]">
+          <div className="px-6 py-4 border-t border-border flex justify-end gap-3 bg-surface">
             <button
               type="button"
               onClick={onClose}
               disabled={isPending}
-              className="px-4 py-2 rounded-xl text-sm font-medium text-[#7a6a57] hover:bg-white hover:text-[#2a2118] transition-colors border border-transparent hover:border-[#e8ddd0] disabled:opacity-50"
+              className="px-4 py-2 rounded-xl text-sm font-medium text-[#7a6a57] hover:bg-white hover:text-foreground transition-colors border border-transparent hover:border-border disabled:opacity-50"
             >
               {t.common.cancel}
             </button>
             <button
               type="submit"
               disabled={isPending}
-              className="px-6 py-2 rounded-xl text-sm font-medium bg-[#2a2118] text-white hover:bg-[#1a1412] transition-colors disabled:opacity-50"
+              className="px-6 py-2 rounded-xl text-sm font-medium bg-primary text-white hover:bg-[#1a1412] transition-colors disabled:opacity-50"
             >
               {isPending ? t.common.saving : t.common.save}
             </button>

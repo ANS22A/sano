@@ -261,17 +261,17 @@ function CustomerAuthFormContent({
   if (requiresOtp) {
     return (
       <div
-        className="min-h-screen bg-[#faf7f4] flex flex-col items-center justify-center p-4 sm:p-8"
+        className="min-h-screen bg-surface flex flex-col items-center justify-center p-4 sm:p-8"
         dir={isAr ? 'rtl' : 'ltr'}
       >
         <div className="w-full max-w-md">
           {/* Header */}
           <div className="text-center mb-6">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#2E1F38] text-[#D4AF37] font-serif text-2xl font-bold tracking-widest mb-4 shadow-xl">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary text-accent font-serif text-2xl font-bold tracking-widest mb-4 shadow-xl">
               SL
             </div>
             <h1
-              className={`text-2xl sm:text-3xl font-bold text-[#2E1F38] ${
+              className={`text-2xl sm:text-3xl font-bold text-foreground ${
                 isAr ? 'font-arabic' : 'font-serif'
               }`}
             >
@@ -281,14 +281,14 @@ function CustomerAuthFormContent({
               {t.otpSubtitle}
             </p>
             {registeredEmail && (
-              <p className="text-xs font-semibold text-[#2E1F38] mt-1 bg-white/70 py-1 px-3 rounded-full inline-block border border-[#E7DBEC] dir-ltr" dir="ltr">
+              <p className="text-xs font-semibold text-foreground mt-1 bg-white/70 py-1 px-3 rounded-full inline-block border border-subtle dir-ltr" dir="ltr">
                 {registeredEmail}
               </p>
             )}
           </div>
 
           {/* Card */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-[#E7DBEC]">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-subtle">
             <form onSubmit={handleVerifyOtp} className="space-y-6">
               {/* 8-Digit OTP Input Row */}
               <div className="flex items-center justify-center gap-1 sm:gap-2" dir="ltr">
@@ -307,7 +307,7 @@ function CustomerAuthFormContent({
                     onChange={(e) => handleOtpChange(idx, e.target.value)}
                     onKeyDown={(e) => handleOtpKeyDown(idx, e)}
                     onPaste={handleOtpPaste}
-                    className="w-8 h-12 sm:w-10 sm:h-14 text-center text-lg sm:text-2xl font-bold rounded-xl border border-[#E7DBEC] bg-[#faf7f4] text-[#2E1F38] focus:outline-none focus:ring-2 focus:ring-[#c9a96e] focus:border-[#c9a96e] transition-all shadow-inner"
+                    className="w-8 h-12 sm:w-10 sm:h-14 text-center text-lg sm:text-2xl font-bold rounded-xl border border-subtle bg-surface text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all shadow-inner"
                     aria-label={`Digit ${idx + 1}`}
                   />
                 ))}
@@ -331,7 +331,7 @@ function CustomerAuthFormContent({
               <button
                 type="submit"
                 disabled={isPending || otpDigits.join('').length !== 8}
-                className="w-full py-3.5 px-4 rounded-xl bg-[#2a2118] text-white text-sm font-bold tracking-wide
+                className="w-full py-3.5 px-4 rounded-xl bg-primary text-white text-sm font-bold tracking-wide
                   hover:bg-[#3a3128] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed
                   transition-all duration-200 shadow-md flex items-center justify-center gap-2"
               >
@@ -350,7 +350,7 @@ function CustomerAuthFormContent({
             </form>
 
             {/* Resend Section */}
-            <div className="mt-6 pt-4 border-t border-[#E7DBEC] flex items-center justify-between text-xs sm:text-sm text-[#7a6a57]">
+            <div className="mt-6 pt-4 border-t border-subtle flex items-center justify-between text-xs sm:text-sm text-[#7a6a57]">
               <span>
                 {countdown > 0
                   ? t.resendCountdown.replace('{seconds}', String(countdown))
@@ -360,7 +360,7 @@ function CustomerAuthFormContent({
                 type="button"
                 onClick={handleResend}
                 disabled={countdown > 0 || isResending}
-                className="font-semibold text-[#6F4E7C] hover:text-[#5a3d66] disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex items-center gap-1"
+                className="font-semibold text-secondary hover:text-[#5a3d66] disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex items-center gap-1"
               >
                 {isResending ? (
                   <>
@@ -386,7 +386,7 @@ function CustomerAuthFormContent({
                 setError('')
                 setSuccessInfo('')
               }}
-              className="text-xs text-[#9a8a7a] hover:text-[#6F4E7C] underline transition-colors"
+              className="text-xs text-[#9a8a7a] hover:text-secondary underline transition-colors"
             >
               {t.changeEmail}
             </button>
@@ -399,7 +399,7 @@ function CustomerAuthFormContent({
   // ─── LOGIN / REGISTER STANDARD FORM ────────────────────────────────────────
   return (
     <div
-      className="min-h-screen bg-[#faf7f4] flex flex-col items-center justify-center p-4 sm:p-8"
+      className="min-h-screen bg-surface flex flex-col items-center justify-center p-4 sm:p-8"
       dir={isAr ? 'rtl' : 'ltr'}
     >
       <div className="w-full max-w-md">
@@ -407,7 +407,7 @@ function CustomerAuthFormContent({
         <div className="mb-8">
           <Link
             href={`/${locale}`}
-            className="inline-flex items-center gap-2 text-sm font-medium text-[#9a8a7a] hover:text-[#6F4E7C] transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-medium text-[#9a8a7a] hover:text-secondary transition-colors"
           >
             <ArrowLeft className="w-4 h-4 rtl:rotate-180" />
             {t.back}
@@ -416,11 +416,11 @@ function CustomerAuthFormContent({
 
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#2E1F38] text-[#D4AF37] font-serif text-2xl font-bold tracking-widest mb-6 shadow-xl">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary text-accent font-serif text-2xl font-bold tracking-widest mb-6 shadow-xl">
             SL
           </div>
           <h1
-            className={`text-3xl font-bold text-[#2E1F38] ${
+            className={`text-3xl font-bold text-foreground ${
               isAr ? 'font-arabic' : 'font-serif'
             }`}
           >
@@ -432,7 +432,7 @@ function CustomerAuthFormContent({
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-[#E7DBEC]">
+        <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-subtle">
           {isVerified && type === 'login' && (
             <div className="mb-5 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-sm text-emerald-800 font-medium flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
@@ -444,28 +444,28 @@ function CustomerAuthFormContent({
             {type === 'register' && (
               <>
                 <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-[#2E1F38]">{t.fullName}</label>
+                  <label className="text-sm font-medium text-foreground">{t.fullName}</label>
                   <div className="relative">
                     <User className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A98FB8]" />
                     <input
                       name="fullName"
                       type="text"
                       required
-                      className="w-full ps-10 pe-4 py-3 rounded-xl border border-[#E7DBEC] bg-[#faf7f4] text-[#2E1F38] text-sm focus:outline-none focus:ring-2 focus:ring-[#6F4E7C] focus:border-transparent transition-all text-start"
+                      className="w-full ps-10 pe-4 py-3 rounded-xl border border-subtle bg-surface text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all text-start"
                       placeholder={isAr ? 'الاسم' : 'Name'}
                     />
                   </div>
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-[#2E1F38]">{t.phone}</label>
+                  <label className="text-sm font-medium text-foreground">{t.phone}</label>
                   <div className="relative">
                     <Phone className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A98FB8]" />
                     <input
                       name="phone"
                       type="tel"
                       required
-                      className="w-full ps-10 pe-4 py-3 rounded-xl border border-[#E7DBEC] bg-[#faf7f4] text-[#2E1F38] text-sm focus:outline-none focus:ring-2 focus:ring-[#6F4E7C] focus:border-transparent transition-all text-start"
+                      className="w-full ps-10 pe-4 py-3 rounded-xl border border-subtle bg-surface text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all text-start"
                       placeholder="05X XXX XXXX"
                       dir="ltr"
                     />
@@ -475,14 +475,14 @@ function CustomerAuthFormContent({
             )}
 
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-[#2E1F38]">{t.email}</label>
+              <label className="text-sm font-medium text-foreground">{t.email}</label>
               <div className="relative">
                 <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A98FB8]" />
                 <input
                   name="email"
                   type="email"
                   required
-                  className="w-full ps-10 pe-4 py-3 rounded-xl border border-[#E7DBEC] bg-[#faf7f4] text-[#2E1F38] text-sm focus:outline-none focus:ring-2 focus:ring-[#6F4E7C] focus:border-transparent transition-all text-start"
+                  className="w-full ps-10 pe-4 py-3 rounded-xl border border-subtle bg-surface text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all text-start"
                   placeholder="customer@example.com"
                   dir="ltr"
                 />
@@ -490,14 +490,14 @@ function CustomerAuthFormContent({
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-[#2E1F38]">{t.password}</label>
+              <label className="text-sm font-medium text-foreground">{t.password}</label>
               <div className="relative">
                 <Lock className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A98FB8]" />
                 <input
                   name="password"
                   type="password"
                   required
-                  className="w-full ps-10 pe-4 py-3 rounded-xl border border-[#E7DBEC] bg-[#faf7f4] text-[#2E1F38] text-sm focus:outline-none focus:ring-2 focus:ring-[#6F4E7C] focus:border-transparent transition-all text-start"
+                  className="w-full ps-10 pe-4 py-3 rounded-xl border border-subtle bg-surface text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all text-start"
                   placeholder="••••••••"
                   dir="ltr"
                 />
@@ -506,7 +506,7 @@ function CustomerAuthFormContent({
                 <div className="flex justify-end mt-2">
                   <Link
                     href={`/${locale}/forgot-password`}
-                    className="text-xs font-medium text-[#6F4E7C] hover:underline"
+                    className="text-xs font-medium text-secondary hover:underline"
                   >
                     {isAr ? 'نسيت كلمة المرور؟' : 'Forgot Password?'}
                   </Link>
@@ -523,7 +523,7 @@ function CustomerAuthFormContent({
             <button
               type="submit"
               disabled={isPending}
-              className="w-full py-3 px-4 rounded-xl bg-[#6F4E7C] text-white text-sm font-bold tracking-wide
+              className="w-full py-3 px-4 rounded-xl bg-secondary text-white text-sm font-bold tracking-wide
                 hover:bg-[#5a3d66] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed
                 transition-all duration-200 shadow-md flex items-center justify-center gap-2"
             >
@@ -546,7 +546,7 @@ function CustomerAuthFormContent({
               {t.noAccount}{' '}
               <Link
                 href={`/${locale}/register`}
-                className="font-semibold text-[#6F4E7C] hover:underline"
+                className="font-semibold text-secondary hover:underline"
               >
                 {t.signUp}
               </Link>
@@ -556,7 +556,7 @@ function CustomerAuthFormContent({
               {t.hasAccount}{' '}
               <Link
                 href={`/${locale}/login`}
-                className="font-semibold text-[#6F4E7C] hover:underline"
+                className="font-semibold text-secondary hover:underline"
               >
                 {t.signIn}
               </Link>
@@ -572,8 +572,8 @@ export function CustomerAuthForm(props: { type: 'login' | 'register'; locale: st
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[#faf7f4] flex items-center justify-center p-4">
-          <Loader2 className="w-8 h-8 animate-spin text-[#6F4E7C]" />
+        <div className="min-h-screen bg-surface flex items-center justify-center p-4">
+          <Loader2 className="w-8 h-8 animate-spin text-secondary" />
         </div>
       }
     >

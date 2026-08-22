@@ -95,8 +95,8 @@ export function CustomerFormDialog({ open, onClose, t, dir, customer }: Customer
       />
 
       {/* Dialog */}
-      <div className="relative z-10 w-full max-w-md bg-white rounded-2xl shadow-2xl border border-[#e8ddd0] p-6 max-h-[90vh] overflow-y-auto">
-        <h2 className="text-lg font-semibold text-[#2a2118] mb-4">
+      <div className="relative z-10 w-full max-w-md bg-white rounded-2xl shadow-2xl border border-border p-6 max-h-[90vh] overflow-y-auto">
+        <h2 className="text-lg font-semibold text-foreground mb-4">
           {customer ? t.common.edit : t.customers.title}
         </h2>
         
@@ -116,7 +116,7 @@ export function CustomerFormDialog({ open, onClose, t, dir, customer }: Customer
               required
               value={formData.full_name}
               onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
-              className="w-full px-3 py-2 rounded-xl text-sm border border-[#e8ddd0] bg-white text-[#2a2118] focus:border-[#c9a96e] focus:ring-1 focus:ring-[#c9a96e] outline-none transition-all"
+              className="w-full px-3 py-2 rounded-xl text-sm border border-border bg-white text-foreground focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-all"
               placeholder="Full Name"
               disabled={isPending}
             />
@@ -132,7 +132,7 @@ export function CustomerFormDialog({ open, onClose, t, dir, customer }: Customer
               dir="ltr"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full px-3 py-2 rounded-xl text-sm border border-[#e8ddd0] bg-white text-[#2a2118] focus:border-[#c9a96e] focus:ring-1 focus:ring-[#c9a96e] outline-none transition-all text-start"
+              className="w-full px-3 py-2 rounded-xl text-sm border border-border bg-white text-foreground focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-all text-start"
               placeholder="05X XXX XXXX"
               disabled={isPending}
             />
@@ -148,7 +148,7 @@ export function CustomerFormDialog({ open, onClose, t, dir, customer }: Customer
               dir="ltr"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full px-3 py-2 rounded-xl text-sm border border-[#e8ddd0] bg-white text-[#2a2118] focus:border-[#c9a96e] focus:ring-1 focus:ring-[#c9a96e] outline-none transition-all text-start"
+              className="w-full px-3 py-2 rounded-xl text-sm border border-border bg-white text-foreground focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-all text-start"
               placeholder="email@example.com"
               disabled={isPending}
             />
@@ -159,14 +159,14 @@ export function CustomerFormDialog({ open, onClose, t, dir, customer }: Customer
               type="button"
               onClick={onClose}
               disabled={isPending}
-              className="px-4 py-2 rounded-xl text-sm font-medium text-[#7a6a57] border border-[#e8ddd0] hover:bg-[#f5ede0] transition-colors disabled:opacity-50"
+              className="px-4 py-2 rounded-xl text-sm font-medium text-[#7a6a57] border border-border hover:bg-[#f5ede0] transition-colors disabled:opacity-50"
             >
               {t.common.cancel}
             </button>
             <button
               type="submit"
               disabled={isPending}
-              className="px-4 py-2 rounded-xl text-sm font-medium text-white bg-[#2a2118] hover:bg-[#3a3128] transition-colors disabled:opacity-50"
+              className="px-4 py-2 rounded-xl text-sm font-medium text-white bg-primary hover:bg-[#3a3128] transition-colors disabled:opacity-50"
             >
               {isPending ? t.common.saving : t.common.save}
             </button>

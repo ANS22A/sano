@@ -294,6 +294,134 @@ export type Database = {
         }
         Relationships: []
       }
+      gift_cards: {
+        Row: {
+          code: string
+          created_at: string
+          currency: string
+          expires_at: string
+          id: string
+          initial_amount: number
+          order_reference: string
+          payment_confirmed_at: string | null
+          payment_confirmed_by: string | null
+          personal_message: string | null
+          purchaser_auth_user_id: string | null
+          purchaser_customer_id: string | null
+          recipient_email: string
+          recipient_name: string
+          recipient_phone: string | null
+          remaining_balance: number
+          sender_email: string
+          sender_name: string
+          sender_phone: string | null
+          status: string
+          theme: string
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          currency?: string
+          expires_at?: string
+          id?: string
+          initial_amount: number
+          order_reference: string
+          payment_confirmed_at?: string | null
+          payment_confirmed_by?: string | null
+          personal_message?: string | null
+          purchaser_auth_user_id?: string | null
+          purchaser_customer_id?: string | null
+          recipient_email: string
+          recipient_name: string
+          recipient_phone?: string | null
+          remaining_balance: number
+          sender_email: string
+          sender_name: string
+          sender_phone?: string | null
+          status?: string
+          theme?: string
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          currency?: string
+          expires_at?: string
+          id?: string
+          initial_amount?: number
+          order_reference?: string
+          payment_confirmed_at?: string | null
+          payment_confirmed_by?: string | null
+          personal_message?: string | null
+          purchaser_auth_user_id?: string | null
+          purchaser_customer_id?: string | null
+          recipient_email?: string
+          recipient_name?: string
+          recipient_phone?: string | null
+          remaining_balance?: number
+          sender_email?: string
+          sender_name?: string
+          sender_phone?: string | null
+          status?: string
+          theme?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gift_cards_purchaser_customer_id_fkey"
+            columns: ["purchaser_customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      gift_card_redemptions: {
+        Row: {
+          amount_redeemed: number
+          booking_id: string | null
+          created_at: string
+          gift_card_id: string
+          id: string
+          notes: string | null
+          redeemed_by_customer_id: string | null
+        }
+        Insert: {
+          amount_redeemed: number
+          booking_id?: string | null
+          created_at?: string
+          gift_card_id: string
+          id?: string
+          notes?: string | null
+          redeemed_by_customer_id?: string | null
+        }
+        Update: {
+          amount_redeemed?: number
+          booking_id?: string | null
+          created_at?: string
+          gift_card_id?: string
+          id?: string
+          notes?: string | null
+          redeemed_by_customer_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gift_card_redemptions_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "bookings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "gift_card_redemptions_gift_card_id_fkey"
+            columns: ["gift_card_id"]
+            isOneToOne: false
+            referencedRelation: "gift_cards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       locations: {
         Row: {
           address_ar: string

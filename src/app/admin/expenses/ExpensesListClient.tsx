@@ -105,7 +105,7 @@ export function ExpensesListClient({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-[#2a2118]">
+          <h1 className="text-xl font-bold text-foreground">
             {isAr ? 'إدارة المصروفات' : 'Expenses Management'}
           </h1>
           <p className="text-xs text-[#7a6a57] mt-0.5">
@@ -117,13 +117,13 @@ export function ExpensesListClient({
         <div className="flex items-center gap-2">
           <Link
             href="/admin/expenses/categories"
-            className="px-3.5 py-2 rounded-xl text-xs font-medium border border-[#e8ddd0] bg-white text-[#7a6a57] hover:bg-[#f5ede0] hover:text-[#2a2118] transition-colors"
+            className="px-3.5 py-2 rounded-xl text-xs font-medium border border-border bg-white text-[#7a6a57] hover:bg-[#f5ede0] hover:text-foreground transition-colors"
           >
             {isAr ? 'التصنيفات' : 'Categories'}
           </Link>
           <Link
             href="/admin/expenses/new"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#2a2118] text-white text-sm font-medium hover:bg-[#3a3128] transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-[#3a3128] transition-colors shadow-sm"
           >
             <Plus className="w-4 h-4" />
             <span>{isAr ? 'تسجيل مصروف' : 'Record Expense'}</span>
@@ -133,35 +133,35 @@ export function ExpensesListClient({
 
       {/* KPI / Total Card */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white rounded-2xl border border-[#e8ddd0] p-4 flex items-center gap-3 shadow-xs">
-          <div className="w-10 h-10 rounded-xl bg-[#f5ede0] flex items-center justify-center text-[#c9a96e]">
+        <div className="bg-white rounded-2xl border border-border p-4 flex items-center gap-3 shadow-xs">
+          <div className="w-10 h-10 rounded-xl bg-[#f5ede0] flex items-center justify-center text-accent">
             <DollarSign className="w-5 h-5" />
           </div>
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-wider text-[#9a8a7a]">
               {isAr ? 'إجمالي المصروفات المعروضة' : 'Total Filtered Expenses'}
             </p>
-            <p className="text-lg font-bold text-[#2a2118]">
+            <p className="text-lg font-bold text-foreground">
               {Number(totalAmount).toLocaleString(undefined, { minimumFractionDigits: 2 })} SAR
             </p>
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl border border-[#e8ddd0] p-4 flex items-center gap-3 shadow-xs">
-          <div className="w-10 h-10 rounded-xl bg-[#f5ede0] flex items-center justify-center text-[#c9a96e]">
+        <div className="bg-white rounded-2xl border border-border p-4 flex items-center gap-3 shadow-xs">
+          <div className="w-10 h-10 rounded-xl bg-[#f5ede0] flex items-center justify-center text-accent">
             <Receipt className="w-5 h-5" />
           </div>
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-wider text-[#9a8a7a]">
               {isAr ? 'عدد العمليات' : 'Total Records'}
             </p>
-            <p className="text-lg font-bold text-[#2a2118]">{total}</p>
+            <p className="text-lg font-bold text-foreground">{total}</p>
           </div>
         </div>
       </div>
 
       {/* Filters & Search */}
-      <div className="bg-white rounded-2xl border border-[#e8ddd0] p-4 space-y-3 shadow-xs">
+      <div className="bg-white rounded-2xl border border-border p-4 space-y-3 shadow-xs">
         <div className="flex flex-col lg:flex-row gap-3">
           <div className="flex-1">
             <AdminSearchBar
@@ -175,7 +175,7 @@ export function ExpensesListClient({
             <select
               value={currentCategoryId}
               onChange={(e) => handleFilterChange('categoryId', e.target.value)}
-              className="px-3 py-2 rounded-xl border border-[#e8ddd0] bg-[#faf7f4] text-xs font-medium text-[#2a2118] focus:outline-none focus:ring-2 focus:ring-[#c9a96e]"
+              className="px-3 py-2 rounded-xl border border-border bg-surface text-xs font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
             >
               <option value="all">{isAr ? 'كل التصنيفات' : 'All Categories'}</option>
               {categories.map((c) => (
@@ -189,7 +189,7 @@ export function ExpensesListClient({
             <select
               value={currentPaymentMethod}
               onChange={(e) => handleFilterChange('paymentMethod', e.target.value)}
-              className="px-3 py-2 rounded-xl border border-[#e8ddd0] bg-[#faf7f4] text-xs font-medium text-[#2a2118] focus:outline-none focus:ring-2 focus:ring-[#c9a96e]"
+              className="px-3 py-2 rounded-xl border border-border bg-surface text-xs font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
             >
               {paymentMethods.map((m) => (
                 <option key={m.value} value={m.value}>
@@ -199,24 +199,24 @@ export function ExpensesListClient({
             </select>
 
             {/* Date from */}
-            <div className="flex items-center gap-1.5 bg-[#faf7f4] px-2.5 py-1.5 rounded-xl border border-[#e8ddd0]">
+            <div className="flex items-center gap-1.5 bg-surface px-2.5 py-1.5 rounded-xl border border-border">
               <span className="text-[11px] text-[#9a8a7a]">{isAr ? 'من:' : 'From:'}</span>
               <input
                 type="date"
                 defaultValue={currentFromDate}
                 onChange={(e) => handleFilterChange('fromDate', e.target.value)}
-                className="bg-transparent text-xs text-[#2a2118] focus:outline-none"
+                className="bg-transparent text-xs text-foreground focus:outline-none"
               />
             </div>
 
             {/* Date to */}
-            <div className="flex items-center gap-1.5 bg-[#faf7f4] px-2.5 py-1.5 rounded-xl border border-[#e8ddd0]">
+            <div className="flex items-center gap-1.5 bg-surface px-2.5 py-1.5 rounded-xl border border-border">
               <span className="text-[11px] text-[#9a8a7a]">{isAr ? 'إلى:' : 'To:'}</span>
               <input
                 type="date"
                 defaultValue={currentToDate}
                 onChange={(e) => handleFilterChange('toDate', e.target.value)}
-                className="bg-transparent text-xs text-[#2a2118] focus:outline-none"
+                className="bg-transparent text-xs text-foreground focus:outline-none"
               />
             </div>
 
@@ -226,8 +226,8 @@ export function ExpensesListClient({
               onClick={() => handleFilterChange('archived', includeArchived ? '' : 'true')}
               className={`px-3 py-2 rounded-xl text-xs font-medium border transition-colors ${
                 includeArchived
-                  ? 'bg-[#2a2118] text-white border-[#2a2118]'
-                  : 'bg-[#faf7f4] text-[#7a6a57] border-[#e8ddd0] hover:bg-[#f5ede0]'
+                  ? 'bg-primary text-white border-[#2a2118]'
+                  : 'bg-surface text-[#7a6a57] border-border hover:bg-[#f5ede0]'
               }`}
             >
               {includeArchived
@@ -243,7 +243,7 @@ export function ExpensesListClient({
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-2xl border border-[#e8ddd0] overflow-hidden shadow-sm">
+      <div className="bg-white rounded-2xl border border-border overflow-hidden shadow-sm">
         {expenses.length === 0 ? (
           <AdminEmptyState
             icon={<Receipt className="w-6 h-6 text-[#9a8a7a]" />}
@@ -253,7 +253,7 @@ export function ExpensesListClient({
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-start">
               <thead>
-                <tr className="bg-[#faf7f4] border-b border-[#e8ddd0]">
+                <tr className="bg-surface border-b border-border">
                   <th className="text-start px-4 py-3 text-xs font-semibold text-[#9a8a7a]">
                     {isAr ? 'التاريخ / المرجع' : 'Date / Ref'}
                   </th>
@@ -279,20 +279,20 @@ export function ExpensesListClient({
               </thead>
               <tbody className="divide-y divide-[#f0e8de]">
                 {expenses.map((e) => (
-                  <tr key={e.id} className="hover:bg-[#faf7f4] transition-colors">
+                  <tr key={e.id} className="hover:bg-surface transition-colors">
                     <td className="px-4 py-3">
-                      <p className="font-medium text-[#2a2118]">{e.date}</p>
+                      <p className="font-medium text-foreground">{e.date}</p>
                       <p className="text-[11px] font-mono text-[#9a8a7a]">{e.reference || '—'}</p>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="inline-block px-2 py-0.5 rounded-md bg-[#faf7f4] border border-[#e8ddd0] text-xs text-[#7a6a57]">
+                      <span className="inline-block px-2 py-0.5 rounded-md bg-surface border border-border text-xs text-[#7a6a57]">
                         {isAr
                           ? e.expense_categories?.name_ar || '—'
                           : e.expense_categories?.name_en || '—'}
                       </span>
                     </td>
                     <td className="px-4 py-3">
-                      <p className="font-medium text-[#2a2118] max-w-xs truncate">{e.description}</p>
+                      <p className="font-medium text-foreground max-w-xs truncate">{e.description}</p>
                       {e.notes && (
                         <p className="text-xs text-[#9a8a7a] max-w-xs truncate">{e.notes}</p>
                       )}
@@ -300,7 +300,7 @@ export function ExpensesListClient({
                     <td className="px-4 py-3 text-xs text-[#7a6a57] capitalize">
                       {e.payment_method.replace('_', ' ')}
                     </td>
-                    <td className="px-4 py-3 font-semibold text-[#2a2118] whitespace-nowrap">
+                    <td className="px-4 py-3 font-semibold text-foreground whitespace-nowrap">
                       {Number(e.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })} SAR
                     </td>
                     <td className="px-4 py-3">
@@ -318,7 +318,7 @@ export function ExpensesListClient({
                       <div className="inline-flex items-center gap-1.5">
                         <Link
                           href={`/admin/expenses/${e.id}/edit`}
-                          className="p-1.5 rounded-lg text-[#7a6a57] hover:text-[#2a2118] hover:bg-[#f5ede0] transition-colors"
+                          className="p-1.5 rounded-lg text-[#7a6a57] hover:text-foreground hover:bg-[#f5ede0] transition-colors"
                           title={isAr ? 'تعديل' : 'Edit'}
                         >
                           <Edit2 className="w-4 h-4" />

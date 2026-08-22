@@ -79,12 +79,12 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
       <div className="flex items-center gap-3">
         <Link
           href="/admin/expenses"
-          className="p-2 rounded-xl border border-[#e8ddd0] bg-white text-[#7a6a57] hover:text-[#2a2118] hover:bg-[#faf7f4] transition-colors"
+          className="p-2 rounded-xl border border-border bg-white text-[#7a6a57] hover:text-foreground hover:bg-surface transition-colors"
         >
           {isAr ? <ArrowRight className="w-4 h-4" /> : <ArrowLeft className="w-4 h-4" />}
         </Link>
         <div>
-          <h1 className="text-xl font-bold text-[#2a2118]">
+          <h1 className="text-xl font-bold text-foreground">
             {isEdit
               ? isAr
                 ? 'تعديل المصروف'
@@ -108,7 +108,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
       )}
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-[#e8ddd0] p-6 shadow-sm space-y-5">
+      <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-border p-6 shadow-sm space-y-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Category */}
           <div>
@@ -119,7 +119,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
               name="category_id"
               required
               defaultValue={expense?.category_id || (categories[0]?.id ?? '')}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-[#e8ddd0] bg-white text-sm text-[#2a2118] focus:outline-none focus:ring-2 focus:ring-[#c9a96e]"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-white text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
             >
               {categories.map((c) => (
                 <option key={c.id} value={c.id}>
@@ -139,7 +139,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
               name="date"
               required
               defaultValue={expense?.date || todayStr}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-[#e8ddd0] bg-white text-sm text-[#2a2118] focus:outline-none focus:ring-2 focus:ring-[#c9a96e]"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-white text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
         </div>
@@ -155,7 +155,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
             required
             defaultValue={expense?.description || ''}
             placeholder={isAr ? 'مثال: فاتورة كهرباء شهر أغسطس' : 'e.g. Electricity bill for August'}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-[#e8ddd0] bg-white text-sm text-[#2a2118] focus:outline-none focus:ring-2 focus:ring-[#c9a96e]"
+            className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-white text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
 
@@ -173,7 +173,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
               required
               defaultValue={expense?.amount || ''}
               placeholder="0.00"
-              className="w-full px-3.5 py-2.5 rounded-xl border border-[#e8ddd0] bg-white text-sm text-[#2a2118] focus:outline-none focus:ring-2 focus:ring-[#c9a96e]"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-white text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
 
@@ -186,7 +186,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
               name="payment_method"
               required
               defaultValue={expense?.payment_method || 'card'}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-[#e8ddd0] bg-white text-sm text-[#2a2118] focus:outline-none focus:ring-2 focus:ring-[#c9a96e]"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-white text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
             >
               <option value="card">{isAr ? 'بطاقة بنكية (Card)' : 'Card'}</option>
               <option value="cash">{isAr ? 'نقدي (Cash)' : 'Cash'}</option>
@@ -206,7 +206,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
             name="reference"
             defaultValue={expense?.reference || ''}
             placeholder={isAr ? 'اتركه فارغاً للتوليد التلقائي' : 'Leave empty for auto-generated ID'}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-[#e8ddd0] bg-white text-sm text-[#2a2118] focus:outline-none focus:ring-2 focus:ring-[#c9a96e]"
+            className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-white text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
 
@@ -220,21 +220,21 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
             rows={3}
             defaultValue={expense?.notes || ''}
             placeholder={isAr ? 'أي تفاصيل أو ملاحظات إضافية...' : 'Any additional details...'}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-[#e8ddd0] bg-white text-sm text-[#2a2118] focus:outline-none focus:ring-2 focus:ring-[#c9a96e]"
+            className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-white text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
 
         {/* Document Attachment */}
-        <div className="pt-2 border-t border-[#f0e8de]">
+        <div className="pt-2 border-t border-border">
           <label className="block text-xs font-semibold text-[#7a6a57] mb-2">
             {isAr ? 'المستند المرفق (فاتورة / إيصال)' : 'Document Attachment (Invoice / Receipt)'}
           </label>
           
           {expense?.attachment_url && (
-            <div className="flex items-center justify-between p-3 rounded-xl bg-[#faf7f4] border border-[#e8ddd0] mb-3">
+            <div className="flex items-center justify-between p-3 rounded-xl bg-surface border border-border mb-3">
               <div className="flex items-center gap-2">
-                <FileText className="w-4 h-4 text-[#c9a96e]" />
-                <span className="text-xs font-medium text-[#2a2118]">
+                <FileText className="w-4 h-4 text-accent" />
+                <span className="text-xs font-medium text-foreground">
                   {isAr ? 'المستند الحالي محفوظ بأمان' : 'Current document securely stored'}
                 </span>
               </div>
@@ -242,7 +242,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
                 type="button"
                 onClick={handleViewCurrentDoc}
                 disabled={docLoading}
-                className="inline-flex items-center gap-1 text-xs font-medium text-[#c9a96e] hover:underline"
+                className="inline-flex items-center gap-1 text-xs font-medium text-accent hover:underline"
               >
                 {docLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <ExternalLink className="w-3.5 h-3.5" />}
                 <span>{isAr ? 'معاينة المستند' : 'Preview'}</span>
@@ -251,7 +251,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
           )}
 
           <div className="flex items-center gap-3">
-            <label className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#e8ddd0] bg-[#faf7f4] text-xs font-medium text-[#2a2118] hover:bg-[#f0e8de] cursor-pointer transition-colors">
+            <label className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-border bg-surface text-xs font-medium text-foreground hover:bg-[#f0e8de] cursor-pointer transition-colors">
               <Upload className="w-4 h-4 text-[#7a6a57]" />
               <span>{selectedFile ? selectedFile.name : isAr ? 'اختيار ملف (JPG, PNG, WebP, PDF)' : 'Choose file (JPG, PNG, WebP, PDF)'}</span>
               <input
@@ -280,17 +280,17 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
         </div>
 
         {/* Buttons */}
-        <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#f0e8de]">
+        <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
           <Link
             href="/admin/expenses"
-            className="px-4 py-2 rounded-xl text-sm font-medium border border-[#e8ddd0] text-[#7a6a57] hover:bg-[#faf7f4] transition-colors"
+            className="px-4 py-2 rounded-xl text-sm font-medium border border-border text-[#7a6a57] hover:bg-surface transition-colors"
           >
             {isAr ? 'إلغاء' : 'Cancel'}
           </Link>
           <button
             type="submit"
             disabled={isPending}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#2a2118] text-white text-sm font-medium hover:bg-[#3a3128] transition-colors shadow-sm disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-medium hover:bg-[#3a3128] transition-colors shadow-sm disabled:opacity-50"
           >
             {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
             <span>{isAr ? 'حفظ المصروف' : 'Save Expense'}</span>

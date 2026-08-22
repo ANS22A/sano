@@ -13,12 +13,13 @@ try {
 }
 
 const defaultFrom = process.env.RESEND_FROM_EMAIL || 'SANO LUNA <no-reply@sanoluna.com>'
-const brandGold = '#D4AF37'
-const brandPurple = '#2E1F38'
-const brandMauve = '#6F4E7C'
-const brandLavender = '#A98FB8'
-const brandPinkMauve = '#D6C2D9'
-const brandLightLilac = '#E7DBEC'
+export const brandGold = '#D4AF37'
+export const brandPurple = '#2E1F38'
+export const brandMauve = '#6F4E7C'
+export const brandLavender = '#A98FB8'
+export const brandPinkMauve = '#D6C2D9'
+export const brandLightLilac = '#E7DBEC'
+export const brandBg = '#FAF7F4'
 
 export interface EmailBookingDetails {
   bookingNumber: string
@@ -546,6 +547,136 @@ export async function sendBookingReschedule(details: EmailBookingDetails): Promi
     return { success: true }
   } catch (error) {
     console.error('[EmailService] Failed to send reschedule email:', error)
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
+  }
+}
+
+export interface EmailGiftCardDetails {
+  code: string
+  amount: number
+  recipientName: string
+  recipientEmail: string
+  senderName: string
+  senderEmail: string
+  personalMessage?: string | null
+  expiresAt: string
+  locale?: 'en' | 'ar'
+}
+
+export async function sendGiftCardEmail(details: EmailGiftCardDetails) {
+  if (!resend) {
+    console.warn('[EmailService] Resend not configured. Skipping gift card email.')
+    return { success: false, error: 'Email service unconfigured' }
+  }
+
+  const isRtl = details.locale === 'ar'
+  const subject = isRtl
+    ? `بطاقة إهداء فاخرة من ${details.senderName} عبر سانو لونا 🎁`
+    : `A luxury gift voucher from ${details.senderName} via SANO LUNA 🎁`
+
+  const content = isRtl
+    ? `
+      <p style="font-size: 16px; color: ${brandPurple}; margin-top: 0;">عزيزتي <strong>${details.recipientName}</strong>،</p>
+      <p style="font-size: 14px; color: ${brandMauve};">
+        يسعدنا إبلاغك بأن <strong>${details.senderName}</strong> قد أهدتكِ تجربة استرخاء فاخرة من سانو لونا.
+      </p>
+
+      ${details.personalMessage ? `
+      <div style="background-color: #FAF7F4; border-right: 4px solid ${brandGold}; padding: 16px; border-radius: 8px; margin: 20px 0; font-style: italic; color: ${brandPurple};">
+        "${details.personalMessage}"
+        <div style="text-align: left; font-size: 12px; color: ${brandMauve}; margin-top: 8px;">— ${details.senderName}</div>
+      </div>
+      ` : ''}
+
+      <div style="background-color: #2E1F38; color: #FAF7F4; border-radius: 16px; padding: 28px 24px; text-align: center; margin: 24px 0; border: 1px solid ${brandGold}; box-shadow: 0 4px 16px rgba(46,31,56,0.15);">
+        <div style="font-size: 12px; letter-spacing: 2px; color: ${brandGold}; text-transform: uppercase; margin-bottom: 8px;">بطاقة إهداء سانو لونا | GIFT VOUCHER</div>
+        <div style="font-size: 32px; font-weight: 700; color: #ffffff; margin-bottom: 12px;">${details.amount} <span style="font-size: 18px; color: ${brandGold};">ريال سعودي</span></div>
+        <div style="background-color: rgba(255,255,255,0.08); border: 1px dashed ${brandGold}; border-radius: 10px; padding: 12px 16px; font-family: monospace; font-size: 22px; font-weight: 700; color: ${brandGold}; letter-spacing: 3px; display: inline-block; margin-bottom: 12px; direction: ltr;">
+          ${details.code}
+        </div>
+        <div style="font-size: 11px; color: ${brandPinkMauve};">صالحة لغاية: ${new Date(details.expiresAt).toLocaleDateString('ar-SA')}</div>
+      </div>
+
+      <p style="font-size: 14px; color: ${brandMauve}; line-height: 1.6;">
+        <strong>طريقة الاستخدام:</strong> يمكنكِ استخدام هذا الرمز عند حجز أي من جلسات السبا أو المساج الفاخرة عبر موقعنا الإلكتروني، وسيتم خصم المبلغ مباشرة من قيمة الحجز.
+      </p>
+
+      <div style="text-align: center; margin: 28px 0;">
+        <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://sanoluna.com'}/ar/gift-cards/${details.code}" style="background-color: ${brandPurple}; color: ${brandGold}; padding: 14px 32px; border-radius: 12px; font-weight: 700; text-decoration: none; font-size: 14px; display: inline-block; border: 1px solid ${brandGold};">
+          عرض كرت الإهداء
+        </a>
+      </div>
+      <div style="text-align: center; margin-top: 16px;">
+        <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://sanoluna.com'}/ar/booking" style="color: ${brandMauve}; text-decoration: underline; font-size: 13px;">
+          احجزي جلستكِ الآن
+        </a>
+      </div>
+    `
+    : `
+      <p style="font-size: 16px; color: ${brandPurple}; margin-top: 0;">Dear <strong>${details.recipientName}</strong>,</p>
+      <p style="font-size: 14px; color: ${brandMauve};">
+        We are delighted to let you know that <strong>${details.senderName}</strong> has gifted you a luxury SANO LUNA home spa experience.
+      </p>
+
+      ${details.personalMessage ? `
+      <div style="background-color: #FAF7F4; border-left: 4px solid ${brandGold}; padding: 16px; border-radius: 8px; margin: 20px 0; font-style: italic; color: ${brandPurple};">
+        "${details.personalMessage}"
+        <div style="text-align: right; font-size: 12px; color: ${brandMauve}; margin-top: 8px;">— ${details.senderName}</div>
+      </div>
+      ` : ''}
+
+      <div style="background-color: #2E1F38; color: #FAF7F4; border-radius: 16px; padding: 28px 24px; text-align: center; margin: 24px 0; border: 1px solid ${brandGold}; box-shadow: 0 4px 16px rgba(46,31,56,0.15);">
+        <div style="font-size: 12px; letter-spacing: 2px; color: ${brandGold}; text-transform: uppercase; margin-bottom: 8px;">SANO LUNA GIFT VOUCHER</div>
+        <div style="font-size: 32px; font-weight: 700; color: #ffffff; margin-bottom: 12px;">${details.amount} <span style="font-size: 18px; color: ${brandGold};">SAR</span></div>
+        <div style="background-color: rgba(255,255,255,0.08); border: 1px dashed ${brandGold}; border-radius: 10px; padding: 12px 16px; font-family: monospace; font-size: 22px; font-weight: 700; color: ${brandGold}; letter-spacing: 3px; display: inline-block; margin-bottom: 12px;">
+          ${details.code}
+        </div>
+        <div style="font-size: 11px; color: ${brandPinkMauve};">Valid until: ${new Date(details.expiresAt).toLocaleDateString('en-GB')}</div>
+      </div>
+
+      <p style="font-size: 14px; color: ${brandMauve}; line-height: 1.6;">
+        <strong>How to Redeem:</strong> Simply enter this voucher code during checkout when booking any of our luxury home spa services, and the amount will be applied to your balance.
+      </p>
+
+      <div style="text-align: center; margin: 28px 0;">
+        <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://sanoluna.com'}/en/gift-cards/${details.code}" style="background-color: ${brandPurple}; color: ${brandGold}; padding: 14px 32px; border-radius: 12px; font-weight: 700; text-decoration: none; font-size: 14px; display: inline-block; border: 1px solid ${brandGold};">
+          View Gift Card
+        </a>
+      </div>
+      <div style="text-align: center; margin-top: 16px;">
+        <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://sanoluna.com'}/en/booking" style="color: ${brandMauve}; text-decoration: underline; font-size: 13px;">
+          Book Your Experience
+        </a>
+      </div>
+    `
+
+  const html = getBaseTemplate(subject, content, details.locale)
+
+  try {
+    // Send to recipient
+    await resend.emails.send({
+      from: defaultFrom,
+      to: details.recipientEmail,
+      subject,
+      html,
+    })
+
+    // Also send receipt copy to sender if senderEmail provided
+    if (details.senderEmail && details.senderEmail !== details.recipientEmail) {
+      const receiptSubject = isRtl
+        ? `تأكيد شراء بطاقة إهداء سانو لونا — ${details.code}`
+        : `SANO LUNA Gift Voucher Purchase Confirmation — ${details.code}`
+      await resend.emails.send({
+        from: defaultFrom,
+        to: details.senderEmail,
+        subject: receiptSubject,
+        html,
+      })
+    }
+
+    return { success: true }
+  } catch (error) {
+    console.error('[EmailService] Failed to send gift card email:', error)
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
   }
 }

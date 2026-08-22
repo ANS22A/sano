@@ -38,7 +38,7 @@ export function AdminPagination({ total, perPage = 25, dir = 'ltr' }: Props) {
         href={pageHref(page - 1)}
         aria-disabled={page <= 1}
         className={cn(
-          'p-1.5 rounded-lg border border-[#e8ddd0] text-[#7a6a57] hover:bg-[#f5ede0] transition-colors',
+          'p-1.5 rounded-lg border border-border text-[#7a6a57] hover:bg-[#f5ede0] transition-colors',
           page <= 1 && 'pointer-events-none opacity-40'
         )}
         aria-label="Previous page"
@@ -50,7 +50,7 @@ export function AdminPagination({ total, perPage = 25, dir = 'ltr' }: Props) {
         href={pageHref(page + 1)}
         aria-disabled={page >= totalPages}
         className={cn(
-          'p-1.5 rounded-lg border border-[#e8ddd0] text-[#7a6a57] hover:bg-[#f5ede0] transition-colors',
+          'p-1.5 rounded-lg border border-border text-[#7a6a57] hover:bg-[#f5ede0] transition-colors',
           page >= totalPages && 'pointer-events-none opacity-40'
         )}
         aria-label="Next page"

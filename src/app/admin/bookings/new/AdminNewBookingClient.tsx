@@ -381,7 +381,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
           <ArrowLeft className="w-5 h-5 text-[#7a6a57]" />
         </Link>
         <div>
-          <h1 className="text-xl font-bold text-[#2a2118]">{labels.title}</h1>
+          <h1 className="text-xl font-bold text-foreground">{labels.title}</h1>
           <p className="text-sm text-[#9a8a7a]">{labels.subtitle}</p>
         </div>
       </div>
@@ -392,10 +392,10 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
           {steps.map((s, i) => (
             <div key={s.key} className="flex-1">
               <div className={`h-1.5 rounded-full transition-colors ${
-                i <= stepIndex ? 'bg-[#6F4E7C]' : 'bg-[#E7DBEC]'
+                i <= stepIndex ? 'bg-secondary' : 'bg-surface-muted'
               }`} />
               <p className={`text-xs mt-1 ${
-                i <= stepIndex ? 'text-[#6F4E7C] font-medium' : 'text-[#9a8a7a]'
+                i <= stepIndex ? 'text-secondary font-medium' : 'text-[#9a8a7a]'
               }`}>{s.label}</p>
             </div>
           ))}
@@ -411,10 +411,10 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
 
       {/* ─── STEP: Customer ─── */}
       {step === 'customer' && (
-        <div className="bg-white rounded-2xl border border-[#e8ddd0] p-5 space-y-5">
+        <div className="bg-white rounded-2xl border border-border p-5 space-y-5">
           {/* Booking Source */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-[#2a2118]">{labels.bookingSource}</label>
+            <label className="text-sm font-medium text-foreground">{labels.bookingSource}</label>
             <div className="flex flex-wrap gap-2">
               {SOURCE_OPTIONS.map((opt) => (
                 <button
@@ -423,8 +423,8 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                   onClick={() => setSource(opt.value)}
                   className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium border transition-colors ${
                     source === opt.value
-                      ? 'bg-[#6F4E7C] text-white border-[#6F4E7C]'
-                      : 'bg-white text-[#7a6a57] border-[#e8ddd0] hover:bg-[#f5ede0]'
+                      ? 'bg-secondary text-white border-secondary'
+                      : 'bg-white text-[#7a6a57] border-border hover:bg-[#f5ede0]'
                   }`}
                 >
                   {opt.value === 'whatsapp' && <MessageCircle className="w-3.5 h-3.5" />}
@@ -443,8 +443,8 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
               onClick={() => { setCustomerMode('search'); setSelectedCustomer(null) }}
               className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium border transition-colors ${
                 customerMode === 'search'
-                  ? 'bg-[#2a2118] text-white border-[#2a2118]'
-                  : 'bg-white text-[#7a6a57] border-[#e8ddd0] hover:bg-[#f5ede0]'
+                  ? 'bg-primary text-white border-[#2a2118]'
+                  : 'bg-white text-[#7a6a57] border-border hover:bg-[#f5ede0]'
               }`}
             >
               <Search className="w-3.5 h-3.5" />
@@ -461,8 +461,8 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
               }}
               className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium border transition-colors ${
                 customerMode === 'new'
-                  ? 'bg-[#2a2118] text-white border-[#2a2118]'
-                  : 'bg-white text-[#7a6a57] border-[#e8ddd0] hover:bg-[#f5ede0]'
+                  ? 'bg-primary text-white border-[#2a2118]'
+                  : 'bg-white text-[#7a6a57] border-border hover:bg-[#f5ede0]'
               }`}
             >
               <Plus className="w-3.5 h-3.5" />
@@ -480,7 +480,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                   value={customerSearch}
                   onChange={(e) => setCustomerSearch(e.target.value)}
                   placeholder={labels.searchCustomer}
-                  className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-[#e8ddd0] bg-white text-[#2a2118] focus:border-[#6F4E7C] focus:ring-1 focus:ring-[#6F4E7C] outline-none transition-all text-start"
+                  className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-border bg-white text-foreground focus:border-secondary focus:ring-1 focus:ring-ring outline-none transition-all text-start"
                 />
               </div>
               {isSearching && (
@@ -489,19 +489,19 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                 </div>
               )}
               {searchResults.length > 0 && (
-                <div className="border border-[#e8ddd0] rounded-xl overflow-hidden divide-y divide-[#f0e8de]">
+                <div className="border border-border rounded-xl overflow-hidden divide-y divide-[#f0e8de]">
                   {searchResults.map((c) => (
                     <button
                       key={c.id}
                       type="button"
                       onClick={() => selectCustomer(c)}
-                      className="w-full flex items-center justify-between px-4 py-3 hover:bg-[#faf7f4] transition-colors text-start"
+                      className="w-full flex items-center justify-between px-4 py-3 hover:bg-surface transition-colors text-start"
                     >
                       <div>
-                        <p className="text-sm font-medium text-[#2a2118]">{c.full_name}</p>
+                        <p className="text-sm font-medium text-foreground">{c.full_name}</p>
                         <p className="text-xs text-[#9a8a7a]">{c.phone}</p>
                       </div>
-                      <span className="text-xs text-[#6F4E7C] font-medium">{labels.selectExisting}</span>
+                      <span className="text-xs text-secondary font-medium">{labels.selectExisting}</span>
                     </button>
                   ))}
                 </div>
@@ -514,16 +514,16 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
 
           {/* Selected customer banner */}
           {selectedCustomer && (
-            <div className="flex items-center justify-between bg-[#E7DBEC] p-3 rounded-xl">
+            <div className="flex items-center justify-between bg-surface-muted p-3 rounded-xl">
               <div className="flex items-center gap-2">
-                <User className="w-4 h-4 text-[#6F4E7C]" />
-                <span className="text-sm font-medium text-[#2E1F38]">{selectedCustomer.full_name}</span>
-                <span className="text-xs text-[#6F4E7C]">{selectedCustomer.phone}</span>
+                <User className="w-4 h-4 text-secondary" />
+                <span className="text-sm font-medium text-foreground">{selectedCustomer.full_name}</span>
+                <span className="text-xs text-secondary">{selectedCustomer.phone}</span>
               </div>
               <button
                 type="button"
                 onClick={() => { setSelectedCustomer(null); setCustomerName(''); setCustomerPhone(''); setCustomerEmail('') }}
-                className="text-xs text-[#6F4E7C] hover:underline"
+                className="text-xs text-secondary hover:underline"
               >
                 {labels.back}
               </button>
@@ -541,7 +541,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                     type="text"
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-[#e8ddd0] bg-white text-[#2a2118] focus:border-[#6F4E7C] focus:ring-1 focus:ring-[#6F4E7C] outline-none transition-all text-start"
+                    className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-border bg-white text-foreground focus:border-secondary focus:ring-1 focus:ring-ring outline-none transition-all text-start"
                     required
                   />
                 </div>
@@ -555,7 +555,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                     value={customerPhone}
                     onChange={(e) => setCustomerPhone(e.target.value)}
                     placeholder="05X XXX XXXX"
-                    className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-[#e8ddd0] bg-white text-[#2a2118] focus:border-[#6F4E7C] focus:ring-1 focus:ring-[#6F4E7C] outline-none transition-all text-start"
+                    className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-border bg-white text-foreground focus:border-secondary focus:ring-1 focus:ring-ring outline-none transition-all text-start"
                     required
                   />
                 </div>
@@ -568,7 +568,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                     type="email"
                     value={customerEmail}
                     onChange={(e) => setCustomerEmail(e.target.value)}
-                    className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-[#e8ddd0] bg-white text-[#2a2118] focus:border-[#6F4E7C] focus:ring-1 focus:ring-[#6F4E7C] outline-none transition-all text-start"
+                    className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-border bg-white text-foreground focus:border-secondary focus:ring-1 focus:ring-ring outline-none transition-all text-start"
                   />
                 </div>
               </div>
@@ -581,7 +581,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                     value={customerAddress}
                     onChange={(e) => setCustomerAddress(e.target.value)}
                     placeholder={labels.customerAddressHint}
-                    className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-[#e8ddd0] bg-white text-[#2a2118] focus:border-[#6F4E7C] focus:ring-1 focus:ring-[#6F4E7C] outline-none transition-all text-start"
+                    className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-border bg-white text-foreground focus:border-secondary focus:ring-1 focus:ring-ring outline-none transition-all text-start"
                   />
                 </div>
               </div>
@@ -592,8 +592,8 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
 
       {/* ─── STEP: Service ─── */}
       {step === 'service' && (
-        <div className="bg-white rounded-2xl border border-[#e8ddd0] p-5 space-y-4">
-          <h2 className="text-sm font-bold text-[#2a2118]">{labels.selectService}</h2>
+        <div className="bg-white rounded-2xl border border-border p-5 space-y-4">
+          <h2 className="text-sm font-bold text-foreground">{labels.selectService}</h2>
           {services.length === 0 ? (
             <div className="flex items-center gap-2 text-sm text-[#9a8a7a]">
               <Loader2 className="w-4 h-4 animate-spin" />
@@ -607,15 +607,15 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                   onClick={() => setSelectedService(s)}
                   className={`text-start p-4 rounded-xl border transition-all ${
                     selectedService?.id === s.id
-                      ? 'border-[#6F4E7C] bg-[#E7DBEC] ring-1 ring-[#6F4E7C]'
-                      : 'border-[#e8ddd0] hover:border-[#A98FB8] hover:bg-[#faf7f4]'
+                      ? 'border-secondary bg-surface-muted ring-1 ring-ring'
+                      : 'border-border hover:border-[#A98FB8] hover:bg-surface'
                   }`}
                 >
-                  <p className="text-sm font-medium text-[#2a2118]">
+                  <p className="text-sm font-medium text-foreground">
                     {lang === 'ar' ? s.name_ar : s.name_en}
                   </p>
                   <div className="flex items-center gap-3 mt-1.5">
-                    <span className="text-xs text-[#6F4E7C] font-medium">
+                    <span className="text-xs text-secondary font-medium">
                       {s.price_sar} {lang === 'ar' ? 'ريال' : 'SAR'}
                     </span>
                     <span className="text-xs text-[#9a8a7a]">
@@ -631,11 +631,11 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
 
       {/* ─── STEP: Schedule ─── */}
       {step === 'schedule' && (
-        <div className="bg-white rounded-2xl border border-[#e8ddd0] p-5 space-y-5">
+        <div className="bg-white rounded-2xl border border-border p-5 space-y-5">
           {/* Date */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-[#2a2118] flex items-center gap-1.5">
-              <CalendarDays className="w-4 h-4 text-[#6F4E7C]" />
+            <label className="text-sm font-medium text-foreground flex items-center gap-1.5">
+              <CalendarDays className="w-4 h-4 text-secondary" />
               {labels.selectDate}
             </label>
             <input
@@ -643,15 +643,15 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
               value={date}
               min={today}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full sm:w-64 px-3 py-2.5 rounded-xl text-sm border border-[#e8ddd0] bg-white text-[#2a2118] focus:border-[#6F4E7C] focus:ring-1 focus:ring-[#6F4E7C] outline-none transition-all"
+              className="w-full sm:w-64 px-3 py-2.5 rounded-xl text-sm border border-border bg-white text-foreground focus:border-secondary focus:ring-1 focus:ring-ring outline-none transition-all"
             />
           </div>
 
           {/* Time slots */}
           {date && (
             <div className="space-y-2">
-              <label className="text-sm font-medium text-[#2a2118] flex items-center gap-1.5">
-                <Clock className="w-4 h-4 text-[#6F4E7C]" />
+              <label className="text-sm font-medium text-foreground flex items-center gap-1.5">
+                <Clock className="w-4 h-4 text-secondary" />
                 {labels.selectTime}
               </label>
               {isLoadingSlots ? (
@@ -670,8 +670,8 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                       onClick={() => setSelectedSlot(s.startTime)}
                       className={`px-3 py-2 rounded-xl text-sm font-medium border transition-colors ${
                         selectedSlot === s.startTime
-                          ? 'bg-[#6F4E7C] text-white border-[#6F4E7C]'
-                          : 'bg-white text-[#2a2118] border-[#e8ddd0] hover:border-[#A98FB8]'
+                          ? 'bg-secondary text-white border-secondary'
+                          : 'bg-white text-foreground border-border hover:border-[#A98FB8]'
                       }`}
                     >
                       {s.startTime}
@@ -684,8 +684,8 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
 
           {/* Notes */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-[#2a2118] flex items-center gap-1.5">
-              <FileText className="w-4 h-4 text-[#6F4E7C]" />
+            <label className="text-sm font-medium text-foreground flex items-center gap-1.5">
+              <FileText className="w-4 h-4 text-secondary" />
               {labels.notes}
             </label>
             <textarea
@@ -693,7 +693,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
               onChange={(e) => setNotes(e.target.value)}
               rows={3}
               placeholder={labels.notesHint}
-              className="w-full px-3 py-2.5 rounded-xl text-sm border border-[#e8ddd0] bg-white text-[#2a2118] focus:border-[#6F4E7C] focus:ring-1 focus:ring-[#6F4E7C] outline-none transition-all resize-none text-start"
+              className="w-full px-3 py-2.5 rounded-xl text-sm border border-border bg-white text-foreground focus:border-secondary focus:ring-1 focus:ring-ring outline-none transition-all resize-none text-start"
             />
           </div>
         </div>
@@ -701,8 +701,8 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
 
       {/* ─── STEP: Review ─── */}
       {step === 'review' && (
-        <div className="bg-white rounded-2xl border border-[#e8ddd0] p-5 space-y-4">
-          <h2 className="text-sm font-bold text-[#2a2118]">{labels.reviewTitle}</h2>
+        <div className="bg-white rounded-2xl border border-border p-5 space-y-4">
+          <h2 className="text-sm font-bold text-foreground">{labels.reviewTitle}</h2>
           <div className="divide-y divide-[#f0e8de]">
             <ReviewRow icon={<User className="w-4 h-4" />} label={labels.customer} value={`${customerName} — ${customerPhone}`} />
             <ReviewRow icon={<FileText className="w-4 h-4" />} label={labels.service} value={selectedService ? (lang === 'ar' ? selectedService.name_ar : selectedService.name_en) : ''} />
@@ -718,26 +718,26 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
           </div>
 
           {/* Optional: Record Payment Now */}
-          <div className="pt-4 border-t border-[#f0e8de] space-y-3">
-            <label className="flex items-center gap-2.5 cursor-pointer text-sm font-medium text-[#2a2118]">
+          <div className="pt-4 border-t border-border space-y-3">
+            <label className="flex items-center gap-2.5 cursor-pointer text-sm font-medium text-foreground">
               <input
                 type="checkbox"
                 checked={recordPaymentNow}
                 onChange={(e) => setRecordPaymentNow(e.target.checked)}
-                className="w-4 h-4 rounded border-[#e8ddd0] text-[#6F4E7C] focus:ring-[#6F4E7C]"
+                className="w-4 h-4 rounded border-border text-secondary focus:ring-ring"
               />
               <span>{lang === 'ar' ? 'تسجيل استلام الدفعة الآن في سجل المبيعات' : 'Record payment now into sales ledger'}</span>
             </label>
 
             {recordPaymentNow && (
-              <div className="p-3.5 bg-[#FAF7F4] rounded-xl border border-[#e8ddd0] space-y-2">
+              <div className="p-3.5 bg-surface rounded-xl border border-border space-y-2">
                 <label className="block text-xs font-semibold text-[#7a6a57]">
                   {lang === 'ar' ? 'طريقة الدفع' : 'Payment Method'}
                 </label>
                 <select
                   value={paymentMethod}
                   onChange={(e) => setPaymentMethod(e.target.value as typeof paymentMethod)}
-                  className="w-full text-sm rounded-lg border border-[#e8ddd0] bg-white px-3 py-2 text-[#2a2118] outline-none focus:border-[#6F4E7C]"
+                  className="w-full text-sm rounded-lg border border-border bg-white px-3 py-2 text-foreground outline-none focus:border-secondary"
                 >
                   <option value="mada">{lang === 'ar' ? 'مدى' : 'Mada'}</option>
                   <option value="credit_card">{lang === 'ar' ? 'بطاقة ائتمانية' : 'Credit Card'}</option>
@@ -760,25 +760,25 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
 
       {/* ─── STEP: Success ─── */}
       {step === 'success' && (
-        <div className="bg-white rounded-2xl border border-[#e8ddd0] p-8 text-center space-y-4">
+        <div className="bg-white rounded-2xl border border-border p-8 text-center space-y-4">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-50">
             <CheckCircle className="w-8 h-8 text-green-600" />
           </div>
-          <h2 className="text-lg font-bold text-[#2a2118]">{labels.bookingCreated}</h2>
+          <h2 className="text-lg font-bold text-foreground">{labels.bookingCreated}</h2>
           <p className="text-sm text-[#9a8a7a]">
-            {labels.bookingNumber}: <span className="font-mono text-[#6F4E7C] font-bold">{bookingNumber}</span>
+            {labels.bookingNumber}: <span className="font-mono text-secondary font-bold">{bookingNumber}</span>
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
             <Link
               href="/admin/bookings"
-              className="px-5 py-2.5 rounded-xl text-sm font-medium bg-[#6F4E7C] text-white hover:bg-[#5a3d66] transition-colors"
+              className="px-5 py-2.5 rounded-xl text-sm font-medium bg-secondary text-white hover:bg-[#5a3d66] transition-colors"
             >
               {labels.viewBookings}
             </Link>
             <button
               type="button"
               onClick={resetForm}
-              className="px-5 py-2.5 rounded-xl text-sm font-medium border border-[#e8ddd0] text-[#7a6a57] hover:bg-[#f5ede0] transition-colors"
+              className="px-5 py-2.5 rounded-xl text-sm font-medium border border-border text-[#7a6a57] hover:bg-[#f5ede0] transition-colors"
             >
               {labels.createAnother}
             </button>
@@ -793,7 +793,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
             <button
               type="button"
               onClick={goBack}
-              className="px-5 py-2.5 rounded-xl text-sm font-medium border border-[#e8ddd0] text-[#7a6a57] hover:bg-[#f5ede0] transition-colors"
+              className="px-5 py-2.5 rounded-xl text-sm font-medium border border-border text-[#7a6a57] hover:bg-[#f5ede0] transition-colors"
             >
               {labels.back}
             </button>
@@ -803,7 +803,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
             type="button"
             onClick={advanceStep}
             disabled={!canAdvance() || isPending}
-            className="px-6 py-2.5 rounded-xl text-sm font-medium bg-[#6F4E7C] text-white hover:bg-[#5a3d66] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            className="px-6 py-2.5 rounded-xl text-sm font-medium bg-secondary text-white hover:bg-[#5a3d66] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
             {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
             {step === 'review'
@@ -822,9 +822,9 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
 function ReviewRow({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
     <div className="flex items-center gap-3 py-3">
-      <div className="text-[#6F4E7C]">{icon}</div>
+      <div className="text-secondary">{icon}</div>
       <span className="text-xs text-[#9a8a7a] w-20 shrink-0">{label}</span>
-      <span className="text-sm text-[#2a2118] font-medium">{value}</span>
+      <span className="text-sm text-foreground font-medium">{value}</span>
     </div>
   )
 }

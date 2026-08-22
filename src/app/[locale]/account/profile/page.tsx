@@ -47,12 +47,12 @@ export default function AccountProfilePage() {
   }
 
   if (isLoading) {
-    return <div className="flex justify-center p-12"><Loader2 className="w-8 h-8 animate-spin text-[#6F4E7C]" /></div>
+    return <div className="flex justify-center p-12"><Loader2 className="w-8 h-8 animate-spin text-secondary" /></div>
   }
 
   return (
-    <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-[#E7DBEC]">
-      <h1 className="text-2xl font-bold text-[#2E1F38] mb-8 font-serif">{t('profile')}</h1>
+    <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-subtle">
+      <h1 className="text-2xl font-bold text-foreground mb-8 font-serif">{t('profile')}</h1>
 
       {message && (
         <div className="mb-6 p-4 rounded-xl bg-green-50 border border-green-100 text-sm text-green-700 font-medium">
@@ -70,7 +70,7 @@ export default function AccountProfilePage() {
       <form onSubmit={handleSubmit} className="space-y-6 max-w-lg">
         {/* Full Name */}
         <div className="space-y-1.5">
-          <label className="text-sm font-medium text-[#2E1F38]">Full Name / الاسم الكامل</label>
+          <label className="text-sm font-medium text-foreground">Full Name / الاسم الكامل</label>
           <div className="relative">
             <User className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A98FB8]" />
             <input
@@ -78,14 +78,14 @@ export default function AccountProfilePage() {
               type="text"
               required
               defaultValue={profile?.full_name || ''}
-              className="w-full ps-10 pe-4 py-3 rounded-xl border border-[#E7DBEC] bg-[#faf7f4] text-[#2E1F38] text-sm focus:outline-none focus:ring-2 focus:ring-[#6F4E7C] focus:border-transparent transition-all"
+              className="w-full ps-10 pe-4 py-3 rounded-xl border border-subtle bg-surface text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all"
             />
           </div>
         </div>
 
         {/* Email */}
         <div className="space-y-1.5">
-          <label className="text-sm font-medium text-[#2E1F38]">Email / البريد الإلكتروني</label>
+          <label className="text-sm font-medium text-foreground">Email / البريد الإلكتروني</label>
           <div className="relative">
             <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A98FB8]" />
             <input
@@ -93,7 +93,7 @@ export default function AccountProfilePage() {
               type="email"
               required
               defaultValue={profile?.email || ''}
-              className="w-full ps-10 pe-4 py-3 rounded-xl border border-[#E7DBEC] bg-[#faf7f4] text-[#2E1F38] text-sm focus:outline-none focus:ring-2 focus:ring-[#6F4E7C] focus:border-transparent transition-all text-start"
+              className="w-full ps-10 pe-4 py-3 rounded-xl border border-subtle bg-surface text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all text-start"
               dir="ltr"
             />
           </div>
@@ -102,7 +102,7 @@ export default function AccountProfilePage() {
 
         {/* Phone */}
         <div className="space-y-1.5">
-          <label className="text-sm font-medium text-[#2E1F38]">Phone / رقم الجوال</label>
+          <label className="text-sm font-medium text-foreground">Phone / رقم الجوال</label>
           <div className="relative">
             <Phone className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A98FB8]" />
             <input
@@ -110,7 +110,7 @@ export default function AccountProfilePage() {
               type="text"
               required
               defaultValue={profile?.phone || ''}
-              className="w-full ps-10 pe-4 py-3 rounded-xl border border-[#E7DBEC] bg-[#faf7f4] text-[#2E1F38] text-sm focus:outline-none focus:ring-2 focus:ring-[#6F4E7C] focus:border-transparent transition-all text-start"
+              className="w-full ps-10 pe-4 py-3 rounded-xl border border-subtle bg-surface text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all text-start"
               dir="ltr"
             />
           </div>
@@ -119,7 +119,7 @@ export default function AccountProfilePage() {
         <button
           type="submit"
           disabled={isPending}
-          className="w-full sm:w-auto py-3 px-8 rounded-xl bg-[#6F4E7C] text-white text-sm font-bold tracking-wide
+          className="w-full sm:w-auto py-3 px-8 rounded-xl bg-secondary text-white text-sm font-bold tracking-wide
             hover:bg-[#5a3d66] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed
             transition-all duration-200 shadow-md flex items-center justify-center gap-2 mt-8"
         >

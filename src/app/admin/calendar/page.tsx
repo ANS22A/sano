@@ -27,7 +27,7 @@ export default async function AdminCalendarPage({
 
   return (
     <div className="space-y-4">
-      <h1 className="text-xl font-bold text-[#2a2118]">{t.nav.calendar}</h1>
+      <h1 className="text-xl font-bold text-foreground">{t.nav.calendar}</h1>
       <AdminCalendar initialBookings={bookings} currentMonth={month} />
     </div>
   )

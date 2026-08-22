@@ -30,18 +30,18 @@ export default async function AccountLayout({
   ]
 
   return (
-    <div className="min-h-screen bg-[#faf7f4] flex flex-col md:flex-row pt-[80px]" dir={isAr ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen bg-surface flex flex-col md:flex-row pt-[80px]" dir={isAr ? 'rtl' : 'ltr'}>
       {/* Sidebar Navigation */}
-      <aside className="w-full md:w-64 bg-white border-e border-[#E7DBEC] p-6 flex flex-col gap-2 shrink-0">
+      <aside className="w-full md:w-64 bg-white border-e border-subtle p-6 flex flex-col gap-2 shrink-0">
         <div className="mb-6 px-4">
-          <h2 className="text-xl font-bold text-[#2E1F38] font-serif tracking-wide">{t('accountSettings')}</h2>
+          <h2 className="text-xl font-bold text-foreground font-serif tracking-wide">{t('accountSettings')}</h2>
         </div>
         <nav className="flex-1 flex flex-col gap-2">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center gap-3 px-4 py-3 rounded-xl text-[#6F4E7C] font-medium hover:bg-[#faf7f4] transition-colors"
+              className="flex items-center gap-3 px-4 py-3 rounded-xl text-secondary font-medium hover:bg-surface transition-colors"
             >
               <item.icon className="w-5 h-5 text-[#A98FB8]" />
               {item.label}
@@ -50,7 +50,7 @@ export default async function AccountLayout({
         </nav>
 
         {/* Sign Out Button using Server Action inside a Form */}
-        <div className="mt-8 border-t border-[#E7DBEC] pt-4">
+        <div className="mt-8 border-t border-subtle pt-4">
           <form action={async () => {
             'use server'
             await customerSignOut()

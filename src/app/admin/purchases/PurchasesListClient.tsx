@@ -116,7 +116,7 @@ export function PurchasesListClient({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-[#2a2118]">
+          <h1 className="text-xl font-bold text-foreground">
             {isAr ? 'إدارة المشتريات' : 'Purchases Management'}
           </h1>
           <p className="text-xs text-[#7a6a57] mt-0.5">
@@ -128,13 +128,13 @@ export function PurchasesListClient({
         <div className="flex items-center gap-2">
           <Link
             href="/admin/suppliers"
-            className="px-3.5 py-2 rounded-xl text-xs font-medium border border-[#e8ddd0] bg-white text-[#7a6a57] hover:bg-[#f5ede0] hover:text-[#2a2118] transition-colors"
+            className="px-3.5 py-2 rounded-xl text-xs font-medium border border-border bg-white text-[#7a6a57] hover:bg-[#f5ede0] hover:text-foreground transition-colors"
           >
             {isAr ? 'الموردون' : 'Suppliers'}
           </Link>
           <Link
             href="/admin/purchases/new"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#2a2118] text-white text-sm font-medium hover:bg-[#3a3128] transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-[#3a3128] transition-colors shadow-sm"
           >
             <Plus className="w-4 h-4" />
             <span>{isAr ? 'تسجيل مشتريات' : 'Record Purchase'}</span>
@@ -144,35 +144,35 @@ export function PurchasesListClient({
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white rounded-2xl border border-[#e8ddd0] p-4 flex items-center gap-3 shadow-xs">
-          <div className="w-10 h-10 rounded-xl bg-[#f5ede0] flex items-center justify-center text-[#c9a96e]">
+        <div className="bg-white rounded-2xl border border-border p-4 flex items-center gap-3 shadow-xs">
+          <div className="w-10 h-10 rounded-xl bg-[#f5ede0] flex items-center justify-center text-accent">
             <DollarSign className="w-5 h-5" />
           </div>
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-wider text-[#9a8a7a]">
               {isAr ? 'إجمالي المشتريات المعروضة' : 'Total Filtered Purchases'}
             </p>
-            <p className="text-lg font-bold text-[#2a2118]">
+            <p className="text-lg font-bold text-foreground">
               {Number(totalAmount).toLocaleString(undefined, { minimumFractionDigits: 2 })} SAR
             </p>
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl border border-[#e8ddd0] p-4 flex items-center gap-3 shadow-xs">
-          <div className="w-10 h-10 rounded-xl bg-[#f5ede0] flex items-center justify-center text-[#c9a96e]">
+        <div className="bg-white rounded-2xl border border-border p-4 flex items-center gap-3 shadow-xs">
+          <div className="w-10 h-10 rounded-xl bg-[#f5ede0] flex items-center justify-center text-accent">
             <ShoppingBag className="w-5 h-5" />
           </div>
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-wider text-[#9a8a7a]">
               {isAr ? 'عدد الفواتير' : 'Total Invoices'}
             </p>
-            <p className="text-lg font-bold text-[#2a2118]">{total}</p>
+            <p className="text-lg font-bold text-foreground">{total}</p>
           </div>
         </div>
       </div>
 
       {/* Filters & Search */}
-      <div className="bg-white rounded-2xl border border-[#e8ddd0] p-4 space-y-3 shadow-xs">
+      <div className="bg-white rounded-2xl border border-border p-4 space-y-3 shadow-xs">
         <div className="flex flex-col lg:flex-row gap-3">
           <div className="flex-1">
             <AdminSearchBar
@@ -186,7 +186,7 @@ export function PurchasesListClient({
             <select
               value={currentSupplierId}
               onChange={(e) => handleFilterChange('supplierId', e.target.value)}
-              className="px-3 py-2 rounded-xl border border-[#e8ddd0] bg-[#faf7f4] text-xs font-medium text-[#2a2118] focus:outline-none focus:ring-2 focus:ring-[#c9a96e]"
+              className="px-3 py-2 rounded-xl border border-border bg-surface text-xs font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
             >
               <option value="all">{isAr ? 'كل الموردين' : 'All Suppliers'}</option>
               {suppliers.map((s) => (
@@ -200,7 +200,7 @@ export function PurchasesListClient({
             <select
               value={currentPaymentStatus}
               onChange={(e) => handleFilterChange('paymentStatus', e.target.value)}
-              className="px-3 py-2 rounded-xl border border-[#e8ddd0] bg-[#faf7f4] text-xs font-medium text-[#2a2118] focus:outline-none focus:ring-2 focus:ring-[#c9a96e]"
+              className="px-3 py-2 rounded-xl border border-border bg-surface text-xs font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
             >
               {paymentStatuses.map((s) => (
                 <option key={s.value} value={s.value}>
@@ -213,7 +213,7 @@ export function PurchasesListClient({
             <select
               value={currentPaymentMethod}
               onChange={(e) => handleFilterChange('paymentMethod', e.target.value)}
-              className="px-3 py-2 rounded-xl border border-[#e8ddd0] bg-[#faf7f4] text-xs font-medium text-[#2a2118] focus:outline-none focus:ring-2 focus:ring-[#c9a96e]"
+              className="px-3 py-2 rounded-xl border border-border bg-surface text-xs font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
             >
               {paymentMethods.map((m) => (
                 <option key={m.value} value={m.value}>
@@ -223,24 +223,24 @@ export function PurchasesListClient({
             </select>
 
             {/* Date from */}
-            <div className="flex items-center gap-1.5 bg-[#faf7f4] px-2.5 py-1.5 rounded-xl border border-[#e8ddd0]">
+            <div className="flex items-center gap-1.5 bg-surface px-2.5 py-1.5 rounded-xl border border-border">
               <span className="text-[11px] text-[#9a8a7a]">{isAr ? 'من:' : 'From:'}</span>
               <input
                 type="date"
                 defaultValue={currentFromDate}
                 onChange={(e) => handleFilterChange('fromDate', e.target.value)}
-                className="bg-transparent text-xs text-[#2a2118] focus:outline-none"
+                className="bg-transparent text-xs text-foreground focus:outline-none"
               />
             </div>
 
             {/* Date to */}
-            <div className="flex items-center gap-1.5 bg-[#faf7f4] px-2.5 py-1.5 rounded-xl border border-[#e8ddd0]">
+            <div className="flex items-center gap-1.5 bg-surface px-2.5 py-1.5 rounded-xl border border-border">
               <span className="text-[11px] text-[#9a8a7a]">{isAr ? 'إلى:' : 'To:'}</span>
               <input
                 type="date"
                 defaultValue={currentToDate}
                 onChange={(e) => handleFilterChange('toDate', e.target.value)}
-                className="bg-transparent text-xs text-[#2a2118] focus:outline-none"
+                className="bg-transparent text-xs text-foreground focus:outline-none"
               />
             </div>
 
@@ -250,8 +250,8 @@ export function PurchasesListClient({
               onClick={() => handleFilterChange('archived', includeArchived ? '' : 'true')}
               className={`px-3 py-2 rounded-xl text-xs font-medium border transition-colors ${
                 includeArchived
-                  ? 'bg-[#2a2118] text-white border-[#2a2118]'
-                  : 'bg-[#faf7f4] text-[#7a6a57] border-[#e8ddd0] hover:bg-[#f5ede0]'
+                  ? 'bg-primary text-white border-[#2a2118]'
+                  : 'bg-surface text-[#7a6a57] border-border hover:bg-[#f5ede0]'
               }`}
             >
               {includeArchived
@@ -267,7 +267,7 @@ export function PurchasesListClient({
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-2xl border border-[#e8ddd0] overflow-hidden shadow-sm">
+      <div className="bg-white rounded-2xl border border-border overflow-hidden shadow-sm">
         {purchases.length === 0 ? (
           <AdminEmptyState
             icon={<ShoppingBag className="w-6 h-6 text-[#9a8a7a]" />}
@@ -277,7 +277,7 @@ export function PurchasesListClient({
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-start">
               <thead>
-                <tr className="bg-[#faf7f4] border-b border-[#e8ddd0]">
+                <tr className="bg-surface border-b border-border">
                   <th className="text-start px-4 py-3 text-xs font-semibold text-[#9a8a7a]">
                     {isAr ? 'التاريخ / المرجع' : 'Date / Ref'}
                   </th>
@@ -303,21 +303,21 @@ export function PurchasesListClient({
               </thead>
               <tbody className="divide-y divide-[#f0e8de]">
                 {purchases.map((p) => (
-                  <tr key={p.id} className="hover:bg-[#faf7f4] transition-colors">
+                  <tr key={p.id} className="hover:bg-surface transition-colors">
                     <td className="px-4 py-3">
-                      <p className="font-medium text-[#2a2118]">{p.date}</p>
+                      <p className="font-medium text-foreground">{p.date}</p>
                       <p className="text-[11px] font-mono text-[#9a8a7a]">{p.reference || '—'}</p>
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1.5">
-                        <Building2 className="w-3.5 h-3.5 text-[#c9a96e] shrink-0" />
-                        <span className="font-medium text-[#2a2118]">
+                        <Building2 className="w-3.5 h-3.5 text-accent shrink-0" />
+                        <span className="font-medium text-foreground">
                           {p.suppliers?.name || '—'}
                         </span>
                       </div>
                     </td>
                     <td className="px-4 py-3">
-                      <p className="font-medium text-[#2a2118] max-w-xs truncate">{p.description}</p>
+                      <p className="font-medium text-foreground max-w-xs truncate">{p.description}</p>
                       {p.notes && (
                         <p className="text-xs text-[#9a8a7a] max-w-xs truncate">{p.notes}</p>
                       )}
@@ -349,7 +349,7 @@ export function PurchasesListClient({
                         {p.payment_method.replace('_', ' ')}
                       </span>
                     </td>
-                    <td className="px-4 py-3 font-semibold text-[#2a2118] whitespace-nowrap">
+                    <td className="px-4 py-3 font-semibold text-foreground whitespace-nowrap">
                       {Number(p.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })} SAR
                     </td>
                     <td className="px-4 py-3">
@@ -367,7 +367,7 @@ export function PurchasesListClient({
                       <div className="inline-flex items-center gap-1.5">
                         <Link
                           href={`/admin/purchases/${p.id}/edit`}
-                          className="p-1.5 rounded-lg text-[#7a6a57] hover:text-[#2a2118] hover:bg-[#f5ede0] transition-colors"
+                          className="p-1.5 rounded-lg text-[#7a6a57] hover:text-foreground hover:bg-[#f5ede0] transition-colors"
                           title={isAr ? 'تعديل' : 'Edit'}
                         >
                           <Edit2 className="w-4 h-4" />

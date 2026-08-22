@@ -9,7 +9,36 @@ import { Footer } from '@/components/layout/Footer'
 import { PageTransition } from '@/components/layout/PageTransition'
 import { createClient } from '@/lib/supabase/server'
 import type { Locale } from '@/types/ui.types'
+import { Cinzel, Montserrat, Cairo, Tajawal } from 'next/font/google'
 import '../globals.css'
+
+const cinzel = Cinzel({
+  subsets: ['latin'],
+  variable: '--font-display-en',
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+})
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-body-en',
+  weight: ['300', '400', '500', '600'],
+  display: 'swap',
+})
+
+const cairo = Cairo({
+  subsets: ['arabic'],
+  variable: '--font-display-ar',
+  weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+})
+
+const tajawal = Tajawal({
+  subsets: ['arabic'],
+  variable: '--font-body-ar',
+  weight: ['300', '400', '500', '700'],
+  display: 'swap',
+})
 
 export async function generateMetadata({
   params,
@@ -41,7 +70,7 @@ export default async function LocaleLayout({
   const isAuthenticated = !!user
 
   return (
-    <html lang={locale} dir={dir} className="h-full antialiased">
+    <html lang={locale} dir={dir} className={`h-full antialiased ${cinzel.variable} ${montserrat.variable} ${cairo.variable} ${tajawal.variable}`}>
       <body className="flex min-h-full flex-col bg-background text-foreground overflow-x-hidden">
         <NextIntlClientProvider messages={messages}>
           {/* Global Header — sticky, state-aware */}

@@ -22,47 +22,47 @@ export default async function AccountDashboardPage(props: PageProps) {
   return (
     <div className="space-y-8">
       {/* Welcome Section */}
-      <div className="bg-white rounded-3xl p-8 shadow-sm border border-[#E7DBEC]">
-        <h1 className="text-3xl font-bold text-[#2E1F38] mb-2 font-serif">
+      <div className="bg-white rounded-3xl p-8 shadow-sm border border-subtle">
+        <h1 className="text-3xl font-bold text-foreground mb-2 font-serif">
           {t('welcome')}, {profile?.full_name?.split(' ')[0] || ''}
         </h1>
-        <p className="text-[#6F4E7C] font-medium">
+        <p className="text-secondary font-medium">
           {profile?.email}
         </p>
       </div>
 
       {/* Next Booking */}
-      <div className="bg-white rounded-3xl p-8 shadow-sm border border-[#E7DBEC]">
+      <div className="bg-white rounded-3xl p-8 shadow-sm border border-subtle">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-[#2E1F38] font-serif">{t('upcomingBooking')}</h2>
-          <Link href={`/${locale}/account/bookings`} className="text-sm font-medium text-[#6F4E7C] hover:underline flex items-center gap-1">
+          <h2 className="text-xl font-bold text-foreground font-serif">{t('upcomingBooking')}</h2>
+          <Link href={`/${locale}/account/bookings`} className="text-sm font-medium text-secondary hover:underline flex items-center gap-1">
             {t('bookings')}
             <ChevronRight className="w-4 h-4 rtl:rotate-180" />
           </Link>
         </div>
 
         {nextBooking ? (
-          <div className="flex flex-col md:flex-row items-center gap-6 p-6 bg-[#faf7f4] rounded-2xl border border-[#E7DBEC]">
-            <div className="w-16 h-16 rounded-full bg-[#E7DBEC] text-[#6F4E7C] flex items-center justify-center shrink-0">
+          <div className="flex flex-col md:flex-row items-center gap-6 p-6 bg-surface rounded-2xl border border-subtle">
+            <div className="w-16 h-16 rounded-full bg-surface-muted text-secondary flex items-center justify-center shrink-0">
               <Calendar className="w-8 h-8" />
             </div>
             <div className="flex-1 space-y-1 text-center md:text-start">
-              <h3 className="text-lg font-bold text-[#2E1F38]">
+              <h3 className="text-lg font-bold text-foreground">
                 {isAr ? nextBooking.services?.name_ar : nextBooking.services?.name_en}
               </h3>
-              <p className="text-[#6F4E7C] font-medium text-sm">
+              <p className="text-secondary font-medium text-sm">
                 {new Date(nextBooking.date).toLocaleDateString(locale, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} • {nextBooking.start_time.slice(0, 5)}
               </p>
             </div>
             <Link
               href={`/${locale}/account/bookings/${nextBooking.id}`}
-              className="px-6 py-2.5 rounded-xl bg-[#2E1F38] text-[#D4AF37] font-bold text-sm tracking-wide hover:bg-[#1f1526] transition-colors"
+              className="px-6 py-2.5 rounded-xl bg-primary text-accent font-bold text-sm tracking-wide hover:bg-[#1f1526] transition-colors"
             >
               {t('viewDetails')}
             </Link>
           </div>
         ) : (
-          <div className="text-center py-12 px-4 bg-[#faf7f4] rounded-2xl border border-[#E7DBEC] border-dashed">
+          <div className="text-center py-12 px-4 bg-surface rounded-2xl border border-subtle border-dashed">
             <p className="text-[#A98FB8] font-medium">{t('noUpcoming')}</p>
           </div>
         )}

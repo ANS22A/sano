@@ -74,7 +74,7 @@ export function SuppliersListClient({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-[#2a2118]">
+          <h1 className="text-xl font-bold text-foreground">
             {isAr ? 'إدارة الموردين' : 'Suppliers Management'}
           </h1>
           <p className="text-xs text-[#7a6a57] mt-0.5">
@@ -86,7 +86,7 @@ export function SuppliersListClient({
         <div>
           <Link
             href="/admin/suppliers/new"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#2a2118] text-white text-sm font-medium hover:bg-[#3a3128] transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-[#3a3128] transition-colors shadow-sm"
           >
             <Plus className="w-4 h-4" />
             <span>{isAr ? 'إضافة مورد' : 'Add Supplier'}</span>
@@ -95,7 +95,7 @@ export function SuppliersListClient({
       </div>
 
       {/* Filters & Search */}
-      <div className="bg-white rounded-2xl border border-[#e8ddd0] p-4 flex flex-col sm:flex-row gap-3 shadow-xs">
+      <div className="bg-white rounded-2xl border border-border p-4 flex flex-col sm:flex-row gap-3 shadow-xs">
         <div className="flex-1">
           <AdminSearchBar
             placeholder={isAr ? 'البحث باسم المورد، الهاتف، البريد…' : 'Search supplier name, phone, email…'}
@@ -113,8 +113,8 @@ export function SuppliersListClient({
                 onClick={() => handleFilterChange('active', opt === 'active' ? 'true' : '')}
                 className={`px-3 py-2 rounded-xl text-xs font-medium border transition-colors ${
                   isSelected
-                    ? 'bg-[#2a2118] text-white border-[#2a2118]'
-                    : 'bg-[#faf7f4] text-[#7a6a57] border-[#e8ddd0] hover:bg-[#f5ede0]'
+                    ? 'bg-primary text-white border-[#2a2118]'
+                    : 'bg-surface text-[#7a6a57] border-border hover:bg-[#f5ede0]'
                 }`}
               >
                 {opt === 'all'
@@ -131,7 +131,7 @@ export function SuppliersListClient({
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-2xl border border-[#e8ddd0] overflow-hidden shadow-sm">
+      <div className="bg-white rounded-2xl border border-border overflow-hidden shadow-sm">
         {suppliers.length === 0 ? (
           <AdminEmptyState
             icon={<Building2 className="w-6 h-6 text-[#9a8a7a]" />}
@@ -141,7 +141,7 @@ export function SuppliersListClient({
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-start">
               <thead>
-                <tr className="bg-[#faf7f4] border-b border-[#e8ddd0]">
+                <tr className="bg-surface border-b border-border">
                   <th className="text-start px-4 py-3 text-xs font-semibold text-[#9a8a7a]">
                     {isAr ? 'اسم المورد' : 'Supplier Name'}
                   </th>
@@ -161,9 +161,9 @@ export function SuppliersListClient({
               </thead>
               <tbody className="divide-y divide-[#f0e8de]">
                 {suppliers.map((s) => (
-                  <tr key={s.id} className="hover:bg-[#faf7f4] transition-colors">
+                  <tr key={s.id} className="hover:bg-surface transition-colors">
                     <td className="px-4 py-3">
-                      <p className="font-semibold text-[#2a2118]">{s.name}</p>
+                      <p className="font-semibold text-foreground">{s.name}</p>
                       {s.notes && (
                         <p className="text-xs text-[#9a8a7a] max-w-xs truncate">{s.notes}</p>
                       )}
@@ -171,13 +171,13 @@ export function SuppliersListClient({
                     <td className="px-4 py-3 text-xs space-y-1">
                       {s.phone && (
                         <div className="flex items-center gap-1.5 text-[#7a6a57]">
-                          <Phone className="w-3 h-3 text-[#c9a96e]" />
+                          <Phone className="w-3 h-3 text-accent" />
                           <span>{s.phone}</span>
                         </div>
                       )}
                       {s.email && (
                         <div className="flex items-center gap-1.5 text-[#7a6a57]">
-                          <Mail className="w-3 h-3 text-[#c9a96e]" />
+                          <Mail className="w-3 h-3 text-accent" />
                           <span>{s.email}</span>
                         </div>
                       )}
@@ -186,7 +186,7 @@ export function SuppliersListClient({
                     <td className="px-4 py-3 text-xs text-[#7a6a57]">
                       {s.address ? (
                         <div className="flex items-center gap-1.5 max-w-xs truncate">
-                          <MapPin className="w-3 h-3 text-[#c9a96e] shrink-0" />
+                          <MapPin className="w-3 h-3 text-accent shrink-0" />
                           <span>{s.address}</span>
                         </div>
                       ) : (
@@ -211,7 +211,7 @@ export function SuppliersListClient({
                       <div className="inline-flex items-center gap-1.5">
                         <Link
                           href={`/admin/suppliers/${s.id}/edit`}
-                          className="p-1.5 rounded-lg text-[#7a6a57] hover:text-[#2a2118] hover:bg-[#f5ede0] transition-colors"
+                          className="p-1.5 rounded-lg text-[#7a6a57] hover:text-foreground hover:bg-[#f5ede0] transition-colors"
                           title={isAr ? 'تعديل' : 'Edit'}
                         >
                           <Edit2 className="w-4 h-4" />

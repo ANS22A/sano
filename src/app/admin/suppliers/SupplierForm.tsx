@@ -51,12 +51,12 @@ export function SupplierForm({ supplier, isEdit }: Props) {
       <div className="flex items-center gap-3">
         <Link
           href="/admin/suppliers"
-          className="p-2 rounded-xl border border-[#e8ddd0] bg-white text-[#7a6a57] hover:text-[#2a2118] hover:bg-[#faf7f4] transition-colors"
+          className="p-2 rounded-xl border border-border bg-white text-[#7a6a57] hover:text-foreground hover:bg-surface transition-colors"
         >
           {isAr ? <ArrowRight className="w-4 h-4" /> : <ArrowLeft className="w-4 h-4" />}
         </Link>
         <div>
-          <h1 className="text-xl font-bold text-[#2a2118]">
+          <h1 className="text-xl font-bold text-foreground">
             {isEdit
               ? isAr
                 ? 'تعديل بيانات المورد'
@@ -79,7 +79,7 @@ export function SupplierForm({ supplier, isEdit }: Props) {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-[#e8ddd0] p-6 shadow-sm space-y-5">
+      <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-border p-6 shadow-sm space-y-5">
         {/* Name */}
         <div>
           <label className="block text-xs font-semibold text-[#7a6a57] mb-1.5">
@@ -91,7 +91,7 @@ export function SupplierForm({ supplier, isEdit }: Props) {
             required
             defaultValue={supplier?.name || ''}
             placeholder={isAr ? 'مثال: شركة الزيوت الطبيعية المحدودة' : 'e.g. Pure Oils Co.'}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-[#e8ddd0] bg-white text-sm text-[#2a2118] focus:outline-none focus:ring-2 focus:ring-[#c9a96e]"
+            className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-white text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
 
@@ -106,7 +106,7 @@ export function SupplierForm({ supplier, isEdit }: Props) {
               name="phone"
               defaultValue={supplier?.phone || ''}
               placeholder="05XXXXXXXX"
-              className="w-full px-3.5 py-2.5 rounded-xl border border-[#e8ddd0] bg-white text-sm text-[#2a2118] focus:outline-none focus:ring-2 focus:ring-[#c9a96e]"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-white text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
 
@@ -120,7 +120,7 @@ export function SupplierForm({ supplier, isEdit }: Props) {
               name="email"
               defaultValue={supplier?.email || ''}
               placeholder="vendor@example.com"
-              className="w-full px-3.5 py-2.5 rounded-xl border border-[#e8ddd0] bg-white text-sm text-[#2a2118] focus:outline-none focus:ring-2 focus:ring-[#c9a96e]"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-white text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
         </div>
@@ -135,7 +135,7 @@ export function SupplierForm({ supplier, isEdit }: Props) {
             name="address"
             defaultValue={supplier?.address || ''}
             placeholder={isAr ? 'مثال: الرياض - طريق الملك فهد' : 'e.g. Riyadh - King Fahd Rd'}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-[#e8ddd0] bg-white text-sm text-[#2a2118] focus:outline-none focus:ring-2 focus:ring-[#c9a96e]"
+            className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-white text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
 
@@ -149,7 +149,7 @@ export function SupplierForm({ supplier, isEdit }: Props) {
             rows={3}
             defaultValue={supplier?.notes || ''}
             placeholder={isAr ? 'شروط التوريد أو ملاحظات الاتصال...' : 'Terms of supply or contact notes...'}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-[#e8ddd0] bg-white text-sm text-[#2a2118] focus:outline-none focus:ring-2 focus:ring-[#c9a96e]"
+            className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-white text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
 
@@ -163,25 +163,25 @@ export function SupplierForm({ supplier, isEdit }: Props) {
               defaultChecked={supplier ? supplier.is_active : true}
               className="sr-only peer"
             />
-            <div className="w-10 h-6 bg-[#e8ddd0] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#2a2118]"></div>
+            <div className="w-10 h-6 bg-[#e8ddd0] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
           </label>
-          <span className="text-xs font-medium text-[#2a2118]">
+          <span className="text-xs font-medium text-foreground">
             {isAr ? 'مورد نشط (متاح لإجراء المشتريات)' : 'Active Supplier (available for purchases)'}
           </span>
         </div>
 
         {/* Buttons */}
-        <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#f0e8de]">
+        <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
           <Link
             href="/admin/suppliers"
-            className="px-4 py-2 rounded-xl text-sm font-medium border border-[#e8ddd0] text-[#7a6a57] hover:bg-[#faf7f4] transition-colors"
+            className="px-4 py-2 rounded-xl text-sm font-medium border border-border text-[#7a6a57] hover:bg-surface transition-colors"
           >
             {isAr ? 'إلغاء' : 'Cancel'}
           </Link>
           <button
             type="submit"
             disabled={isPending}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#2a2118] text-white text-sm font-medium hover:bg-[#3a3128] transition-colors shadow-sm disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-medium hover:bg-[#3a3128] transition-colors shadow-sm disabled:opacity-50"
           >
             {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
             <span>{isAr ? 'حفظ المورد' : 'Save Supplier'}</span>

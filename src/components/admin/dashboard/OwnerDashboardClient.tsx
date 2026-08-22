@@ -33,12 +33,12 @@ export function OwnerDashboardClient({ stats, t, currentRange, from, to }: Props
   return (
     <div className="space-y-8">
       {/* Filters */}
-      <div className="flex items-center gap-4 bg-white p-4 rounded-[20px] border border-[#e8ddd0] shadow-sm">
-        <label className="text-sm font-medium text-[#2a2118]">{t.ownerDashboard.dateRange}</label>
+      <div className="flex items-center gap-4 bg-white p-4 rounded-[20px] border border-border shadow-sm">
+        <label className="text-sm font-medium text-foreground">{t.ownerDashboard.dateRange}</label>
         <select 
           value={currentRange}
           onChange={handleRangeChange}
-          className="bg-transparent border border-[#e8ddd0] rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-[#c9a96e]"
+          className="bg-transparent border border-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-accent"
         >
           <option value="today">{t.ownerDashboard.today}</option>
           <option value="this_week">{t.ownerDashboard.thisWeek}</option>
@@ -55,7 +55,7 @@ export function OwnerDashboardClient({ stats, t, currentRange, from, to }: Props
 
       {/* Primary Financial KPIs */}
       <div className="space-y-4">
-        <h2 className="text-lg font-bold text-[#2a2118]">{t.ownerDashboard.title} - Financials</h2>
+        <h2 className="text-lg font-bold text-foreground">{t.ownerDashboard.title} - Financials</h2>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           <StatCard
             title={t.ownerDashboard.realizedRevenue}

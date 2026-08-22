@@ -97,7 +97,7 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl font-bold text-[#2a2118]">
+          <h1 className="text-xl font-bold text-foreground">
             {isAr ? 'تصنيفات المصروفات' : 'Expense Categories'}
           </h1>
           <p className="text-xs text-[#7a6a57] mt-0.5">
@@ -112,8 +112,8 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
             onClick={() => setShowArchived(!showArchived)}
             className={`px-3 py-2 rounded-xl text-xs font-medium border transition-colors ${
               showArchived
-                ? 'bg-[#2a2118] text-white border-[#2a2118]'
-                : 'bg-white text-[#7a6a57] border-[#e8ddd0] hover:bg-[#f5ede0]'
+                ? 'bg-primary text-white border-[#2a2118]'
+                : 'bg-white text-[#7a6a57] border-border hover:bg-[#f5ede0]'
             }`}
           >
             {showArchived
@@ -127,7 +127,7 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
           <button
             type="button"
             onClick={openCreate}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#2a2118] text-white text-sm font-medium hover:bg-[#3a3128] transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-[#3a3128] transition-colors shadow-sm"
           >
             <Plus className="w-4 h-4" />
             <span>{isAr ? 'إضافة تصنيف' : 'New Category'}</span>
@@ -136,7 +136,7 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-2xl border border-[#e8ddd0] overflow-hidden shadow-sm">
+      <div className="bg-white rounded-2xl border border-border overflow-hidden shadow-sm">
         {displayed.length === 0 ? (
           <AdminEmptyState
             icon={<Tag className="w-6 h-6 text-[#9a8a7a]" />}
@@ -146,7 +146,7 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-start">
               <thead>
-                <tr className="bg-[#faf7f4] border-b border-[#e8ddd0]">
+                <tr className="bg-surface border-b border-border">
                   <th className="text-start px-4 py-3 text-xs font-semibold text-[#9a8a7a]">
                     {isAr ? 'الاسم (إنجليزي)' : 'English Name'}
                   </th>
@@ -163,8 +163,8 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
               </thead>
               <tbody className="divide-y divide-[#f0e8de]">
                 {displayed.map((cat) => (
-                  <tr key={cat.id} className="hover:bg-[#faf7f4] transition-colors">
-                    <td className="px-4 py-3 font-medium text-[#2a2118]">{cat.name_en}</td>
+                  <tr key={cat.id} className="hover:bg-surface transition-colors">
+                    <td className="px-4 py-3 font-medium text-foreground">{cat.name_en}</td>
                     <td className="px-4 py-3 text-[#7a6a57]">{cat.name_ar}</td>
                     <td className="px-4 py-3">
                       <AdminBadge
@@ -185,7 +185,7 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
                         <button
                           type="button"
                           onClick={() => openEdit(cat)}
-                          className="p-1.5 rounded-lg text-[#7a6a57] hover:text-[#2a2118] hover:bg-[#f5ede0] transition-colors"
+                          className="p-1.5 rounded-lg text-[#7a6a57] hover:text-foreground hover:bg-[#f5ede0] transition-colors"
                           title={isAr ? 'تعديل' : 'Edit'}
                         >
                           <Edit2 className="w-4 h-4" />
@@ -228,9 +228,9 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs">
-          <div className="bg-white rounded-2xl border border-[#e8ddd0] w-full max-w-md p-6 shadow-xl space-y-5 animate-in fade-in zoom-in-95 duration-150">
-            <div className="flex items-center justify-between border-b border-[#f0e8de] pb-3">
-              <h2 className="text-base font-bold text-[#2a2118]">
+          <div className="bg-white rounded-2xl border border-border w-full max-w-md p-6 shadow-xl space-y-5 animate-in fade-in zoom-in-95 duration-150">
+            <div className="flex items-center justify-between border-b border-border pb-3">
+              <h2 className="text-base font-bold text-foreground">
                 {editingCategory
                   ? isAr
                     ? 'تعديل التصنيف'
@@ -242,7 +242,7 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
               <button
                 type="button"
                 onClick={() => setShowModal(false)}
-                className="text-[#9a8a7a] hover:text-[#2a2118] text-sm"
+                className="text-[#9a8a7a] hover:text-foreground text-sm"
               >
                 ✕
               </button>
@@ -259,7 +259,7 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
                   required
                   defaultValue={editingCategory?.name_en || ''}
                   placeholder="e.g. Utilities, Marketing, Rent"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#e8ddd0] bg-white text-sm text-[#2a2118] focus:outline-none focus:ring-2 focus:ring-[#c9a96e]"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-white text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
                 />
               </div>
 
@@ -273,22 +273,22 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
                   required
                   defaultValue={editingCategory?.name_ar || ''}
                   placeholder="مثال: الخدمات والمرافق، التسويق، الإيجار"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#e8ddd0] bg-white text-sm text-[#2a2118] focus:outline-none focus:ring-2 focus:ring-[#c9a96e]"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-white text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#f0e8de]">
+              <div className="flex items-center justify-end gap-2 pt-2 border-t border-border">
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2 rounded-xl text-sm font-medium border border-[#e8ddd0] text-[#7a6a57] hover:bg-[#faf7f4] transition-colors"
+                  className="px-4 py-2 rounded-xl text-sm font-medium border border-border text-[#7a6a57] hover:bg-surface transition-colors"
                 >
                   {isAr ? 'إلغاء' : 'Cancel'}
                 </button>
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#2a2118] text-white text-sm font-medium hover:bg-[#3a3128] transition-colors shadow-sm disabled:opacity-50"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-[#3a3128] transition-colors shadow-sm disabled:opacity-50"
                 >
                   {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
                   <span>{isAr ? 'حفظ' : 'Save'}</span>

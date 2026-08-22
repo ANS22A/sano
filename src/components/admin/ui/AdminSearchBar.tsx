@@ -37,8 +37,8 @@ export function AdminSearchBar({ placeholder = 'Search…', paramName = 'q' }: P
         defaultValue={searchParams.get(paramName) ?? ''}
         onChange={handleChange}
         placeholder={placeholder}
-        className="w-full ps-9 pe-4 py-2 rounded-xl border border-[#e8ddd0] bg-white text-sm text-[#2a2118]
-          placeholder:text-[#b8a898] focus:outline-none focus:ring-2 focus:ring-[#c9a96e] focus:border-transparent"
+        className="w-full ps-9 pe-4 py-2 rounded-xl border border-border bg-white text-sm text-foreground
+          placeholder:text-[#b8a898] focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
       />
     </div>
   )

@@ -27,18 +27,18 @@ export function AdminHeader({ profile, onMenuClick }: Props) {
   const pageTitle = getPageTitle(pathname, t.nav)
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center border-b border-[#e8ddd0] bg-white/80 backdrop-blur-md px-4 sm:px-6 gap-4 shadow-[0_4px_20px_-4px_rgba(42,33,24,0.02)]">
+    <header className="sticky top-0 z-30 flex h-16 items-center border-b border-border bg-white/80 backdrop-blur-md px-4 sm:px-6 gap-4 shadow-[0_4px_20px_-4px_rgba(42,33,24,0.02)]">
       {/* Mobile menu button */}
       <button
         onClick={onMenuClick}
-        className="lg:hidden p-2 rounded-lg text-[#7a6a57] hover:bg-[#f5ede0] hover:text-[#2a2118] transition-colors"
+        className="lg:hidden p-2 rounded-lg text-[#7a6a57] hover:bg-[#f5ede0] hover:text-foreground transition-colors"
         aria-label="Open navigation menu"
       >
         <Menu className="w-5 h-5" />
       </button>
 
       {/* Page title */}
-      <h1 className="flex-1 text-sm font-semibold text-[#2a2118] truncate">
+      <h1 className="flex-1 text-sm font-semibold text-foreground truncate">
         {pageTitle}
       </h1>
 
@@ -49,13 +49,13 @@ export function AdminHeader({ profile, onMenuClick }: Props) {
 
         {/* User avatar + name */}
         <div className="hidden sm:flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-[#c9a96e] flex items-center justify-center shrink-0">
-            <span className="text-[#2a2118] text-xs font-bold">
+          <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center shrink-0">
+            <span className="text-foreground text-xs font-bold">
               {(profile.full_name || profile.email).charAt(0).toUpperCase()}
             </span>
           </div>
           <div className="hidden md:block">
-            <p className="text-xs font-medium text-[#2a2118] leading-tight truncate max-w-32">
+            <p className="text-xs font-medium text-foreground leading-tight truncate max-w-32">
               {profile.full_name || profile.email}
             </p>
             <p className="text-xs text-[#9a8a7a] capitalize">{profile.role.replace('_', ' ')}</p>
@@ -67,7 +67,7 @@ export function AdminHeader({ profile, onMenuClick }: Props) {
           onClick={handleSignOut}
           disabled={isPending}
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-[#7a6a57]
-            hover:bg-[#f5ede0] hover:text-[#2a2118] disabled:opacity-50 transition-all duration-200 ms-2"
+            hover:bg-[#f5ede0] hover:text-foreground disabled:opacity-50 transition-all duration-200 ms-2"
           aria-label={t.nav.signOut}
         >
           <LogOut className="w-3.5 h-3.5" />
@@ -98,7 +98,7 @@ function LanguageToggle({ currentLang }: { currentLang: string }) {
       onClick={toggle}
       disabled={isPending}
       className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-[#7a6a57]
-        hover:bg-[#f5ede0] hover:text-[#2a2118] disabled:opacity-50 transition-colors border border-[#e8ddd0]"
+        hover:bg-[#f5ede0] hover:text-foreground disabled:opacity-50 transition-colors border border-border"
       title="Switch language"
     >
       <Globe className="w-3.5 h-3.5" />
@@ -112,6 +112,7 @@ function getPageTitle(pathname: string, nav: Record<string, string>): string {
   if (pathname.startsWith('/admin/bookings')) return nav.bookings
   if (pathname.startsWith('/admin/calendar')) return nav.calendar
   if (pathname.startsWith('/admin/services')) return nav.services
+  if (pathname.startsWith('/admin/gift-cards')) return nav.giftCards ?? 'Gift Cards'
   if (pathname.startsWith('/admin/customers')) return nav.customers
   if (pathname.startsWith('/admin/staff')) return nav.staff
   if (pathname.startsWith('/admin/locations')) return nav.locations

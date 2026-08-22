@@ -20,18 +20,18 @@ export default async function AdminStaffPage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-3">
-        <h1 className="text-xl font-bold text-[#2a2118]">{t.staff.title}</h1>
+        <h1 className="text-xl font-bold text-foreground">{t.staff.title}</h1>
         <StaffFormWrapper t={t} dir={dir} />
       </div>
 
-      <div className="bg-white rounded-2xl border border-[#e8ddd0] overflow-hidden">
+      <div className="bg-white rounded-2xl border border-border overflow-hidden">
         {staff.length === 0 ? (
           <AdminEmptyState icon={<UserCheck className="w-6 h-6" />} title={t.staff.noResults} />
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-[#faf7f4] border-b border-[#e8ddd0]">
+                <tr className="bg-surface border-b border-border">
                   {['Name (EN)', 'Name (AR)', 'Active', 'Actions'].map((h) => (
                     <th key={h} className="text-start px-4 py-3 text-xs font-medium text-[#9a8a7a]">{h}</th>
                   ))}
@@ -39,8 +39,8 @@ export default async function AdminStaffPage() {
               </thead>
               <tbody className="divide-y divide-[#f0e8de]">
                 {staff.map((s) => (
-                  <tr key={s.id} className="hover:bg-[#faf7f4] transition-colors group">
-                    <td className="px-4 py-3 font-medium text-[#2a2118]">{s.name_en}</td>
+                  <tr key={s.id} className="hover:bg-surface transition-colors group">
+                    <td className="px-4 py-3 font-medium text-foreground">{s.name_en}</td>
                     <td className="px-4 py-3 text-[#7a6a57]" dir="rtl">{s.name_ar}</td>
                     <td className="px-4 py-3">
                       <AdminBadge
@@ -49,7 +49,7 @@ export default async function AdminStaffPage() {
                       />
                     </td>
                     <td className="px-4 py-3 flex items-center gap-3">
-                      <Link href={`/admin/staff/${s.id}/availability`} className="text-xs font-medium text-[#c9a96e] hover:underline">
+                      <Link href={`/admin/staff/${s.id}/availability`} className="text-xs font-medium text-accent hover:underline">
                         {t.staff.availability}
                       </Link>
                       <StaffFormWrapper t={t} dir={dir} staff={{ id: s.id, name_en: s.name_en, name_ar: s.name_ar, bio_en: s.bio_en, bio_ar: s.bio_ar, slug: s.slug, image_url: s.image_url }} variant="icon" />

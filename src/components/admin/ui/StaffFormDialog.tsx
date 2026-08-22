@@ -99,19 +99,19 @@ export function StaffFormDialog({ open, onClose, t, staff }: StaffFormDialogProp
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2a2118]/40 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-primary/40 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-labelledby="staff-dialog-title"
     >
       <div className="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
-        <div className="px-6 py-4 border-b border-[#f0e8de] flex items-center justify-between">
-          <h3 id="staff-dialog-title" className="text-base font-bold text-[#2a2118]">
+        <div className="px-6 py-4 border-b border-border flex items-center justify-between">
+          <h3 id="staff-dialog-title" className="text-base font-bold text-foreground">
             {staff ? t.common.edit : `${t.staff.title} +`}
           </h3>
           <button 
             onClick={onClose}
-            className="text-[#9a8a7a] hover:text-[#2a2118] transition-colors"
+            className="text-[#9a8a7a] hover:text-foreground transition-colors"
             aria-label="Close"
           >
             ✕
@@ -127,13 +127,13 @@ export function StaffFormDialog({ open, onClose, t, staff }: StaffFormDialogProp
             )}
 
             <div>
-              <label htmlFor="name_en" className="block text-sm font-medium text-[#2a2118] mb-1">Name (EN) *</label>
+              <label htmlFor="name_en" className="block text-sm font-medium text-foreground mb-1">Name (EN) *</label>
               <input
                 id="name_en"
                 name="name_en"
                 type="text"
                 required
-                className="w-full p-2.5 rounded-xl border border-[#e8ddd0] bg-white text-[#2a2118] outline-none focus:border-[#c9a96e]"
+                className="w-full p-2.5 rounded-xl border border-border bg-white text-foreground outline-none focus:border-accent"
                 value={formData.name_en}
                 onChange={handleChange}
                 dir="ltr"
@@ -142,13 +142,13 @@ export function StaffFormDialog({ open, onClose, t, staff }: StaffFormDialogProp
             </div>
 
             <div>
-              <label htmlFor="name_ar" className="block text-sm font-medium text-[#2a2118] mb-1 text-start">Name (AR) *</label>
+              <label htmlFor="name_ar" className="block text-sm font-medium text-foreground mb-1 text-start">Name (AR) *</label>
               <input
                 id="name_ar"
                 name="name_ar"
                 type="text"
                 required
-                className="w-full p-2.5 rounded-xl border border-[#e8ddd0] bg-white text-[#2a2118] outline-none focus:border-[#c9a96e]"
+                className="w-full p-2.5 rounded-xl border border-border bg-white text-foreground outline-none focus:border-accent"
                 value={formData.name_ar}
                 onChange={handleChange}
                 dir="rtl"
@@ -157,13 +157,13 @@ export function StaffFormDialog({ open, onClose, t, staff }: StaffFormDialogProp
             </div>
 
             <div>
-              <label htmlFor="slug" className="block text-sm font-medium text-[#2a2118] mb-1">Slug *</label>
+              <label htmlFor="slug" className="block text-sm font-medium text-foreground mb-1">Slug *</label>
               <input
                 id="slug"
                 name="slug"
                 type="text"
                 required
-                className="w-full p-2.5 rounded-xl border border-[#e8ddd0] bg-white text-[#2a2118] outline-none focus:border-[#c9a96e] font-mono text-sm"
+                className="w-full p-2.5 rounded-xl border border-border bg-white text-foreground outline-none focus:border-accent font-mono text-sm"
                 value={formData.slug}
                 onChange={handleChange}
                 dir="ltr"
@@ -172,12 +172,12 @@ export function StaffFormDialog({ open, onClose, t, staff }: StaffFormDialogProp
             </div>
 
             <div>
-              <label htmlFor="bio_en" className="block text-sm font-medium text-[#2a2118] mb-1">Bio (EN)</label>
+              <label htmlFor="bio_en" className="block text-sm font-medium text-foreground mb-1">Bio (EN)</label>
               <textarea
                 id="bio_en"
                 name="bio_en"
                 rows={2}
-                className="w-full p-2.5 rounded-xl border border-[#e8ddd0] bg-white text-[#2a2118] outline-none focus:border-[#c9a96e]"
+                className="w-full p-2.5 rounded-xl border border-border bg-white text-foreground outline-none focus:border-accent"
                 value={formData.bio_en}
                 onChange={handleChange}
                 dir="ltr"
@@ -186,12 +186,12 @@ export function StaffFormDialog({ open, onClose, t, staff }: StaffFormDialogProp
             </div>
 
             <div>
-              <label htmlFor="bio_ar" className="block text-sm font-medium text-[#2a2118] mb-1 text-start">Bio (AR)</label>
+              <label htmlFor="bio_ar" className="block text-sm font-medium text-foreground mb-1 text-start">Bio (AR)</label>
               <textarea
                 id="bio_ar"
                 name="bio_ar"
                 rows={2}
-                className="w-full p-2.5 rounded-xl border border-[#e8ddd0] bg-white text-[#2a2118] outline-none focus:border-[#c9a96e]"
+                className="w-full p-2.5 rounded-xl border border-border bg-white text-foreground outline-none focus:border-accent"
                 value={formData.bio_ar}
                 onChange={handleChange}
                 dir="rtl"
@@ -201,7 +201,7 @@ export function StaffFormDialog({ open, onClose, t, staff }: StaffFormDialogProp
 
             {staff?.id && (
               <div>
-                <label className="block text-sm font-medium text-[#2a2118] mb-3">Staff Image</label>
+                <label className="block text-sm font-medium text-foreground mb-3">Staff Image</label>
                 <AdminImageUpload
                   entityId={staff.id}
                   imageUrl={staff.image_url ?? null}
@@ -214,19 +214,19 @@ export function StaffFormDialog({ open, onClose, t, staff }: StaffFormDialogProp
             )}
           </div>
 
-          <div className="px-6 py-4 border-t border-[#f0e8de] flex justify-end gap-3 bg-[#faf7f4]">
+          <div className="px-6 py-4 border-t border-border flex justify-end gap-3 bg-surface">
             <button
               type="button"
               onClick={onClose}
               disabled={isPending}
-              className="px-4 py-2 rounded-xl text-sm font-medium text-[#7a6a57] hover:bg-white hover:text-[#2a2118] transition-colors border border-transparent hover:border-[#e8ddd0] disabled:opacity-50"
+              className="px-4 py-2 rounded-xl text-sm font-medium text-[#7a6a57] hover:bg-white hover:text-foreground transition-colors border border-transparent hover:border-border disabled:opacity-50"
             >
               {t.common.cancel}
             </button>
             <button
               type="submit"
               disabled={isPending}
-              className="px-6 py-2 rounded-xl text-sm font-medium bg-[#2a2118] text-white hover:bg-[#1a1412] transition-colors disabled:opacity-50"
+              className="px-6 py-2 rounded-xl text-sm font-medium bg-primary text-white hover:bg-[#1a1412] transition-colors disabled:opacity-50"
             >
               {isPending ? t.common.saving : t.common.save}
             </button>

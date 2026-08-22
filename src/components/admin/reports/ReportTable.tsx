@@ -70,13 +70,13 @@ export function ReportTable<T>({ data, columns, filename, currentRange, from, to
   return (
     <div className="space-y-4">
       {/* Toolbar */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-4 rounded-xl border border-[#e8ddd0]">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-4 rounded-xl border border-border">
         <div className="flex flex-wrap items-center gap-4 w-full sm:w-auto">
-          <label className="text-sm font-medium text-[#2a2118]">{t.ownerDashboard?.dateRange || 'Date Range'}</label>
+          <label className="text-sm font-medium text-foreground">{t.ownerDashboard?.dateRange || 'Date Range'}</label>
           <select 
             value={currentRange}
             onChange={handleRangeChange}
-            className="bg-transparent border border-[#e8ddd0] rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-[#c9a96e]"
+            className="bg-transparent border border-border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-accent"
           >
             <option value="today">{t.ownerDashboard?.today || 'Today'}</option>
             <option value="this_week">{t.ownerDashboard?.thisWeek || 'This Week'}</option>
@@ -92,18 +92,18 @@ export function ReportTable<T>({ data, columns, filename, currentRange, from, to
         </div>
         <div className="flex items-center gap-3 w-full sm:w-auto">
           <div className="relative flex-1 sm:w-64">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9a8a7a]" />
+            <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9a8a7a]" />
             <input
               type="text"
               placeholder={t.common?.search || 'Search...'}
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
-              className="w-full pl-9 pr-4 py-1.5 text-sm border border-[#e8ddd0] rounded-lg focus:outline-none focus:border-[#c9a96e]"
+              className="w-full ps-9 pe-4 py-1.5 text-sm border border-border rounded-lg focus:outline-none focus:border-accent"
             />
           </div>
           <button
             onClick={exportCSV}
-            className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-[#2a2118] bg-[#f5ede0] rounded-lg hover:bg-[#e8ddd0] transition-colors"
+            className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-foreground bg-[#f5ede0] rounded-lg hover:bg-[#e8ddd0] transition-colors"
           >
             <Download className="w-4 h-4" />
             <span>CSV</span>
@@ -112,11 +112,11 @@ export function ReportTable<T>({ data, columns, filename, currentRange, from, to
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl border border-[#e8ddd0] overflow-hidden">
+      <div className="bg-white rounded-xl border border-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-start">
             <thead>
-              <tr className="bg-[#faf7f4] border-b border-[#e8ddd0]">
+              <tr className="bg-surface border-b border-border">
                 {columns.map(c => (
                   <th key={c.key} className="px-6 py-3 font-medium text-[#9a8a7a] text-start whitespace-nowrap">
                     {c.title}
@@ -133,11 +133,11 @@ export function ReportTable<T>({ data, columns, filename, currentRange, from, to
                 </tr>
               ) : (
                 filteredData.map((row, i) => (
-                  <tr key={i} className="hover:bg-[#faf7f4] transition-colors">
+                  <tr key={i} className="hover:bg-surface transition-colors">
                     {columns.map(c => {
                       const val = (row as any)[c.key]
                       return (
-                        <td key={c.key} className="px-6 py-4 text-[#2a2118] whitespace-nowrap">
+                        <td key={c.key} className="px-6 py-4 text-foreground whitespace-nowrap">
                           {c.render ? c.render(val, row) : (val ?? '-')}
                         </td>
                       )

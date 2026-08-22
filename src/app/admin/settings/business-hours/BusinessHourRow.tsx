@@ -23,8 +23,8 @@ export function BusinessHourRow({ id, day, openTime, closeTime, isClosed: initia
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row sm:items-center gap-3 px-6 py-4 border-b border-[#f0e8de] last:border-0">
-      <span className="text-sm font-medium text-[#2a2118] w-28 shrink-0">{day}</span>
+    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row sm:items-center gap-3 px-6 py-4 border-b border-border last:border-0">
+      <span className="text-sm font-medium text-foreground w-28 shrink-0">{day}</span>
 
       <label className="flex items-center gap-2 cursor-pointer">
         <input
@@ -50,7 +50,7 @@ export function BusinessHourRow({ id, day, openTime, closeTime, isClosed: initia
           name="open_time"
           defaultValue={openTime ?? '09:00'}
           disabled={initialClosed}
-          className="px-3 py-1.5 rounded-lg border border-[#e8ddd0] text-sm text-[#2a2118] disabled:opacity-40 focus:outline-none focus:ring-2 focus:ring-[#c9a96e]"
+          className="px-3 py-1.5 rounded-lg border border-border text-sm text-foreground disabled:opacity-40 focus:outline-none focus:ring-2 focus:ring-accent"
         />
         <span className="text-[#9a8a7a] text-sm">—</span>
         <input
@@ -58,14 +58,14 @@ export function BusinessHourRow({ id, day, openTime, closeTime, isClosed: initia
           name="close_time"
           defaultValue={closeTime ?? '21:00'}
           disabled={initialClosed}
-          className="px-3 py-1.5 rounded-lg border border-[#e8ddd0] text-sm text-[#2a2118] disabled:opacity-40 focus:outline-none focus:ring-2 focus:ring-[#c9a96e]"
+          className="px-3 py-1.5 rounded-lg border border-border text-sm text-foreground disabled:opacity-40 focus:outline-none focus:ring-2 focus:ring-accent"
         />
       </div>
 
       <button
         type="submit"
         disabled={isPending}
-        className="px-4 py-1.5 rounded-lg bg-[#2a2118] text-white text-xs font-medium hover:bg-[#3a3128] disabled:opacity-60 transition-colors"
+        className="px-4 py-1.5 rounded-lg bg-primary text-white text-xs font-medium hover:bg-[#3a3128] disabled:opacity-60 transition-colors"
       >
         {isPending ? '…' : 'Save'}
       </button>

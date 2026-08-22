@@ -24,20 +24,20 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#2a2118] mb-4 shadow-lg">
-            <span className="text-[#c9a96e] text-xl font-bold tracking-widest">SL</span>
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary mb-4 shadow-lg">
+            <span className="text-accent text-xl font-bold tracking-widest">SL</span>
           </div>
-          <h1 className="text-2xl font-semibold text-[#2a2118] tracking-tight">{t.login}</h1>
+          <h1 className="text-2xl font-semibold text-foreground tracking-tight">{t.login}</h1>
           <p className="text-sm text-[#7a6a57] mt-1">{t.loginSubtitle}</p>
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-[#e8ddd0]">
+        <div className="bg-white rounded-2xl shadow-xl p-8 border border-border">
           <form onSubmit={handleSubmit} className="space-y-5">
             <input type="hidden" name="redirectTo" value="/admin" />
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-[#2a2118] mb-1.5">
+              <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1.5">
                 {t.email}
               </label>
               <input
@@ -46,15 +46,15 @@ export default function AdminLoginPage() {
                 type="email"
                 required
                 autoComplete="email"
-                className="w-full px-4 py-2.5 rounded-xl border border-[#ddd0c0] bg-[#faf7f4] text-[#2a2118] text-sm
-                  placeholder:text-[#b8a898] focus:outline-none focus:ring-2 focus:ring-[#c9a96e] focus:border-transparent
+                className="w-full px-4 py-2.5 rounded-xl border border-[#ddd0c0] bg-surface text-foreground text-sm
+                  placeholder:text-[#b8a898] focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent
                   transition-shadow"
                 placeholder="admin@sanoluna.com"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-[#2a2118] mb-1.5">
+              <label htmlFor="password" className="block text-sm font-medium text-foreground mb-1.5">
                 {t.password}
               </label>
               <input
@@ -63,8 +63,8 @@ export default function AdminLoginPage() {
                 type="password"
                 required
                 autoComplete="current-password"
-                className="w-full px-4 py-2.5 rounded-xl border border-[#ddd0c0] bg-[#faf7f4] text-[#2a2118] text-sm
-                  placeholder:text-[#b8a898] focus:outline-none focus:ring-2 focus:ring-[#c9a96e] focus:border-transparent
+                className="w-full px-4 py-2.5 rounded-xl border border-[#ddd0c0] bg-surface text-foreground text-sm
+                  placeholder:text-[#b8a898] focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent
                   transition-shadow"
                 placeholder="••••••••"
               />
@@ -82,7 +82,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={isPending}
-              className="w-full py-2.5 px-4 rounded-xl bg-[#2a2118] text-white text-sm font-medium
+              className="w-full py-2.5 px-4 rounded-xl bg-primary text-white text-sm font-medium
                 hover:bg-[#3a3128] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed
                 transition-all duration-150 shadow-sm"
             >

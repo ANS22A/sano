@@ -63,12 +63,12 @@ export default async function AdminBookingsPage({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl font-bold text-[#2a2118]">{t.bookings.title}</h1>
+          <h1 className="text-xl font-bold text-foreground">{t.bookings.title}</h1>
           <p className="text-sm text-[#9a8a7a]">{total} total</p>
         </div>
         <Link
           href="/admin/bookings/new"
-          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-medium bg-[#6F4E7C] text-white hover:bg-[#5a3d66] transition-colors"
+          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-medium bg-secondary text-white hover:bg-[#5a3d66] transition-colors"
         >
           <Plus className="w-4 h-4" />
           {lang === 'ar' ? 'حجز جديد' : 'New Booking'}
@@ -120,8 +120,8 @@ export default async function AdminBookingsPage({
                 href={buildQuery({ status: s })}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors capitalize ${
                   (sp.status ?? 'all') === s
-                    ? 'bg-[#2a2118] text-white border-[#2a2118]'
-                    : 'bg-white text-[#7a6a57] border-[#e8ddd0] hover:bg-[#f5ede0]'
+                    ? 'bg-primary text-white border-[#2a2118]'
+                    : 'bg-white text-[#7a6a57] border-border hover:bg-[#f5ede0]'
                 }`}
               >
                 {t.status[s as keyof typeof t.status] ?? s}
@@ -140,7 +140,7 @@ export default async function AdminBookingsPage({
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-2xl border border-[#e8ddd0] overflow-hidden">
+      <div className="bg-white rounded-2xl border border-border overflow-hidden">
         {bookings.length === 0 ? (
           <AdminEmptyState
             icon={<BookOpen className="w-6 h-6" />}
@@ -150,7 +150,7 @@ export default async function AdminBookingsPage({
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-[#faf7f4] border-b border-[#e8ddd0]">
+                <tr className="bg-surface border-b border-border">
                   {[t.bookings.bookingNumber, t.bookings.customer, t.bookings.service, t.bookings.date, t.bookings.status, lang === 'ar' ? 'المصدر' : 'Source', t.bookings.price, t.bookings.actions].map((h) => (
                     <th key={h} className="text-start px-4 py-3 text-xs font-medium text-[#9a8a7a] whitespace-nowrap">{h}</th>
                   ))}
@@ -158,11 +158,11 @@ export default async function AdminBookingsPage({
               </thead>
               <tbody className="divide-y divide-[#f0e8de]">
                 {bookings.map((b) => (
-                  <tr key={b.id} className="hover:bg-[#faf7f4] transition-colors group">
+                  <tr key={b.id} className="hover:bg-surface transition-colors group">
                     <td className="px-4 py-3">
-                      <span className="font-mono text-xs text-[#c9a96e]">{b.booking_number}</span>
+                      <span className="font-mono text-xs text-accent">{b.booking_number}</span>
                     </td>
-                    <td className="px-4 py-3 font-medium text-[#2a2118]">{b.customer_name}</td>
+                    <td className="px-4 py-3 font-medium text-foreground">{b.customer_name}</td>
                     <td className="px-4 py-3 text-[#7a6a57] max-w-40 truncate">{b.service_name}</td>
                     <td className="px-4 py-3 text-[#7a6a57] whitespace-nowrap">{b.date} {b.start_time.slice(0,5)}</td>
                     <td className="px-4 py-3">
@@ -182,11 +182,11 @@ export default async function AdminBookingsPage({
                          b.source}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-[#2a2118] font-medium whitespace-nowrap">{b.price_sar.toLocaleString()} {t.common.sar}</td>
+                    <td className="px-4 py-3 text-foreground font-medium whitespace-nowrap">{b.price_sar.toLocaleString()} {t.common.sar}</td>
                     <td className="px-4 py-3">
                       <Link
                         href={`/admin/bookings/${b.id}`}
-                        className="text-xs font-medium text-[#c9a96e] hover:underline"
+                        className="text-xs font-medium text-accent hover:underline"
                       >
                         {t.common.view}
                       </Link>

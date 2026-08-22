@@ -16,7 +16,7 @@ export default async function PayrollPage({ searchParams }: { searchParams: Prom
     <div className="p-6 max-w-7xl mx-auto space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
         <div>
-          <h1 className="text-3xl font-light text-[#2E1F38]">Payroll</h1>
+          <h1 className="text-3xl font-light text-foreground">Payroll</h1>
           <p className="text-sm text-neutral-500 mt-1">Manage employee salaries and bonuses.</p>
         </div>
         <div className="flex items-center gap-3">
@@ -28,7 +28,7 @@ export default async function PayrollPage({ searchParams }: { searchParams: Prom
           </Link>
           <Link
             href="/admin/payroll/new"
-            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-md bg-[#2E1F38] text-white text-sm font-medium hover:bg-[#6F4E7C] transition-colors"
+            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-md bg-primary text-white text-sm font-medium hover:bg-secondary transition-colors"
           >
             <Plus className="w-4 h-4" />
             New Payroll
@@ -41,7 +41,7 @@ export default async function PayrollPage({ searchParams }: { searchParams: Prom
           icon={<Banknote className="w-8 h-8" />}
           title="No payroll records found"
           description="Start managing employee salaries."
-          action={<Link href="/admin/payroll/new" className="h-10 px-4 inline-flex items-center justify-center rounded-md bg-[#2E1F38] text-white text-sm font-medium">Create Payroll</Link>}
+          action={<Link href="/admin/payroll/new" className="h-10 px-4 inline-flex items-center justify-center rounded-md bg-primary text-white text-sm font-medium">Create Payroll</Link>}
         />
       ) : (
         <div className="rounded-lg border border-neutral-200 bg-white shadow-sm overflow-hidden">

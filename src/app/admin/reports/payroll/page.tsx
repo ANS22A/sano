@@ -70,7 +70,7 @@ export default async function PayrollReportPage({
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-lg font-bold text-[#2a2118] mb-4">{t.ownerDashboard?.salariesPaidTitle || 'Salaries Paid'}</h2>
+        <h2 className="text-lg font-bold text-foreground mb-4">{t.ownerDashboard?.salariesPaidTitle || 'Salaries Paid'}</h2>
         <ReportTable 
           data={salaries || []}
           columns={salaryColumns}
@@ -83,7 +83,7 @@ export default async function PayrollReportPage({
       </div>
 
       <div>
-        <h2 className="text-lg font-bold text-[#2a2118] mb-4">{t.ownerDashboard?.partnerWithdrawalsTitle || 'Partner Withdrawals (Capital Distributions)'}</h2>
+        <h2 className="text-lg font-bold text-foreground mb-4">{t.ownerDashboard?.partnerWithdrawalsTitle || 'Partner Withdrawals (Capital Distributions)'}</h2>
         <p className="text-sm text-[#9a8a7a] mb-4">{t.ownerDashboard?.partnerWithdrawalsNote || 'Note: Partner withdrawals are equity distributions and are not classified as operating expenses.'}</p>
         <ReportTable 
           data={withdrawals || []}

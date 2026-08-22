@@ -1,30 +1,22 @@
 /* =============================================================================
    SANO LUNA — GLOBAL STYLES & DESIGN TOKEN SYSTEM
    
-   Design Philosophy: Quiet Luxury
-   Style: Minimalism × Editorial with warm stone tones
+   Design Philosophy: Quiet Luxury, Feminine, Soft, Elegant
+   Style: Minimalism × Editorial with Deep Purple and Gold accents
    
    Font System:
-   - English Display/Headings: Cormorant Garamond
-   - English Body/UI: DM Sans
-   - Arabic Headings: Noto Naskh Arabic
-   - Arabic Body/UI: Noto Sans Arabic
+   - English Display/Headings: Cinzel
+   - English Body/UI: Montserrat
+   - Arabic Headings: Cairo
+   - Arabic Body/UI: Tajawal
    ============================================================================= */
-
-/* --------------------------------------------------------------------------- */
-/* 1. FONT IMPORTS                                                               */
-/* --------------------------------------------------------------------------- */
-
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&family=Tajawal:wght@300;400;500;700&family=Cairo:wght@300;400;500;600;700&display=swap');
 
 @import "tailwindcss";
 @import "tw-animate-css";
 
 /* --------------------------------------------------------------------------- */
-/* 2. TAILWIND V4 THEME TOKENS                                                  */
+/* TAILWIND V4 THEME TOKENS                                                  */
 /* --------------------------------------------------------------------------- */
-
-@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   /* === COLORS === */
@@ -47,7 +39,7 @@
   --color-secondary-hover:     var(--secondary-hover);
   --color-secondary-foreground: var(--secondary-foreground);
 
-  --color-accent:              #D4AF37;
+  --color-accent:              var(--accent);
   --color-accent-foreground:   var(--accent-foreground);
   --color-accent-subtle:       var(--accent-subtle);
 
@@ -103,10 +95,10 @@
 
   /* === SHADOWS === */
   --shadow-none:     none;
-  --shadow-subtle:   0 1px 3px 0 rgb(26 23 20 / 0.04), 0 1px 2px -1px rgb(26 23 20 / 0.04);
-  --shadow-medium:   0 4px 16px -2px rgb(26 23 20 / 0.08), 0 2px 8px -2px rgb(26 23 20 / 0.04);
-  --shadow-elevated: 0 12px 40px -4px rgb(26 23 20 / 0.12), 0 4px 16px -4px rgb(26 23 20 / 0.06);
-  --shadow-luxury:   0 24px 64px -8px rgb(26 23 20 / 0.16);
+  --shadow-subtle:   0 1px 3px 0 rgb(46 31 56 / 0.04), 0 1px 2px -1px rgb(46 31 56 / 0.04);
+  --shadow-medium:   0 4px 16px -2px rgb(46 31 56 / 0.08), 0 2px 8px -2px rgb(46 31 56 / 0.04);
+  --shadow-elevated: 0 12px 40px -4px rgb(46 31 56 / 0.12), 0 4px 16px -4px rgb(46 31 56 / 0.06);
+  --shadow-luxury:   0 24px 64px -8px rgb(46 31 56 / 0.16);
 
   /* === SPACING === */
   --spacing-0:   0;
@@ -153,53 +145,53 @@
 }
 
 /* --------------------------------------------------------------------------- */
-/* 3. LIGHT MODE COLOR TOKENS — "Warm Ivory Stone"                              */
+/* LIGHT MODE COLOR TOKENS — "SANO LUNA Luxury Palette"                        */
 /* --------------------------------------------------------------------------- */
 
 :root {
   /* Background layers */
-  --background:       #FAF9F7;    /* Warm ivory — primary background */
-  --surface:          #F5F2EE;    /* Soft stone — card surfaces */
-  --surface-elevated: #FFFFFF;    /* Pure white — elevated elements */
-  --surface-muted:    #F0EDE8;    /* Stone muted — subtle backgrounds */
+  --background:       #FFFFFF;    /* Clean white for maximum lightness */
+  --surface:          #FAF7F4;    /* Warm white for subtle contrast */
+  --surface-elevated: #FFFFFF;    /* Pure white for cards */
+  --surface-muted:    #E7DBEC;    /* Very Light Lilac for soft sections */
 
   /* Text */
-  --foreground:       #1A1714;    /* Deep warm charcoal */
-  --foreground-secondary: #6F4E7C; /* Secondary text */
+  --foreground:       #2E1F38;    /* Deep Royal Purple for readability */
+  --foreground-secondary: #6F4E7C; /* Mauve Purple for secondary text */
 
   /* Cards / Popover */
   --card:             #FFFFFF;
-  --card-foreground:  #1A1714;
+  --card-foreground:  #2E1F38;
   --popover:          #FFFFFF;
-  --popover-foreground: #1A1714;
+  --popover-foreground: #2E1F38;
 
-  /* Brand Primary — Warm Taupe */
-  --primary:          #6B5E52;    /* Warm taupe — main CTA, links */
-  --primary-hover:    #5A4F45;    /* Darker hover */
+  /* Brand Primary — Deep Royal Purple */
+  --primary:          #2E1F38;    
+  --primary-hover:    #6F4E7C;    /* Mauve on hover */
   --primary-foreground: #FFFFFF;  /* White on primary */
 
-  /* Secondary — Stone */
-  --secondary:        #F0EDE8;    /* Light stone — secondary buttons */
-  --secondary-hover:  #E8E4DF;
-  --secondary-foreground: #2E1F38;
+  /* Brand Secondary — Very Light Lilac (used for secondary buttons) */
+  --secondary:        #E7DBEC;    
+  --secondary-hover:  #D6C2D9;    /* Soft Lilac on hover */
+  --secondary-foreground: #2E1F38;/* Deep Purple text */
 
-  /* Accent — Champagne Gold */
-  --accent:           #C9A882;    /* Champagne — highlights, decorations */
+  /* Accent — Warm Gold */
+  --accent:           #D4AF37;    
   --accent-foreground: #2E1F38;
-  --accent-subtle:    #F2EBE1;    /* Barely-there accent tint */
+  --accent-subtle:    #F7F3E8;    /* Very faint gold tint for subtle highlights */
 
   /* Muted */
-  --muted:            #EDE9E4;
-  --muted-foreground: #6F4E7C;   /* Warm stone grey */
+  --muted:            #E7DBEC;    /* Very Light Lilac */
+  --muted-foreground: #6F4E7C;    /* Mauve */
 
   /* Borders */
-  --border:           #E8E4DF;    /* Standard border */
-  --border-subtle:    #F0EDE8;    /* Barely visible */
-  --border-strong:    #C8C3BC;    /* Visible dividers */
+  --border:           #D6C2D9;    /* Soft Lilac */
+  --border-subtle:    #E7DBEC;    /* Very Light Lilac */
+  --border-strong:    #A98FB8;    /* Lavender */
 
   /* Form inputs */
-  --input:            #EDE9E4;
-  --ring:             #6B5E52;    /* Focus ring = primary */
+  --input:            #FFFFFF;
+  --ring:             #6F4E7C;    /* Focus ring = Mauve */
 
   /* Semantic */
   --success:          #4A7C59;
@@ -212,27 +204,27 @@
   --info-foreground:  #FFFFFF;
 
   /* Sidebar */
-  --sidebar:          #F5F2EE;
-  --sidebar-foreground: #1A1714;
-  --sidebar-primary:  #6B5E52;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent:   #EDE9E4;
-  --sidebar-accent-foreground: #1A1714;
-  --sidebar-border:   #E8E4DF;
-  --sidebar-ring:     #6B5E52;
+  --sidebar:          #2E1F38;    /* Deep Royal Purple admin sidebar */
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary:  #D4AF37;    /* Gold active indicator */
+  --sidebar-primary-foreground: #2E1F38;
+  --sidebar-accent:   #6F4E7C;    /* Mauve hover */
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border:   #6F4E7C;
+  --sidebar-ring:     #D4AF37;
 
   /* Font families */
-  --font-display-en:  'Cormorant Garamond', 'Georgia', serif;
-  --font-body-en:     'DM Sans', 'system-ui', sans-serif;
-  --font-display-ar:  'Noto Naskh Arabic', 'serif';
-  --font-body-ar:     'Noto Sans Arabic', 'sans-serif';
+  --font-display-en:  'Cinzel', 'Georgia', serif;
+  --font-body-en:     'Montserrat', 'system-ui', sans-serif;
+  --font-display-ar:  'Cairo', 'sans-serif';
+  --font-body-ar:     'Tajawal', 'sans-serif';
 
   /* Navigation tokens */
   --nav-height-desktop: 80px;
   --nav-height-mobile:  64px;
   --nav-border:         var(--border-subtle);
-  --nav-bg:             rgba(250, 249, 247, 0.92);
-  --nav-bg-scrolled:    rgba(250, 249, 247, 0.98);
+  --nav-bg:             rgba(255, 255, 255, 0.95);
+  --nav-bg-scrolled:    rgba(255, 255, 255, 0.98);
 
   /* Section padding */
   --section-padding-y-desktop: 120px;
@@ -240,57 +232,23 @@
   --section-padding-y-mobile:  60px;
 
   /* Modal */
-  --modal-overlay:    rgba(26, 23, 20, 0.55);
+  --modal-overlay:    rgba(46, 31, 56, 0.6);
   --modal-radius:     var(--radius-xl);
   --modal-shadow:     var(--shadow-luxury);
 }
 
 /* --------------------------------------------------------------------------- */
-/* 4. DARK MODE TOKENS                                                          */
+/* DARK MODE TOKENS - DISABLED ENFORCEMENT                                     */
+/* SANO LUNA is primarily a light luxury aesthetic. Dark mode is mapped back   */
+/* to light tokens to prevent arbitrary Tailwind dark color overrides.         */
 /* --------------------------------------------------------------------------- */
 
 .dark {
-  --background:       #16130F;
-  --surface:          #1E1B17;
-  --surface-elevated: #28241F;
-  --surface-muted:    #221F1B;
-
-  --foreground:       #F5F2EE;
-  --foreground-secondary: #C8C3BC;
-
-  --card:             #1E1B17;
-  --card-foreground:  #F5F2EE;
-  --popover:          #28241F;
-  --popover-foreground: #F5F2EE;
-
-  --primary:          #C9A882;
-  --primary-hover:    #D4B896;
-  --primary-foreground: #16130F;
-
-  --secondary:        #2D2925;
-  --secondary-hover:  #38332E;
-  --secondary-foreground: #F5F2EE;
-
-  --accent:           #C9A882;
-  --accent-foreground: #16130F;
-  --accent-subtle:    #2D2622;
-
-  --muted:            #2D2925;
-  --muted-foreground: #8C857D;
-
-  --border:           #38332E;
-  --border-subtle:    #2D2925;
-  --border-strong:    #504945;
-
-  --input:            #2D2925;
-  --ring:             #C9A882;
-
-  --nav-bg:           rgba(22, 19, 15, 0.92);
-  --nav-bg-scrolled:  rgba(22, 19, 15, 0.98);
+  /* Force dark mode to inherit root light mode styles to maintain brand purity */
 }
 
 /* --------------------------------------------------------------------------- */
-/* 5. BASE STYLES                                                                */
+/* BASE STYLES                                                                 */
 /* --------------------------------------------------------------------------- */
 
 @layer base {
@@ -375,26 +333,26 @@
 }
 
 /* --------------------------------------------------------------------------- */
-/* 6. TYPOGRAPHY SCALE                                                           */
+/* TYPOGRAPHY SCALE                                                            */
 /* --------------------------------------------------------------------------- */
 
 @layer base {
   /* Display XL — Hero headline */
   .text-display-xl {
     font-family: var(--font-display-en);
-    font-size: clamp(3rem, 7vw, 6rem);
+    font-size: clamp(3rem, 7vw, 5.5rem);
     font-weight: 400;
-    line-height: 1.05;
-    letter-spacing: -0.025em;
+    line-height: 1.1;
+    letter-spacing: 0;
   }
 
   /* Display — Large section titles */
   .text-display {
     font-family: var(--font-display-en);
-    font-size: clamp(2.25rem, 5vw, 4rem);
-    font-weight: 400;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: 0;
   }
 
   /* H1 */
@@ -403,32 +361,32 @@
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 500;
     line-height: 1.15;
-    letter-spacing: -0.015em;
+    letter-spacing: 0;
   }
 
   /* H2 */
   .text-h2 {
     font-family: var(--font-display-en);
     font-size: clamp(1.625rem, 3vw, 2.25rem);
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.2;
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
   }
 
   /* H3 */
   .text-h3 {
     font-family: var(--font-display-en);
     font-size: clamp(1.375rem, 2.5vw, 1.75rem);
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.3;
-    letter-spacing: -0.005em;
+    letter-spacing: 0;
   }
 
   /* H4 */
   .text-h4 {
     font-family: var(--font-display-en);
     font-size: 1.25rem;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.4;
     letter-spacing: 0;
   }
@@ -470,7 +428,7 @@
   .text-label {
     font-family: var(--font-body-en);
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.4;
     letter-spacing: 0.01em;
   }
@@ -488,7 +446,7 @@
   .text-nav {
     font-family: var(--font-body-en);
     font-size: 0.875rem;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -498,16 +456,16 @@
   .text-price {
     font-family: var(--font-display-en);
     font-size: 1.5rem;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.2;
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
   }
 
   /* Overline — category labels, section labels */
   .text-overline {
     font-family: var(--font-body-en);
     font-size: 0.6875rem;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -575,7 +533,7 @@
 }
 
 /* --------------------------------------------------------------------------- */
-/* 7. COMPONENT UTILITIES                                                        */
+/* COMPONENT UTILITIES                                                         */
 /* --------------------------------------------------------------------------- */
 
 @layer utilities {
@@ -626,7 +584,7 @@
     margin-inline: auto;
   }
 
-  /* Overline + divider combo — brand signature */
+  /* Overline + divider combo */
   .overline-group {
     display: flex;
     align-items: center;
@@ -634,7 +592,7 @@
     margin-bottom: 1.5rem;
   }
 
-  /* Image reveal mask — brand signature */
+  /* Image reveal mask */
   .img-reveal-mask {
     overflow: hidden;
     position: relative;
@@ -694,7 +652,7 @@
     display: none;
   }
 
-  /* Brand accent line — signature decorative element */
+  /* Brand accent line */
   .brand-line::before {
     content: '';
     display: block;
@@ -713,8 +671,8 @@
   .overlay-warm {
     background: linear-gradient(
       to top,
-      rgba(26, 23, 20, 0.7) 0%,
-      rgba(26, 23, 20, 0.3) 50%,
+      rgba(46, 31, 56, 0.7) 0%,
+      rgba(46, 31, 56, 0.3) 50%,
       transparent 100%
     );
   }
@@ -722,15 +680,15 @@
   .overlay-light {
     background: linear-gradient(
       to top,
-      rgba(250, 249, 247, 0.9) 0%,
-      rgba(250, 249, 247, 0.4) 60%,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 255, 255, 0.4) 60%,
       transparent 100%
     );
   }
 }
 
 /* --------------------------------------------------------------------------- */
-/* 8. BUTTON SYSTEM                                                              */
+/* BUTTON SYSTEM                                                               */
 /* --------------------------------------------------------------------------- */
 
 @layer components {
@@ -811,7 +769,7 @@
   .btn-secondary {
     background-color: var(--secondary);
     color: var(--secondary-foreground);
-    border-color: var(--border);
+    border-color: var(--border-subtle);
   }
   .btn-secondary:hover:not(:disabled) {
     background-color: var(--secondary-hover);
@@ -824,7 +782,7 @@
     border-color: var(--primary);
   }
   .btn-outline:hover:not(:disabled) {
-    background-color: var(--accent-subtle);
+    background-color: var(--surface-muted);
   }
 
   /* Ghost */
@@ -838,12 +796,12 @@
     color: var(--foreground);
   }
 
-  /* Accent / Booking CTA */
+  /* Accent / Premium */
   .btn-accent {
     background-color: var(--accent);
     color: var(--foreground);
     border-color: var(--accent);
-    font-weight: 500;
+    font-weight: 600;
   }
   .btn-accent:hover:not(:disabled) {
     background-color: var(--primary);
@@ -861,14 +819,14 @@
   .btn-icon.btn-md  { width: 44px; }
   .btn-icon.btn-lg  { width: 52px; }
 
-  /* Arrow link — editorial signature */
+  /* Arrow link */
   .link-arrow {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     font-family: var(--font-body-en);
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--foreground);
@@ -889,7 +847,7 @@
     transform: translateX(-4px);
   }
   .link-arrow:hover {
-    color: var(--primary);
+    color: var(--primary-hover);
   }
 
   :lang(ar) .link-arrow, [dir="rtl"] .link-arrow {
@@ -900,7 +858,7 @@
 }
 
 /* --------------------------------------------------------------------------- */
-/* 9. FORM SYSTEM                                                                */
+/* FORM SYSTEM                                                                 */
 /* --------------------------------------------------------------------------- */
 
 @layer components {
@@ -908,7 +866,7 @@
     width: 100%;
     height: 48px;
     padding-inline: 1rem;
-    background-color: var(--surface-elevated);
+    background-color: var(--surface);
     color: var(--foreground);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
@@ -935,8 +893,8 @@
   }
 
   .form-input:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(107, 94, 82, 0.12);
+    border-color: var(--ring);
+    box-shadow: 0 0 0 3px rgba(111, 78, 124, 0.12); /* Mauve halo */
   }
 
   .form-input.error {
@@ -965,7 +923,7 @@
     display: block;
     font-family: var(--font-body-en);
     font-size: 0.8125rem;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--foreground);
@@ -1002,21 +960,21 @@
 }
 
 /* --------------------------------------------------------------------------- */
-/* 10. CARD SYSTEM                                                               */
+/* CARD SYSTEM                                                                 */
 /* --------------------------------------------------------------------------- */
 
 @layer components {
   /* Base card */
   .card-sl {
-    background-color: var(--surface-elevated);
-    border: 1px solid var(--border);
+    background-color: var(--card);
+    border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
     overflow: hidden;
   }
 
   /* Service card */
   .card-service {
-    background-color: var(--surface-elevated);
+    background-color: var(--card);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
     overflow: hidden;
@@ -1026,7 +984,7 @@
       transform var(--duration-normal) var(--ease-luxury);
   }
   .card-service:hover {
-    border-color: var(--accent);
+    border-color: var(--border-strong);
     box-shadow: var(--shadow-medium);
     transform: translateY(-3px);
   }
@@ -1045,7 +1003,7 @@
     padding: 2rem;
   }
 
-  /* Feature card — editorial */
+  /* Feature card */
   .card-feature {
     background-color: transparent;
     border-block-end: 1px solid var(--border);
@@ -1069,9 +1027,9 @@
     transform: scale(1.06);
   }
 
-  /* Package card — highlighted */
+  /* Package card */
   .card-package {
-    background-color: var(--surface-elevated);
+    background-color: var(--card);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     overflow: hidden;
@@ -1090,7 +1048,7 @@
 }
 
 /* --------------------------------------------------------------------------- */
-/* 11. BADGE SYSTEM                                                              */
+/* BADGE SYSTEM                                                                */
 /* --------------------------------------------------------------------------- */
 
 @layer components {
@@ -1102,7 +1060,7 @@
     border-radius: var(--radius-pill);
     font-family: var(--font-body-en);
     font-size: 0.6875rem;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     line-height: 1;
@@ -1155,7 +1113,7 @@
 }
 
 /* --------------------------------------------------------------------------- */
-/* 12. MODAL / OVERLAY SYSTEM                                                    */
+/* MODAL / OVERLAY SYSTEM                                                      */
 /* --------------------------------------------------------------------------- */
 
 @layer components {
@@ -1168,7 +1126,7 @@
   }
 
   .modal-content {
-    background-color: var(--surface-elevated);
+    background-color: var(--card);
     border-radius: var(--modal-radius);
     box-shadow: var(--modal-shadow);
     border: 1px solid var(--border-subtle);
@@ -1185,7 +1143,7 @@
 }
 
 /* --------------------------------------------------------------------------- */
-/* 13. SECTION SYSTEM                                                            */
+/* SECTION SYSTEM                                                              */
 /* --------------------------------------------------------------------------- */
 
 @layer components {
@@ -1201,12 +1159,12 @@
 
   /* Dark section */
   .section-dark {
-    background-color: var(--foreground);
-    color: var(--background);
+    background-color: var(--primary);
+    color: var(--primary-foreground);
     padding-block: clamp(5rem, 10vw, 10rem);
   }
   .section-dark .text-muted {
-    color: rgba(245, 242, 238, 0.6);
+    color: var(--surface-muted);
   }
 
   /* Full bleed — no container */
@@ -1225,11 +1183,11 @@
 }
 
 /* --------------------------------------------------------------------------- */
-/* 14. LOADING STATES                                                            */
+/* LOADING STATES                                                              */
 /* --------------------------------------------------------------------------- */
 
 @layer components {
-  /* Skeleton loader — warm stone pulse */
+  /* Skeleton loader */
   .skeleton {
     background: linear-gradient(
       90deg,
@@ -1274,7 +1232,7 @@
     background: linear-gradient(
       90deg,
       transparent 0%,
-      rgba(255,255,255,0.15) 50%,
+      rgba(255,255,255,0.2) 50%,
       transparent 100%
     );
     background-size: 200% 100%;
@@ -1288,22 +1246,18 @@
 }
 
 /* --------------------------------------------------------------------------- */
-/* 15. SCROLL REVEAL UTILITIES (paired with Framer Motion)                      */
+/* SCROLL REVEAL UTILITIES                                                     */
 /* --------------------------------------------------------------------------- */
 
 @layer utilities {
-  /* Initial hidden state — JS hydrates and animates */
   .reveal-initial {
     opacity: 0;
     transform: translateY(16px);
   }
-
-  /* When JS is disabled, show everything */
   .no-js .reveal-initial {
     opacity: 1;
     transform: none;
   }
-
   @media (prefers-reduced-motion: reduce) {
     .reveal-initial {
       opacity: 1;
@@ -1313,7 +1267,7 @@
 }
 
 /* --------------------------------------------------------------------------- */
-/* 16. SHADCN/UI OVERRIDES — Match SANO LUNA visual identity                    */
+/* SHADCN/UI OVERRIDES — Match SANO LUNA visual identity                       */
 /* --------------------------------------------------------------------------- */
 
 @layer components {
@@ -1339,8 +1293,8 @@
     font-family: var(--font-body-en) !important;
   }
   [class*="Input"]:focus {
-    border-color: var(--primary) !important;
-    box-shadow: 0 0 0 3px rgba(107, 94, 82, 0.12) !important;
+    border-color: var(--ring) !important;
+    box-shadow: 0 0 0 3px rgba(111, 78, 124, 0.12) !important;
   }
 
   /* Override badge */
@@ -1353,151 +1307,116 @@
 }
 
 /* =============================================================================
-   PHASE 4 — HOMEPAGE UTILITY ALIASES
-   Shorthand classes used across homepage section components.
-   All values derived from existing design system tokens.
+   HOMEPAGE UTILITY ALIASES
    ============================================================================= */
 
-/* ─── Sand color scale (referenced as var(--color-sand-*)) ─── */
 :root {
-  --color-sand-50:  rgba(231, 219, 236, 0.8);
-  --color-sand-100: #E7DBEC;  /* = --surface */
-  --color-sand-200: #D6C2D9;  /* = --muted */
-  --color-sand-300: #D4AF37;  /* = --accent */
-  --color-sand-400: #A98FB8;  /* slightly darker accent */
-  --color-sand-500: #6F4E7C;  /* warm mid-tone */
-  --color-sand-600: #6F4E7C;  /* muted warm brown */
-  --color-sand-700: #2E1F38;  /* = --primary */
-  --color-sand-800: #2E1F38;  /* deep warm */
-  --color-sand-900: #2E1F38;  /* = charcoal = --foreground */
-
-  /* Surface warm — slightly elevated warm ivory */
-  --color-surface-warm: #E7DBEC;
+  /* Surface warm — mapping back to our brand */
+  --color-surface-warm: #FAF7F4;
 
   /* Text muted alias */
-  --color-text-muted: #6F4E7C;  /* = --muted-foreground */
+  --color-text-muted: #6F4E7C;  /* Mauve Purple */
 
   /* Accent shorthand */
-  --color-accent: #D4AF37;      /* = --accent */
+  --color-accent: #D4AF37;      /* Warm Gold */
 }
 
 @layer utilities {
-  /* ─── Section — full section wrapper with responsive padding ─── */
   .section-sl {
     padding-block: clamp(3.75rem, 8vw, 7.5rem);
   }
-
   .section-sl-sm {
     padding-block: clamp(2.5rem, 5vw, 4rem);
   }
-
   .section-sl-lg {
     padding-block: clamp(5rem, 10vw, 10rem);
   }
 
-  /* ─── Heading aliases — map to existing text-display/text-h* ─── */
+  /* Heading aliases */
   .heading-sl-xl {
     font-family: var(--font-display-en);
     font-size: clamp(3rem, 7vw, 6rem);
-    font-weight: 300;
-    line-height: 1.05;
-    letter-spacing: -0.025em;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: 0;
     color: var(--foreground);
   }
-  :lang(ar) .heading-sl-xl,
-  [dir="rtl"] .heading-sl-xl {
+  :lang(ar) .heading-sl-xl, [dir="rtl"] .heading-sl-xl {
     font-family: var(--font-display-ar);
-    letter-spacing: 0;
   }
 
   .heading-sl-lg {
     font-family: var(--font-display-en);
     font-size: clamp(2rem, 4vw, 3.25rem);
-    font-weight: 300;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: 0;
     color: var(--foreground);
   }
-  :lang(ar) .heading-sl-lg,
-  [dir="rtl"] .heading-sl-lg {
+  :lang(ar) .heading-sl-lg, [dir="rtl"] .heading-sl-lg {
     font-family: var(--font-display-ar);
-    letter-spacing: 0;
-    font-weight: 400;
+    font-weight: 600;
   }
 
   .heading-sl-md {
     font-family: var(--font-display-en);
     font-size: clamp(1.625rem, 3vw, 2.25rem);
-    font-weight: 400;
+    font-weight: 600;
     line-height: 1.2;
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
     color: var(--foreground);
   }
-  :lang(ar) .heading-sl-md,
-  [dir="rtl"] .heading-sl-md {
+  :lang(ar) .heading-sl-md, [dir="rtl"] .heading-sl-md {
     font-family: var(--font-display-ar);
-    letter-spacing: 0;
   }
 
   .heading-sl-sm {
     font-family: var(--font-display-en);
     font-size: clamp(1.25rem, 2.5vw, 1.625rem);
-    font-weight: 400;
+    font-weight: 600;
     line-height: 1.3;
-    letter-spacing: -0.005em;
+    letter-spacing: 0;
     color: var(--foreground);
   }
-  :lang(ar) .heading-sl-sm,
-  [dir="rtl"] .heading-sl-sm {
+  :lang(ar) .heading-sl-sm, [dir="rtl"] .heading-sl-sm {
     font-family: var(--font-display-ar);
-    letter-spacing: 0;
   }
 
   .heading-sl-xs {
     font-family: var(--font-display-en);
     font-size: 1.125rem;
-    font-weight: 400;
+    font-weight: 600;
     line-height: 1.4;
     color: var(--foreground);
   }
-  :lang(ar) .heading-sl-xs,
-  [dir="rtl"] .heading-sl-xs {
+  :lang(ar) .heading-sl-xs, [dir="rtl"] .heading-sl-xs {
     font-family: var(--font-display-ar);
   }
 
-  /* ─── Overline — small caps label above headings ─── */
+  /* Overline */
   .overline-sl {
     font-family: var(--font-body-en);
-    font-size: 0.6875rem;       /* 11px */
-    font-weight: 500;
+    font-size: 0.6875rem;
+    font-weight: 600;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--color-text-muted);
     display: block;
   }
-  :lang(ar) .overline-sl,
-  [dir="rtl"] .overline-sl {
+  :lang(ar) .overline-sl, [dir="rtl"] .overline-sl {
     font-family: var(--font-body-ar);
     letter-spacing: 0.08em;
+    text-transform: none;
   }
 
-  /* ─── Body text aliases ─── */
+  /* Body text */
   .text-body-muted {
     font-family: var(--font-body-en);
     font-size: 1rem;
     line-height: 1.75;
     color: var(--color-text-muted);
   }
-  :lang(ar) .text-body-muted,
-  [dir="rtl"] .text-body-muted {
+  :lang(ar) .text-body-muted, [dir="rtl"] .text-body-muted {
     font-family: var(--font-body-ar);
   }
-
-  /* ─── Button alias — ensure btn base exists ─── */
-  .btn-md {
-    padding-block: 0.625rem;
-    padding-inline: 1.5rem;
-    font-size: 0.875rem;
-  }
 }
-

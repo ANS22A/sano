@@ -121,7 +121,7 @@ export function SalesListClient({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-[#2a2118] dark:text-[#f8f5f0]">
+          <h1 className="text-2xl font-bold text-foreground dark:text-[#f8f5f0]">
             {isAr ? 'سجل المبيعات والمدفوعات' : 'Sales & Revenue Ledger'}
           </h1>
           <p className="text-sm text-[#7a6b61] dark:text-[#c4b5a5] mt-1">
@@ -133,7 +133,7 @@ export function SalesListClient({
         <div className="flex items-center gap-3">
           <Link
             href="/admin/sales/new"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#6F4E7C] text-white text-sm font-medium hover:bg-[#5D3D6A] transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-secondary text-white text-sm font-medium hover:bg-[#5D3D6A] transition-colors shadow-sm"
           >
             <Plus className="w-4 h-4" />
             {isAr ? 'تسجيل مبيعات / دفعة جديدة' : 'New Direct Sale / Payment'}
@@ -170,12 +170,12 @@ export function SalesListClient({
             <span className="text-xs font-semibold text-[#7a6b61] dark:text-[#c4b5a5] uppercase tracking-wider">
               {isAr ? 'إجمالي المقبوضات' : 'Total Payments Received'}
             </span>
-            <div className="p-2 rounded-lg bg-[#6F4E7C]/10 text-[#6F4E7C] dark:text-[#A98FB8]">
+            <div className="p-2 rounded-lg bg-secondary/10 text-secondary dark:text-[#A98FB8]">
               <ArrowDownLeft className="w-5 h-5" />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-bold text-[#2a2118] dark:text-[#f8f5f0]">
+            <div className="text-2xl font-bold text-foreground dark:text-[#f8f5f0]">
               {totalPayments.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}{' '}
               <span className="text-sm font-normal text-[#7a6b61] dark:text-[#c4b5a5]">SAR</span>
             </div>
@@ -217,7 +217,7 @@ export function SalesListClient({
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-bold text-[#2a2118] dark:text-[#f8f5f0]">
+            <div className="text-2xl font-bold text-foreground dark:text-[#f8f5f0]">
               {total}
             </div>
             <p className="text-xs text-[#7a6b61] dark:text-[#c4b5a5] mt-1">
@@ -244,7 +244,7 @@ export function SalesListClient({
             <select
               value={currentType}
               onChange={(e) => handleFilterChange('type', e.target.value)}
-              className="w-full text-sm rounded-lg border border-[#e8e2d9] dark:border-[#382b42] bg-[#f8f5f0] dark:bg-[#2e1f38] px-3 py-2 text-[#2a2118] dark:text-[#f8f5f0]"
+              className="w-full text-sm rounded-lg border border-[#e8e2d9] dark:border-[#382b42] bg-[#f8f5f0] dark:bg-primary px-3 py-2 text-foreground dark:text-[#f8f5f0]"
             >
               {transactionTypes.map((t) => (
                 <option key={t.value} value={t.value}>
@@ -259,7 +259,7 @@ export function SalesListClient({
             <select
               value={currentPaymentMethod}
               onChange={(e) => handleFilterChange('paymentMethod', e.target.value)}
-              className="w-full text-sm rounded-lg border border-[#e8e2d9] dark:border-[#382b42] bg-[#f8f5f0] dark:bg-[#2e1f38] px-3 py-2 text-[#2a2118] dark:text-[#f8f5f0]"
+              className="w-full text-sm rounded-lg border border-[#e8e2d9] dark:border-[#382b42] bg-[#f8f5f0] dark:bg-primary px-3 py-2 text-foreground dark:text-[#f8f5f0]"
             >
               {paymentMethods.map((m) => (
                 <option key={m.value} value={m.value}>
@@ -274,7 +274,7 @@ export function SalesListClient({
             <select
               value={currentSource}
               onChange={(e) => handleFilterChange('source', e.target.value)}
-              className="w-full text-sm rounded-lg border border-[#e8e2d9] dark:border-[#382b42] bg-[#f8f5f0] dark:bg-[#2e1f38] px-3 py-2 text-[#2a2118] dark:text-[#f8f5f0]"
+              className="w-full text-sm rounded-lg border border-[#e8e2d9] dark:border-[#382b42] bg-[#f8f5f0] dark:bg-primary px-3 py-2 text-foreground dark:text-[#f8f5f0]"
             >
               {sources.map((s) => (
                 <option key={s.value} value={s.value}>
@@ -289,7 +289,7 @@ export function SalesListClient({
             <select
               value={currentStatus}
               onChange={(e) => handleFilterChange('status', e.target.value)}
-              className="w-full text-sm rounded-lg border border-[#e8e2d9] dark:border-[#382b42] bg-[#f8f5f0] dark:bg-[#2e1f38] px-3 py-2 text-[#2a2118] dark:text-[#f8f5f0]"
+              className="w-full text-sm rounded-lg border border-[#e8e2d9] dark:border-[#382b42] bg-[#f8f5f0] dark:bg-primary px-3 py-2 text-foreground dark:text-[#f8f5f0]"
             >
               <option value="all">{isAr ? 'كل الحالات' : 'All Statuses'}</option>
               <option value="completed">{isAr ? 'مكتمل' : 'Completed'}</option>
@@ -304,7 +304,7 @@ export function SalesListClient({
                 type="checkbox"
                 checked={includeArchived}
                 onChange={(e) => handleFilterChange('archived', e.target.checked ? 'true' : '')}
-                className="rounded border-[#e8e2d9] text-[#6F4E7C] focus:ring-[#6F4E7C]"
+                className="rounded border-[#e8e2d9] text-secondary focus:ring-ring"
               />
               {isAr ? 'عرض الملغى / المؤرشف' : 'Show Void/Archived'}
             </label>
@@ -319,7 +319,7 @@ export function SalesListClient({
               type="date"
               value={currentFromDate}
               onChange={(e) => handleFilterChange('fromDate', e.target.value)}
-              className="rounded-lg border border-[#e8e2d9] dark:border-[#382b42] bg-[#f8f5f0] dark:bg-[#2e1f38] px-2.5 py-1 text-[#2a2118] dark:text-[#f8f5f0]"
+              className="rounded-lg border border-[#e8e2d9] dark:border-[#382b42] bg-[#f8f5f0] dark:bg-primary px-2.5 py-1 text-foreground dark:text-[#f8f5f0]"
             />
           </div>
           <div className="flex items-center gap-2">
@@ -328,13 +328,13 @@ export function SalesListClient({
               type="date"
               value={currentToDate}
               onChange={(e) => handleFilterChange('toDate', e.target.value)}
-              className="rounded-lg border border-[#e8e2d9] dark:border-[#382b42] bg-[#f8f5f0] dark:bg-[#2e1f38] px-2.5 py-1 text-[#2a2118] dark:text-[#f8f5f0]"
+              className="rounded-lg border border-[#e8e2d9] dark:border-[#382b42] bg-[#f8f5f0] dark:bg-primary px-2.5 py-1 text-foreground dark:text-[#f8f5f0]"
             />
           </div>
           {(currentFromDate || currentToDate || currentType !== 'all' || currentPaymentMethod !== 'all' || currentSource !== 'all') && (
             <button
               onClick={() => router.push('/admin/sales')}
-              className="text-xs text-[#6F4E7C] dark:text-[#A98FB8] hover:underline font-medium ms-auto"
+              className="text-xs text-secondary dark:text-[#A98FB8] hover:underline font-medium ms-auto"
             >
               {isAr ? 'إعادة تعيين الفلاتر' : 'Reset Filters'}
             </button>
@@ -355,7 +355,7 @@ export function SalesListClient({
           action={
             <Link
               href="/admin/sales/new"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#6F4E7C] text-white text-xs font-semibold hover:bg-[#5D3D6A] transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-secondary text-white text-xs font-semibold hover:bg-[#5D3D6A] transition-colors"
             >
               <Plus className="w-4 h-4" />
               {isAr ? 'تسجيل مبيعات جديدة' : 'Record New Sale'}
@@ -366,7 +366,7 @@ export function SalesListClient({
         <div className="bg-white dark:bg-[#1a141f] border border-[#e8e2d9] dark:border-[#382b42] rounded-xl shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-start text-sm">
-              <thead className="bg-[#f8f5f0] dark:bg-[#2e1f38]/60 text-[#7a6b61] dark:text-[#c4b5a5] border-b border-[#e8e2d9] dark:border-[#382b42]">
+              <thead className="bg-[#f8f5f0] dark:bg-primary/60 text-[#7a6b61] dark:text-[#c4b5a5] border-b border-[#e8e2d9] dark:border-[#382b42]">
                 <tr>
                   <th className="py-3.5 px-4 font-medium text-start">{isAr ? 'المرجع / المعاملة' : 'Ref / Transaction'}</th>
                   <th className="py-3.5 px-4 font-medium text-start">{isAr ? 'المصدر / الحجز' : 'Source / Booking'}</th>
@@ -390,7 +390,7 @@ export function SalesListClient({
                   return (
                     <tr
                       key={sale.id}
-                      className={`hover:bg-[#f8f5f0]/50 dark:hover:bg-[#2e1f38]/30 transition-colors ${
+                      className={`hover:bg-[#f8f5f0]/50 dark:hover:bg-primary/30 transition-colors ${
                         isVoid ? 'opacity-50 bg-neutral-50 dark:bg-neutral-900/40' : ''
                       }`}
                     >
@@ -411,7 +411,7 @@ export function SalesListClient({
                             )}
                             {isRefund ? (isAr ? 'استرجاع' : 'Refund') : (isAr ? 'قبض' : 'Payment')}
                           </span>
-                          <span className="font-mono text-xs font-semibold text-[#2a2118] dark:text-[#f8f5f0]">
+                          <span className="font-mono text-xs font-semibold text-foreground dark:text-[#f8f5f0]">
                             {sale.reference}
                           </span>
                         </div>
@@ -427,7 +427,7 @@ export function SalesListClient({
                         {sale.bookings ? (
                           <Link
                             href={`/admin/bookings/${sale.bookings.id}`}
-                            className="inline-flex items-center gap-1 text-xs font-medium text-[#6F4E7C] dark:text-[#A98FB8] hover:underline"
+                            className="inline-flex items-center gap-1 text-xs font-medium text-secondary dark:text-[#A98FB8] hover:underline"
                           >
                             <Calendar className="w-3 h-3" />
                             <span>{sale.bookings.booking_number}</span>
@@ -450,7 +450,7 @@ export function SalesListClient({
                       <td className="py-3.5 px-4">
                         {sale.customers ? (
                           <div>
-                            <p className="font-medium text-xs text-[#2a2118] dark:text-[#f8f5f0]">
+                            <p className="font-medium text-xs text-foreground dark:text-[#f8f5f0]">
                               {sale.customers.full_name}
                             </p>
                             <p className="text-xs text-[#7a6b61] dark:text-[#c4b5a5]" dir="ltr">
@@ -466,7 +466,7 @@ export function SalesListClient({
 
                       {/* Payment Method */}
                       <td className="py-3.5 px-4">
-                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[#2e1f38]/5 dark:bg-[#2e1f38] text-[#2a2118] dark:text-[#f8f5f0] capitalize">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary/5 dark:bg-primary text-foreground dark:text-[#f8f5f0] capitalize">
                           {sale.payment_method.replace('_', ' ')}
                         </span>
                       </td>
@@ -521,7 +521,7 @@ export function SalesListClient({
 
                       {/* Date & Recorded By */}
                       <td className="py-3.5 px-4 text-xs">
-                        <div className="text-[#2a2118] dark:text-[#f8f5f0]">{dateFormatted}</div>
+                        <div className="text-foreground dark:text-[#f8f5f0]">{dateFormatted}</div>
                         <div className="text-[#7a6b61] dark:text-[#c4b5a5]">
                           {sale.profiles?.full_name || 'System'}
                         </div>

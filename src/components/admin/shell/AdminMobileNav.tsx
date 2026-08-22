@@ -25,7 +25,7 @@ export function AdminMobileNav({ role }: { role: string }) {
 
   return (
     <nav
-      className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-[#e8ddd0] px-2 py-1 safe-area-pb"
+      className="lg:hidden fixed bottom-0 start-0 end-0 z-30 bg-white border-t border-border px-2 py-1 safe-area-pb"
       aria-label="Mobile admin navigation"
     >
       <div className="flex items-center justify-around">
@@ -42,7 +42,7 @@ export function AdminMobileNav({ role }: { role: string }) {
               href={href}
               className={cn(
                 'flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl transition-colors min-w-0',
-                active ? 'text-[#c9a96e]' : 'text-[#9a8a7a] hover:text-[#2a2118]'
+                active ? 'text-accent' : 'text-[#9a8a7a] hover:text-foreground'
               )}
               aria-current={active ? 'page' : undefined}
             >

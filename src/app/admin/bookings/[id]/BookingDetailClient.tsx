@@ -185,13 +185,13 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
         <div className="flex items-center gap-3">
           <Link
             href="/admin/bookings"
-            className="p-2 rounded-xl border border-[#e8ddd0] bg-white text-[#7a6a57] hover:text-[#2a2118] hover:bg-[#faf7f4] transition-colors"
+            className="p-2 rounded-xl border border-border bg-white text-[#7a6a57] hover:text-foreground hover:bg-surface transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-xl font-bold text-[#2a2118]">
+              <h1 className="text-xl font-bold text-foreground">
                 {t.bookings.bookingNumber} {booking.booking_number}
               </h1>
               <AdminBadge
@@ -253,9 +253,9 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
         {['pending', 'confirmed'].includes(currentStatus) && (
           <button
             onClick={() => setIsRescheduling(true)}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium bg-white border border-[#e8ddd0] text-[#2a2118] hover:bg-[#faf7f4] transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium bg-white border border-border text-foreground hover:bg-surface transition-colors"
           >
-            <CalendarDays className="w-4 h-4 text-[#c9a96e]" />
+            <CalendarDays className="w-4 h-4 text-accent" />
             {isAr ? 'إعادة جدولة الحجز' : 'Reschedule Booking'}
           </button>
         )}
@@ -265,9 +265,9 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
         {/* Left 2 Cols: Details, Financials, & Notes */}
         <div className="lg:col-span-2 space-y-6">
           {/* Booking Info Card */}
-          <div className="bg-white rounded-2xl border border-[#e8ddd0] overflow-hidden">
-            <div className="px-6 py-4 border-b border-[#f0e8de] bg-[#faf7f4]">
-              <h2 className="text-sm font-semibold text-[#2a2118]">{isAr ? 'تفاصيل الحجز' : 'Booking Details'}</h2>
+          <div className="bg-white rounded-2xl border border-border overflow-hidden">
+            <div className="px-6 py-4 border-b border-border bg-surface">
+              <h2 className="text-sm font-semibold text-foreground">{isAr ? 'تفاصيل الحجز' : 'Booking Details'}</h2>
             </div>
             <dl className="divide-y divide-[#f0e8de]">
               {[
@@ -291,18 +291,18 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
               ].map(([value, label]) => (
                 <div key={label} className="flex px-6 py-3.5 gap-4">
                   <dt className="text-xs font-medium text-[#9a8a7a] w-32 shrink-0 flex items-center">{label}</dt>
-                  <dd className="text-sm text-[#2a2118] flex-1 font-medium">{value}</dd>
+                  <dd className="text-sm text-foreground flex-1 font-medium">{value}</dd>
                 </div>
               ))}
             </dl>
           </div>
 
           {/* FINANCIAL / PAYMENTS SECTION */}
-          <div className="bg-white rounded-2xl border border-[#e8ddd0] overflow-hidden shadow-sm">
-            <div className="px-6 py-4 border-b border-[#f0e8de] bg-[#faf7f4] flex items-center justify-between">
+          <div className="bg-white rounded-2xl border border-border overflow-hidden shadow-sm">
+            <div className="px-6 py-4 border-b border-border bg-surface flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <CreditCard className="w-4 h-4 text-[#6F4E7C]" />
-                <h2 className="text-sm font-bold text-[#2a2118]">
+                <CreditCard className="w-4 h-4 text-secondary" />
+                <h2 className="text-sm font-bold text-foreground">
                   {isAr ? 'البيانات المالية والمدفوعات' : 'Financial Ledger & Payments'}
                 </h2>
               </div>
@@ -325,7 +325,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                   }&customerName=${encodeURIComponent(
                     booking.customers?.full_name ?? ''
                   )}&amount=${balanceDue}`}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#6F4E7C] text-white hover:bg-[#5D3D6A] text-xs font-medium transition-colors shadow-sm"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary text-white hover:bg-[#5D3D6A] text-xs font-medium transition-colors shadow-sm"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   {isAr ? 'تسجيل دفعة' : 'Record Payment'}
@@ -334,23 +334,23 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
             </div>
 
             {/* Financial Summary KPIs */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-5 bg-[#faf7f4]/40 border-b border-[#f0e8de]">
-              <div className="p-3 bg-white rounded-xl border border-[#e8ddd0]/70">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-5 bg-surface/40 border-b border-border">
+              <div className="p-3 bg-white rounded-xl border border-border/70">
                 <p className="text-xs text-[#9a8a7a] font-medium">{isAr ? 'سعر الحجز' : 'Booking Price'}</p>
-                <p className="text-base font-bold text-[#2a2118] mt-1">{priceSar.toFixed(2)} SAR</p>
+                <p className="text-base font-bold text-foreground mt-1">{priceSar.toFixed(2)} SAR</p>
               </div>
-              <div className="p-3 bg-white rounded-xl border border-[#e8ddd0]/70">
+              <div className="p-3 bg-white rounded-xl border border-border/70">
                 <p className="text-xs text-emerald-600 font-medium">{isAr ? 'إجمالي المقبوض' : 'Total Paid'}</p>
                 <p className="text-base font-bold text-emerald-600 mt-1">+{totalPaid.toFixed(2)} SAR</p>
               </div>
-              <div className="p-3 bg-white rounded-xl border border-[#e8ddd0]/70">
+              <div className="p-3 bg-white rounded-xl border border-border/70">
                 <p className="text-xs text-rose-600 font-medium">{isAr ? 'إجمالي المسترجع' : 'Total Refunded'}</p>
                 <p className="text-base font-bold text-rose-600 mt-1">
                   {totalRefunded > 0 ? `-${totalRefunded.toFixed(2)}` : '0.00'} SAR
                 </p>
               </div>
-              <div className="p-3 bg-white rounded-xl border border-[#e8ddd0]/70">
-                <p className="text-xs text-[#6F4E7C] font-semibold">{isAr ? 'المتبقي للدفع' : 'Balance Due'}</p>
+              <div className="p-3 bg-white rounded-xl border border-border/70">
+                <p className="text-xs text-secondary font-semibold">{isAr ? 'المتبقي للدفع' : 'Balance Due'}</p>
                 <p
                   className={`text-base font-bold mt-1 ${
                     balanceDue > 0 ? 'text-amber-600' : 'text-emerald-600'
@@ -367,20 +367,20 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                 {isAr ? 'سجل المعاملات للحجز' : 'Transaction History'}
               </h3>
               {salesHistory.length === 0 ? (
-                <div className="text-center py-6 border border-dashed border-[#e8ddd0] rounded-xl">
+                <div className="text-center py-6 border border-dashed border-border rounded-xl">
                   <Receipt className="w-8 h-8 text-[#9a8a7a] mx-auto mb-2 opacity-60" />
                   <p className="text-xs font-medium text-[#7a6a57]">
                     {isAr ? 'لم يتم تسجيل أي مدفوعات لهذا الحجز حتى الآن.' : 'No payment transactions recorded for this booking yet.'}
                   </p>
                 </div>
               ) : (
-                <div className="divide-y divide-[#f0e8de] border border-[#e8ddd0] rounded-xl overflow-hidden text-xs">
+                <div className="divide-y divide-[#f0e8de] border border-border rounded-xl overflow-hidden text-xs">
                   {salesHistory.map((s) => {
                     const isRefund = s.type === 'refund'
                     return (
                       <div
                         key={s.id}
-                        className="p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-[#faf7f4] transition-colors"
+                        className="p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-surface transition-colors"
                       >
                         <div className="space-y-1">
                           <div className="flex items-center gap-2">
@@ -398,7 +398,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                               )}
                               {isRefund ? (isAr ? 'استرجاع' : 'Refund') : (isAr ? 'قبض' : 'Payment')}
                             </span>
-                            <span className="font-mono font-medium text-[#2a2118]">{s.reference}</span>
+                            <span className="font-mono font-medium text-foreground">{s.reference}</span>
                             <span className="text-[#9a8a7a]">
                               ({s.payment_method.replace('_', ' ')})
                             </span>
@@ -435,9 +435,9 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
           </div>
 
           {/* Customer Notes */}
-          <div className="bg-white rounded-2xl border border-[#e8ddd0] overflow-hidden">
-            <div className="px-6 py-4 border-b border-[#f0e8de] bg-[#faf7f4]">
-              <h2 className="text-sm font-semibold text-[#2a2118]">Customer Notes</h2>
+          <div className="bg-white rounded-2xl border border-border overflow-hidden">
+            <div className="px-6 py-4 border-b border-border bg-surface">
+              <h2 className="text-sm font-semibold text-foreground">Customer Notes</h2>
             </div>
             <div className="p-6">
               <p className="text-sm text-[#7a6a57] whitespace-pre-wrap leading-relaxed">
@@ -450,15 +450,15 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
         {/* Right Col: Customer & Status Actions */}
         <div className="space-y-6">
           {/* Customer Info Card */}
-          <div className="bg-white rounded-2xl border border-[#e8ddd0] p-6 space-y-4">
-            <h2 className="text-sm font-semibold text-[#2a2118]">Customer</h2>
+          <div className="bg-white rounded-2xl border border-border p-6 space-y-4">
+            <h2 className="text-sm font-semibold text-foreground">Customer</h2>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-[#f5ede0] flex items-center justify-center text-[#c9a96e]">
+                <div className="w-8 h-8 rounded-full bg-[#f5ede0] flex items-center justify-center text-accent">
                   <User className="w-4 h-4" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-[#2a2118] truncate">{cust?.full_name ?? '—'}</p>
+                  <p className="text-sm font-medium text-foreground truncate">{cust?.full_name ?? '—'}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 text-sm text-[#7a6a57]">
@@ -472,7 +472,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
               {cust?.id && (
                 <Link
                   href={`/admin/customers/${cust.id}`}
-                  className="mt-2 inline-flex items-center gap-2 text-xs font-medium text-[#c9a96e] hover:underline"
+                  className="mt-2 inline-flex items-center gap-2 text-xs font-medium text-accent hover:underline"
                 >
                   <FileText className="w-3.5 h-3.5" />
                   View History
@@ -482,8 +482,8 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
           </div>
 
           {/* Status Actions */}
-          <div className="bg-white rounded-2xl border border-[#e8ddd0] p-6 space-y-4">
-            <h2 className="text-sm font-semibold text-[#2a2118]">Status Actions</h2>
+          <div className="bg-white rounded-2xl border border-border p-6 space-y-4">
+            <h2 className="text-sm font-semibold text-foreground">Status Actions</h2>
             <div className="flex flex-col gap-2">
               {currentStatus === 'pending' && (
                 <button
@@ -543,7 +543,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
           <div className="mt-4">
             <label className="block text-xs font-medium text-[#7a6a57] mb-1">Reason (optional)</label>
             <textarea
-              className="w-full p-2.5 rounded-lg border border-[#e8ddd0] bg-[#faf7f4] text-sm text-[#2a2118] outline-none focus:border-[#c9a96e]"
+              className="w-full p-2.5 rounded-lg border border-border bg-surface text-sm text-foreground outline-none focus:border-accent"
               rows={3}
               value={cancellationReason}
               onChange={(e) => setCancellationReason(e.target.value)}
@@ -565,11 +565,11 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
 
       {/* Reschedule Modal */}
       {isRescheduling && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2a2118]/40 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-primary/40 backdrop-blur-sm">
           <div className="bg-white w-full max-w-lg rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
-            <div className="px-6 py-4 border-b border-[#f0e8de] flex items-center justify-between">
-              <h3 className="text-base font-bold text-[#2a2118]">Reschedule Booking</h3>
-              <button onClick={() => setIsRescheduling(false)} className="text-[#9a8a7a] hover:text-[#2a2118]">
+            <div className="px-6 py-4 border-b border-border flex items-center justify-between">
+              <h3 className="text-base font-bold text-foreground">Reschedule Booking</h3>
+              <button onClick={() => setIsRescheduling(false)} className="text-[#9a8a7a] hover:text-foreground">
                 ✕
               </button>
             </div>
@@ -582,10 +582,10 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
               )}
 
               <div>
-                <label className="block text-sm font-medium text-[#2a2118] mb-2">Select New Date</label>
+                <label className="block text-sm font-medium text-foreground mb-2">Select New Date</label>
                 <input
                   type="date"
-                  className="w-full p-2.5 rounded-xl border border-[#e8ddd0] text-[#2a2118] outline-none focus:border-[#c9a96e]"
+                  className="w-full p-2.5 rounded-xl border border-border text-foreground outline-none focus:border-accent"
                   value={rescheduleDate}
                   min={new Date().toISOString().slice(0, 10)}
                   onChange={(e) => setRescheduleDate(e.target.value)}
@@ -593,7 +593,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-[#2a2118] mb-2">Available Slots</label>
+                <label className="block text-sm font-medium text-foreground mb-2">Available Slots</label>
                 {isLoadingSlots ? (
                   <p className="text-sm text-[#9a8a7a] py-4 text-center">Loading slots...</p>
                 ) : rescheduleSlots.length === 0 ? (
@@ -609,8 +609,8 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                           !slot.available
                             ? 'opacity-40 bg-[#f5ede0] text-[#9a8a7a] cursor-not-allowed border-transparent'
                             : rescheduleSlot === slot.startTime
-                            ? 'bg-[#c9a96e] text-white border-[#c9a96e] shadow-sm'
-                            : 'bg-white text-[#2a2118] border-[#e8ddd0] hover:border-[#c9a96e] hover:bg-[#faf7f4]'
+                            ? 'bg-accent text-white border-accent shadow-sm'
+                            : 'bg-white text-foreground border-border hover:border-accent hover:bg-surface'
                         }`}
                       >
                         {slot.startTime}
@@ -621,10 +621,10 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
               </div>
             </div>
 
-            <div className="px-6 py-4 border-t border-[#f0e8de] flex justify-end gap-3 bg-[#faf7f4]">
+            <div className="px-6 py-4 border-t border-border flex justify-end gap-3 bg-surface">
               <button
                 onClick={() => setIsRescheduling(false)}
-                className="px-4 py-2 rounded-xl text-sm font-medium text-[#7a6a57] hover:bg-white hover:text-[#2a2118] transition-colors border border-transparent hover:border-[#e8ddd0]"
+                className="px-4 py-2 rounded-xl text-sm font-medium text-[#7a6a57] hover:bg-white hover:text-foreground transition-colors border border-transparent hover:border-border"
                 disabled={isPending}
               >
                 Cancel
@@ -632,7 +632,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
               <button
                 onClick={doReschedule}
                 disabled={!rescheduleSlot || isPending}
-                className="px-6 py-2 rounded-xl text-sm font-medium bg-[#2a2118] text-white hover:bg-[#1a1412] transition-colors disabled:opacity-50"
+                className="px-6 py-2 rounded-xl text-sm font-medium bg-primary text-white hover:bg-[#1a1412] transition-colors disabled:opacity-50"
               >
                 {isPending ? 'Saving...' : 'Confirm Reschedule'}
               </button>
@@ -643,13 +643,13 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
 
       {/* Refund Modal */}
       {isRefunding && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2a2118]/40 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-primary/40 backdrop-blur-sm">
           <div className="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden flex flex-col">
-            <div className="px-6 py-4 border-b border-[#f0e8de] flex items-center justify-between">
-              <h3 className="text-base font-bold text-[#2a2118]">
+            <div className="px-6 py-4 border-b border-border flex items-center justify-between">
+              <h3 className="text-base font-bold text-foreground">
                 {isAr ? 'إصدار استرجاع مالي' : 'Issue Refund'}
               </h3>
-              <button onClick={() => setIsRefunding(false)} className="text-[#9a8a7a] hover:text-[#2a2118]">
+              <button onClick={() => setIsRefunding(false)} className="text-[#9a8a7a] hover:text-foreground">
                 ✕
               </button>
             </div>
@@ -668,12 +668,12 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                 </div>
                 <div className="flex justify-between text-[#7a6a57]">
                   <span>{isAr ? 'أقصى حد للاسترجاع:' : 'Max Refundable:'}</span>
-                  <span className="font-bold text-[#2a2118]">{netPaid.toFixed(2)} SAR</span>
+                  <span className="font-bold text-foreground">{netPaid.toFixed(2)} SAR</span>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#2a2118] mb-1">
+                <label className="block text-xs font-medium text-foreground mb-1">
                   {isAr ? 'مبلغ الاسترجاع (ر.س) *' : 'Refund Amount (SAR) *'}
                 </label>
                 <input
@@ -684,18 +684,18 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                   required
                   value={refundAmount}
                   onChange={(e) => setRefundAmount(e.target.value)}
-                  className="w-full text-sm rounded-xl border border-[#e8ddd0] bg-[#faf7f4] px-3 py-2 text-[#2a2118] outline-none focus:border-[#6F4E7C]"
+                  className="w-full text-sm rounded-xl border border-border bg-surface px-3 py-2 text-foreground outline-none focus:border-secondary"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#2a2118] mb-1">
+                <label className="block text-xs font-medium text-foreground mb-1">
                   {isAr ? 'طريقة إعادة المبلغ *' : 'Refund Method *'}
                 </label>
                 <select
                   value={refundMethod}
                   onChange={(e) => setRefundMethod(e.target.value)}
-                  className="w-full text-sm rounded-xl border border-[#e8ddd0] bg-[#faf7f4] px-3 py-2 text-[#2a2118] outline-none focus:border-[#6F4E7C]"
+                  className="w-full text-sm rounded-xl border border-border bg-surface px-3 py-2 text-foreground outline-none focus:border-secondary"
                 >
                   <option value="mada">{isAr ? 'مدى' : 'Mada'}</option>
                   <option value="credit_card">{isAr ? 'بطاقة ائتمانية' : 'Credit Card'}</option>
@@ -708,7 +708,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#2a2118] mb-1">
+                <label className="block text-xs font-medium text-foreground mb-1">
                   {isAr ? 'سبب الاسترجاع *' : 'Refund Reason *'}
                 </label>
                 <textarea
@@ -721,15 +721,15 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                       ? 'سبب إصدار الاسترجاع للعميل…'
                       : 'Reason for issuing refund to customer…'
                   }
-                  className="w-full text-sm rounded-xl border border-[#e8ddd0] bg-[#faf7f4] px-3 py-2 text-[#2a2118] outline-none focus:border-[#6F4E7C]"
+                  className="w-full text-sm rounded-xl border border-border bg-surface px-3 py-2 text-foreground outline-none focus:border-secondary"
                 />
               </div>
 
-              <div className="flex justify-end gap-2 pt-3 border-t border-[#f0e8de]">
+              <div className="flex justify-end gap-2 pt-3 border-t border-border">
                 <button
                   type="button"
                   onClick={() => setIsRefunding(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-medium text-[#7a6a57] hover:bg-[#faf7f4]"
+                  className="px-4 py-2 rounded-xl text-xs font-medium text-[#7a6a57] hover:bg-surface"
                 >
                   {isAr ? 'إلغاء' : 'Cancel'}
                 </button>

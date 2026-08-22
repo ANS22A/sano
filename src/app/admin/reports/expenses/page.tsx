@@ -70,7 +70,7 @@ export default async function ExpensesReportPage({
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-lg font-bold text-[#2a2118] mb-4">{t.ownerDashboard?.operatingExpensesTitle || 'Operating Expenses'}</h2>
+        <h2 className="text-lg font-bold text-foreground mb-4">{t.ownerDashboard?.operatingExpensesTitle || 'Operating Expenses'}</h2>
         <ReportTable 
           data={expenses || []}
           columns={expensesColumns}
@@ -83,7 +83,7 @@ export default async function ExpensesReportPage({
       </div>
 
       <div>
-        <h2 className="text-lg font-bold text-[#2a2118] mb-4">{t.ownerDashboard?.purchasesCogs || 'Purchases (COGS / Inventory)'}</h2>
+        <h2 className="text-lg font-bold text-foreground mb-4">{t.ownerDashboard?.purchasesCogs || 'Purchases (COGS / Inventory)'}</h2>
         <ReportTable 
           data={purchases || []}
           columns={purchasesColumns}

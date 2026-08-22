@@ -65,7 +65,7 @@ export function AdminImageUpload({ entityId, imageUrl, onUpload, onRemove, t }: 
       )}
 
       <div className="flex flex-col sm:flex-row gap-6 items-start">
-        <div className="relative w-full sm:w-48 aspect-square bg-[#f9f8f6] rounded-2xl border border-[#e8ddd0] flex items-center justify-center overflow-hidden shrink-0">
+        <div className="relative w-full sm:w-48 aspect-square bg-[#f9f8f6] rounded-2xl border border-border flex items-center justify-center overflow-hidden shrink-0">
           {imageUrl ? (
             <Image
               src={imageUrl}
@@ -81,7 +81,7 @@ export function AdminImageUpload({ entityId, imageUrl, onUpload, onRemove, t }: 
             </div>
           )}
           {isPending && (
-            <div className="absolute inset-0 bg-[#2a2118]/50 flex items-center justify-center backdrop-blur-sm">
+            <div className="absolute inset-0 bg-primary/50 flex items-center justify-center backdrop-blur-sm">
               <span className="text-white text-sm font-medium">{t.media.uploading}</span>
             </div>
           )}
@@ -100,7 +100,7 @@ export function AdminImageUpload({ entityId, imageUrl, onUpload, onRemove, t }: 
             type="button"
             onClick={() => fileInputRef.current?.click()}
             disabled={isPending}
-            className="px-6 py-2.5 rounded-xl bg-[#2a2118] text-white text-sm font-medium hover:bg-[#3a3128] disabled:opacity-60 transition-colors w-full sm:w-auto"
+            className="px-6 py-2.5 rounded-xl bg-primary text-white text-sm font-medium hover:bg-[#3a3128] disabled:opacity-60 transition-colors w-full sm:w-auto"
           >
             {imageUrl ? t.media.replaceImage : t.media.uploadImage}
           </button>

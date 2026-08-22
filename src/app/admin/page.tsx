@@ -63,7 +63,7 @@ export default async function AdminDashboardPage({
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-xl font-bold text-[#2a2118]">{t.dashboard.title}</h1>
+          <h1 className="text-xl font-bold text-foreground">{t.dashboard.title}</h1>
           <p className="text-sm text-[#9a8a7a] mt-0.5">{todayStr}</p>
         </div>
         
@@ -88,7 +88,7 @@ export default async function AdminDashboardPage({
     <div className="space-y-6">
       {/* Page header */}
       <div>
-        <h1 className="text-xl font-bold text-[#2a2118]">{t.dashboard.title}</h1>
+        <h1 className="text-xl font-bold text-foreground">{t.dashboard.title}</h1>
         <p className="text-sm text-[#9a8a7a] mt-0.5">{todayStr}</p>
       </div>
 

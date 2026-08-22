@@ -43,12 +43,12 @@ export function PasswordRecoveryForm({ type, locale }: { type: 'forgot' | 'reset
   }
 
   return (
-    <div className="min-h-screen bg-[#faf7f4] flex flex-col items-center justify-center p-4 sm:p-8" dir={isAr ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen bg-surface flex flex-col items-center justify-center p-4 sm:p-8" dir={isAr ? 'rtl' : 'ltr'}>
       <div className="w-full max-w-md">
         
         {/* Back Link */}
         <div className="mb-8">
-          <Link href={`/${locale}/login`} className="inline-flex items-center gap-2 text-sm font-medium text-[#9a8a7a] hover:text-[#6F4E7C] transition-colors">
+          <Link href={`/${locale}/login`} className="inline-flex items-center gap-2 text-sm font-medium text-[#9a8a7a] hover:text-secondary transition-colors">
             <ArrowLeft className="w-4 h-4 rtl:rotate-180" />
             {tAuth('backToLogin')}
           </Link>
@@ -56,28 +56,28 @@ export function PasswordRecoveryForm({ type, locale }: { type: 'forgot' | 'reset
 
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#2E1F38] text-[#D4AF37] font-serif text-2xl font-bold tracking-widest mb-6 shadow-xl">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary text-accent font-serif text-2xl font-bold tracking-widest mb-6 shadow-xl">
             SL
           </div>
-          <h1 className={`text-3xl font-bold text-[#2E1F38] ${isAr ? 'font-arabic' : 'font-serif'}`}>
+          <h1 className={`text-3xl font-bold text-foreground ${isAr ? 'font-arabic' : 'font-serif'}`}>
             {type === 'forgot' ? tAuth('forgotPassword') : tAuth('resetPassword')}
           </h1>
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-[#E7DBEC]">
+        <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-subtle">
           <form onSubmit={handleSubmit} className="space-y-5">
             
             {type === 'forgot' ? (
               <div className="space-y-1.5">
-                <label className="text-sm font-medium text-[#2E1F38]">{tAuth('email')}</label>
+                <label className="text-sm font-medium text-foreground">{tAuth('email')}</label>
                 <div className="relative">
                   <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A98FB8]" />
                   <input
                     name="email"
                     type="email"
                     required
-                    className="w-full ps-10 pe-4 py-3 rounded-xl border border-[#E7DBEC] bg-[#faf7f4] text-[#2E1F38] text-sm focus:outline-none focus:ring-2 focus:ring-[#6F4E7C] focus:border-transparent transition-all text-start"
+                    className="w-full ps-10 pe-4 py-3 rounded-xl border border-subtle bg-surface text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all text-start"
                     placeholder="customer@example.com"
                     dir="ltr"
                   />
@@ -85,14 +85,14 @@ export function PasswordRecoveryForm({ type, locale }: { type: 'forgot' | 'reset
               </div>
             ) : (
               <div className="space-y-1.5">
-                <label className="text-sm font-medium text-[#2E1F38]">{tAuth('newPassword')}</label>
+                <label className="text-sm font-medium text-foreground">{tAuth('newPassword')}</label>
                 <div className="relative">
                   <Lock className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A98FB8]" />
                   <input
                     name="password"
                     type="password"
                     required
-                    className="w-full ps-10 pe-4 py-3 rounded-xl border border-[#E7DBEC] bg-[#faf7f4] text-[#2E1F38] text-sm focus:outline-none focus:ring-2 focus:ring-[#6F4E7C] focus:border-transparent transition-all text-start"
+                    className="w-full ps-10 pe-4 py-3 rounded-xl border border-subtle bg-surface text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all text-start"
                     placeholder="••••••••"
                     dir="ltr"
                   />
@@ -115,7 +115,7 @@ export function PasswordRecoveryForm({ type, locale }: { type: 'forgot' | 'reset
             <button
               type="submit"
               disabled={isPending}
-              className="w-full py-3 px-4 rounded-xl bg-[#6F4E7C] text-white text-sm font-bold tracking-wide
+              className="w-full py-3 px-4 rounded-xl bg-secondary text-white text-sm font-bold tracking-wide
                 hover:bg-[#5a3d66] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed
                 transition-all duration-200 shadow-md flex items-center justify-center gap-2"
             >

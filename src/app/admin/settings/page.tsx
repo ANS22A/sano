@@ -43,7 +43,7 @@ export default async function AdminSettingsPage() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-bold text-[#2a2118] tracking-tight">{t.nav.settings}</h1>
+        <h1 className="text-2xl font-bold text-foreground tracking-tight">{t.nav.settings}</h1>
         <p className="text-sm text-[#7a6a57]">
           {lang === 'ar' 
             ? 'إدارة إعدادات النظام، والفروع، وأوقات العمل.' 
@@ -58,12 +58,12 @@ export default async function AdminSettingsPage() {
             <Link
               key={card.href}
               href={card.href}
-              className="group flex flex-col p-6 bg-white rounded-2xl border border-[#e8ddd0] hover:border-[#c9a96e] hover:shadow-[0_4px_20px_-4px_rgba(201,169,110,0.15)] transition-all duration-300 transform hover:-translate-y-0.5"
+              className="group flex flex-col p-6 bg-white rounded-2xl border border-border hover:border-accent hover:shadow-[0_4px_20px_-4px_rgba(201,169,110,0.15)] transition-all duration-300 transform hover:-translate-y-0.5"
             >
-              <div className="w-11 h-11 rounded-xl bg-[#faf7f4] flex items-center justify-center text-[#c9a96e] group-hover:bg-[#c9a96e] group-hover:text-white transition-colors duration-300 mb-4 shrink-0 shadow-sm border border-[#f0e8de] group-hover:border-[#c9a96e]">
+              <div className="w-11 h-11 rounded-xl bg-surface flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-colors duration-300 mb-4 shrink-0 shadow-sm border border-border group-hover:border-accent">
                 <Icon className="w-5 h-5" />
               </div>
-              <h2 className="text-base font-semibold text-[#2a2118] mb-1.5">{card.title}</h2>
+              <h2 className="text-base font-semibold text-foreground mb-1.5">{card.title}</h2>
               <p className="text-sm text-[#9a8a7a] leading-relaxed line-clamp-2">{card.description}</p>
             </Link>
           )

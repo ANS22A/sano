@@ -11,7 +11,7 @@ export function AdminTableSkeleton({ rows = 5, cols = 5 }: { rows?: number; cols
   return (
     <div className="space-y-2">
       {/* Header */}
-      <div className="flex gap-4 pb-2 border-b border-[#e8ddd0]">
+      <div className="flex gap-4 pb-2 border-b border-border">
         {Array.from({ length: cols }).map((_, i) => (
           <Skeleton key={i} className="h-4 flex-1" />
         ))}
@@ -30,7 +30,7 @@ export function AdminTableSkeleton({ rows = 5, cols = 5 }: { rows?: number; cols
 
 export function AdminStatCardSkeleton() {
   return (
-    <div className="bg-white rounded-2xl p-6 border border-[#e8ddd0] space-y-3">
+    <div className="bg-white rounded-2xl p-6 border border-border space-y-3">
       <Skeleton className="h-4 w-32" />
       <Skeleton className="h-8 w-24" />
       <Skeleton className="h-3 w-20" />

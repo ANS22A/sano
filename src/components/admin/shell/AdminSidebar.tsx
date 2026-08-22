@@ -9,7 +9,7 @@ import {
   LayoutDashboard, CalendarDays, BookOpen, Package2,
   Users, UserCheck, MapPin, Clock, BarChart3, X,
   Receipt, ShoppingBag, Building2, Tag, CreditCard,
-  Briefcase, Banknote,
+  Briefcase, Banknote, Gift,
 } from 'lucide-react'
 
 const NAV_GROUPS = [
@@ -30,6 +30,7 @@ const NAV_GROUPS = [
     label: 'Management',
     items: [
       { key: 'services', href: '/admin/services', icon: Package2 },
+      { key: 'giftCards', href: '/admin/gift-cards', icon: Gift },
       { key: 'customers', href: '/admin/customers', icon: Users },
       { key: 'staff', href: '/admin/staff', icon: UserCheck },
       { key: 'locations', href: '/admin/locations', icon: MapPin },
@@ -74,14 +75,14 @@ export function AdminSidebar({ role, mobileOpen, onClose }: Props) {
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="hidden lg:flex flex-col w-64 shrink-0 min-h-screen bg-[#2a2118] text-white">
+      <aside className="hidden lg:flex flex-col w-64 shrink-0 min-h-screen bg-primary text-white">
         <SidebarContent t={t} visible={visible} isActive={isActive} />
       </aside>
 
       {/* Mobile sidebar (slide-over) */}
       <aside
         className={cn(
-          'fixed inset-y-0 start-0 z-50 flex flex-col w-72 bg-[#2a2118] text-white',
+          'fixed inset-y-0 start-0 z-50 flex flex-col w-72 bg-primary text-white',
           'transition-transform duration-300 ease-in-out lg:hidden',
           mobileOpen
             ? 'translate-x-0'
@@ -107,8 +108,8 @@ export function AdminSidebar({ role, mobileOpen, onClose }: Props) {
 function LogoMark() {
   return (
     <div className="flex items-center gap-3">
-      <div className="w-8 h-8 rounded-lg bg-[#c9a96e] flex items-center justify-center shrink-0">
-        <span className="text-[#2a2118] text-xs font-bold tracking-wider">SL</span>
+      <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center shrink-0">
+        <span className="text-foreground text-xs font-bold tracking-wider">SL</span>
       </div>
       <div>
         <p className="text-white text-sm font-semibold tracking-wide">SANO LUNA</p>
@@ -163,7 +164,7 @@ function SidebarContent({
                     className={cn(
                       'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200',
                       active
-                        ? 'bg-[#c9a96e] text-[#2a2118] shadow-sm'
+                        ? 'bg-accent text-foreground shadow-sm'
                         : 'text-white/70 hover:text-white hover:bg-white/10 hover:translate-x-1 rtl:hover:-translate-x-1'
                     )}
                     aria-current={active ? 'page' : undefined}

@@ -51,8 +51,8 @@ export function ConfirmDialog({
       />
 
       {/* Dialog */}
-      <div className="relative z-10 w-full max-w-sm bg-white rounded-2xl shadow-2xl border border-[#e8ddd0] p-6">
-        <h2 id="confirm-title" className="text-base font-semibold text-[#2a2118] mb-2">
+      <div className="relative z-10 w-full max-w-sm bg-white rounded-2xl shadow-2xl border border-border p-6">
+        <h2 id="confirm-title" className="text-base font-semibold text-foreground mb-2">
           {title}
         </h2>
         <p id="confirm-desc" className="text-sm text-[#7a6a57] mb-4">
@@ -63,7 +63,7 @@ export function ConfirmDialog({
           <button
             onClick={onCancel}
             disabled={isPending}
-            className="px-4 py-2 rounded-xl text-sm font-medium text-[#7a6a57] border border-[#e8ddd0] hover:bg-[#f5ede0] transition-colors disabled:opacity-50"
+            className="px-4 py-2 rounded-xl text-sm font-medium text-[#7a6a57] border border-border hover:bg-[#f5ede0] transition-colors disabled:opacity-50"
           >
             {cancelLabel}
           </button>
@@ -74,7 +74,7 @@ export function ConfirmDialog({
               'px-4 py-2 rounded-xl text-sm font-medium text-white transition-colors disabled:opacity-50',
               destructive
                 ? 'bg-red-600 hover:bg-red-700'
-                : 'bg-[#2a2118] hover:bg-[#3a3128]'
+                : 'bg-primary hover:bg-[#3a3128]'
             )}
           >
             {isPending ? '…' : confirmLabel}

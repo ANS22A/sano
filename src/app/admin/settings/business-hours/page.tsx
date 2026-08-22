@@ -22,14 +22,14 @@ export default async function BusinessHoursPage({
   return (
     <div className="max-w-3xl space-y-6">
       <div>
-        <h1 className="text-xl font-bold text-[#2a2118]">Business Hours</h1>
+        <h1 className="text-xl font-bold text-foreground">Business Hours</h1>
         <p className="text-sm text-[#9a8a7a] mt-1">Manage opening hours for {activeLocation?.name_en ?? 'all locations'}</p>
       </div>
 
-      <div className="bg-white rounded-2xl border border-[#e8ddd0] overflow-hidden">
-        <div className="px-6 py-4 border-b border-[#e8ddd0] flex items-center gap-3 bg-[#faf7f4]">
-          <Clock className="w-5 h-5 text-[#c9a96e]" />
-          <span className="text-sm font-medium text-[#2a2118]">Weekly Schedule</span>
+      <div className="bg-white rounded-2xl border border-border overflow-hidden">
+        <div className="px-6 py-4 border-b border-border flex items-center gap-3 bg-surface">
+          <Clock className="w-5 h-5 text-accent" />
+          <span className="text-sm font-medium text-foreground">Weekly Schedule</span>
         </div>
         <div className="divide-y divide-[#f0e8de]">
           {hours.map((h) => (

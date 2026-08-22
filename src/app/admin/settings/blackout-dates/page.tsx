@@ -19,7 +19,7 @@ export default async function BlackoutDatesPage({
   return (
     <div className="max-w-3xl space-y-6">
       <div>
-        <h1 className="text-xl font-bold text-[#2a2118]">Blackout Dates</h1>
+        <h1 className="text-xl font-bold text-foreground">Blackout Dates</h1>
         <p className="text-sm text-[#9a8a7a] mt-1">Manage exception dates for {activeLocation?.name_en ?? 'all locations'}</p>
       </div>
 

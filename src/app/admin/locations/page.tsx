@@ -20,7 +20,7 @@ export default async function AdminLocationsPage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-3">
-        <h1 className="text-xl font-bold text-[#2a2118]">{t.locations.title}</h1>
+        <h1 className="text-xl font-bold text-foreground">{t.locations.title}</h1>
         <LocationFormWrapper t={t} dir={dir} />
       </div>
 
@@ -31,7 +31,7 @@ export default async function AdminLocationsPage() {
           </div>
         ) : (
           locations.map((loc) => (
-            <div key={loc.id} className="bg-white rounded-2xl border border-[#e8ddd0] p-5 hover:border-[#c9a96e]/30 hover:shadow-[0_4px_20px_-4px_rgba(42,33,24,0.04)] transition-all duration-300 relative group">
+            <div key={loc.id} className="bg-white rounded-2xl border border-border p-5 hover:border-accent/30 hover:shadow-[0_4px_20px_-4px_rgba(42,33,24,0.04)] transition-all duration-300 relative group">
               
               <div className="absolute top-4 end-4 opacity-0 group-hover:opacity-100 transition-opacity">
                 <LocationFormWrapper 
@@ -55,7 +55,7 @@ export default async function AdminLocationsPage() {
 
               <div className="flex items-start justify-between gap-3 mb-3 pe-10">
                 <div>
-                  <h2 className="font-semibold text-[#2a2118]">{loc.name_en}</h2>
+                  <h2 className="font-semibold text-foreground">{loc.name_en}</h2>
                   <p className="text-sm text-[#9a8a7a]" dir="rtl">{loc.name_ar}</p>
                 </div>
                 <AdminBadge
@@ -67,13 +67,13 @@ export default async function AdminLocationsPage() {
               <div className="flex gap-3">
                 <Link
                   href={`/admin/settings/business-hours?location=${loc.id}`}
-                  className="text-xs font-medium text-[#c9a96e] hover:underline"
+                  className="text-xs font-medium text-accent hover:underline"
                 >
                   {t.locations.businessHours}
                 </Link>
                 <Link
                   href={`/admin/settings/blackout-dates?location=${loc.id}`}
-                  className="text-xs font-medium text-[#c9a96e] hover:underline"
+                  className="text-xs font-medium text-accent hover:underline"
                 >
                   {t.locations.blackoutDates}
                 </Link>
