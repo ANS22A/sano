@@ -1,6 +1,7 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { z } from 'zod'
 import { revalidatePath } from 'next/cache'
 
@@ -54,13 +55,11 @@ export async function customerSignUp(formData: FormData) {
     return { error: authError?.message ?? 'Could not create account.' }
   }
 
-  // 2. Create customer record linked to auth user.
-  // We do NOT attempt to merge with existing customers automatically for security reasons.
-  // If the phone number already exists in customers but isn't linked, this will create a new distinct customer record,
-  // OR we can allow it to fail if we have a unique constraint on phone.
-  // Actually, SANO LUNA customers currently rely on phone. If we don't merge, we should insert.
-  
-  const { error: customerError } = await supabase.from('customers').insert({
+  // 2. Create customer record linked to auth user using server-side admin client
+  // When email confirmation is enabled, authData.session is null, so anon RLS blocks insert.
+  // Using createAdminClient() strictly on the server creates the customer record safely.
+  const supabaseAdmin = createAdminClient()
+  const { error: customerError } = await supabaseAdmin.from('customers').insert({
     auth_user_id: authData.user.id,
     full_name: parsed.data.fullName,
     phone: normalizedPhone,
@@ -68,14 +67,12 @@ export async function customerSignUp(formData: FormData) {
   })
 
   if (customerError) {
-    // If the phone already exists in customers without an auth_user_id, we should handle that gracefully.
-    // For now, if the insert fails (e.g. unique constraint on phone if one exists), we return an error.
-    // Assuming no strict unique constraint on phone in the customers table except standard handling.
     console.error('Failed to create customer record:', customerError)
-    // We don't fail the auth signup, but the customer won't have a linked profile.
   }
 
-  return { success: true }
+  const requiresVerification = !authData.session
+
+  return { success: true, requiresVerification }
 }
 
 const LoginSchema = z.object({
@@ -86,6 +83,7 @@ const LoginSchema = z.object({
 export async function customerSignIn(formData: FormData) {
   const email = formData.get('email')?.toString() ?? ''
   const password = formData.get('password')?.toString() ?? ''
+  const locale = formData.get('locale')?.toString() || 'ar'
 
   const parsed = LoginSchema.safeParse({ email, password })
   if (!parsed.success) {
@@ -100,7 +98,100 @@ export async function customerSignIn(formData: FormData) {
   })
 
   if (error) {
+    if (
+      error.message?.toLowerCase().includes('email not confirmed') ||
+      error.code === 'email_not_confirmed'
+    ) {
+      return {
+        error:
+          locale === 'ar'
+            ? 'يرجى تأكيد بريدك الإلكتروني قبل تسجيل الدخول. تفقد صندوق الوارد.'
+            : 'Please confirm your email address before logging in. Check your inbox.',
+      }
+    }
     return { error: 'Invalid email or password.' }
+  }
+
+  return { success: true }
+}
+
+export async function verifyCustomerOtp({
+  email,
+  token,
+  locale = 'ar',
+}: {
+  email: string
+  token: string
+  locale?: string
+}) {
+  const parsed = z
+    .object({
+      email: z.string().email('Invalid email format').trim(),
+      token: z.string().regex(/^\d{6}$/, 'Verification code must be 6 digits'),
+    })
+    .safeParse({ email, token })
+
+  if (!parsed.success) {
+    return {
+      error:
+        locale === 'ar'
+          ? 'يرجى إدخال رمز تحقق صالح مكون من 6 أرقام.'
+          : 'Please enter a valid 6-digit verification code.',
+    }
+  }
+
+  const supabase = await createClient()
+
+  const { data, error } = await supabase.auth.verifyOtp({
+    email: parsed.data.email,
+    token: parsed.data.token,
+    type: 'signup',
+  })
+
+  if (error) {
+    return {
+      error:
+        locale === 'ar'
+          ? 'رمز التحقق غير صحيح أو منتهي الصلاحية. يرجى المحاولة مرة أخرى.'
+          : 'The verification code is invalid or has expired. Please try again.',
+    }
+  }
+
+  revalidatePath('/', 'layout')
+  return { success: true, hasSession: !!data.session }
+}
+
+export async function resendCustomerOtp({
+  email,
+  locale = 'ar',
+}: {
+  email: string
+  locale?: string
+}) {
+  const emailParsed = z.string().email().safeParse(email.trim())
+  if (!emailParsed.success) {
+    return {
+      error:
+        locale === 'ar'
+          ? 'البريد الإلكتروني غير صالح.'
+          : 'Invalid email address.',
+    }
+  }
+
+  const supabase = await createClient()
+
+  const { error } = await supabase.auth.resend({
+    type: 'signup',
+    email: emailParsed.data,
+  })
+
+  if (error) {
+    return {
+      error:
+        locale === 'ar'
+          ? 'تعذر إعادة إرسال الرمز حالياً. يرجى الانتظار قليلاً والمحاولة مجدداً.'
+          : 'Could not resend code. Please wait a moment before trying again.',
+    }
   }
 
   return { success: true }

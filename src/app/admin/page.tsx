@@ -22,7 +22,7 @@ function getRiyadhDateString(d: Date) {
 export default async function AdminDashboardPage({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
   const session = await requireRole('manager')
   const isAdmin = session.profile.role === 'admin' || session.profile.role === 'super_admin'
@@ -36,7 +36,8 @@ export default async function AdminDashboardPage({
   })
 
   if (isAdmin) {
-    const range = (searchParams.range as string) || 'this_month'
+    const sp = await searchParams
+    const range = (sp?.range as string) || 'this_month'
     let start = new Date()
     const end = new Date()
 

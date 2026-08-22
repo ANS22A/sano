@@ -39,7 +39,7 @@ export function AdminShell({ profile, lang, children }: AdminShellProps) {
 
   return (
     <AdminCtx.Provider value={{ lang, t, profile, dir }}>
-      <div className={`flex h-full min-h-screen ${dir === 'rtl' ? 'flex-row-reverse' : 'flex-row'}`}>
+      <div dir={dir} className="flex h-full min-h-screen">
         {/* Desktop sidebar */}
         <AdminSidebar
           role={profile.role}

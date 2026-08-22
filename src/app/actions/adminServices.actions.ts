@@ -49,6 +49,7 @@ const ServiceSchema = z.object({
   category_id: z.string().uuid(),
   price_sar: z.coerce.number().min(0),
   duration_minutes: z.coerce.number().int().min(15),
+  sort_order: z.coerce.number().int().default(0),
   is_active: z.coerce.boolean().default(true),
   is_featured: z.coerce.boolean().default(false),
   short_description_ar: z.string().max(500).optional(),

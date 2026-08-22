@@ -15,6 +15,7 @@ interface ServiceFormProps {
     category_id: string | null
     price_sar: number
     duration_minutes: number
+    sort_order?: number | null
     is_active: boolean
     is_featured: boolean
     short_description_ar?: string | null
@@ -102,9 +103,15 @@ export function ServiceForm({ service, categories, isEdit }: ServiceFormProps) {
           </div>
         </div>
 
-        <div>
-          <label className={labelCls}>{t.services.slug} *</label>
-          <input name="slug" defaultValue={service?.slug} required pattern="[a-z0-9-]+" className={inputCls} placeholder="e.g. swedish-massage" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label className={labelCls}>{t.services.slug} *</label>
+            <input name="slug" defaultValue={service?.slug} required pattern="[a-z0-9-]+" className={inputCls} placeholder="e.g. swedish-massage" />
+          </div>
+          <div>
+            <label className={labelCls}>Sort Order / الترتيب</label>
+            <input name="sort_order" type="number" min="0" step="1" defaultValue={service?.sort_order ?? 0} className={inputCls} />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

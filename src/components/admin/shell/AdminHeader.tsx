@@ -115,6 +115,12 @@ function getPageTitle(pathname: string, nav: Record<string, string>): string {
   if (pathname.startsWith('/admin/customers')) return nav.customers
   if (pathname.startsWith('/admin/staff')) return nav.staff
   if (pathname.startsWith('/admin/locations')) return nav.locations
+  if (pathname.startsWith('/admin/sales')) return nav.sales
+  if (pathname.startsWith('/admin/expenses')) return nav.expenses
+  if (pathname.startsWith('/admin/purchases')) return nav.purchases
+  if (pathname.startsWith('/admin/suppliers')) return nav.suppliers
+  if (pathname.startsWith('/admin/partners')) return nav.partners
+  if (pathname.startsWith('/admin/payroll')) return nav.payroll
   if (pathname.startsWith('/admin/settings')) return nav.settings
   if (pathname.startsWith('/admin/reports')) return nav.reports
   return 'Admin'
