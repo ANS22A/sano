@@ -128,7 +128,7 @@ export function ReportTable<T>({ data, columns, filename, currentRange, from, to
               {filteredData.length === 0 ? (
                 <tr>
                   <td colSpan={columns.length} className="px-6 py-8 text-center text-[#9a8a7a]">
-                    No data found for this period.
+                    {t.reports?.noData || 'No data found for this period.'}
                   </td>
                 </tr>
               ) : (
@@ -152,4 +152,5 @@ export function ReportTable<T>({ data, columns, filename, currentRange, from, to
     </div>
   )
 }
+
 

@@ -51,26 +51,26 @@ export default async function ExpensesReportPage({
   ])
 
   const expensesColumns = [
-    { key: 'date', title: 'Date', render: (val: string) => new Date(val).toLocaleDateString() },
-    { key: 'category', title: 'Category', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },
-    { key: 'supplier', title: 'Supplier', render: (_: any, row: any) => row.suppliers?.name || '-', getValue: (row: any) => row.suppliers?.name || '' },
-    { key: 'reference', title: 'Reference' },
-    { key: 'amount', title: 'Amount (SAR)' },
-    { key: 'payment_method', title: 'Method', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },
+    { key: 'date', title: t.reports?.columns?.date || 'Date', render: (val: string) => new Date(val).toLocaleDateString() },
+    { key: 'category', title: t.reports?.columns?.category || 'Category', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },
+    { key: 'supplier', title: t.reports?.columns?.supplier || 'Supplier', render: (_: any, row: any) => row.suppliers?.name || '-', getValue: (row: any) => row.suppliers?.name || '' },
+    { key: 'reference', title: t.reports?.columns?.reference || 'Reference' },
+    { key: 'amount', title: t.reports?.columns?.amount || 'Amount (SAR)' },
+    { key: 'payment_method', title: t.reports?.columns?.method || 'Method', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },
   ]
 
   const purchasesColumns = [
-    { key: 'date', title: 'Date', render: (val: string) => new Date(val).toLocaleDateString() },
-    { key: 'supplier', title: 'Supplier', render: (_: any, row: any) => row.suppliers?.name || '-', getValue: (row: any) => row.suppliers?.name || '' },
-    { key: 'reference', title: 'Reference' },
-    { key: 'amount', title: 'Amount (SAR)' },
-    { key: 'payment_status', title: 'Status', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },
+    { key: 'date', title: t.reports?.columns?.date || 'Date', render: (val: string) => new Date(val).toLocaleDateString() },
+    { key: 'supplier', title: t.reports?.columns?.supplier || 'Supplier', render: (_: any, row: any) => row.suppliers?.name || '-', getValue: (row: any) => row.suppliers?.name || '' },
+    { key: 'reference', title: t.reports?.columns?.reference || 'Reference' },
+    { key: 'amount', title: t.reports?.columns?.amount || 'Amount (SAR)' },
+    { key: 'payment_status', title: t.reports?.columns?.status || 'Status', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },
   ]
 
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-lg font-bold text-[#2a2118] mb-4">Operating Expenses</h2>
+        <h2 className="text-lg font-bold text-[#2a2118] mb-4">{t.ownerDashboard?.operatingExpensesTitle || 'Operating Expenses'}</h2>
         <ReportTable 
           data={expenses || []}
           columns={expensesColumns}
@@ -83,7 +83,7 @@ export default async function ExpensesReportPage({
       </div>
 
       <div>
-        <h2 className="text-lg font-bold text-[#2a2118] mb-4">Purchases (COGS / Inventory)</h2>
+        <h2 className="text-lg font-bold text-[#2a2118] mb-4">{t.ownerDashboard?.purchasesCogs || 'Purchases (COGS / Inventory)'}</h2>
         <ReportTable 
           data={purchases || []}
           columns={purchasesColumns}
@@ -97,5 +97,6 @@ export default async function ExpensesReportPage({
     </div>
   )
 }
+
 
 

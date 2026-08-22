@@ -49,20 +49,20 @@ export default async function ReceivablesReportPage({
   const receivables = data.filter((d: any) => d.outstanding_balance > 0)
 
   const columns = [
-    { key: 'booking_number', title: 'Booking' },
-    { key: 'date', title: 'Date', render: (val: string) => new Date(val).toLocaleDateString() },
-    { key: 'customer_name', title: 'Customer' },
-    { key: 'price_sar', title: 'Expected (SAR)' },
-    { key: 'amount_paid', title: 'Paid (SAR)' },
-    { key: 'amount_refunded', title: 'Refunded (SAR)' },
-    { key: 'outstanding_balance', title: 'Outstanding (SAR)', render: (val: number) => <span className="font-bold text-orange-600">{val}</span> },
-    { key: 'status', title: 'Status', render: (val: string) => <span className="capitalize">{val}</span> },
+    { key: 'booking_number', title: t.reports?.columns?.booking || 'Booking' },
+    { key: 'date', title: t.reports?.columns?.date || 'Date', render: (val: string) => new Date(val).toLocaleDateString() },
+    { key: 'customer_name', title: t.reports?.columns?.customer || 'Customer' },
+    { key: 'price_sar', title: t.reports?.columns?.expected || 'Expected (SAR)' },
+    { key: 'amount_paid', title: t.reports?.columns?.paid || 'Paid (SAR)' },
+    { key: 'amount_refunded', title: t.reports?.columns?.refunded || 'Refunded (SAR)' },
+    { key: 'outstanding_balance', title: t.reports?.columns?.outstanding || 'Outstanding (SAR)', render: (val: number) => <span className="font-bold text-orange-600">{val}</span> },
+    { key: 'status', title: t.reports?.columns?.status || 'Status', render: (val: string) => <span className="capitalize">{val}</span> },
   ]
 
   return (
     <div className="space-y-6">
       <div className="bg-white p-4 rounded-xl border border-[#e8ddd0] shadow-sm">
-        <h2 className="text-sm font-semibold text-[#2a2118]">About Accounts Receivable</h2>
+        <h2 className="text-sm font-semibold text-[#2a2118]">{t.ownerDashboard?.aboutReceivables || 'About Accounts Receivable'}</h2>
         <p className="text-sm text-[#9a8a7a] mt-1">
           This report shows completed bookings where the net realized sales (payments minus refunds) is less than the expected booking price. Overpayments on one booking do not offset the balance of another.
         </p>
@@ -80,5 +80,6 @@ export default async function ReceivablesReportPage({
     </div>
   )
 }
+
 
 

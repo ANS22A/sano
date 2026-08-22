@@ -48,13 +48,13 @@ export default async function RevenueReportPage({
   const data = await getReportSales(from, to)
 
   const columns = [
-    { key: 'created_at', title: 'Date', render: (val: string) => new Date(val).toLocaleString(), getValue: (row: any) => new Date(row.created_at).toLocaleString() },
-    { key: 'booking', title: 'Booking', render: (_: any, row: any) => row.bookings?.booking_number || '-', getValue: (row: any) => row.bookings?.booking_number || '' },
-    { key: 'customer', title: 'Customer', render: (_: any, row: any) => (row.bookings?.customers?.full_name || '-'), getValue: (row: any) => (row.bookings?.customers?.full_name || '') },
-    { key: 'type', title: 'Type', render: (val: string) => <span className="capitalize">{val}</span> },
-    { key: 'amount', title: 'Amount (SAR)', render: (val: number, row: any) => <span className={row.type === 'refund' ? 'text-red-600' : 'text-green-600'}>{row.type === 'refund' ? '-' : ''}{val}</span>, getValue: (row: any) => row.type === 'refund' ? -row.amount : row.amount },
-    { key: 'payment_method', title: 'Method', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },
-    { key: 'source', title: 'Source', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },
+    { key: 'created_at', title: t.reports?.columns?.date || 'Date', render: (val: string) => new Date(val).toLocaleString(), getValue: (row: any) => new Date(row.created_at).toLocaleString() },
+    { key: 'booking', title: t.reports?.columns?.booking || 'Booking', render: (_: any, row: any) => row.bookings?.booking_number || '-', getValue: (row: any) => row.bookings?.booking_number || '' },
+    { key: 'customer', title: t.reports?.columns?.customer || 'Customer', render: (_: any, row: any) => (row.bookings?.customers?.full_name || '-'), getValue: (row: any) => (row.bookings?.customers?.full_name || '') },
+    { key: 'type', title: t.reports?.columns?.type || 'Type', render: (val: string) => <span className="capitalize">{val}</span> },
+    { key: 'amount', title: t.reports?.columns?.amount || 'Amount (SAR)', render: (val: number, row: any) => <span className={row.type === 'refund' ? 'text-red-600' : 'text-green-600'}>{row.type === 'refund' ? '-' : ''}{val}</span>, getValue: (row: any) => row.type === 'refund' ? -row.amount : row.amount },
+    { key: 'payment_method', title: t.reports?.columns?.method || 'Method', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },
+    { key: 'source', title: t.reports?.columns?.source || 'Source', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },
   ]
 
   return (
@@ -71,6 +71,7 @@ export default async function RevenueReportPage({
     </div>
   )
 }
+
 
 
 
