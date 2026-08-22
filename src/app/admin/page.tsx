@@ -24,6 +24,8 @@ export default async function AdminDashboardPage({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
+  const sp = await searchParams
+
   const session = await requireRole('manager')
   const isAdmin = session.profile.role === 'admin' || session.profile.role === 'super_admin'
 
@@ -36,7 +38,6 @@ export default async function AdminDashboardPage({
   })
 
   if (isAdmin) {
-    const sp = await searchParams
     const range = (sp?.range as string) || 'this_month'
     let start = new Date()
     const end = new Date()
