@@ -17,6 +17,7 @@
 
 import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import {
   resolveServiceDuration,
   resolveServicePrice,
@@ -181,7 +182,12 @@ export async function createBooking(draft: BookingDraft): Promise<BookingRespons
   // 6. Upsert customer by phone (phone is the unique identifier)
   const normalizedPhone = normalizePhone(data.customer.phone)
 
-  const { data: existingCustomer } = await supabase
+  // Use service-role client for DB writes — public booking creates records on
+  // behalf of anonymous visitors; RLS blocks anon INSERTs by design.
+  // All validation is complete above; service-role is used only here.
+  const supabaseAdmin = createAdminClient()
+
+  const { data: existingCustomer } = await supabaseAdmin
     .from('customers')
     .select('id')
     .eq('phone', normalizedPhone)
@@ -192,7 +198,7 @@ export async function createBooking(draft: BookingDraft): Promise<BookingRespons
   if (existingCustomer) {
     customerId = existingCustomer.id
     // Update name/email if provided
-    await supabase
+    await supabaseAdmin
       .from('customers')
       .update({
         full_name: data.customer.fullName,
@@ -201,7 +207,7 @@ export async function createBooking(draft: BookingDraft): Promise<BookingRespons
       })
       .eq('id', customerId)
   } else {
-    const { data: newCustomer, error: customerError } = await supabase
+    const { data: newCustomer, error: customerError } = await supabaseAdmin
       .from('customers')
       .insert({
         full_name: data.customer.fullName,
@@ -224,7 +230,7 @@ export async function createBooking(draft: BookingDraft): Promise<BookingRespons
 
   // 7. Create booking — DB unique index on (location_id, date, start_time) WHERE status != cancelled
   // prevents double-booking at the DB level even under concurrent requests
-  const { data: booking, error: bookingError } = await supabase
+  const { data: booking, error: bookingError } = await supabaseAdmin
     .from('bookings')
     .insert({
       locale: draft.currency === 'SAR' ? 'ar' : 'en', // fallback
