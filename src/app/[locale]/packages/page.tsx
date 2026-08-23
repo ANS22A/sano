@@ -25,7 +25,13 @@ export default async function PackagesPage({
 }) {
   const { locale } = await params
   const isAr = locale === 'ar'
-  const activePackages = packages.filter((p) => p.is_active)
+  const { createClient } = await import('@/lib/supabase/server')
+  const supabase = await createClient()
+  const { data: dbPackages } = await supabase.from('packages').select('*').eq('is_active', true).order('sort_order')
+  
+  const activePackages = dbPackages && dbPackages.length > 0 
+    ? dbPackages 
+    : packages.filter((p) => p.is_active)
 
   return (
     <main className="min-h-screen">
@@ -50,7 +56,8 @@ export default async function PackagesPage({
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {activePackages.map((pkg) => (
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+            {activePackages.map((pkg: any) => (
               <PackageCard key={pkg.id} pkg={pkg} locale={locale} />
             ))}
           </div>

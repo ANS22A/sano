@@ -165,7 +165,14 @@ export async function updateBookingStatus(formData: FormData) {
     .update(updateData)
     .eq('id', parsed.data.bookingId)
 
-  if (error) return { error: error.message }
+  if (error) {
+    console.error('[Booking Update Error]', JSON.stringify({
+      bookingId: parsed.data.bookingId,
+      status: parsed.data.status,
+      error: error
+    }))
+    return { error: `Failed to update database: ${error.message}` }
+  }
 
   await writeAuditLog({
     adminUserId: session.userId,
@@ -187,7 +194,7 @@ export async function updateBookingStatus(formData: FormData) {
   const locationData = currentBooking?.locations as unknown as { name_ar: string; name_en: string } | null
 
   if (currentBooking && customerData?.email) {
-    const serviceName = resolveServiceName(null, currentBooking.package_slug) // fallback for package
+    const serviceName = await resolveServiceName(null, currentBooking.package_slug) // fallback for package
     const resolvedNameAr = serviceData?.name_ar || serviceName.name_ar
     const resolvedNameEn = serviceData?.name_en || serviceName.name_en
 
@@ -293,7 +300,7 @@ export async function rescheduleBooking(formData: FormData) {
     return { error: 'This time slot is no longer available. Please choose another.' }
   }
 
-  const durationMinutes = resolveServiceDuration(booking.service_id, booking.package_slug)
+  const durationMinutes = await resolveServiceDuration(booking.service_id, booking.package_slug)
   if (!durationMinutes) return { error: 'Invalid service duration' }
 
   const [startH, startM] = parsed.data.startTime.split(':').map(Number)
@@ -339,7 +346,7 @@ export async function rescheduleBooking(formData: FormData) {
   const bookingLocation = booking.locations as unknown as { name_ar: string; name_en: string } | null
 
   if (bookingCustomer?.email) {
-    const serviceName = resolveServiceName(null, booking.package_slug)
+    const serviceName = await resolveServiceName(null, booking.package_slug)
     const resolvedNameAr = bookingService?.name_ar || serviceName.name_ar
     const resolvedNameEn = bookingService?.name_en || serviceName.name_en
 

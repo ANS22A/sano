@@ -110,8 +110,8 @@ export async function createAdminBooking(input: AdminBookingInput): Promise<Admi
   if (!location) return { success: false, error: 'Location not found.' }
 
   // 4. Server-side price + duration (never trust client)
-  const priceSar = resolveServicePrice(data.serviceId, data.packageSlug)
-  const durationMinutes = resolveServiceDuration(data.serviceId, data.packageSlug)
+  const priceSar = await resolveServicePrice(data.serviceId, data.packageSlug)
+  const durationMinutes = await resolveServiceDuration(data.serviceId, data.packageSlug)
   if (!priceSar || !durationMinutes) {
     return { success: false, error: 'Service not found or inactive.' }
   }
@@ -274,7 +274,7 @@ export async function createAdminBooking(input: AdminBookingInput): Promise<Admi
 
   // 11. Send notification email asynchronously (never block or fail the booking)
   if (data.customerEmail) {
-    const serviceName = resolveServiceName(data.serviceId, data.packageSlug)
+    const serviceName = await resolveServiceName(data.serviceId, data.packageSlug)
     sendBookingCreated({
       bookingNumber: booking.booking_number,
       date: data.date,

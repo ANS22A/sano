@@ -16,6 +16,7 @@ export function ReportsNavigation({ t }: Props) {
     { name: t.ownerDashboard?.summary || 'P&L Summary', href: '/admin/reports' },
     { name: t.ownerDashboard?.revenueReport || 'Revenue', href: '/admin/reports/revenue' },
     { name: t.ownerDashboard?.expensesReport || 'Expenses', href: '/admin/reports/expenses' },
+    { name: t.ownerDashboard?.purchasesReport || 'Purchases', href: '/admin/reports/purchases' },
     { name: t.ownerDashboard?.payrollReport || 'Payroll', href: '/admin/reports/payroll' },
     { name: t.ownerDashboard?.receivablesReport || 'Receivables', href: '/admin/reports/receivables' },
   ]

@@ -47,12 +47,16 @@ function toTimeString(minutes: number): string {
  * Resolve the duration for a service or package.
  * The server reads duration from data — client value is never trusted.
  */
-export function resolveServiceDuration(serviceId?: string | null, packageSlug?: string | null): number | null {
+export async function resolveServiceDuration(serviceId?: string | null, packageSlug?: string | null): Promise<number | null> {
   if (serviceId) {
     const service = getServiceBySlug(serviceId)
     return service?.duration_minutes ?? null
   }
   if (packageSlug) {
+    const { createClient } = await import('@/lib/supabase/server')
+    const supabase = await createClient()
+    const { data: dbPkg } = await supabase.from('packages').select('total_duration_minutes').eq('slug', packageSlug).single()
+    if (dbPkg) return dbPkg.total_duration_minutes
     const pkg = packages.find((p) => p.slug === packageSlug)
     return pkg?.total_duration_minutes ?? null
   }
@@ -63,16 +67,16 @@ export function resolveServiceDuration(serviceId?: string | null, packageSlug?: 
 // PRICE RESOLUTION
 // ─────────────────────────────────────────────
 
-/**
- * Resolve the authoritative price for a service or package.
- * NEVER trust price from the client. This function is the single source.
- */
-export function resolveServicePrice(serviceId?: string | null, packageSlug?: string | null): number | null {
+export async function resolveServicePrice(serviceId?: string | null, packageSlug?: string | null): Promise<number | null> {
   if (serviceId) {
     const service = getServiceBySlug(serviceId)
     return service ? Number(service.price_sar) : null
   }
   if (packageSlug) {
+    const { createClient } = await import('@/lib/supabase/server')
+    const supabase = await createClient()
+    const { data: dbPkg } = await supabase.from('packages').select('price_sar').eq('slug', packageSlug).single()
+    if (dbPkg) return Number(dbPkg.price_sar)
     const pkg = packages.find((p) => p.slug === packageSlug)
     return pkg ? Number(pkg.price_sar) : null
   }
@@ -83,10 +87,10 @@ export function resolveServicePrice(serviceId?: string | null, packageSlug?: str
 // SERVICE/PACKAGE DISPLAY NAME
 // ─────────────────────────────────────────────
 
-export function resolveServiceName(
+export async function resolveServiceName(
   serviceId?: string | null,
   packageSlug?: string | null
-): { name_ar: string; name_en: string } {
+): Promise<{ name_ar: string; name_en: string }> {
   if (serviceId) {
     const service = getServiceBySlug(serviceId)
     return service
@@ -94,6 +98,10 @@ export function resolveServiceName(
       : { name_ar: '', name_en: '' }
   }
   if (packageSlug) {
+    const { createClient } = await import('@/lib/supabase/server')
+    const supabase = await createClient()
+    const { data: dbPkg } = await supabase.from('packages').select('name_ar, name_en').eq('slug', packageSlug).single()
+    if (dbPkg) return { name_ar: dbPkg.name_ar, name_en: dbPkg.name_en }
     const pkg = packages.find((p) => p.slug === packageSlug)
     return pkg
       ? { name_ar: pkg.name_ar, name_en: pkg.name_en }
@@ -126,7 +134,7 @@ export async function getAvailableSlots(params: GetAvailableSlotsParams): Promis
   const { serviceId, packageSlug, locationId, date, existingBookings = [] } = params
 
   // 1. Resolve duration
-  const duration = resolveServiceDuration(serviceId, packageSlug)
+  const duration = await resolveServiceDuration(serviceId, packageSlug)
   if (!duration) return []
 
   // 2. Get the day of week (0=Sun)

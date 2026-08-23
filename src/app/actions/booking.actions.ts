@@ -131,8 +131,8 @@ export async function createBooking(draft: BookingDraft): Promise<BookingRespons
   }
 
   // 3. Server-side price + duration (never trust client)
-  const priceSar = resolveServicePrice(data.serviceId, data.packageSlug)
-  const durationMinutes = resolveServiceDuration(data.serviceId, data.packageSlug)
+  const priceSar = await resolveServicePrice(data.serviceId, data.packageSlug)
+  const durationMinutes = await resolveServiceDuration(data.serviceId, data.packageSlug)
 
   if (!priceSar || !durationMinutes) {
     return {
@@ -344,7 +344,7 @@ export async function createBooking(draft: BookingDraft): Promise<BookingRespons
     }
   }
 
-  const serviceName = resolveServiceName(data.serviceId, data.packageSlug)
+  const serviceName = await resolveServiceName(data.serviceId, data.packageSlug)
   
   const result: BookingResponse = {
     success: true,

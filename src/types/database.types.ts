@@ -467,7 +467,93 @@ export type Database = {
         }
         Relationships: []
       }
-      profiles: {
+      
+      packages: {
+        Row: {
+          id: string
+          slug: string
+          name_en: string
+          name_ar: string
+          description_en: string | null
+          description_ar: string | null
+          price_sar: number
+          total_duration_minutes: number
+          image_url: string | null
+          is_active: boolean
+          sort_order: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          slug: string
+          name_en: string
+          name_ar: string
+          description_en?: string | null
+          description_ar?: string | null
+          price_sar?: number
+          total_duration_minutes?: number
+          image_url?: string | null
+          is_active?: boolean
+          sort_order?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          slug?: string
+          name_en?: string
+          name_ar?: string
+          description_en?: string | null
+          description_ar?: string | null
+          price_sar?: number
+          total_duration_minutes?: number
+          image_url?: string | null
+          is_active?: boolean
+          sort_order?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      package_services: {
+        Row: {
+          id: string
+          package_id: string
+          service_id: string
+          sequence_order: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          package_id: string
+          service_id: string
+          sequence_order?: number
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          package_id?: string
+          service_id?: string
+          sequence_order?: number
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "package_services_package_id_fkey"
+            columns: ["package_id"]
+            referencedRelation: "packages"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "package_services_service_id_fkey"
+            columns: ["service_id"]
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+profiles: {
         Row: {
           avatar_url: string | null
           created_at: string

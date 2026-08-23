@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getReportExpenses } from '@/app/actions/adminReports.actions'
+import { getReportPurchases } from '@/app/actions/adminReports.actions'
 import { ReportTable } from '@/components/admin/reports/ReportTable'
 import { cookies } from 'next/headers'
 import { adminT, type AdminLang } from '@/lib/admin/translations'
 
-export const metadata = { title: 'Expenses & Purchases Report' }
+export const metadata = { title: 'Purchases Report' }
 
 function getRiyadhDate(d: Date) {
   return new Date(d.getTime() + 3 * 60 * 60 * 1000)
@@ -14,7 +14,7 @@ function getRiyadhDateString(d: Date) {
   return getRiyadhDate(d).toISOString().slice(0, 10)
 }
 
-export default async function ExpensesReportPage({
+export default async function PurchasesReportPage({
   searchParams,
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
@@ -45,25 +45,24 @@ export default async function ExpensesReportPage({
   const from = getRiyadhDateString(start)
   const to = getRiyadhDateString(end)
 
-  const expenses = await getReportExpenses(from, to)
+  const purchases = await getReportPurchases(from, to)
 
-  const expensesColumns = [
+  const purchasesColumns = [
     { key: 'date', title: t.reports?.columns?.date || 'Date', render: (val: string) => new Date(val).toLocaleDateString() },
-    { key: 'category', title: t.reports?.columns?.category || 'Category', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },
     { key: 'supplier', title: t.reports?.columns?.supplier || 'Supplier', render: (_: any, row: any) => row.suppliers?.name || '-', getValue: (row: any) => row.suppliers?.name || '' },
     { key: 'reference', title: t.reports?.columns?.reference || 'Reference' },
     { key: 'amount', title: t.reports?.columns?.amount || 'Amount (SAR)' },
-    { key: 'payment_method', title: t.reports?.columns?.method || 'Method', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },
+    { key: 'payment_status', title: t.reports?.columns?.status || 'Status', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },
   ]
 
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-lg font-bold text-foreground mb-4">{t.ownerDashboard?.operatingExpensesTitle || 'Operating Expenses'}</h2>
+        <h2 className="text-lg font-bold text-foreground mb-4">{t.ownerDashboard?.purchasesCogs || 'Purchases (COGS / Inventory)'}</h2>
         <ReportTable 
-          data={expenses || []}
-          columns={expensesColumns}
-          filename="Operating_Expenses"
+          data={purchases || []}
+          columns={purchasesColumns}
+          filename="Purchases"
           currentRange={range}
           from={from}
           to={to}
@@ -73,6 +72,3 @@ export default async function ExpensesReportPage({
     </div>
   )
 }
-
-
-

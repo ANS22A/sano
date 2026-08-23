@@ -17,7 +17,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, slug } = await params
   const isAr = locale === 'ar'
-  const pkg = packages.find((p) => p.slug === slug)
+  
+  const { createClient } = await import('@/lib/supabase/server')
+  const supabase = await createClient()
+  const { data: dbPkg } = await supabase.from('packages').select('name_ar, name_en, description_ar, description_en').eq('slug', slug).single()
+  
+  const pkg = dbPkg || packages.find((p) => p.slug === slug)
   if (!pkg) return {}
   return {
     title: isAr ? `${pkg.name_ar} — سانو لونا` : `${pkg.name_en} — SANO LUNA`,
@@ -32,13 +37,24 @@ export default async function PackageDetailPage({
 }) {
   const { locale, slug } = await params
   const isAr = locale === 'ar'
-  const pkg = packages.find((p) => p.slug === slug && p.is_active)
+  
+  const { createClient } = await import('@/lib/supabase/server')
+  const supabase = await createClient()
+  const { data: dbPkg } = await supabase.from('packages').select('*, package_services(services(name_en, name_ar))').eq('slug', slug).single()
+  
+  const pkg = dbPkg || packages.find((p) => p.slug === slug && p.is_active)
   if (!pkg) notFound()
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const anyPkg = pkg as any
   const name = isAr ? pkg.name_ar : pkg.name_en
-  const tagline = isAr ? (pkg.tagline_ar ?? '') : (pkg.tagline_en ?? '')
+  const tagline = isAr ? (anyPkg.tagline_ar ?? '') : (anyPkg.tagline_en ?? '')
   const description = isAr ? pkg.description_ar : pkg.description_en
-  const includedServices = isAr ? pkg.included_services_ar : pkg.included_services_en
+  
+  // Resolve included services whether from DB or static
+  const dbServices = dbPkg?.package_services?.map((ps: { services: { name_ar: string; name_en: string } | null } | null) => isAr ? ps?.services?.name_ar : ps?.services?.name_en) || []
+  const staticServices = isAr ? anyPkg.included_services_ar : anyPkg.included_services_en
+  const includedServices = dbPkg ? dbServices : (staticServices || [])
 
   return (
     <main className="min-h-screen">
@@ -96,9 +112,9 @@ export default async function PackageDetailPage({
                 <span className="px-3 py-1 bg-[var(--surface-muted)] text-[var(--primary)] text-sm rounded-full">
                   {pkg.total_duration_minutes} {isAr ? 'دقيقة' : 'min'}
                 </span>
-                {pkg.max_guests > 1 && (
+                {anyPkg.max_guests > 1 && (
                   <span className="px-3 py-1 bg-[var(--surface-muted)] text-[var(--primary)] text-sm rounded-full">
-                    {isAr ? `${pkg.max_guests} ضيوف` : `Up to ${pkg.max_guests} guests`}
+                    {isAr ? `${anyPkg.max_guests} ضيوف` : `Up to ${anyPkg.max_guests} guests`}
                   </span>
                 )}
               </div>
@@ -128,7 +144,7 @@ export default async function PackageDetailPage({
             {isAr ? 'يشمل هذا الطقس' : 'What\'s Included'}
           </h2>
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {includedServices.map((item, i) => (
+            {includedServices.map((item: string, i: number) => (
               <li key={i} className="flex items-center gap-3 p-4 border border-[var(--border-subtle)] rounded-sm">
                 <span className="text-[var(--border-strong)] shrink-0">✦</span>
                 <span className="text-[var(--foreground)]">{item}</span>

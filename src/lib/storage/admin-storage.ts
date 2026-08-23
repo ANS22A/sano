@@ -88,8 +88,11 @@ export async function uploadImage(
       path: data.path,
       url: publicUrlData.publicUrl
     }
-  } catch (err) {
+  } catch (err: unknown) {
     console.error('[AdminStorage] Unexpected error:', err)
+    if (err instanceof Error && err.message.includes('SUPABASE_SERVICE_ROLE_KEY')) {
+       console.error('[Diagnostic] Environment variables for Admin Storage are missing or invalid.')
+    }
     return { success: false, error: 'An unexpected error occurred during upload' }
   }
 }

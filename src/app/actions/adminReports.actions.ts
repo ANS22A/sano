@@ -88,8 +88,13 @@ export async function getOwnerFinancialStats(startDate: string, endDate: string)
   })
 
   if (error) {
-    console.error('Error fetching owner financial stats:', error)
-    throw new Error('Failed to retrieve financial statistics.')
+    console.error('[Dashboard RPC Error]', JSON.stringify({
+      message: error.message,
+      code: error.code,
+      details: error.details,
+      hint: error.hint
+    }))
+    throw new Error(`Failed to retrieve financial statistics. (Diagnostics Code: ${error.code || 'UNKNOWN'})`)
   }
 
   return data as unknown as OwnerFinancialStats

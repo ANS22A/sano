@@ -55,7 +55,12 @@ export async function createAdminStaff(formData: FormData) {
     sort_order: 0
   }).select('id').single()
 
-  if (error) return { error: error.message }
+  if (error) {
+    if (error.code === '23505') {
+      return { error: 'A staff member with this slug already exists. Please choose a unique slug. / يوجد موظف بهذا الرابط مسبقاً. يرجى اختيار رابط فريد.' }
+    }
+    return { error: error.message }
+  }
   
   await writeAuditLog({ 
     adminUserId: session.userId, 
@@ -90,7 +95,12 @@ export async function updateAdminStaff(id: string, formData: FormData) {
     image_url: imageUrl
   }).eq('id', id)
 
-  if (error) return { error: error.message }
+  if (error) {
+    if (error.code === '23505') {
+      return { error: 'A staff member with this slug already exists. Please choose a unique slug. / يوجد موظف بهذا الرابط مسبقاً. يرجى اختيار رابط فريد.' }
+    }
+    return { error: error.message }
+  }
   
   await writeAuditLog({ 
     adminUserId: session.userId, 
