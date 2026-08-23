@@ -13,6 +13,7 @@ import { BookingConfirmation } from './confirmation/BookingConfirmation'
 import { BOOKING_DRAFT_INITIAL } from '@/data/booking.types'
 import { activeLocations } from '@/data/locations.data'
 import type { BookingDraft, BookingResult } from '@/data/booking.types'
+import type { Service } from '@/data/types'
 
 // ─────────────────────────────────────────────
 // State reducer
@@ -57,13 +58,15 @@ interface BookingShellProps {
   initialServiceSlug?: string | null
   /** Pre-selected package slug from URL ?package= */
   initialPackageSlug?: string | null
+  /** Array of all active services from the DB */
+  services: Service[]
 }
 
 // ─────────────────────────────────────────────
 // Component
 // ─────────────────────────────────────────────
 
-export function BookingShell({ initialServiceSlug, initialPackageSlug }: BookingShellProps) {
+export function BookingShell({ initialServiceSlug, initialPackageSlug, services }: BookingShellProps) {
   const locale = useLocale()
   const isAr = locale === 'ar'
 
@@ -117,6 +120,7 @@ export function BookingShell({ initialServiceSlug, initialPackageSlug }: Booking
               onUpdate={update}
               onContinue={nextStep}
               isAr={isAr}
+              services={services}
             />
           )}
           {draft.currentStep === 2 && (
@@ -144,6 +148,7 @@ export function BookingShell({ initialServiceSlug, initialPackageSlug }: Booking
               onConfirmed={setConfirmResult}
               onGoToStep={(step: 1 | 2 | 3) => goToStep(step)}
               isAr={isAr}
+              services={services}
             />
           )}
         </div>
@@ -153,7 +158,7 @@ export function BookingShell({ initialServiceSlug, initialPackageSlug }: Booking
           'lg:sticky lg:top-28',
           isAr ? 'lg:order-1' : 'lg:order-2'
         )}>
-          <BookingSummary draft={draft} isAr={isAr} />
+          <BookingSummary draft={draft} isAr={isAr} services={services} />
         </div>
       </div>
     </div>

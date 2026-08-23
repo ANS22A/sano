@@ -1,37 +1,37 @@
-/**
- * SANO LUNA — Catalog Service
- *
- * Clean data access layer for services and categories.
- * Currently uses local seed data as the authoritative source.
- * When Supabase is live and .env credentials are set, swap to DB queries
- * by uncommenting the Supabase blocks — zero component changes needed.
- *
- * All functions are async to match the eventual Supabase pattern.
- */
+'use server'
 
+import { createClient } from '@/lib/supabase/server'
 import type {
   Service,
   ServiceCategory,
   ServiceWithCategory,
   ServiceFilters,
 } from '@/data/types'
-import {
-  activeServices,
-  featuredServices as localFeatured,
-  popularServices as localPopular,
-} from '@/data/services.data'
-import { serviceCategories as localCategories } from '@/data/categories.data'
+import { packages } from '@/data/content.data'
 
 // ─────────────────────────────────────────────
 // CATEGORIES
 // ─────────────────────────────────────────────
 
 export async function getAllCategories(): Promise<ServiceCategory[]> {
-  return localCategories.filter((c) => c.active).sort((a, b) => a.display_order - b.display_order)
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('service_categories')
+    .select('*')
+    .eq('active', true)
+    .order('display_order', { ascending: true })
+  return (data ?? []) as unknown as ServiceCategory[]
 }
 
 export async function getCategoryBySlug(slug: string): Promise<ServiceCategory | null> {
-  return localCategories.find((c) => c.slug === slug && c.active) ?? null
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('service_categories')
+    .select('*')
+    .eq('slug', slug)
+    .eq('active', true)
+    .single()
+  return (data ?? null) as unknown as ServiceCategory | null
 }
 
 // ─────────────────────────────────────────────
@@ -39,67 +39,44 @@ export async function getCategoryBySlug(slug: string): Promise<ServiceCategory |
 // ─────────────────────────────────────────────
 
 export async function getAllServices(filters?: ServiceFilters): Promise<Service[]> {
-  let result = [...activeServices]
+  const supabase = await createClient()
+  let query = supabase.from('services').select('*').eq('is_active', true)
 
-  // Category filter
   if (filters?.category) {
-    result = result.filter((s) => s.category_id === filters.category)
+    query = query.eq('category_id', filters.category)
   }
-
-  // Featured filter
   if (filters?.featured) {
-    result = result.filter((s) => s.is_featured)
+    query = query.eq('is_featured', true)
   }
-
-  // Popular filter
   if (filters?.popular) {
-    result = result.filter((s) => s.is_popular)
+    query = query.eq('is_popular', true)
   }
-
-  // Search filter (bilingual, case-insensitive)
   if (filters?.search) {
     const q = filters.search.toLowerCase().trim()
-    if (q.length > 0) {
-      result = result.filter((s) => {
-        const searchableFields = [
-          s.name_ar,
-          s.name_en,
-          s.short_description_ar,
-          s.short_description_en,
-          s.description_ar,
-          s.description_en,
-          // Include category name in search
-          ...localCategories
-            .filter((c) => c.id === s.category_id)
-            .flatMap((c) => [c.name_ar, c.name_en]),
-          // Include tags
-          ...s.tags,
-        ]
-        return searchableFields.some((field) =>
-          field.toLowerCase().includes(q)
-        )
-      })
+    if (q) {
+      query = query.or(`name_en.ilike.%${q}%,name_ar.ilike.%${q}%,short_description_en.ilike.%${q}%,short_description_ar.ilike.%${q}%`)
     }
   }
 
   // Sorting
   switch (filters?.sort) {
     case 'price_asc':
-      result.sort((a, b) => a.price_sar - b.price_sar)
+      query = query.order('price_sar', { ascending: true })
       break
     case 'price_desc':
-      result.sort((a, b) => b.price_sar - a.price_sar)
+      query = query.order('price_sar', { ascending: false })
       break
     case 'duration_asc':
-      result.sort((a, b) => a.duration_minutes - b.duration_minutes)
+      query = query.order('duration_minutes', { ascending: true })
       break
     case 'recommended':
     default:
-      result.sort((a, b) => a.sort_order - b.sort_order)
+      query = query.order('sort_order', { ascending: true })
       break
   }
 
-  return result
+  const { data } = await query
+  return (data ?? []) as unknown as Service[]
 }
 
 // ─────────────────────────────────────────────
@@ -107,22 +84,19 @@ export async function getAllServices(filters?: ServiceFilters): Promise<Service[
 // ─────────────────────────────────────────────
 
 export async function getServiceBySlug(slug: string): Promise<ServiceWithCategory | null> {
-  const service = activeServices.find((s) => s.slug === slug)
-  if (!service) return null
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('services')
+    .select('*, service_categories(id, slug, name_ar, name_en, icon)')
+    .eq('slug', slug)
+    .single()
 
-  const category = localCategories.find((c) => c.id === service.category_id)
-  if (!category) return null
-
+  if (!data) return null
+  const { service_categories, ...service } = data
   return {
     ...service,
-    category: {
-      id: category.id,
-      slug: category.slug,
-      name_ar: category.name_ar,
-      name_en: category.name_en,
-      icon: category.icon,
-    },
-  }
+    category: service_categories as any,
+  } as ServiceWithCategory
 }
 
 // ─────────────────────────────────────────────
@@ -130,23 +104,56 @@ export async function getServiceBySlug(slug: string): Promise<ServiceWithCategor
 // ─────────────────────────────────────────────
 
 export async function getServicesByCategory(categorySlug: string): Promise<Service[]> {
-  const category = localCategories.find((c) => c.slug === categorySlug)
+  const supabase = await createClient()
+  const { data: category } = await supabase
+    .from('service_categories')
+    .select('id')
+    .eq('slug', categorySlug)
+    .single()
+  
   if (!category) return []
-  return activeServices
-    .filter((s) => s.category_id === category.id)
-    .sort((a, b) => a.sort_order - b.sort_order)
+
+  const { data } = await supabase
+    .from('services')
+    .select('*')
+    .eq('category_id', category.id)
+    .order('sort_order', { ascending: true })
+
+  return (data ?? []) as unknown as Service[]
 }
 
 // ─────────────────────────────────────────────
 // SERVICES — FEATURED / POPULAR
 // ─────────────────────────────────────────────
 
-export async function getFeaturedServices(): Promise<Service[]> {
-  return localFeatured.sort((a, b) => a.sort_order - b.sort_order)
+export async function getFeaturedServices(): Promise<ServiceWithCategory[]> {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('services')
+    .select('*, service_categories(id, slug, name_ar, name_en, icon)')
+    .eq('is_featured', true)
+    .order('sort_order', { ascending: true })
+
+  if (!data) return []
+  return data.map((d: any) => {
+    const { service_categories, ...service } = d
+    return { ...service, category: service_categories }
+  })
 }
 
-export async function getPopularServices(): Promise<Service[]> {
-  return localPopular.sort((a, b) => a.sort_order - b.sort_order)
+export async function getPopularServices(): Promise<ServiceWithCategory[]> {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('services')
+    .select('*, service_categories(id, slug, name_ar, name_en, icon)')
+    .eq('is_popular', true)
+    .order('sort_order', { ascending: true })
+
+  if (!data) return []
+  return data.map((d: any) => {
+    const { service_categories, ...service } = d
+    return { ...service, category: service_categories }
+  })
 }
 
 // ─────────────────────────────────────────────
@@ -157,33 +164,46 @@ export async function getRelatedServices(
   serviceId: string,
   limit = 3
 ): Promise<Service[]> {
-  const service = activeServices.find((s) => s.id === serviceId)
-  if (!service) return []
+  const supabase = await createClient()
+  
+  // 1. Get current service to find its category and tags
+  const { data: current } = await supabase.from('services').select('category_id, tags').eq('id', serviceId).single()
+  if (!current) return []
 
-  // Prefer same category, then tag overlap
-  const sameCategory = activeServices.filter(
-    (s) => s.category_id === service.category_id && s.id !== serviceId
-  )
+  // 2. Fetch same category
+  const { data: sameCategory } = await supabase
+    .from('services')
+    .select('*')
+    .eq('category_id', current.category_id)
+    .neq('id', serviceId)
+    .limit(limit)
+  
+  let results = sameCategory ?? []
 
-  if (sameCategory.length >= limit) {
-    return sameCategory.slice(0, limit)
+  if (results.length < limit) {
+    // 3. Just fetch some other active ones if we don't have enough
+    const { data: others } = await supabase
+      .from('services')
+      .select('*')
+      .neq('category_id', current.category_id)
+      .limit(limit - results.length)
+    
+    if (others) results = [...results, ...others]
   }
 
-  // Fill with tag-matched services from other categories
-  const tagMatched = activeServices.filter((s) => {
-    if (s.id === serviceId || s.category_id === service.category_id) return false
-    return s.tags.some((tag) => service.tags.includes(tag))
-  })
-
-  return [...sameCategory, ...tagMatched].slice(0, limit)
+  return results as unknown as Service[]
 }
 
 // ─────────────────────────────────────────────
 // SLUGS — For static generation
 // ─────────────────────────────────────────────
 
+import { createStaticClient } from '@/lib/supabase/server'
+
 export async function getAllServiceSlugs(): Promise<string[]> {
-  return activeServices.map((s) => s.slug)
+  const supabase = createStaticClient()
+  const { data } = await supabase.from('services').select('slug')
+  return (data ?? []).map((s) => s.slug)
 }
 
 // ─────────────────────────────────────────────
@@ -191,9 +211,14 @@ export async function getAllServiceSlugs(): Promise<string[]> {
 // ─────────────────────────────────────────────
 
 export async function getServiceCountByCategory(): Promise<Record<string, number>> {
+  const supabase = await createClient()
+  const { data } = await supabase.from('services').select('category_id')
+  
   const counts: Record<string, number> = {}
-  for (const service of activeServices) {
-    counts[service.category_id] = (counts[service.category_id] || 0) + 1
+  if (data) {
+    for (const row of data) {
+      counts[row.category_id] = (counts[row.category_id] || 0) + 1
+    }
   }
   return counts
 }

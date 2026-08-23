@@ -59,41 +59,41 @@ export function OwnerDashboardClient({ stats, t, currentRange, from, to }: Props
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           <StatCard
             title={t.ownerDashboard.realizedRevenue}
-            value={`${Number(stats.realized_revenue).toLocaleString()} {t.common?.sar || 'SAR'}`}
+            value={`${Number(stats.realized_revenue).toLocaleString()} ${t.common?.sar || 'SAR'}`}
             icon={<DollarSign className="w-5 h-5" />}
             accent
           />
           <StatCard
             title={t.ownerDashboard.operatingExpenses}
-            value={`${Number(stats.operating_expenses).toLocaleString()} {t.common?.sar || 'SAR'}`}
+            value={`${Number(stats.operating_expenses).toLocaleString()} ${t.common?.sar || 'SAR'}`}
             icon={<ArrowDownRight className="w-5 h-5" />}
           />
           <StatCard
             title={t.ownerDashboard.purchases}
-            value={`${Number(stats.purchases).toLocaleString()} {t.common?.sar || 'SAR'}`}
+            value={`${Number(stats.purchases).toLocaleString()} ${t.common?.sar || 'SAR'}`}
             icon={<ShoppingCart className="w-5 h-5" />}
           />
           <StatCard
             title={t.ownerDashboard.salariesPaid}
-            value={`${Number(stats.salaries_paid).toLocaleString()} {t.common?.sar || 'SAR'}`}
+            value={`${Number(stats.salaries_paid).toLocaleString()} ${t.common?.sar || 'SAR'}`}
             icon={<Users className="w-5 h-5" />}
           />
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
           <StatCard
             title={t.ownerDashboard.netOperatingProfit}
-            value={`${Number(stats.net_operating_profit).toLocaleString()} {t.common?.sar || 'SAR'}`}
+            value={`${Number(stats.net_operating_profit).toLocaleString()} ${t.common?.sar || 'SAR'}`}
             icon={<Activity className="w-5 h-5" />}
             accent
           />
           <StatCard
             title={t.ownerDashboard.partnerWithdrawals}
-            value={`${Number(stats.partner_withdrawals).toLocaleString()} {t.common?.sar || 'SAR'}`}
+            value={`${Number(stats.partner_withdrawals).toLocaleString()} ${t.common?.sar || 'SAR'}`}
             icon={<Wallet className="w-5 h-5" />}
           />
           <StatCard
             title={t.ownerDashboard.netCashMovement}
-            value={`${Number(stats.net_cash_movement).toLocaleString()} {t.common?.sar || 'SAR'}`}
+            value={`${Number(stats.net_cash_movement).toLocaleString()} ${t.common?.sar || 'SAR'}`}
             icon={<CreditCard className="w-5 h-5" />}
           />
         </div>
@@ -103,13 +103,13 @@ export function OwnerDashboardClient({ stats, t, currentRange, from, to }: Props
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <StatCard
           title={t.ownerDashboard.expectedRevenue}
-          value={`${Number(stats.expected_revenue).toLocaleString()} {t.common?.sar || 'SAR'}`}
-          subtitle="{t.ownerDashboard?.fromBookings || 'From Bookings'}"
+          value={`${Number(stats.expected_revenue).toLocaleString()} ${t.common?.sar || 'SAR'}`}
+          subtitle={t.ownerDashboard?.fromBookings || 'From Bookings'}
           icon={<DollarSign className="w-5 h-5 text-gray-400" />}
         />
         <StatCard
           title={t.ownerDashboard.outstandingBalance}
-          value={`${Number(stats.outstanding_balance).toLocaleString()} {t.common?.sar || 'SAR'}`}
+          value={`${Number(stats.outstanding_balance).toLocaleString()} ${t.common?.sar || 'SAR'}`}
           icon={<Activity className="w-5 h-5 text-orange-400" />}
         />
         <StatCard

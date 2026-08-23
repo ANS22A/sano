@@ -18,7 +18,7 @@ import 'server-only'
 import type { AvailableSlot } from '@/data/booking.types'
 import { SLOT_INTERVAL_MINUTES } from '@/data/booking.types'
 import { getHoursForDay, activeLocations } from '@/data/locations.data'
-import { getServiceBySlug } from '@/data/services.data'
+import { getServiceBySlug } from '@/services/catalog.service'
 import { packages } from '@/data/content.data'
 
 // ─────────────────────────────────────────────
@@ -49,7 +49,7 @@ function toTimeString(minutes: number): string {
  */
 export async function resolveServiceDuration(serviceId?: string | null, packageSlug?: string | null): Promise<number | null> {
   if (serviceId) {
-    const service = getServiceBySlug(serviceId)
+    const service = await getServiceBySlug(serviceId)
     return service?.duration_minutes ?? null
   }
   if (packageSlug) {
@@ -69,7 +69,7 @@ export async function resolveServiceDuration(serviceId?: string | null, packageS
 
 export async function resolveServicePrice(serviceId?: string | null, packageSlug?: string | null): Promise<number | null> {
   if (serviceId) {
-    const service = getServiceBySlug(serviceId)
+    const service = await getServiceBySlug(serviceId)
     return service ? Number(service.price_sar) : null
   }
   if (packageSlug) {
@@ -92,7 +92,7 @@ export async function resolveServiceName(
   packageSlug?: string | null
 ): Promise<{ name_ar: string; name_en: string }> {
   if (serviceId) {
-    const service = getServiceBySlug(serviceId)
+    const service = await getServiceBySlug(serviceId)
     return service
       ? { name_ar: service.name_ar, name_en: service.name_en }
       : { name_ar: '', name_en: '' }

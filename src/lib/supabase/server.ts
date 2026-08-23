@@ -49,3 +49,19 @@ export async function createClient() {
     }
   )
 }
+
+import { createClient as createSupabaseClient } from '@supabase/supabase-js'
+
+/**
+ * Static client for build-time operations like generateStaticParams.
+ * Does not use cookies() which is forbidden in that context.
+ */
+export function createStaticClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  return createSupabaseClient<Database>(
+    supabaseUrl ?? 'https://placeholder.supabase.co',
+    supabaseAnonKey ?? 'placeholder-anon-key'
+  )
+}

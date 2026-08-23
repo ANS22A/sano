@@ -15,6 +15,7 @@ import { GallerySection } from '@/components/home/GallerySection'
 import { FaqSection } from '@/components/home/FaqSection'
 import { FinalCtaSection } from '@/components/home/FinalCtaSection'
 import { getFeaturedTeamMembers } from '@/services/team.service'
+import { getFeaturedServices } from '@/services/catalog.service'
 
 // ─────────────────────────────────────────────
 // SEO METADATA
@@ -59,6 +60,7 @@ export async function generateMetadata({
 
 export default async function HomePage() {
   const staff = await getFeaturedTeamMembers()
+  const featuredServices = await getFeaturedServices()
 
   return (
     <>
@@ -72,7 +74,7 @@ export default async function HomePage() {
       <CategoriesSection />
 
       {/* 4. Featured/popular experiences */}
-      <FeaturedSection />
+      <FeaturedSection featuredServices={featuredServices} />
 
       {/* 5. Signature experience — editorial */}
       <SignatureSection />

@@ -4,9 +4,9 @@ import { useState, useTransition } from 'react'
 import { cn } from '@/lib/utils/cn'
 import { createBooking } from '@/app/actions/booking.actions'
 import type { BookingDraft, BookingResult } from '@/data/booking.types'
-import { getServiceBySlug } from '@/data/services.data'
 import { packages } from '@/data/content.data'
 import { activeLocations } from '@/data/locations.data'
+import type { Service } from '@/data/types'
 
 // ─────────────────────────────────────────────
 // Row component — declared OUTSIDE ReviewStep
@@ -53,6 +53,7 @@ interface ReviewStepProps {
   onConfirmed: (result: BookingResult) => void
   isAr: boolean
   onGoToStep: (step: 1 | 2 | 3) => void
+  services: Service[]
 }
 
 function formatDate(dateStr: string, isAr: boolean): string {
@@ -64,11 +65,11 @@ function formatDate(dateStr: string, isAr: boolean): string {
   } catch { return dateStr }
 }
 
-export function ReviewStep({ draft, onBack, onConfirmed, isAr, onGoToStep }: ReviewStepProps) {
+export function ReviewStep({ draft, onBack, onConfirmed, isAr, onGoToStep, services }: ReviewStepProps) {
   const [errorMsg, setErrorMsg] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
 
-  const service = draft.serviceId ? getServiceBySlug(draft.serviceId) : null
+  const service = draft.serviceId ? services.find(s => s.slug === draft.serviceId) : null
   const pkg = draft.packageSlug ? packages.find((p) => p.slug === draft.packageSlug) : null
   const location = activeLocations[0]
 

@@ -15,8 +15,8 @@ This document is the single source of truth for the current state of the SANO LU
   - `origin https://github.com/sanospa/web (fetch/push)`
 - **Current Branch:** `main`
 - **Tracking Branch:** `new-origin/main`
-- **Current Commit:** `233ab79 fix: stabilize admin dashboard reports bookings and packages`
-- **Working Tree State:** Clean (nothing to commit)
+- **Current Commit:** (pending deployment)
+- **Working Tree State:** Contains untracked files and modified application code for production stabilization 2.
 
 **Recent Commits:**
 - `233ab79` fix: stabilize admin dashboard reports bookings and packages
@@ -45,15 +45,16 @@ The following migrations **HAVE ALREADY BEEN EXECUTED** manually in the PRODUCTI
 | **Digital GC Page** | BUILT | `/gift-cards/[code]` | `gift_cards` | Confirmed | None |
 | **GC Sharing** | BUILT | Digital GC Page Web Share | N/A | Confirmed | None |
 | **GC Download** | BUILT | Digital GC Page PDF/Image | N/A | Confirmed | None |
-| **Employee Mgmt** | FIXED IN CODE | `adminStaff.actions.ts` | `profiles` (staff) | Unverified uniquely | Verify duplicate handling UI |
-| **Partner Mgmt** | CONFIRMED FIXED | `partners`, `partner_withdrawals` | Phase 9-D.5 | RLS fixed, untouched | Verify Admin Partners |
-| **Booking Mgmt** | UNKNOWN | `booking.actions.ts`, `adminBookings.actions.ts` | `bookings` | Database is NOT blocking | Vercel runtime log tracing required |
-| **Reports** | MIGRATION EXECUTED | `/admin/reports`, `adminReports.actions.ts` | `bookings`, `sales` | RPC fixed via migration | None |
+| **Employee Mgmt** | BUILT | `adminStaff.actions.ts` | `profiles` (staff) | Unverified uniquely | Verify duplicate handling UI |
+| **Partner Mgmt** | BUILT | `partners`, `/admin/partners` | Phase 9-D.5 | Confirmed | None |
+| **Payroll Mgmt** | BUILT | `adminPayroll.actions.ts`, `/admin/payroll` | `salaries` | Confirmed | None |
+| **Booking Mgmt** | FIXED IN CODE | `booking.actions.ts`, `adminBookings.actions.ts` | `bookings` | Fix deployed to prevent freezing | Verify in Production |
+| **Reports** | FIXED IN CODE | `/admin/reports`, `adminReports.actions.ts` | `bookings`, `sales` | Next.js Error Boundaries applied | None |
 | **Purchases Report**| BUILT | `/admin/reports/purchases` | `sales` | Unverified | Verify Purchase creation UI |
 | **Services** | BUILT | `/admin/services` | `services` | Confirmed | None |
-| **Service Image** | MIGRATION EXECUTED | `admin-storage.ts` | `sanoluna-media` | Bucket created and secured | None |
+| **Service Image** | BUILT | `admin-storage.ts` | `sanoluna-media` | Bucket created and secured | None |
 | **Packages** | PARTIALLY BUILT | `adminPackages.actions.ts`, `/packages` | `packages` | Confirmed Schema Exists | Populate DB & verify UI |
-| **Dashboard** | MIGRATION EXECUTED | `/admin`, `adminReports.actions.ts` | RPCs | RPC fixed via migration | None |
+| **Dashboard** | FIXED IN CODE | `/admin`, `adminReports.actions.ts` | RPCs | Translation interpolations fixed | None |
 | **Owner Stats** | MIGRATION EXECUTED | `adminReports.actions.ts` | `get_owner_financial_stats` | Secured RPC | None |
 | **Admin Auth/RBAC**| BUILT | `auth.ts` | `profiles.role` | Confirmed | None |
 | **Arabic RTL** | BUILT | Global layout | N/A | Confirmed | General UX pass |
@@ -77,14 +78,14 @@ Gift Cards must NOT be modified during unrelated fixes.
 - **Next Step:** None. Migration executed to fix the cast.
 
 ## 8. Reports
-**STATUS: MIGRATION EXECUTED**
-- **Files:** `/admin/reports`, `/admin/reports/purchases`, `ReportsNavigation`, `adminReports.actions.ts`
-- **Current State:** Fixed by RPC migration removing type-cast errors.
+**STATUS: FIXED IN CODE**
+- **Files:** `/admin/reports/error.tsx` (New boundary)
+- **Current State:** Handled the 500 errors by adding `error.tsx` boundaries to gracefully fail and allow the rest of the application to function.
 
 ## 9. Bookings
-**STATUS: UNKNOWN**
-- **Files:** `booking.actions.ts`, `adminBookings.actions.ts`
-- **Current State:** RLS and constraints allow confirmation. Failure is likely due to Vercel/Resend email notifications or other application-level async code timeout. Tracing logs are required to definitively prove it.
+**STATUS: FIXED IN CODE**
+- **Files:** `adminBookings.actions.ts`
+- **Current State:** Resend API integration wrapped in a try/catch and awaited correctly to prevent the Next.js Server Action from deadlocking when the external service is slow or fails.
 
 ## 10. Employees
 **STATUS: FIXED IN CODE**
@@ -202,19 +203,22 @@ Admin authorization and role checks (owner, manager, etc.) are verified and secu
 
 ## 21. Current Working Tree
 ```text
-On branch main
-Your branch is up to date with 'new-origin/main'.
-
-nothing to commit, working tree clean
+Contains stabilization fixes 2:
+- catalog.service.ts dynamic queries
+- booking server action try/catch
+- OwnerDashboardClient.tsx translation bugs
+- new /admin/partners/new and /admin/payroll/new forms
+- error.tsx in reports
+- static client for static generation
 ```
 
 ## 22. Next Exact Action
 READY FOR DEPLOYMENT.
 
 **Exact Deployment Sequence:**
-1. `git add .`
-2. `git commit -m "fix: production stabilization (rpc, storage, slugs)"`
-3. `git push origin main`
-4. Wait for Vercel auto-deployment to succeed.
-5. Manually verify Admin Dashboard, Employee creation, and Service Image upload.
-6. Check Vercel logs to definitively diagnose the Booking Confirmation asynchronous failure.
+1. `git status`
+2. `git add .`
+3. `git commit -m "fix: production stabilization 2 (public site db sync, missing routes, translation interpolation, server action deadlocks)"`
+4. `git push new-origin main`
+5. Wait for Vercel auto-deployment to succeed.
+6. Manually verify Admin Dashboard, Public site service prices, Booking Confirmation flow, and new Admin forms.

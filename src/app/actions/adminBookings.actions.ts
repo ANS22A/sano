@@ -193,46 +193,54 @@ export async function updateBookingStatus(formData: FormData) {
   const serviceData = currentBooking?.services as unknown as { name_ar: string; name_en: string; duration_minutes?: number } | null
   const locationData = currentBooking?.locations as unknown as { name_ar: string; name_en: string } | null
 
+  let notificationSent = false
+
   if (currentBooking && customerData?.email) {
     const serviceName = await resolveServiceName(null, currentBooking.package_slug) // fallback for package
     const resolvedNameAr = serviceData?.name_ar || serviceName.name_ar
     const resolvedNameEn = serviceData?.name_en || serviceName.name_en
 
-    if (parsed.data.status === 'confirmed') {
-      sendBookingConfirmation({
-        bookingNumber: currentBooking.booking_number,
-        date: currentBooking.date,
-        startTime: currentBooking.start_time,
-        durationMinutes: serviceData?.duration_minutes,
-        serviceNameAr: resolvedNameAr,
-        serviceNameEn: resolvedNameEn,
-        locationNameAr: locationData?.name_ar || '',
-        locationNameEn: locationData?.name_en || '',
-        customerName: customerData?.full_name || '',
-        customerEmail: customerData?.email,
-        priceSar: currentBooking.price_sar ?? 0,
-        locale: currentBooking.locale === 'ar' ? 'ar' : 'en',
-      }).catch(console.error)
-    } else if (parsed.data.status === 'cancelled') {
-      sendBookingCancellation({
-        bookingNumber: currentBooking.booking_number,
-        date: currentBooking.date,
-        startTime: currentBooking.start_time,
-        durationMinutes: serviceData?.duration_minutes,
-        serviceNameAr: resolvedNameAr,
-        serviceNameEn: resolvedNameEn,
-        locationNameAr: locationData?.name_ar || '',
-        locationNameEn: locationData?.name_en || '',
-        customerName: customerData?.full_name || '',
-        customerEmail: customerData?.email,
-        priceSar: currentBooking.price_sar ?? 0,
-        locale: currentBooking.locale === 'ar' ? 'ar' : 'en',
-        cancellationReason: parsed.data.cancellationReason,
-      }).catch(console.error)
+    try {
+      if (parsed.data.status === 'confirmed') {
+        await sendBookingConfirmation({
+          bookingNumber: currentBooking.booking_number,
+          date: currentBooking.date,
+          startTime: currentBooking.start_time,
+          durationMinutes: serviceData?.duration_minutes,
+          serviceNameAr: resolvedNameAr,
+          serviceNameEn: resolvedNameEn,
+          locationNameAr: locationData?.name_ar || '',
+          locationNameEn: locationData?.name_en || '',
+          customerName: customerData?.full_name || '',
+          customerEmail: customerData?.email,
+          priceSar: currentBooking.price_sar ?? 0,
+          locale: currentBooking.locale === 'ar' ? 'ar' : 'en',
+        })
+        notificationSent = true
+      } else if (parsed.data.status === 'cancelled') {
+        await sendBookingCancellation({
+          bookingNumber: currentBooking.booking_number,
+          date: currentBooking.date,
+          startTime: currentBooking.start_time,
+          durationMinutes: serviceData?.duration_minutes,
+          serviceNameAr: resolvedNameAr,
+          serviceNameEn: resolvedNameEn,
+          locationNameAr: locationData?.name_ar || '',
+          locationNameEn: locationData?.name_en || '',
+          customerName: customerData?.full_name || '',
+          customerEmail: customerData?.email,
+          priceSar: currentBooking.price_sar ?? 0,
+          locale: currentBooking.locale === 'ar' ? 'ar' : 'en',
+          cancellationReason: parsed.data.cancellationReason,
+        })
+        notificationSent = true
+      }
+    } catch (err) {
+      console.error('[Booking Update Email Error]', err)
     }
   }
 
-  return { success: true }
+  return { success: true, bookingUpdated: true, notificationSent }
 }
 
 const RescheduleSchema = z.object({

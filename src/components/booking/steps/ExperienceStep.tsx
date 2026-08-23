@@ -2,20 +2,21 @@
 
 import { useState } from 'react'
 import { cn } from '@/lib/utils/cn'
-import { activeServices } from '@/data/services.data'
 import { packages } from '@/data/content.data'
 import type { BookingDraft } from '@/data/booking.types'
+import type { Service } from '@/data/types'
 
 interface ExperienceStepProps {
   draft: BookingDraft
   onUpdate: (patch: Partial<BookingDraft>) => void
   onContinue: () => void
   isAr: boolean
+  services: Service[]
 }
 
 type Tab = 'services' | 'packages'
 
-export function ExperienceStep({ draft, onUpdate, onContinue, isAr }: ExperienceStepProps) {
+export function ExperienceStep({ draft, onUpdate, onContinue, isAr, services }: ExperienceStepProps) {
   const [tab, setTab] = useState<Tab>(() => {
     if (draft.packageSlug) return 'packages'
     return 'services'
@@ -71,7 +72,7 @@ export function ExperienceStep({ draft, onUpdate, onContinue, isAr }: Experience
       {/* Service list */}
       {tab === 'services' && (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[420px] overflow-y-auto pe-1">
-          {activeServices.map((service) => {
+          {services.map((service) => {
             const isSelected = draft.serviceId === service.id
             const name = isAr ? service.name_ar : service.name_en
             const shortDesc = isAr ? service.short_description_ar : service.short_description_en

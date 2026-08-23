@@ -2,13 +2,14 @@
 
 import { cn } from '@/lib/utils/cn'
 import type { BookingDraft } from '@/data/booking.types'
-import { getServiceBySlug } from '@/data/services.data'
 import { packages } from '@/data/content.data'
+import type { Service } from '@/data/types'
 
 interface BookingSummaryProps {
   draft: BookingDraft
   isAr: boolean
   className?: string
+  services: Service[]
 }
 
 function formatDate(dateStr: string, isAr: boolean): string {
@@ -24,11 +25,11 @@ function formatDate(dateStr: string, isAr: boolean): string {
   }
 }
 
-export function BookingSummary({ draft, isAr, className }: BookingSummaryProps) {
+export function BookingSummary({ draft, isAr, className, services }: BookingSummaryProps) {
   const { serviceId, packageSlug, date, startTime, endTime, durationMinutes, priceSar } = draft
 
   // Resolve names
-  const service = serviceId ? getServiceBySlug(serviceId) : null
+  const service = serviceId ? services.find((s) => s.slug === serviceId) : null
   const pkg = packageSlug ? packages.find((p) => p.slug === packageSlug) : null
 
   const hasSelection = service || pkg

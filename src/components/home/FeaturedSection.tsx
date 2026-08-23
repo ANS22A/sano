@@ -3,12 +3,17 @@
 import { motion } from 'framer-motion'
 import { useTranslations, useLocale } from 'next-intl'
 import { Link } from '@/i18n/navigation'
+import Image from 'next/image'
 import { useReveal } from '@/lib/motion/use-reveal'
 import { staggerContainer, staggerItem } from '@/lib/motion/variants'
 import { cn } from '@/lib/utils/cn'
-import { featuredServices } from '@/data/services.data'
+import type { ServiceWithCategory } from '@/data/types'
 
-export function FeaturedSection() {
+interface FeaturedSectionProps {
+  featuredServices: ServiceWithCategory[]
+}
+
+export function FeaturedSection({ featuredServices }: FeaturedSectionProps) {
   const t = useTranslations('home.featured')
   const locale = useLocale()
   const isAr = locale === 'ar'
@@ -81,7 +86,7 @@ export function FeaturedSection() {
                 'hover:shadow-[0_12px_40px_rgba(26,23,20,0.1)]',
               )}
             >
-              {/* Image placeholder */}
+              {/* Image */}
               <div
                 className={cn(
                   'relative h-52 w-full flex-shrink-0 overflow-hidden',
@@ -89,10 +94,20 @@ export function FeaturedSection() {
                 )}
                 aria-hidden="true"
               >
-                {/* Placeholder pattern */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-20">
-                  <span className="text-5xl font-display font-light text-primary">✦</span>
-                </div>
+                {service.image_url ? (
+                  <Image
+                    src={service.image_url}
+                    alt={isAr ? service.name_ar : service.name_en}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center opacity-20">
+                    <span className="text-5xl font-display font-light text-primary">✦</span>
+                  </div>
+                )}
+                
                 {/* Popular badge */}
                 {service.is_popular && (
                   <div className={cn(
@@ -110,10 +125,7 @@ export function FeaturedSection() {
               <div className="flex flex-col flex-1 p-5">
                 {/* Category */}
                 <p className="text-[10px] tracking-[0.18em] uppercase text-[var(--color-text-muted)] mb-2">
-                  {isAr
-                    ? service.category_id.replace(/-/g, ' ')
-                    : service.category_id.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ')
-                  }
+                  {isAr ? service.category.name_ar : service.category.name_en}
                 </p>
 
                 {/* Name */}
