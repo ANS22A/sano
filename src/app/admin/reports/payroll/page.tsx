@@ -50,7 +50,7 @@ export default async function PayrollReportPage({
   const salaryColumns = [
     { key: 'payment_date', title: t.reports?.columns?.paymentDate || 'Payment Date', render: (val: string) => new Date(val).toLocaleDateString() },
     { key: 'month', title: t.reports?.columns?.month || 'Salary Month', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },
-    { key: 'staff', title: t.reports?.columns?.employee || 'Employee', render: (_: any, row: any) => row.staff?.name || '-', getValue: (row: any) => row.staff?.name || '' },
+    { key: 'staff', title: t.reports?.columns?.employee || 'Employee', render: (_: any, row: any) => row.staff?.name_en || row.staff?.name_ar || '-', getValue: (row: any) => row.staff?.name_en || row.staff?.name_ar || '' },
     { key: 'gross_salary', title: t.reports?.columns?.grossSalary || 'Gross (SAR)' },
     { key: 'bonuses', title: t.reports?.columns?.bonuses || 'Bonuses' },
     { key: 'advances_deducted', title: t.reports?.columns?.advancesDeducted || 'Advances Ded.' },

@@ -129,7 +129,7 @@ export async function updateBookingStatus(formData: FormData) {
   const parsed = UpdateStatusSchema.safeParse({
     bookingId: formData.get('bookingId'),
     status: formData.get('status'),
-    cancellationReason: formData.get('cancellationReason'),
+    cancellationReason: formData.get('cancellationReason') || undefined,
   })
   if (!parsed.success) return { error: 'Invalid input' }
 

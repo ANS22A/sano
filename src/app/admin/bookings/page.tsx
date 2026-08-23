@@ -27,18 +27,23 @@ export default async function AdminBookingsPage({
   const t = adminT[lang]
 
   const page = Number(sp.page ?? 1)
-  const { bookings, total } = await getAdminBookings({
-    page,
-    q: sp.q,
-    status: sp.status,
-    date: sp.date,
-    serviceId: sp.serviceId,
-    locationId: sp.locationId,
-    source: sp.source,
-  })
-
-  const locations = await getAdminLocations()
-  const { services } = await getAdminServices({ active: 'true' })
+  const [
+    { bookings, total },
+    locations,
+    { services }
+  ] = await Promise.all([
+    getAdminBookings({
+      page,
+      q: sp.q,
+      status: sp.status,
+      date: sp.date,
+      serviceId: sp.serviceId,
+      locationId: sp.locationId,
+      source: sp.source,
+    }),
+    getAdminLocations(),
+    getAdminServices({ active: 'true' })
+  ])
 
   // We need to preserve query string when changing filters, 
   // but for simplicity in RSC we can build URLs

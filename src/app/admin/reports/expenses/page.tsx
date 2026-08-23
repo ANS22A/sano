@@ -49,8 +49,8 @@ export default async function ExpensesReportPage({
 
   const expensesColumns = [
     { key: 'date', title: t.reports?.columns?.date || 'Date', render: (val: string) => new Date(val).toLocaleDateString() },
-    { key: 'category', title: t.reports?.columns?.category || 'Category', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },
-    { key: 'supplier', title: t.reports?.columns?.supplier || 'Supplier', render: (_: any, row: any) => row.suppliers?.name || '-', getValue: (row: any) => row.suppliers?.name || '' },
+    { key: 'category', title: t.reports?.columns?.category || 'Category', render: (_: any, row: any) => row.expense_categories?.name_en || row.expense_categories?.name_ar || '-', getValue: (row: any) => row.expense_categories?.name_en || row.expense_categories?.name_ar || '' },
+    { key: 'supplier', title: t.reports?.columns?.supplier || 'Supplier', render: () => '-', getValue: () => '' },
     { key: 'reference', title: t.reports?.columns?.reference || 'Reference' },
     { key: 'amount', title: t.reports?.columns?.amount || 'Amount (SAR)' },
     { key: 'payment_method', title: t.reports?.columns?.method || 'Method', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },

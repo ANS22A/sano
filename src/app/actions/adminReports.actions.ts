@@ -143,17 +143,16 @@ export async function getReportExpenses(startDate: string, endDate: string) {
       id,
       amount,
       date,
-      category,
       reference,
       payment_method,
-      suppliers ( name )
+      expense_categories ( name_en, name_ar )
     `)
     .gte('date', startDate)
     .lte('date', endDate)
     .eq('is_archived', false)
     .order('date', { ascending: false })
 
-  if (error) throw new Error('Failed to fetch expenses report')
+  if (error) throw new Error('Failed to fetch expenses report: ' + error.message)
   return data
 }
 
@@ -197,7 +196,7 @@ export async function getReportPayroll(startDate: string, endDate: string) {
         other_deductions,
         net_salary,
         payment_status,
-        staff ( name )
+        staff ( name_en, name_ar )
       `)
       .gte('payment_date', startDate)
       .lte('payment_date', endDate)
