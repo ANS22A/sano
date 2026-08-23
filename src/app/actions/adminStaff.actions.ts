@@ -39,10 +39,28 @@ export async function createAdminStaff(formData: FormData) {
   const nameAr = formData.get('name_ar')?.toString().trim()
   const bioEn = formData.get('bio_en')?.toString().trim() || ''
   const bioAr = formData.get('bio_ar')?.toString().trim() || ''
-  const slug = formData.get('slug')?.toString().trim()
+  let slug = formData.get('slug')?.toString().trim() || ''
   const imageUrl = formData.get('image_url')?.toString().trim() || null
 
-  if (!nameEn || !nameAr || !slug) return { error: 'Name (EN/AR) and slug are required.' }
+  if (!nameEn || !nameAr) return { error: 'Name (EN/AR) is required. / الاسم باللغتين مطلوب.' }
+
+  // Normalize slug if provided
+  if (slug) {
+    slug = slug.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+  }
+
+  // Auto-generate slug from nameEn if empty
+  if (!slug) {
+    slug = nameEn.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+  }
+  if (!slug) slug = `staff-${Date.now()}`
+
+  // Check uniqueness before insert
+  const { data: existing } = await supabase.from('staff').select('id').eq('slug', slug).maybeSingle()
+  if (existing) {
+    // Auto-append timestamp to make it unique rather than failing
+    slug = `${slug}-${Date.now().toString().slice(-4)}`
+  }
 
   const { data, error } = await supabase.from('staff').insert({
     name_en: nameEn,
@@ -81,10 +99,24 @@ export async function updateAdminStaff(id: string, formData: FormData) {
   const nameAr = formData.get('name_ar')?.toString().trim()
   const bioEn = formData.get('bio_en')?.toString().trim() || ''
   const bioAr = formData.get('bio_ar')?.toString().trim() || ''
-  const slug = formData.get('slug')?.toString().trim()
+  let slug = formData.get('slug')?.toString().trim() || ''
   const imageUrl = formData.get('image_url')?.toString().trim() || null
 
-  if (!nameEn || !nameAr || !slug) return { error: 'Name (EN/AR) and slug are required.' }
+  if (!nameEn || !nameAr) return { error: 'Name (EN/AR) is required. / الاسم باللغتين مطلوب.' }
+
+  if (slug) {
+    slug = slug.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+  }
+
+  if (!slug) {
+    slug = nameEn.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+  }
+  if (!slug) slug = `staff-${Date.now()}`
+
+  const { data: existing } = await supabase.from('staff').select('id').eq('slug', slug).neq('id', id).maybeSingle()
+  if (existing) {
+    slug = `${slug}-${Date.now().toString().slice(-4)}`
+  }
 
   const { error } = await supabase.from('staff').update({
     name_en: nameEn,

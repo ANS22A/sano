@@ -52,11 +52,20 @@ export default async function ReportsSummaryPage({
   const from = getRiyadhDateString(start)
   const to = getRiyadhDateString(end)
 
-  const ownerStats = await getOwnerFinancialStats(from, to)
+  const ownerStatsResult = await getOwnerFinancialStats(from, to)
+
+  if (ownerStatsResult.error) {
+    return (
+      <div className="p-6 bg-red-50 border border-red-200 rounded-2xl text-red-700">
+        <h2 className="text-lg font-bold mb-2">Financial Data Unavailable</h2>
+        <p className="text-sm">{ownerStatsResult.error}</p>
+      </div>
+    )
+  }
 
   return (
     <OwnerDashboardClient 
-      stats={ownerStats} 
+      stats={ownerStatsResult.data!} 
       t={t} 
       currentRange={range} 
       from={from} 

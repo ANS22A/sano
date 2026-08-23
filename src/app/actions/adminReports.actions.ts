@@ -62,7 +62,7 @@ export interface OwnerFinancialStats {
 
 const dateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Invalid date format, expected YYYY-MM-DD')
 
-export async function getOwnerFinancialStats(startDate: string, endDate: string): Promise<OwnerFinancialStats> {
+export async function getOwnerFinancialStats(startDate: string, endDate: string): Promise<{ data: OwnerFinancialStats | null; error: string | null }> {
   // 1. RBAC: Only admin can access owner stats
   await requireRole('admin')
 
@@ -71,11 +71,11 @@ export async function getOwnerFinancialStats(startDate: string, endDate: string)
     dateSchema.parse(startDate)
     dateSchema.parse(endDate)
   } catch {
-    throw new Error('Invalid date format. Expected YYYY-MM-DD.')
+    return { data: null, error: 'Invalid date format. Expected YYYY-MM-DD.' }
   }
 
   if (startDate > endDate) {
-    throw new Error('Start date must be before or equal to end date')
+    return { data: null, error: 'Start date must be before or equal to end date' }
   }
 
   const supabase = await createClient()
@@ -94,10 +94,10 @@ export async function getOwnerFinancialStats(startDate: string, endDate: string)
       details: error.details,
       hint: error.hint
     }))
-    throw new Error(`Failed to retrieve financial statistics. (Diagnostics Code: ${error.code || 'UNKNOWN'})`)
+    return { data: null, error: `Failed to retrieve financial statistics. (Diagnostics Code: ${error.code || 'UNKNOWN'})` }
   }
 
-  return data as unknown as OwnerFinancialStats
+  return { data: data as unknown as OwnerFinancialStats, error: null }
 }
 export async function getReportSales(startDate: string, endDate: string) {
   await requireRole('admin')
