@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getReportReceivables } from '@/app/actions/adminReports.actions'
-import { ReportTable } from '@/components/admin/reports/ReportTable'
+import { ReportTable, type Column } from '@/components/admin/reports/ReportTable'
 import { cookies } from 'next/headers'
 import { adminT, type AdminLang } from '@/lib/admin/translations'
 
@@ -48,21 +48,21 @@ export default async function ReceivablesReportPage({
   const data = await getReportReceivables(from, to)
   const receivables = data.filter((d: any) => d.outstanding_balance > 0)
 
-  const columns = [
-    { key: 'booking_number', title: t.reports?.columns?.booking || 'Booking' },
-    { key: 'date', title: t.reports?.columns?.date || 'Date', render: (val: string) => new Date(val).toLocaleDateString() },
-    { key: 'customer_name', title: t.reports?.columns?.customer || 'Customer' },
-    { key: 'price_sar', title: t.reports?.columns?.expected || 'Expected (SAR)' },
-    { key: 'amount_paid', title: t.reports?.columns?.paid || 'Paid (SAR)' },
-    { key: 'amount_refunded', title: t.reports?.columns?.refunded || 'Refunded (SAR)' },
-    { key: 'outstanding_balance', title: t.reports?.columns?.outstanding || 'Outstanding (SAR)', render: (val: number) => <span className="font-bold text-orange-600">{val}</span> },
-    { key: 'status', title: t.reports?.columns?.status || 'Status', render: (val: string) => <span className="capitalize">{val}</span> },
+  const columns: Column<any>[] = [
+    { key: 'booking_number', title: t.reports.columns.booking },
+    { key: 'date', title: t.reports.columns.date, type: 'date' },
+    { key: 'customer_name', title: t.reports.columns.customer },
+    { key: 'price_sar', title: t.reports.columns.expected },
+    { key: 'amount_paid', title: t.reports.columns.paid },
+    { key: 'amount_refunded', title: t.reports.columns.refunded },
+    { key: 'outstanding_balance', title: t.reports.columns.outstanding, type: 'amount-bold' },
+    { key: 'status', title: t.reports.columns.status, type: 'capitalize' },
   ]
 
   return (
     <div className="space-y-6">
       <div className="bg-white p-4 rounded-xl border border-border shadow-sm">
-        <h2 className="text-sm font-semibold text-foreground">{t.ownerDashboard?.aboutReceivables || 'About Accounts Receivable'}</h2>
+        <h2 className="text-sm font-semibold text-foreground">{t.ownerDashboard.aboutReceivables}</h2>
         <p className="text-sm text-muted-foreground mt-1">
           This report shows completed bookings where the net realized sales (payments minus refunds) is less than the expected booking price. Overpayments on one booking do not offset the balance of another.
         </p>

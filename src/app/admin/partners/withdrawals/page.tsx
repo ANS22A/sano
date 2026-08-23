@@ -55,7 +55,7 @@ export default async function WithdrawalsPage({ searchParams }: { searchParams: 
               </tr>
             </thead>
             <tbody className="divide-y divide-neutral-100">
-              {withdrawals.map(withdrawal => (
+              {withdrawals.map((withdrawal) => (
                 <tr key={withdrawal.id} className="hover:bg-neutral-50/50 transition-colors">
                   <td className="px-6 py-4 font-medium text-neutral-900">{withdrawal.partners?.name}</td>
                   <td className="px-6 py-4">{withdrawal.amount} SAR</td>

@@ -44,7 +44,7 @@ export function OwnerDashboardClient({ stats, t, currentRange, from, to }: Props
           <option value="this_week">{t.ownerDashboard.thisWeek}</option>
           <option value="this_month">{t.ownerDashboard.thisMonth}</option>
           <option value="this_year">{t.ownerDashboard.thisYear}</option>
-          <option value="all_time">All Time</option>
+          <option value="all_time">{t.ownerDashboard.allTime}</option>
         </select>
         {currentRange === 'custom' && (
           <div className="text-sm text-muted-foreground">
@@ -59,41 +59,41 @@ export function OwnerDashboardClient({ stats, t, currentRange, from, to }: Props
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           <StatCard
             title={t.ownerDashboard.realizedRevenue}
-            value={`${Number(stats.realized_revenue).toLocaleString()} ${t.common?.sar || 'SAR'}`}
+            value={`${Number(stats.realized_revenue).toLocaleString()} ${t.common.sar}`}
             icon={<DollarSign className="w-5 h-5" />}
             accent
           />
           <StatCard
             title={t.ownerDashboard.operatingExpenses}
-            value={`${Number(stats.operating_expenses).toLocaleString()} ${t.common?.sar || 'SAR'}`}
+            value={`${Number(stats.operating_expenses).toLocaleString()} ${t.common.sar}`}
             icon={<ArrowDownRight className="w-5 h-5" />}
           />
           <StatCard
             title={t.ownerDashboard.purchases}
-            value={`${Number(stats.purchases).toLocaleString()} ${t.common?.sar || 'SAR'}`}
+            value={`${Number(stats.purchases).toLocaleString()} ${t.common.sar}`}
             icon={<ShoppingCart className="w-5 h-5" />}
           />
           <StatCard
             title={t.ownerDashboard.salariesPaid}
-            value={`${Number(stats.salaries_paid).toLocaleString()} ${t.common?.sar || 'SAR'}`}
+            value={`${Number(stats.salaries_paid).toLocaleString()} ${t.common.sar}`}
             icon={<Users className="w-5 h-5" />}
           />
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
           <StatCard
             title={t.ownerDashboard.netOperatingProfit}
-            value={`${Number(stats.net_operating_profit).toLocaleString()} ${t.common?.sar || 'SAR'}`}
+            value={`${Number(stats.net_operating_profit).toLocaleString()} ${t.common.sar}`}
             icon={<Activity className="w-5 h-5" />}
             accent
           />
           <StatCard
             title={t.ownerDashboard.partnerWithdrawals}
-            value={`${Number(stats.partner_withdrawals).toLocaleString()} ${t.common?.sar || 'SAR'}`}
+            value={`${Number(stats.partner_withdrawals).toLocaleString()} ${t.common.sar}`}
             icon={<Wallet className="w-5 h-5" />}
           />
           <StatCard
             title={t.ownerDashboard.netCashMovement}
-            value={`${Number(stats.net_cash_movement).toLocaleString()} ${t.common?.sar || 'SAR'}`}
+            value={`${Number(stats.net_cash_movement).toLocaleString()} ${t.common.sar}`}
             icon={<CreditCard className="w-5 h-5" />}
           />
         </div>
@@ -103,13 +103,13 @@ export function OwnerDashboardClient({ stats, t, currentRange, from, to }: Props
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <StatCard
           title={t.ownerDashboard.expectedRevenue}
-          value={`${Number(stats.expected_revenue).toLocaleString()} ${t.common?.sar || 'SAR'}`}
-          subtitle={t.ownerDashboard?.fromBookings || 'From Bookings'}
+          value={`${Number(stats.expected_revenue).toLocaleString()} ${t.common.sar}`}
+          subtitle={t.ownerDashboard.fromBookings}
           icon={<DollarSign className="w-5 h-5 text-gray-400" />}
         />
         <StatCard
           title={t.ownerDashboard.outstandingBalance}
-          value={`${Number(stats.outstanding_balance).toLocaleString()} ${t.common?.sar || 'SAR'}`}
+          value={`${Number(stats.outstanding_balance).toLocaleString()} ${t.common.sar}`}
           icon={<Activity className="w-5 h-5 text-orange-400" />}
         />
         <StatCard

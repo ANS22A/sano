@@ -57,7 +57,7 @@ export default async function AdvancesPage({ searchParams }: { searchParams: Pro
             <tbody className="divide-y divide-neutral-100">
               {advances.map(advance => (
                 <tr key={advance.id} className="hover:bg-neutral-50/50 transition-colors">
-                  <td className="px-6 py-4 font-medium text-neutral-900">{advance.employee_id}</td>
+                  <td className="px-6 py-4 font-medium text-neutral-900">{advance.staff?.name_en || 'Unknown'}</td>
                   <td className="px-6 py-4">{advance.amount} SAR</td>
                   <td className="px-6 py-4">{new Date(advance.date).toLocaleDateString()}</td>
                   <td className="px-6 py-4">{advance.status}</td>

@@ -15,13 +15,11 @@ export interface AdminSession {
   profile: AdminProfile
 }
 
-import { cache } from 'react'
-
 /**
  * Get the current authenticated admin session + profile.
  * Returns null if unauthenticated or no profile found.
  */
-export const getAdminSession = cache(async (): Promise<AdminSession | null> => {
+export async function getAdminSession(): Promise<AdminSession | null> {
   const supabase = await createClient()
   const { data: { session } } = await supabase.auth.getSession()
   if (!session) return null
@@ -39,7 +37,7 @@ export const getAdminSession = cache(async (): Promise<AdminSession | null> => {
     email: session.user.email ?? '',
     profile,
   }
-})
+}
 
 /**
  * Require auth — throws redirect response if not authenticated.

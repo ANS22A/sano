@@ -70,6 +70,7 @@ export async function createAdminService(formData: FormData) {
 
   await writeAuditLog({ adminUserId: session.userId, action: 'service.create', entityType: 'service', entityId: data.id })
   revalidatePath('/admin/services')
+  revalidatePath('/[locale]/services', 'layout')
   return { success: true, id: data.id }
 }
 
@@ -84,6 +85,7 @@ export async function updateAdminService(id: string, formData: FormData) {
 
   await writeAuditLog({ adminUserId: session.userId, action: 'service.update', entityType: 'service', entityId: id })
   revalidatePath('/admin/services')
+  revalidatePath('/[locale]/services', 'layout')
   return { success: true }
 }
 
@@ -99,6 +101,7 @@ export async function toggleServiceActive(id: string, isActive: boolean) {
     entityType: 'service', entityId: id,
   })
   revalidatePath('/admin/services')
+  revalidatePath('/[locale]/services', 'layout')
   return { success: true }
 }
 
@@ -154,6 +157,7 @@ export async function uploadServiceImage(id: string, formData: FormData) {
   
   revalidatePath('/admin/services')
   revalidatePath(`/admin/services/${id}/edit`)
+  revalidatePath('/[locale]/services', 'layout')
   return { success: true, url: uploadResult.url }
 }
 
@@ -200,5 +204,6 @@ export async function removeServiceImage(id: string) {
 
   revalidatePath('/admin/services')
   revalidatePath(`/admin/services/${id}/edit`)
+  revalidatePath('/[locale]/services', 'layout')
   return { success: true }
 }

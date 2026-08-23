@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getReportSales } from '@/app/actions/adminReports.actions'
-import { ReportTable } from '@/components/admin/reports/ReportTable'
+import { ReportTable, type Column } from '@/components/admin/reports/ReportTable'
 import { cookies } from 'next/headers'
 import { adminT, type AdminLang } from '@/lib/admin/translations'
 
@@ -47,14 +47,14 @@ export default async function RevenueReportPage({
 
   const data = await getReportSales(from, to)
 
-  const columns = [
-    { key: 'created_at', title: t.reports?.columns?.date || 'Date', render: (val: string) => new Date(val).toLocaleString(), getValue: (row: any) => new Date(row.created_at).toLocaleString() },
-    { key: 'booking', title: t.reports?.columns?.booking || 'Booking', render: (_: any, row: any) => row.bookings?.booking_number || '-', getValue: (row: any) => row.bookings?.booking_number || '' },
-    { key: 'customer', title: t.reports?.columns?.customer || 'Customer', render: (_: any, row: any) => (row.bookings?.customers?.full_name || '-'), getValue: (row: any) => (row.bookings?.customers?.full_name || '') },
-    { key: 'type', title: t.reports?.columns?.type || 'Type', render: (val: string) => <span className="capitalize">{val}</span> },
-    { key: 'amount', title: t.reports?.columns?.amount || 'Amount (SAR)', render: (val: number, row: any) => <span className={row.type === 'refund' ? 'text-red-600' : 'text-green-600'}>{row.type === 'refund' ? '-' : ''}{val}</span>, getValue: (row: any) => row.type === 'refund' ? -row.amount : row.amount },
-    { key: 'payment_method', title: t.reports?.columns?.method || 'Method', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },
-    { key: 'source', title: t.reports?.columns?.source || 'Source', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },
+  const columns: Column<any>[] = [
+    { key: 'created_at', title: t.reports.columns.date, type: 'date' },
+    { key: 'booking_number', title: t.reports.columns.booking, nestedPath: ['bookings', 'booking_number'] },
+    { key: 'customer', title: t.reports.columns.customer, nestedPath: ['bookings', 'customers', 'full_name'] },
+    { key: 'type', title: t.reports.columns.type, type: 'capitalize' },
+    { key: 'amount', title: t.reports.columns.amount, type: 'amount-colored' },
+    { key: 'payment_method', title: t.reports.columns.method, type: 'method' },
+    { key: 'source', title: t.reports.columns.source, type: 'capitalize-replace' },
   ]
 
   return (

@@ -51,7 +51,7 @@ export default async function AdminPackagesPage() {
                   </td>
                   <td className="px-4 py-3 text-right">
                     <Link href={`/admin/packages/${pkg.id}/edit`} className="text-accent hover:underline">
-                      {t.common?.edit || 'Edit'}
+                      {t.common.edit}
                     </Link>
                   </td>
                 </tr>

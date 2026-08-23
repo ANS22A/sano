@@ -19,7 +19,7 @@ export default async function ReportsLayout({ children }: { children: React.Reac
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-foreground">{t.nav?.reports || 'Reports'}</h1>
+        <h1 className="text-2xl font-bold text-foreground">{t.nav.reports}</h1>
       </div>
       <ReportsNavigation t={t} />
       <div>

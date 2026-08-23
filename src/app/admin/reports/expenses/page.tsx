@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getReportExpenses } from '@/app/actions/adminReports.actions'
-import { ReportTable } from '@/components/admin/reports/ReportTable'
+import { ReportTable, type Column } from '@/components/admin/reports/ReportTable'
 import { cookies } from 'next/headers'
 import { adminT, type AdminLang } from '@/lib/admin/translations'
 
@@ -47,19 +47,19 @@ export default async function ExpensesReportPage({
 
   const expenses = await getReportExpenses(from, to)
 
-  const expensesColumns = [
-    { key: 'date', title: t.reports?.columns?.date || 'Date', render: (val: string) => new Date(val).toLocaleDateString() },
-    { key: 'category', title: t.reports?.columns?.category || 'Category', render: (_: any, row: any) => row.expense_categories?.name_en || row.expense_categories?.name_ar || '-', getValue: (row: any) => row.expense_categories?.name_en || row.expense_categories?.name_ar || '' },
-    { key: 'supplier', title: t.reports?.columns?.supplier || 'Supplier', render: () => '-', getValue: () => '' },
-    { key: 'reference', title: t.reports?.columns?.reference || 'Reference' },
-    { key: 'amount', title: t.reports?.columns?.amount || 'Amount (SAR)' },
-    { key: 'payment_method', title: t.reports?.columns?.method || 'Method', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },
+  const expensesColumns: Column<any>[] = [
+    { key: 'date', title: t.reports.columns.date, type: 'date' },
+    { key: 'category', title: t.reports.columns.category, nestedPath: ['expense_categories', 'name_en'], fallbackPath: ['expense_categories', 'name_ar'] },
+    { key: 'supplier', title: t.reports.columns.supplier, constantValue: '-' },
+    { key: 'reference', title: t.reports.columns.reference },
+    { key: 'amount', title: t.reports.columns.amount },
+    { key: 'payment_method', title: t.reports.columns.method, type: 'method' },
   ]
 
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-lg font-bold text-foreground mb-4">{t.ownerDashboard?.operatingExpensesTitle || 'Operating Expenses'}</h2>
+        <h2 className="text-lg font-bold text-foreground mb-4">{t.ownerDashboard.operatingExpensesTitle}</h2>
         <ReportTable 
           data={expenses || []}
           columns={expensesColumns}

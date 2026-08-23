@@ -52,7 +52,7 @@ export async function getAdminPartners(params: GetPartnersParams = {}) {
 
   let query = supabase
     .from('partners')
-    .select('*, profiles(full_name, email)', { count: 'exact' })
+    .select('*, profiles:created_by(full_name, email)', { count: 'exact' })
 
   if (!includeArchived) {
     query = query.eq('is_active', true)
@@ -227,11 +227,12 @@ export async function getAdminPartnerWithdrawals(params: GetWithdrawalsParams = 
     .range(from, to)
 
   if (error) {
-    throw new Error('Failed to load withdrawals')
+    console.error('[Withdrawals Error]', JSON.stringify(error))
+    throw new Error(`Failed to load withdrawals: ${error.message}`)
   }
 
   return {
-    withdrawals: data as WithdrawalRecord[],
+    withdrawals: data as unknown as WithdrawalRecord[],
     count: count ?? 0,
     totalPages: count ? Math.ceil(count / PAGE_SIZE) : 0,
   }

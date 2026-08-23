@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getReportPayroll } from '@/app/actions/adminReports.actions'
-import { ReportTable } from '@/components/admin/reports/ReportTable'
+import { ReportTable, type Column } from '@/components/admin/reports/ReportTable'
 import { cookies } from 'next/headers'
 import { adminT, type AdminLang } from '@/lib/admin/translations'
 
@@ -47,30 +47,30 @@ export default async function PayrollReportPage({
 
   const { salaries, withdrawals } = await getReportPayroll(from, to)
 
-  const salaryColumns = [
-    { key: 'payment_date', title: t.reports?.columns?.paymentDate || 'Payment Date', render: (val: string) => new Date(val).toLocaleDateString() },
-    { key: 'month', title: t.reports?.columns?.month || 'Salary Month', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },
-    { key: 'staff', title: t.reports?.columns?.employee || 'Employee', render: (_: any, row: any) => row.staff?.name_en || row.staff?.name_ar || '-', getValue: (row: any) => row.staff?.name_en || row.staff?.name_ar || '' },
-    { key: 'gross_salary', title: t.reports?.columns?.grossSalary || 'Gross (SAR)' },
-    { key: 'bonuses', title: t.reports?.columns?.bonuses || 'Bonuses' },
-    { key: 'advances_deducted', title: t.reports?.columns?.advancesDeducted || 'Advances Ded.' },
-    { key: 'other_deductions', title: t.reports?.columns?.otherDeductions || 'Other Ded.' },
-    { key: 'net_salary', title: t.reports?.columns?.netSalary || 'Net (SAR)' },
-    { key: 'payment_status', title: t.reports?.columns?.status || 'Status', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },
+  const salaryColumns: Column<any>[] = [
+    { key: 'payment_date', title: t.reports.columns.paymentDate, type: 'date' },
+    { key: 'month', title: t.reports.columns.month, type: 'capitalize-replace' },
+    { key: 'staff', title: t.reports.columns.employee, nestedPath: ['staff', 'name_en'], fallbackPath: ['staff', 'name_ar'] },
+    { key: 'gross_salary', title: t.reports.columns.grossSalary },
+    { key: 'bonuses', title: t.reports.columns.bonuses },
+    { key: 'advances_deducted', title: t.reports.columns.advancesDeducted },
+    { key: 'other_deductions', title: t.reports.columns.otherDeductions },
+    { key: 'net_salary', title: t.reports.columns.netSalary },
+    { key: 'payment_status', title: t.reports.columns.status, type: 'status' },
   ]
 
-  const withdrawalColumns = [
-    { key: 'date', title: t.reports?.columns?.date || 'Date', render: (val: string) => new Date(val).toLocaleDateString() },
-    { key: 'partner', title: t.reports?.columns?.partner || 'Partner', render: (_: any, row: any) => row.partners?.name || '-', getValue: (row: any) => row.partners?.name || '' },
-    { key: 'reference', title: t.reports?.columns?.reference || 'Reference' },
-    { key: 'amount', title: t.reports?.columns?.amount || 'Amount (SAR)' },
-    { key: 'status', title: t.reports?.columns?.status || 'Status', render: (val: string) => <span className="capitalize">{val?.replace('_', ' ')}</span> },
+  const withdrawalColumns: Column<any>[] = [
+    { key: 'date', title: t.reports.columns.date, type: 'date' },
+    { key: 'partner', title: t.reports.columns.partner, nestedPath: ['partners', 'name'] },
+    { key: 'reference', title: t.reports.columns.reference },
+    { key: 'amount', title: t.reports.columns.amount },
+    { key: 'status', title: t.reports.columns.status, type: 'status' },
   ]
 
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-lg font-bold text-foreground mb-4">{t.ownerDashboard?.salariesPaidTitle || 'Salaries Paid'}</h2>
+        <h2 className="text-lg font-bold text-foreground mb-4">{t.ownerDashboard.salariesPaidTitle}</h2>
         <ReportTable 
           data={salaries || []}
           columns={salaryColumns}
@@ -83,8 +83,8 @@ export default async function PayrollReportPage({
       </div>
 
       <div>
-        <h2 className="text-lg font-bold text-foreground mb-4">{t.ownerDashboard?.partnerWithdrawalsTitle || 'Partner Withdrawals (Capital Distributions)'}</h2>
-        <p className="text-sm text-muted-foreground mb-4">{t.ownerDashboard?.partnerWithdrawalsNote || 'Note: Partner withdrawals are equity distributions and are not classified as operating expenses.'}</p>
+        <h2 className="text-lg font-bold text-foreground mb-4">{t.ownerDashboard.partnerWithdrawalsTitle}</h2>
+        <p className="text-sm text-muted-foreground mb-4">{t.ownerDashboard.partnerWithdrawalsNote}</p>
         <ReportTable 
           data={withdrawals || []}
           columns={withdrawalColumns}

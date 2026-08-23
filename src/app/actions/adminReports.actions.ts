@@ -210,7 +210,7 @@ export async function getReportPayroll(startDate: string, endDate: string) {
         amount,
         status,
         reference,
-        partners ( name )
+        partners:partner_id ( name )
       `)
       .gte('date', startDate)
       .lte('date', endDate)

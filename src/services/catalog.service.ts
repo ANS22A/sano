@@ -7,7 +7,6 @@ import type {
   ServiceWithCategory,
   ServiceFilters,
 } from '@/data/types'
-import { packages } from '@/data/content.data'
 
 // ─────────────────────────────────────────────
 // CATEGORIES
@@ -87,7 +86,7 @@ export async function getServiceBySlug(slug: string): Promise<ServiceWithCategor
   const supabase = await createClient()
   const { data } = await supabase
     .from('services')
-    .select('*, service_categories(id, slug, name_ar, name_en, icon)')
+    .select('*, service_categories(id, slug, name_ar, name_en)')
     .eq('slug', slug)
     .single()
 
@@ -95,8 +94,8 @@ export async function getServiceBySlug(slug: string): Promise<ServiceWithCategor
   const { service_categories, ...service } = data
   return {
     ...service,
-    category: service_categories as any,
-  } as ServiceWithCategory
+    category: service_categories as unknown as ServiceCategory,
+  } as unknown as ServiceWithCategory
 }
 
 // ─────────────────────────────────────────────
@@ -130,7 +129,7 @@ export async function getFeaturedServices(): Promise<ServiceWithCategory[]> {
   const supabase = await createClient()
   const { data } = await supabase
     .from('services')
-    .select('*, service_categories(id, slug, name_ar, name_en, icon)')
+    .select('*, service_categories(id, slug, name_ar, name_en)')
     .eq('is_featured', true)
     .order('sort_order', { ascending: true })
 
@@ -145,7 +144,7 @@ export async function getPopularServices(): Promise<ServiceWithCategory[]> {
   const supabase = await createClient()
   const { data } = await supabase
     .from('services')
-    .select('*, service_categories(id, slug, name_ar, name_en, icon)')
+    .select('*, service_categories(id, slug, name_ar, name_en)')
     .eq('is_popular', true)
     .order('sort_order', { ascending: true })
 
