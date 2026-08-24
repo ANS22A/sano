@@ -134,10 +134,10 @@ export async function getFeaturedServices(): Promise<ServiceWithCategory[]> {
     .order('sort_order', { ascending: true })
 
   if (!data) return []
-  return data.map((d: any) => {
+  return data.map((d) => {
     const { service_categories, ...service } = d
     return { ...service, category: service_categories }
-  })
+  }) as unknown as ServiceWithCategory[]
 }
 
 export async function getPopularServices(): Promise<ServiceWithCategory[]> {
@@ -149,10 +149,10 @@ export async function getPopularServices(): Promise<ServiceWithCategory[]> {
     .order('sort_order', { ascending: true })
 
   if (!data) return []
-  return data.map((d: any) => {
+  return data.map((d) => {
     const { service_categories, ...service } = d
     return { ...service, category: service_categories }
-  })
+  }) as unknown as ServiceWithCategory[]
 }
 
 // ─────────────────────────────────────────────

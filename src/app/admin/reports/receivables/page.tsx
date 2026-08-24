@@ -48,7 +48,7 @@ export default async function ReceivablesReportPage({
   const data = await getReportReceivables(from, to)
   const receivables = data.filter((d: any) => d.outstanding_balance > 0)
 
-  const columns: Column<any>[] = [
+  const columns: Column[] = [
     { key: 'booking_number', title: t.reports.columns.booking },
     { key: 'date', title: t.reports.columns.date, type: 'date' },
     { key: 'customer_name', title: t.reports.columns.customer },

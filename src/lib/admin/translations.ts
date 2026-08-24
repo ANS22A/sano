@@ -161,6 +161,31 @@ export const adminT = {
       new: 'New Package',
       edit: 'Edit Package',
       noResults: 'No packages found.',
+      nameAr: 'Name (Arabic)',
+      nameEn: 'Name (English)',
+      descAr: 'Description (Arabic)',
+      descEn: 'Description (English)',
+      price: 'Price (SAR)',
+      active: 'Active',
+      save: 'Save Package',
+      saved: 'Package saved.',
+    },
+    // Expenses
+    expenses: {
+      newExpense: 'New Expense',
+      expense: 'Expense',
+    },
+    // Partners
+    partners: {
+      newWithdrawal: 'New Withdrawal',
+      partner: 'Partner',
+    },
+    // Payroll
+    payroll: {
+      newAdvance: 'New Advance',
+      advance: 'Advance',
+      employee: 'Employee',
+      statement: 'Payroll Statement',
     },
     // Customers
     customers: {
@@ -225,6 +250,7 @@ export const adminT = {
         paid: 'Paid (SAR)',
         refunded: 'Refunded (SAR)',
         outstanding: 'Outstanding (SAR)',
+        paymentMethod: 'Payment Method',
       },
     },
     common: {
@@ -417,6 +443,28 @@ export const adminT = {
       new: 'باقة جديدة',
       edit: 'تعديل الباقة',
       noResults: 'لا توجد باقات.',
+      nameAr: 'الاسم (عربي)',
+      nameEn: 'الاسم (إنجليزي)',
+      descAr: 'الوصف (عربي)',
+      descEn: 'الوصف (إنجليزي)',
+      price: 'السعر (ريال)',
+      active: 'مفعّلة',
+      save: 'حفظ الباقة',
+      saved: 'تم حفظ الباقة.',
+    },
+    expenses: {
+      newExpense: 'مصروف جديد',
+      expense: 'المصروف',
+    },
+    partners: {
+      newWithdrawal: 'سحب جديد',
+      partner: 'الشريك',
+    },
+    payroll: {
+      newAdvance: 'سلفة جديدة',
+      advance: 'السلفة',
+      employee: 'الموظف',
+      statement: 'كشف الرواتب',
     },
     customers: {
       title: 'العملاء',

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { getReportExpenses } from '@/app/actions/adminReports.actions'
 import { ReportTable, type Column } from '@/components/admin/reports/ReportTable'
 import { cookies } from 'next/headers'
@@ -47,7 +47,7 @@ export default async function ExpensesReportPage({
 
   const expenses = await getReportExpenses(from, to)
 
-  const expensesColumns: Column<any>[] = [
+  const expensesColumns: Column[] = [
     { key: 'date', title: t.reports.columns.date, type: 'date' },
     { key: 'category', title: t.reports.columns.category, nestedPath: ['expense_categories', 'name_en'], fallbackPath: ['expense_categories', 'name_ar'] },
     { key: 'supplier', title: t.reports.columns.supplier, constantValue: '-' },

@@ -27,8 +27,8 @@ export function PartnerForm({ partner }: Props) {
           await createPartner(formData)
         }
         router.push('/admin/partners')
-      } catch (err: any) {
-        setErrorMsg(err.message || 'Something went wrong')
+      } catch (err) {
+        setErrorMsg(err instanceof Error ? err.message : 'Something went wrong')
       }
     })
   }

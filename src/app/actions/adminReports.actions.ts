@@ -196,11 +196,12 @@ export async function getReportPayroll(startDate: string, endDate: string) {
         other_deductions,
         net_salary,
         payment_status,
+        created_at,
         staff ( name_en, name_ar )
       `)
-      .gte('payment_date', startDate)
-      .lte('payment_date', endDate)
       .eq('is_archived', false)
+      .or(`payment_date.gte.${startDate},and(payment_date.is.null,created_at.gte.${startDate}T00:00:00)`)
+      .or(`payment_date.lte.${endDate},and(payment_date.is.null,created_at.lte.${endDate}T23:59:59.999)`)
       .order('payment_date', { ascending: false }),
     supabase
       .from('partner_withdrawals')

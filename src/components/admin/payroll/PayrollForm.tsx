@@ -21,8 +21,8 @@ export function PayrollForm({ staff }: Props) {
       try {
         await createSalary(formData)
         router.push('/admin/payroll')
-      } catch (err: any) {
-        setErrorMsg(err.message || 'Something went wrong')
+      } catch (err) {
+        setErrorMsg(err instanceof Error ? err.message : 'Something went wrong')
       }
     })
   }

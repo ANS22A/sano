@@ -159,10 +159,15 @@ export async function getAvailableSlots(params: GetAvailableSlotsParams): Promis
     let start = toMinutes(b.start_time.slice(0, 5))
     let end = toMinutes(b.end_time.slice(0, 5))
     
-    // If the booking is in the overnight hours (e.g., 01:00), shift it to the next day's minutes
-    if (start < openMin) start += 1440
-    if (end < openMin) end += 1440
-    // Fix for 23:00 -> 01:00 overlapping midnight
+    // Only shift times if this shift spans midnight AND the booking is in the morning hours
+    const spansMidnight = closeMin > 1440
+    if (spansMidnight) {
+      const originalCloseMin = closeMin - 1440
+      if (start <= originalCloseMin) start += 1440
+      if (end <= originalCloseMin) end += 1440
+    }
+    
+    // Fix for cross-midnight bookings within the same day
     if (end < start) end += 1440
 
     return { start, end }

@@ -19,7 +19,7 @@ export type ColumnType =
   | 'amount-bold'
   | 'nested'
 
-export interface Column<T> {
+export interface Column {
   key: string
   title: string
   type?: ColumnType
@@ -30,7 +30,7 @@ export interface Column<T> {
 
 interface Props<T> {
   data: T[]
-  columns: Column<T>[]
+  columns: Column[]
   filename: string
   currentRange: string
   from: string
@@ -42,7 +42,7 @@ function getNestedValue(obj: any, path: string[]) {
   return path.reduce((acc, part) => (acc && acc[part] !== undefined ? acc[part] : undefined), obj)
 }
 
-function resolveCellValue(c: Column<any>, row: any): any {
+function resolveCellValue(c: Column, row: any): any {
   if (c.constantValue !== undefined) return c.constantValue
   
   if (c.nestedPath) {
@@ -56,7 +56,7 @@ function resolveCellValue(c: Column<any>, row: any): any {
   return row[c.key]
 }
 
-function formatValue(c: Column<any>, val: any, row: any): string | number {
+function formatValue(c: Column, val: any, row: any): string | number {
   if (c.type === 'date') return val ? new Date(val).toLocaleDateString() : ''
   if (c.type === 'currency' || c.type === 'amount-colored' || c.type === 'amount-bold') {
     if (c.type === 'amount-colored' && row.type === 'refund') {
@@ -118,7 +118,7 @@ export function ReportTable<T>({ data, columns, filename, currentRange, from, to
     })
   })
 
-  const renderCell = (c: Column<any>, val: any, row: any) => {
+  const renderCell = (c: Column, val: any, row: any) => {
     if (val == null || val === '') return '-'
     
     switch (c.type) {

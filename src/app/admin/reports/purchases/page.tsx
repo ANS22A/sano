@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { getReportPurchases } from '@/app/actions/adminReports.actions'
 import { ReportTable, type Column } from '@/components/admin/reports/ReportTable'
 import { cookies } from 'next/headers'
@@ -47,7 +47,7 @@ export default async function PurchasesReportPage({
 
   const purchases = await getReportPurchases(from, to)
 
-  const purchasesColumns: Column<any>[] = [
+  const purchasesColumns: Column[] = [
     { key: 'date', title: t.reports.columns.date, type: 'date' },
     { key: 'supplier', title: t.reports.columns.supplier, nestedPath: ['suppliers', 'name'] },
     { key: 'reference', title: t.reports.columns.reference },

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { getReportSales } from '@/app/actions/adminReports.actions'
 import { ReportTable, type Column } from '@/components/admin/reports/ReportTable'
 import { cookies } from 'next/headers'
@@ -47,7 +47,7 @@ export default async function RevenueReportPage({
 
   const data = await getReportSales(from, to)
 
-  const columns: Column<any>[] = [
+  const columns: Column[] = [
     { key: 'created_at', title: t.reports.columns.date, type: 'date' },
     { key: 'booking_number', title: t.reports.columns.booking, nestedPath: ['bookings', 'booking_number'] },
     { key: 'customer', title: t.reports.columns.customer, nestedPath: ['bookings', 'customers', 'full_name'] },

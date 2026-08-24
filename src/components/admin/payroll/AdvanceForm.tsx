@@ -21,8 +21,8 @@ export function AdvanceForm({ staff }: Props) {
       try {
         await createAdvance(formData)
         router.push('/admin/payroll/advances')
-      } catch (err: any) {
-        setErrorMsg(err.message || 'Something went wrong')
+      } catch (err) {
+        setErrorMsg(err instanceof Error ? err.message : 'Something went wrong')
       }
     })
   }

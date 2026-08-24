@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { getReportPayroll } from '@/app/actions/adminReports.actions'
 import { ReportTable, type Column } from '@/components/admin/reports/ReportTable'
 import { cookies } from 'next/headers'
@@ -47,7 +47,7 @@ export default async function PayrollReportPage({
 
   const { salaries, withdrawals } = await getReportPayroll(from, to)
 
-  const salaryColumns: Column<any>[] = [
+  const salaryColumns: Column[] = [
     { key: 'payment_date', title: t.reports.columns.paymentDate, type: 'date' },
     { key: 'month', title: t.reports.columns.month, type: 'capitalize-replace' },
     { key: 'staff', title: t.reports.columns.employee, nestedPath: ['staff', 'name_en'], fallbackPath: ['staff', 'name_ar'] },
@@ -59,7 +59,7 @@ export default async function PayrollReportPage({
     { key: 'payment_status', title: t.reports.columns.status, type: 'status' },
   ]
 
-  const withdrawalColumns: Column<any>[] = [
+  const withdrawalColumns: Column[] = [
     { key: 'date', title: t.reports.columns.date, type: 'date' },
     { key: 'partner', title: t.reports.columns.partner, nestedPath: ['partners', 'name'] },
     { key: 'reference', title: t.reports.columns.reference },

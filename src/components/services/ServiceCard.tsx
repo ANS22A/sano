@@ -119,7 +119,7 @@ export function ServiceCard({ service, category, index = 0 }: ServiceCardProps) 
 
           {/* CTA */}
           <Link
-            href={`/services/${service.slug}`}
+            href={`/booking?service=${service.slug}`}
             className={cn(
               'text-xs font-medium',
               'text-[var(--color-accent)] hover:text-foreground',
