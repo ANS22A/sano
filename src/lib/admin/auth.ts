@@ -66,7 +66,7 @@ export async function requireRole(minRole: AdminRole): Promise<AdminSession> {
 
   if (userLevel < requiredLevel) {
     const { redirect } = await import('next/navigation')
-    redirect('/admin?error=insufficient_permissions')
+    redirect(session.profile.role === 'staff' ? '/admin/bookings' : '/admin?error=insufficient_permissions')
   }
 
   return session

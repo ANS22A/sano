@@ -72,7 +72,7 @@ export const can = {
 /** Navigation items visible to a given role */
 export function getNavItems(role: string) {
   return {
-    dashboard: true,
+    dashboard: hasMinRole(role, 'manager'),
     bookings: can.viewBookings(role),
     calendar: can.viewBookings(role),
     services: can.viewCatalog(role),

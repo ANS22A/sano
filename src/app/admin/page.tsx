@@ -7,7 +7,7 @@ import { RecentBookings } from '@/components/admin/dashboard/RecentBookings'
 import { OwnerDashboardClient } from '@/components/admin/dashboard/OwnerDashboardClient'
 import { cookies } from 'next/headers'
 import { adminT, type AdminLang } from '@/lib/admin/translations'
-import { requireRole } from '@/lib/admin/auth'
+import { requireAuth } from '@/lib/admin/auth'
 
 export const metadata: Metadata = { title: 'Dashboard' }
 
@@ -26,8 +26,15 @@ export default async function AdminDashboardPage({
 }) {
   const sp = await searchParams
 
-  const session = await requireRole('manager')
-  const isAdmin = session.profile.role === 'admin' || session.profile.role === 'super_admin'
+  const session = await requireAuth()
+  const role = session.profile.role
+
+  if (role === 'staff') {
+    const { redirect } = await import('next/navigation')
+    redirect('/admin/bookings')
+  }
+
+  const isAdmin = role === 'admin' || role === 'super_admin'
 
   const cookieStore = await cookies()
   const lang = (cookieStore.get('admin_lang')?.value ?? 'en') as AdminLang
