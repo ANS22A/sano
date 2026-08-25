@@ -58,19 +58,21 @@ export default async function AdminDashboardPage({
 
     const from = getRiyadhDateString(start)
     const to = getRiyadhDateString(end)
-
-    const ownerStatsResult = await getOwnerFinancialStats(from, to)
+    const [ownerStatsResult, recentBookings] = await Promise.all([
+      getOwnerFinancialStats(from, to),
+      getRecentBookings(10),
+    ])
 
     return (
-      <div className="space-y-6">
+      <div className="space-y-8">
         <div>
-          <h1 className="text-xl font-bold text-foreground">{t.dashboard.title}</h1>
+          <h1 className="text-2xl font-bold text-foreground">{t.dashboard.title}</h1>
           <p className="text-sm text-muted-foreground mt-0.5">{todayStr}</p>
         </div>
         
         {ownerStatsResult.error ? (
-          <div className="p-6 bg-error-bg border border-error-border rounded-2xl text-error">
-            <h2 className="text-lg font-bold mb-2">Financial Data Unavailable</h2>
+          <div className="p-6 bg-red-50 border border-red-200 rounded-2xl text-red-700">
+            <h2 className="text-lg font-bold mb-2">Financial Data Notice</h2>
             <p className="text-sm">{ownerStatsResult.error}</p>
           </div>
         ) : (
@@ -82,6 +84,21 @@ export default async function AdminDashboardPage({
             to={to} 
           />
         )}
+
+        {/* Recent bookings for admin overview */}
+        <RecentBookings
+          bookings={recentBookings}
+          t={{
+            recentBookings: t.dashboard.recentBookings,
+            noBookings: t.dashboard.noBookings,
+            bookingNumber: t.bookings.bookingNumber,
+            customer: t.bookings.customer,
+            service: t.bookings.service,
+            date: t.bookings.date,
+            status: t.bookings.status,
+            price: t.bookings.price,
+          }}
+        />
       </div>
     )
   }

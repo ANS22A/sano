@@ -80,24 +80,67 @@ export async function getOwnerFinancialStats(startDate: string, endDate: string)
 
   const supabase = await createClient()
 
-  // 3. RPC Call
-  // @ts-expect-error RPC might not be in database.types.ts yet
-  const { data, error } = await supabase.rpc('get_owner_financial_stats', {
-    p_start_date: startDate,
-    p_end_date: endDate
-  })
+  try {
+    const startUTC = new Date(`${startDate}T00:00:00+03:00`).toISOString()
+    const endUTC = new Date(`${endDate}T23:59:59.999+03:00`).toISOString()
 
-  if (error) {
-    console.error('[Dashboard RPC Error]', JSON.stringify({
-      message: error.message,
-      code: error.code,
-      details: error.details,
-      hint: error.hint
-    }))
-    return { data: null, error: `Failed to retrieve financial statistics. (Diagnostics Code: ${error.code || 'UNKNOWN'})` }
+    const [
+      salesRes,
+      expensesRes,
+      purchasesRes,
+      salariesRes,
+      withdrawalsRes,
+      bookingsRes,
+      customersRes,
+    ] = await Promise.all([
+      supabase.from('sales').select('amount, type').gte('created_at', startUTC).lte('created_at', endUTC).eq('is_archived', false),
+      supabase.from('expenses').select('amount').gte('date', startDate).lte('date', endDate).eq('is_archived', false),
+      supabase.from('purchases').select('amount').gte('date', startDate).lte('date', endDate).eq('is_archived', false),
+      supabase.from('salaries').select('net_salary, gross_salary').or(`payment_date.gte.${startDate},and(payment_date.is.null,created_at.gte.${startUTC})`).or(`payment_date.lte.${endDate},and(payment_date.is.null,created_at.lte.${endUTC})`).eq('payment_status', 'paid').eq('is_archived', false),
+      supabase.from('partner_withdrawals').select('amount').gte('date', startDate).lte('date', endDate).eq('status', 'completed').eq('is_archived', false),
+      supabase.from('bookings').select('status, price_sar').gte('date', startDate).lte('date', endDate),
+      supabase.from('customers').select('id', { count: 'exact', head: true }),
+    ])
+
+    const realized_revenue = (salesRes.data || []).reduce((sum, s) => sum + (s.type === 'refund' ? -Number(s.amount) : Number(s.amount)), 0)
+    const operating_expenses = (expensesRes.data || []).reduce((sum, e) => sum + Number(e.amount), 0)
+    const purchases = (purchasesRes.data || []).reduce((sum, p) => sum + Number(p.amount), 0)
+    const salaries_paid = (salariesRes.data || []).reduce((sum, s) => sum + Number(s.net_salary || s.gross_salary || 0), 0)
+    const partner_withdrawals = (withdrawalsRes.data || []).reduce((sum, w) => sum + Number(w.amount), 0)
+    const net_operating_profit = realized_revenue - (operating_expenses + purchases + salaries_paid)
+    const net_cash_movement = net_operating_profit - partner_withdrawals
+
+    const bookings = bookingsRes.data || []
+    const bookings_total = bookings.length
+    const bookings_completed = bookings.filter(b => b.status === 'completed').length
+    const bookings_pending = bookings.filter(b => b.status === 'pending').length
+    const bookings_cancelled = bookings.filter(b => b.status === 'cancelled').length
+    const expected_revenue = bookings.filter(b => b.status !== 'cancelled').reduce((sum, b) => sum + Number(b.price_sar || 0), 0)
+    const outstanding_balance = Math.max(0, expected_revenue - realized_revenue)
+    const customer_count = customersRes.count || 0
+
+    const stats: OwnerFinancialStats = {
+      realized_revenue,
+      operating_expenses,
+      purchases,
+      salaries_paid,
+      partner_withdrawals,
+      net_operating_profit,
+      net_cash_movement,
+      expected_revenue,
+      outstanding_balance,
+      bookings_total,
+      bookings_completed,
+      bookings_pending,
+      bookings_cancelled,
+      customer_count,
+    }
+
+    return { data: stats, error: null }
+  } catch (err) {
+    console.error('[getOwnerFinancialStats Error]', err)
+    return { data: null, error: err instanceof Error ? err.message : 'Failed to calculate financial statistics' }
   }
-
-  return { data: data as unknown as OwnerFinancialStats, error: null }
 }
 export async function getReportSales(startDate: string, endDate: string) {
   await requireRole('admin')
