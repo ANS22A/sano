@@ -315,14 +315,14 @@ function CustomerAuthFormContent({
 
               {/* Status alerts */}
               {error && (
-                <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-sm text-red-600 font-medium text-center">
+                <div className="p-3 rounded-xl bg-error-bg border border-error-border text-sm text-error font-medium text-center">
                   {error}
                 </div>
               )}
 
               {successInfo && (
-                <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-sm text-emerald-700 font-medium text-center flex items-center justify-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <div className="p-3 rounded-xl bg-success-bg border border-success-border text-sm text-success font-medium text-center flex items-center justify-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-success shrink-0" />
                   <span>{successInfo}</span>
                 </div>
               )}
@@ -434,8 +434,8 @@ function CustomerAuthFormContent({
         {/* Card */}
         <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-subtle">
           {isVerified && type === 'login' && (
-            <div className="mb-5 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-sm text-emerald-800 font-medium flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+            <div className="mb-5 p-3 rounded-xl bg-success-bg border border-success-border text-sm text-success font-medium flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-success shrink-0" />
               <span>{t.verifiedSuccess}</span>
             </div>
           )}
@@ -446,7 +446,7 @@ function CustomerAuthFormContent({
                 <div className="space-y-1.5">
                   <label className="text-sm font-medium text-foreground">{t.fullName}</label>
                   <div className="relative">
-                    <User className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A98FB8]" />
+                    <User className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <input
                       name="fullName"
                       type="text"
@@ -460,7 +460,7 @@ function CustomerAuthFormContent({
                 <div className="space-y-1.5">
                   <label className="text-sm font-medium text-foreground">{t.phone}</label>
                   <div className="relative">
-                    <Phone className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A98FB8]" />
+                    <Phone className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <input
                       name="phone"
                       type="tel"
@@ -477,7 +477,7 @@ function CustomerAuthFormContent({
             <div className="space-y-1.5">
               <label className="text-sm font-medium text-foreground">{t.email}</label>
               <div className="relative">
-                <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A98FB8]" />
+                <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <input
                   name="email"
                   type="email"
@@ -492,7 +492,7 @@ function CustomerAuthFormContent({
             <div className="space-y-1.5">
               <label className="text-sm font-medium text-foreground">{t.password}</label>
               <div className="relative">
-                <Lock className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A98FB8]" />
+                <Lock className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <input
                   name="password"
                   type="password"
@@ -515,7 +515,7 @@ function CustomerAuthFormContent({
             </div>
 
             {error && (
-              <div className="p-3 rounded-xl bg-red-50 border border-red-100 text-sm text-red-600 font-medium">
+              <div className="p-3 rounded-xl bg-error-bg border border-error-border text-sm text-error font-medium">
                 {error}
               </div>
             )}

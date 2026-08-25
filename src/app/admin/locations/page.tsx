@@ -31,7 +31,7 @@ export default async function AdminLocationsPage() {
           </div>
         ) : (
           locations.map((loc) => (
-            <div key={loc.id} className="bg-white rounded-2xl border border-border p-5 hover:border-accent/30 hover:shadow-[0_4px_20px_-4px_rgba(42,33,24,0.04)] transition-all duration-300 relative group">
+            <div key={loc.id} className="bg-white rounded-2xl border border-border p-5 hover:border-accent/30 hover:shadow-subtle transition-all duration-300 relative group">
               
               <div className="absolute top-4 end-4 opacity-0 group-hover:opacity-100 transition-opacity">
                 <LocationFormWrapper 

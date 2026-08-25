@@ -12,10 +12,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'nav' })
-  const common = await getTranslations({ locale, namespace: 'home.about' })
+  const common = await getTranslations({ locale, namespace: 'home.intro' })
 
   return (
-    <main className="min-h-screen pt-32 pb-16">
+    <main className="min-h-screen pt-32 pb-16 bg-background">
       <section className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <p className="text-accent text-sm tracking-widest uppercase mb-4">{common('overline')}</p>

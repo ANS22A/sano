@@ -17,12 +17,12 @@ export default async function AdvancesPage({ searchParams }: { searchParams: Pro
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
         <div>
           <h1 className="text-3xl font-light text-foreground">Employee Advances</h1>
-          <p className="text-sm text-neutral-500 mt-1">Manage employee cash advances.</p>
+          <p className="text-sm text-muted-foreground mt-1">Manage employee cash advances.</p>
         </div>
         <div className="flex items-center gap-3">
           <Link
             href="/admin/payroll"
-            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-md border border-neutral-200 bg-white text-sm font-medium hover:bg-neutral-50 transition-colors"
+            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-md border border-neutral-200 bg-white text-sm font-medium hover:bg-muted transition-colors"
           >
             Back to Payroll
           </Link>
@@ -45,8 +45,8 @@ export default async function AdvancesPage({ searchParams }: { searchParams: Pro
         />
       ) : (
         <div className="rounded-lg border border-neutral-200 bg-white shadow-sm overflow-hidden">
-          <table className="w-full text-sm text-left rtl:text-right text-neutral-600">
-            <thead className="bg-neutral-50 text-neutral-900 font-medium border-b border-neutral-200">
+          <table className="w-full text-sm text-left rtl:text-right text-muted-foreground">
+            <thead className="bg-muted text-foreground font-medium border-b border-neutral-200">
               <tr>
                 <th className="px-6 py-4">Employee</th>
                 <th className="px-6 py-4">Amount</th>
@@ -56,8 +56,8 @@ export default async function AdvancesPage({ searchParams }: { searchParams: Pro
             </thead>
             <tbody className="divide-y divide-neutral-100">
               {advances.map(advance => (
-                <tr key={advance.id} className="hover:bg-neutral-50/50 transition-colors">
-                  <td className="px-6 py-4 font-medium text-neutral-900">{advance.staff?.name_en || 'Unknown'}</td>
+                <tr key={advance.id} className="hover:bg-muted/50 transition-colors">
+                  <td className="px-6 py-4 font-medium text-foreground">{advance.staff?.name_en || 'Unknown'}</td>
                   <td className="px-6 py-4">{advance.amount} SAR</td>
                   <td className="px-6 py-4">{new Date(advance.date).toLocaleDateString()}</td>
                   <td className="px-6 py-4">{advance.status}</td>

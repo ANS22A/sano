@@ -105,12 +105,12 @@ export function OwnerDashboardClient({ stats, t, currentRange, from, to }: Props
           title={t.ownerDashboard.expectedRevenue}
           value={`${Number(stats.expected_revenue).toLocaleString()} ${t.common.sar}`}
           subtitle={t.ownerDashboard.fromBookings}
-          icon={<DollarSign className="w-5 h-5 text-gray-400" />}
+          icon={<DollarSign className="w-5 h-5 text-muted-foreground" />}
         />
         <StatCard
           title={t.ownerDashboard.outstandingBalance}
           value={`${Number(stats.outstanding_balance).toLocaleString()} ${t.common.sar}`}
-          icon={<Activity className="w-5 h-5 text-orange-400" />}
+          icon={<Activity className="w-5 h-5 text-warning" />}
         />
         <StatCard
           title={t.ownerDashboard.profitMargin}

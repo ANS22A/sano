@@ -43,7 +43,7 @@ export default async function AccountLayout({
               href={item.href}
               className="flex items-center gap-3 px-4 py-3 rounded-xl text-secondary font-medium hover:bg-surface transition-colors"
             >
-              <item.icon className="w-5 h-5 text-[#A98FB8]" />
+              <item.icon className="w-5 h-5 text-muted-foreground" />
               {item.label}
             </Link>
           ))}
@@ -58,9 +58,9 @@ export default async function AccountLayout({
           }}>
             <button
               type="submit"
-              className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-red-600 font-medium hover:bg-red-50 transition-colors text-start"
+              className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-error font-medium hover:bg-error-bg transition-colors text-start"
             >
-              <LogOut className="w-5 h-5 text-red-400" />
+              <LogOut className="w-5 h-5 text-error" />
               {t('logout')}
             </button>
           </form>

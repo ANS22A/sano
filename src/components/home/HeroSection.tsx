@@ -93,22 +93,22 @@ export function HeroSection() {
         >
           {/* Overline */}
           <div
-            className="inline-flex items-center gap-2 mb-6 md:mb-8"
+            className="inline-flex items-center gap-3 mb-6 md:mb-8 bg-black/30 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10"
             aria-hidden="true"
           >
-            <span className="w-8 h-px bg-white/40" />
-            <span className="text-white/70 text-xs tracking-[0.2em] uppercase font-medium">
+            <span className="text-accent text-xs">✦</span>
+            <span className="text-accent text-xs tracking-[0.25em] uppercase font-medium">
               {t('overline')}
             </span>
-            <span className="w-8 h-px bg-white/40" />
+            <span className="text-accent text-xs">✦</span>
           </div>
 
           {/* Headline */}
-          <h1 className="font-display text-white leading-[1.05] mb-6 md:mb-8">
+          <h1 className="font-display text-white leading-[1.08] mb-6 md:mb-8">
             <span
               className={cn(
                 'block',
-                'text-[clamp(3rem,7vw,6.5rem)]',
+                'text-[clamp(2.75rem,6.5vw,5.75rem)]',
                 'font-light tracking-tight'
               )}
             >
@@ -117,9 +117,9 @@ export function HeroSection() {
             <span
               className={cn(
                 'block',
-                'text-[clamp(3rem,7vw,6.5rem)]',
+                'text-[clamp(2.75rem,6.5vw,5.75rem)]',
                 'font-light tracking-tight',
-                'text-surface'
+                'text-accent'
               )}
             >
               {t('titleLine2')}
@@ -129,9 +129,9 @@ export function HeroSection() {
           {/* Subtitle */}
           <p
             className={cn(
-              'text-white/80 text-base md:text-lg lg:text-xl',
+              'text-white/85 text-base md:text-lg lg:text-xl',
               'max-w-2xl leading-relaxed mb-10 md:mb-12',
-              'font-body'
+              'font-body drop-shadow-sm'
             )}
           >
             {t('subtitle')}
@@ -142,8 +142,9 @@ export function HeroSection() {
             <Link
               href="/booking"
               className={cn(
-                'btn btn-lg btn-primary',
-                'min-w-[200px] justify-center'
+                'btn btn-lg bg-accent text-foreground hover:bg-accent/90',
+                'shadow-luxury hover:scale-[1.02] transition-all duration-300 font-semibold',
+                'min-w-[210px] justify-center text-sm tracking-wide'
               )}
             >
               {t('ctaPrimary')}
@@ -152,10 +153,10 @@ export function HeroSection() {
               href="/services"
               className={cn(
                 'btn btn-lg',
-                'border border-white/40 text-white',
-                'hover:bg-white/10 hover:border-white/70',
-                'transition-colors duration-200',
-                'min-w-[200px] justify-center'
+                'border border-white/50 text-white bg-white/10 backdrop-blur-md',
+                'hover:bg-white/20 hover:border-white/80',
+                'transition-all duration-200',
+                'min-w-[210px] justify-center text-sm tracking-wide'
               )}
             >
               {t('ctaSecondary')}

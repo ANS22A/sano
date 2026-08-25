@@ -139,7 +139,7 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
         <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto">
           <div className="p-6 space-y-4">
             {error && (
-              <div className="p-3 bg-red-50 text-red-600 rounded-lg text-sm border border-red-100" role="alert">
+              <div className="p-3 bg-error-bg text-error rounded-lg text-sm border border-error-border" role="alert">
                 {error}
               </div>
             )}

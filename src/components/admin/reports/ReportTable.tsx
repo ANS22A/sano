@@ -131,9 +131,9 @@ export function ReportTable<T>({ data, columns, filename, currentRange, from, to
         return <span className="capitalize">{String(val).replace(/_/g, ' ')}</span>
       case 'amount-colored':
         const isRefund = row.type === 'refund'
-        return <span className={isRefund ? 'text-red-600' : 'text-green-600'}>{isRefund ? '-' : ''}{val}</span>
+        return <span className={isRefund ? 'text-error' : 'text-success'}>{isRefund ? '-' : ''}{val}</span>
       case 'amount-bold':
-        return <span className="font-bold text-orange-600">{val}</span>
+        return <span className="font-bold text-warning">{val}</span>
       case 'status':
         return <span className="capitalize">{String(val).replace(/_/g, ' ')}</span>
       default:

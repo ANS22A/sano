@@ -199,9 +199,9 @@ export function AdminGiftCardsClient({
         <div className="bg-white p-5 rounded-2xl border border-border shadow-sm">
           <div className="flex items-center justify-between text-muted-foreground mb-2 text-xs font-semibold">
             <span>{t.statPendingPayment}</span>
-            <Clock className="w-4 h-4 text-amber-600" />
+            <Clock className="w-4 h-4 text-warning" />
           </div>
-          <div className="text-2xl font-display font-bold text-amber-700">
+          <div className="text-2xl font-display font-bold text-warning">
             {stats.pendingPaymentCount ?? 0}
           </div>
           <div className="text-[11px] text-muted-foreground mt-1">
@@ -222,9 +222,9 @@ export function AdminGiftCardsClient({
         <div className="bg-white p-5 rounded-2xl border border-border shadow-sm">
           <div className="flex items-center justify-between text-muted-foreground mb-2 text-xs font-semibold">
             <span>{t.statActiveBalance}</span>
-            <CreditCard className="w-4 h-4 text-emerald-600" />
+            <CreditCard className="w-4 h-4 text-success" />
           </div>
-          <div className="text-2xl font-display font-bold text-emerald-700">
+          <div className="text-2xl font-display font-bold text-success">
             {stats.activeBalance.toLocaleString()} <span className="text-xs font-sans font-normal text-muted-foreground">{t.sar}</span>
           </div>
           <div className="text-[11px] text-muted-foreground mt-1">
@@ -318,7 +318,7 @@ export function AdminGiftCardsClient({
                   const isPendingPayment = card.status === 'pending_payment'
 
                   return (
-                    <tr key={card.id} className={`transition-colors ${isPendingPayment ? 'bg-amber-50/40 hover:bg-amber-50/70' : 'hover:bg-surface/60'}`}>
+                    <tr key={card.id} className={`transition-colors ${isPendingPayment ? 'bg-warning-bg/40 hover:bg-warning-bg/70' : 'hover:bg-surface/60'}`}>
                       {/* Order Reference */}
                       <td className="py-3.5 px-4">
                         <span className="font-mono text-xs font-semibold text-foreground dir-ltr" dir="ltr">
@@ -342,7 +342,7 @@ export function AdminGiftCardsClient({
                               title={t.copyCode}
                               className="p-1 text-muted-foreground hover:text-foreground transition-colors"
                             >
-                              {isCopied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                              {isCopied ? <Check className="w-3.5 h-3.5 text-success" /> : <Copy className="w-3.5 h-3.5" />}
                             </button>
                           </div>
                         )}
@@ -368,7 +368,7 @@ export function AdminGiftCardsClient({
                         {!isPendingPayment && (
                           <div className="w-20 h-1.5 rounded-full bg-muted overflow-hidden">
                             <div
-                              className={`h-full ${pct > 0 ? 'bg-emerald-500' : 'bg-gray-400'}`}
+                              className={`h-full ${pct > 0 ? 'bg-success-bg0' : 'bg-muted-foreground'}`}
                               style={{ width: `${pct}%` }}
                             />
                           </div>
@@ -404,7 +404,7 @@ export function AdminGiftCardsClient({
                           {isPendingPayment && (
                             <button
                               onClick={() => setConfirmActivationCard(card)}
-                              className="px-2.5 py-1 rounded-lg bg-emerald-600 text-white text-[11px] font-bold hover:bg-emerald-700 transition-colors shadow-sm"
+                              className="px-2.5 py-1 rounded-lg bg-success text-white text-[11px] font-bold hover:bg-success transition-colors shadow-sm"
                             >
                               {t.confirmPayment}
                             </button>
@@ -422,8 +422,8 @@ export function AdminGiftCardsClient({
                               disabled={isPending}
                               className={`px-2 py-1 rounded-lg text-[11px] font-semibold border transition-colors ${
                                 card.status === 'active'
-                                  ? 'border-red-200 text-red-600 hover:bg-red-50'
-                                  : 'border-emerald-200 text-emerald-700 hover:bg-emerald-50'
+                                  ? 'border-error-border text-error hover:bg-error-bg'
+                                  : 'border-success-border text-success hover:bg-success-bg'
                               }`}
                             >
                               {card.status === 'active' ? t.deactivate : t.reactivate}
@@ -444,7 +444,7 @@ export function AdminGiftCardsClient({
       {confirmActivationCard && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-border space-y-6">
-            <div className="flex items-center gap-3 text-amber-600">
+            <div className="flex items-center gap-3 text-warning">
               <AlertTriangle className="w-7 h-7 shrink-0" />
               <h3 className="font-display text-lg font-bold text-foreground">
                 {t.confirmModalTitle}
@@ -468,14 +468,14 @@ export function AdminGiftCardsClient({
                 <span className="text-muted-foreground">{t.sender}:</span>
                 <span className="font-semibold text-foreground">{confirmActivationCard.sender_name}</span>
               </div>
-              <div className="flex justify-between font-bold text-emerald-700 text-sm pt-2 border-t border-border">
+              <div className="flex justify-between font-bold text-success text-sm pt-2 border-t border-border">
                 <span>{isAr ? 'المبلغ المستلم:' : 'Amount Received:'}</span>
                 <span>{confirmActivationCard.initial_amount} {t.sar}</span>
               </div>
             </div>
 
             {errorMsg && (
-              <div className="p-3 rounded-xl bg-red-50 text-red-600 text-xs font-semibold">
+              <div className="p-3 rounded-xl bg-error-bg text-error text-xs font-semibold">
                 {errorMsg}
               </div>
             )}
@@ -492,7 +492,7 @@ export function AdminGiftCardsClient({
                 type="button"
                 onClick={handleConfirmActivation}
                 disabled={isPending}
-                className="flex-1 py-3 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 flex items-center justify-center gap-2 shadow-md"
+                className="flex-1 py-3 rounded-xl bg-success text-white text-xs font-bold hover:bg-success flex items-center justify-center gap-2 shadow-md"
               >
                 {isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle2 className="w-4 h-4" />}
                 <span>{t.confirmActivateBtn}</span>
@@ -534,7 +534,7 @@ export function AdminGiftCardsClient({
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">{isAr ? 'الرصيد المتبقي:' : 'Remaining Balance:'}</span>
-                <span className="font-bold text-emerald-700">{selectedCard.remaining_balance} {t.sar}</span>
+                <span className="font-bold text-success">{selectedCard.remaining_balance} {t.sar}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">{t.recipient}:</span>
@@ -579,7 +579,7 @@ export function AdminGiftCardsClient({
             </div>
 
             {errorMsg && (
-              <div className="p-3 rounded-xl bg-red-50 text-red-600 text-xs font-semibold">
+              <div className="p-3 rounded-xl bg-error-bg text-error text-xs font-semibold">
                 {errorMsg}
               </div>
             )}

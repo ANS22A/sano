@@ -32,28 +32,37 @@ export default async function BookingPage({ params, searchParams }: BookingPageP
   const services = await getAllServices()
 
   return (
-    <main className="min-h-screen" dir={isAr ? 'rtl' : 'ltr'}>
+    <main className="min-h-screen bg-background" dir={isAr ? 'rtl' : 'ltr'}>
       {/* Page header */}
-      <section className="pt-28 pb-6 bg-[var(--surface)] border-b border-[var(--border-subtle)]">
-        <div className="container mx-auto px-6 max-w-6xl">
+      <section className="pt-32 pb-10 bg-gradient-to-b from-surface-lavender/80 via-surface-warm to-background border-b border-border-subtle relative overflow-hidden">
+        {/* Glow ornament */}
+        <div 
+          className="absolute top-0 end-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl pointer-events-none" 
+          aria-hidden="true" 
+        />
+
+        <div className="container mx-auto px-6 max-w-6xl relative z-10">
           <div className="text-start">
-            <p className="text-[var(--muted-foreground)] text-xs tracking-[0.2em] uppercase mb-2 font-medium">
-              SANO LUNA
-            </p>
-            <h1 className="font-display text-3xl md:text-4xl text-[var(--foreground)]">
-              {isAr ? 'احجزي تجربتك' : 'Book Your Experience'}
+            <div className="inline-flex items-center gap-2 mb-2">
+              <span className="text-accent text-xs">✦</span>
+              <p className="text-accent text-xs tracking-[0.25em] uppercase font-semibold">
+                SANO LUNA · AT-HOME WELLNESS
+              </p>
+            </div>
+            <h1 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground font-light tracking-tight">
+              {isAr ? 'احجزي تجربتك الفاخرة' : 'Book Your Luxury Experience'}
             </h1>
-            <p className="text-[var(--color-text-muted)] mt-2 text-sm">
+            <p className="text-muted-foreground mt-2 text-sm md:text-base max-w-xl">
               {isAr
-                ? 'خطوات بسيطة نحو لحظتك من العناية'
-                : 'A few steps to your moment of care'}
+                ? 'خطوات بسيطة نحو لحظتك من الاسترخاء والسكينة في راحة منزلك'
+                : 'A few effortless steps to your moment of tranquil care and pure wellness'}
             </p>
           </div>
         </div>
       </section>
 
       {/* Booking flow */}
-      <section className="bg-white py-8">
+      <section className="bg-surface-warm/40 py-10 min-h-[70vh]">
         <BookingShell
           initialServiceSlug={service ?? null}
           initialPackageSlug={packageSlug ?? null}

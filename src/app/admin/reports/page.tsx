@@ -56,7 +56,7 @@ export default async function ReportsSummaryPage({
 
   if (ownerStatsResult.error) {
     return (
-      <div className="p-6 bg-red-50 border border-red-200 rounded-2xl text-red-700">
+      <div className="p-6 bg-error-bg border border-error-border rounded-2xl text-error">
         <h2 className="text-lg font-bold mb-2">Financial Data Unavailable</h2>
         <p className="text-sm">{ownerStatsResult.error}</p>
       </div>

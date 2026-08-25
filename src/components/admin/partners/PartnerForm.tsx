@@ -38,15 +38,15 @@ export function PartnerForm({ partner }: Props) {
       <div className="flex items-center gap-4">
         <Link
           href="/admin/partners"
-          className="p-2 rounded-full hover:bg-neutral-100 transition-colors"
+          className="p-2 rounded-full hover:bg-muted transition-colors"
         >
-          <ArrowLeft className="w-5 h-5 text-neutral-600" />
+          <ArrowLeft className="w-5 h-5 text-muted-foreground" />
         </Link>
         <div>
           <h1 className="text-2xl font-light text-foreground">
             {isEdit ? 'Edit Partner' : 'New Partner'}
           </h1>
-          <p className="text-sm text-neutral-500">
+          <p className="text-sm text-muted-foreground">
             {isEdit ? 'Update partner details.' : 'Add a new business partner.'}
           </p>
         </div>
@@ -57,7 +57,7 @@ export function PartnerForm({ partner }: Props) {
           <div className="space-y-4">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-foreground mb-1">
-                Name <span className="text-red-500">*</span>
+                Name <span className="text-error">*</span>
               </label>
               <input
                 id="name"
@@ -128,7 +128,7 @@ export function PartnerForm({ partner }: Props) {
           </div>
 
           {errorMsg && (
-            <div className="px-4 py-3 bg-red-50 text-red-700 text-sm rounded-md border border-red-200">
+            <div className="px-4 py-3 bg-error-bg text-error text-sm rounded-md border border-error-border">
               {errorMsg}
             </div>
           )}
@@ -136,7 +136,7 @@ export function PartnerForm({ partner }: Props) {
           <div className="flex items-center justify-end gap-3 pt-4 border-t border-neutral-100">
             <Link
               href="/admin/partners"
-              className="px-4 py-2 text-sm font-medium text-neutral-600 hover:text-neutral-900 transition-colors"
+              className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               Cancel
             </Link>

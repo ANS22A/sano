@@ -135,7 +135,7 @@ export default async function AdminBookingsPage({
             {(sp.q || sp.status || sp.date || sp.serviceId || sp.locationId || sp.source) && (
               <Link
                 href="/admin/bookings"
-                className="px-3 py-1.5 rounded-lg text-xs font-medium text-red-600 hover:bg-red-50 transition-colors"
+                className="px-3 py-1.5 rounded-lg text-xs font-medium text-error hover:bg-error-bg transition-colors"
               >
                 Clear
               </Link>
@@ -175,10 +175,10 @@ export default async function AdminBookingsPage({
                     </td>
                     <td className="px-4 py-3">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium ${
-                        b.source === 'whatsapp' ? 'bg-green-50 text-green-700' :
-                        b.source === 'phone' ? 'bg-blue-50 text-blue-700' :
-                        b.source === 'admin' ? 'bg-purple-50 text-purple-700' :
-                        'bg-gray-50 text-gray-600'
+                        b.source === 'whatsapp' ? 'bg-success-bg text-success' :
+                        b.source === 'phone' ? 'bg-info-bg text-info' :
+                        b.source === 'admin' ? 'bg-secondary text-primary' :
+                        'bg-muted text-muted-foreground'
                       }`}>
                         {b.source === 'website' ? (lang === 'ar' ? 'الموقع' : 'Website') :
                          b.source === 'whatsapp' ? (lang === 'ar' ? 'واتساب' : 'WhatsApp') :

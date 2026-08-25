@@ -21,14 +21,14 @@ export function GiftCardsSection() {
       <div className="container-sl">
         <div className={cn(
           'relative rounded-sm overflow-hidden',
-          'bg-gradient-to-br from-[var(--primary)] via-[var(--primary-hover)] to-[var(--primary)]',
-          'p-10 md:p-14 lg:p-16'
+          'bg-gradient-to-br from-primary via-primary-hover to-[#351a44]',
+          'p-10 md:p-14 lg:p-16 border border-accent/30 shadow-luxury'
         )}>
           {/* Decorative elements */}
-          <div className="absolute top-6 end-6 text-[6rem] leading-none text-white/5 font-display font-light" aria-hidden="true">
-            ♢
+          <div className="absolute top-6 end-8 text-[7rem] leading-none text-accent/10 font-display font-light select-none" aria-hidden="true">
+            ✦
           </div>
-          <div className="absolute bottom-0 start-0 w-40 h-40 rounded-full border border-white/5 -translate-x-1/2 translate-y-1/2" aria-hidden="true" />
+          <div className="absolute bottom-0 start-0 w-52 h-52 rounded-full bg-accent/10 blur-3xl pointer-events-none" aria-hidden="true" />
 
           <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             {/* Copy */}
@@ -38,29 +38,32 @@ export function GiftCardsSection() {
               animate={controls}
               variants={{ visible: { opacity: 1, y: 0, transition: { duration: 0.75 } } }}
             >
-              <p className="text-accent text-xs tracking-[0.2em] uppercase mb-4">
-                {t('overline')}
-              </p>
+              <div className="inline-flex items-center gap-2 mb-3">
+                <span className="text-accent text-xs">✦</span>
+                <p className="text-accent text-xs tracking-[0.25em] uppercase font-semibold">
+                  {t('overline')}
+                </p>
+              </div>
               <h2 id="gift-cards-heading" className={cn(
                 'font-display font-light text-white leading-[1.08] mb-5',
-                'text-[clamp(1.8rem,4vw,3rem)]'
+                'text-[clamp(2rem,4vw,3.2rem)]'
               )}>
                 {t('title')}
               </h2>
-              <p className="text-white/65 leading-relaxed mb-6">
+              <p className="text-white/80 leading-relaxed mb-6 text-base">
                 {t('subtitle')}
               </p>
               {/* Feature pills */}
-              <div className="flex flex-wrap gap-2 mb-8">
+              <div className="flex flex-wrap gap-2.5 mb-6">
                 {features.map((f) => (
                   <span
                     key={f}
                     className={cn(
-                      'px-3 py-1.5 rounded-sm text-xs',
-                      'border border-white/15 text-white/60'
+                      'px-3.5 py-1.5 rounded-full text-xs font-medium',
+                      'border border-accent/30 bg-accent/10 text-accent backdrop-blur-sm'
                     )}
                   >
-                    {f}
+                    ✦ {f}
                   </span>
                 ))}
               </div>
@@ -77,9 +80,9 @@ export function GiftCardsSection() {
                 href="/gift-cards"
                 className={cn(
                   'btn btn-lg',
-                  'bg-accent text-foreground',
-                  'hover:bg-surface',
-                  'transition-colors duration-200',
+                  'bg-accent text-foreground font-semibold',
+                  'hover:bg-accent/90 shadow-luxury hover:scale-[1.02]',
+                  'transition-all duration-200',
                   'whitespace-nowrap'
                 )}
               >

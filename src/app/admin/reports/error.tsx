@@ -16,8 +16,8 @@ export default function ReportsError({
   }, [error])
 
   return (
-    <div className="flex flex-col items-center justify-center p-8 bg-white border border-red-200 rounded-2xl min-h-[400px]">
-      <AlertCircle className="w-12 h-12 text-red-500 mb-4" />
+    <div className="flex flex-col items-center justify-center p-8 bg-white border border-error-border rounded-2xl min-h-[400px]">
+      <AlertCircle className="w-12 h-12 text-error mb-4" />
       <h2 className="text-lg font-bold text-foreground mb-2">Report Data Unavailable</h2>
       <p className="text-sm text-muted-foreground text-center max-w-md mb-6">
         There was a problem generating this report. The underlying data might be missing or there is a temporary issue.

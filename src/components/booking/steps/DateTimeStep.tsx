@@ -78,9 +78,9 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
         )}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 items-start">
         {/* Calendar */}
-        <div className="bg-[var(--surface)] rounded-sm p-4 border border-[var(--border-subtle)]">
+        <div>
           <BookingCalendar
             selectedDate={draft.date}
             onSelectDate={selectDate}
@@ -89,25 +89,30 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
         </div>
 
         {/* Time slots */}
-        <div className="w-full lg:w-64">
+        <div className="w-full lg:w-72 p-5 bg-background rounded-sm border border-border-subtle shadow-subtle">
+          <h3 className="text-xs uppercase tracking-widest text-accent font-semibold mb-4">
+            {isAr ? 'الأوقات المتاحة' : 'Available Time Slots'}
+          </h3>
+
           {!draft.date ? (
-            <div className="h-32 flex items-center justify-center text-sm text-[var(--color-text-muted)] italic">
-              {t.selectDate}
+            <div className="h-40 flex flex-col items-center justify-center text-sm text-muted-foreground italic gap-2 text-center">
+              <span className="text-xl text-accent">◇</span>
+              <span>{t.selectDate}</span>
             </div>
           ) : isPending ? (
-            <div className="h-32 flex items-center justify-center">
+            <div className="h-40 flex items-center justify-center">
               <div className="flex flex-col items-center gap-3">
-                <div className="w-5 h-5 border-2 border-accent border-t-[var(--primary)] rounded-full animate-spin" />
-                <p className="text-xs text-[var(--color-text-muted)]">{t.loading}</p>
+                <div className="w-6 h-6 border-2 border-accent border-t-primary rounded-full animate-spin" />
+                <p className="text-xs text-muted-foreground">{t.loading}</p>
               </div>
             </div>
           ) : !hasSlots ? (
-            <div className="flex flex-col gap-1 py-6">
+            <div className="flex flex-col gap-1 py-8 text-center">
               <p className="text-sm text-foreground font-medium">{t.noSlots}</p>
-              <p className="text-xs text-[var(--color-text-muted)]">{t.noSlotsHint}</p>
+              <p className="text-xs text-muted-foreground">{t.noSlotsHint}</p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-2 max-h-72 overflow-y-auto">
+            <div className="grid grid-cols-2 gap-2.5 max-h-72 overflow-y-auto pe-1">
               {slots.map((slot) => {
                 const isSelected = draft.startTime === slot.startTime
                 return (
@@ -117,11 +122,11 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
                     disabled={!slot.available}
                     aria-pressed={isSelected}
                     className={cn(
-                      'px-3 py-2 text-sm rounded-sm border transition-all duration-150',
-                      'focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-1',
-                      isSelected && 'bg-foreground text-white border-foreground',
-                      slot.available && !isSelected && 'border-[var(--border-subtle)] hover:border-border hover:bg-[var(--surface)]',
-                      !slot.available && 'border-[var(--border-subtle)] text-[var(--color-text-muted)] opacity-40 cursor-not-allowed line-through'
+                      'px-3 py-2.5 text-sm rounded-sm border transition-all duration-200 font-mono text-center',
+                      'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1',
+                      isSelected && 'bg-primary text-white border-primary ring-2 ring-accent font-semibold shadow-md scale-[1.02]',
+                      slot.available && !isSelected && 'border-border bg-background hover:bg-surface-lavender hover:border-primary text-foreground font-medium',
+                      !slot.available && 'border-border-subtle bg-surface-muted text-muted-foreground/30 opacity-40 cursor-not-allowed line-through'
                     )}
                   >
                     {slot.startTime}
@@ -134,10 +139,10 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
       </div>
 
       {/* Navigation */}
-      <div className="flex items-center gap-3 mt-2">
+      <div className="flex items-center gap-3 mt-4">
         <button
           onClick={onBack}
-          className="px-5 py-2.5 text-sm border border-[var(--border-subtle)] rounded-sm hover:bg-[var(--surface)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+          className="btn btn-md btn-secondary px-6 py-2.5 border border-border-subtle shadow-sm"
         >
           {t.back}
         </button>
@@ -145,11 +150,10 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
           onClick={onContinue}
           disabled={!canContinue}
           className={cn(
-            'px-8 py-2.5 rounded-sm text-sm tracking-wide transition-all duration-200',
-            'focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2',
+            'btn btn-md px-8 py-2.5 font-medium shadow-sm transition-all duration-200',
             canContinue
-              ? 'bg-foreground text-white hover:bg-foreground'
-              : 'bg-background text-[var(--color-text-muted)] cursor-not-allowed'
+              ? 'btn-primary shadow-medium hover:shadow-luxury hover:scale-[1.01]'
+              : 'bg-muted text-muted-foreground cursor-not-allowed opacity-50'
           )}
         >
           {t.continue}

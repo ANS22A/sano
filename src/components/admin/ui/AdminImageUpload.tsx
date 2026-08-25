@@ -59,7 +59,7 @@ export function AdminImageUpload({ entityId, imageUrl, onUpload, onRemove, t }: 
   return (
     <div className="space-y-4">
       {error && (
-        <div className="p-3 bg-red-50 text-red-600 rounded-lg text-sm border border-red-100">
+        <div className="p-3 bg-error-bg text-error rounded-lg text-sm border border-error-border">
           {error}
         </div>
       )}
@@ -110,7 +110,7 @@ export function AdminImageUpload({ entityId, imageUrl, onUpload, onRemove, t }: 
               type="button"
               onClick={handleRemove}
               disabled={isPending}
-              className="px-6 py-2.5 rounded-xl border border-red-200 text-red-600 text-sm font-medium hover:bg-red-50 disabled:opacity-60 transition-colors w-full sm:w-auto"
+              className="px-6 py-2.5 rounded-xl border border-error-border text-error text-sm font-medium hover:bg-error-bg disabled:opacity-60 transition-colors w-full sm:w-auto"
             >
               {t.media.removeImage}
             </button>

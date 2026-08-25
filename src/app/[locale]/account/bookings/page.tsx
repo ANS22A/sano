@@ -22,7 +22,7 @@ export default async function AccountBookingsPage(props: PageProps) {
     const serviceName = isAr ? booking.services?.name_ar : booking.services?.name_en
     return (
       <Link href={`/${locale}/account/bookings/${booking.id}`} className="block">
-        <div className="flex flex-col md:flex-row items-center gap-6 p-6 bg-white rounded-2xl border border-subtle hover:border-[#A98FB8] transition-colors shadow-sm group">
+        <div className="flex flex-col md:flex-row items-center gap-6 p-6 bg-white rounded-2xl border border-subtle hover:border-border-strong transition-colors shadow-sm group">
           <div className="w-16 h-16 rounded-full bg-surface text-secondary flex items-center justify-center shrink-0 group-hover:bg-surface-muted transition-colors">
             <Calendar className="w-8 h-8" />
           </div>
@@ -31,10 +31,10 @@ export default async function AccountBookingsPage(props: PageProps) {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
               <h3 className="text-lg font-bold text-foreground">{serviceName}</h3>
               <span className={`inline-flex px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider
-                ${booking.status === 'confirmed' ? 'bg-green-100 text-green-700' :
-                  booking.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
-                  booking.status === 'cancelled' ? 'bg-red-100 text-red-700' :
-                  'bg-gray-100 text-gray-700'}`}>
+                ${booking.status === 'confirmed' ? 'bg-success-bg text-success' :
+                  booking.status === 'pending' ? 'bg-warning-bg text-warning' :
+                  booking.status === 'cancelled' ? 'bg-error-bg text-error' :
+                  'bg-muted text-foreground'}`}>
                 {booking.status}
               </span>
             </div>
@@ -44,7 +44,7 @@ export default async function AccountBookingsPage(props: PageProps) {
             </p>
           </div>
           
-          <div className="hidden md:flex items-center justify-center text-[#A98FB8] group-hover:text-secondary transition-colors">
+          <div className="hidden md:flex items-center justify-center text-muted-foreground group-hover:text-secondary transition-colors">
             <ChevronRight className="w-6 h-6 rtl:rotate-180" />
           </div>
         </div>
@@ -66,7 +66,7 @@ export default async function AccountBookingsPage(props: PageProps) {
           </div>
         ) : (
           <div className="text-center py-12 px-4 bg-surface rounded-2xl border border-subtle border-dashed">
-            <p className="text-[#A98FB8] font-medium">{t('noUpcoming')}</p>
+            <p className="text-muted-foreground font-medium">{t('noUpcoming')}</p>
           </div>
         )}
       </div>

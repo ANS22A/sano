@@ -69,8 +69,8 @@ export function ServiceForm({ service, categories, isEdit }: ServiceFormProps) {
             disabled={isPending}
             className={`px-4 py-2 rounded-xl text-sm font-medium border transition-colors ${
               service.is_active
-                ? 'border-red-200 text-red-600 hover:bg-red-50'
-                : 'border-emerald-200 text-emerald-700 hover:bg-emerald-50'
+                ? 'border-error-border text-error hover:bg-error-bg'
+                : 'border-success-border text-success hover:bg-success-bg'
             }`}
           >
             {service.is_active ? t.services.deactivate : t.services.activate}

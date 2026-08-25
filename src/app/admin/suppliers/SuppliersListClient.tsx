@@ -222,8 +222,8 @@ export function SuppliersListClient({
                           disabled={isPending}
                           className={`p-1.5 rounded-lg transition-colors ${
                             s.is_active
-                              ? 'text-amber-600 hover:bg-amber-50'
-                              : 'text-emerald-600 hover:bg-emerald-50'
+                              ? 'text-warning hover:bg-warning-bg'
+                              : 'text-success hover:bg-success-bg'
                           }`}
                           title={
                             s.is_active

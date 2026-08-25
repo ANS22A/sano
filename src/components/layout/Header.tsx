@@ -7,14 +7,14 @@ import { Logo } from './Logo'
 import { DesktopNav } from './DesktopNav'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { MobileMenu } from './MobileMenu'
-import { Link } from '@/i18n/navigation'
+import { Link, usePathname } from '@/i18n/navigation'
 
 // ─────────────────────────────────────────────
 // HEADER COMPONENT
 //
 // Two-state design:
-//   State A (top):      transparent, white text — integrates with hero
-//   State B (scrolled): warm background, dark text, subtle border
+//   State A (top on home): transparent, white text — integrates with hero
+//   State B (scrolled or inner pages): surface background, dark text, subtle border
 //
 // Transition: smooth CSS transition, no JS jank, no scroll-jacking.
 // RTL/LTR: inherits from html[dir]; flex order is direction-aware.
@@ -25,6 +25,8 @@ const SCROLL_THRESHOLD = 48 // px before state changes
 export function Header({ isAuthenticated = false }: { isAuthenticated?: boolean }) {
   const t = useTranslations('header')
   const tAria = useTranslations('aria')
+  const pathname = usePathname()
+  const isHomePage = pathname === '/' || pathname === ''
   
   // Lazy initialiser — reads scroll position on mount, no effect needed
   const [isScrolled, setIsScrolled] = useState(
@@ -46,8 +48,9 @@ export function Header({ isAuthenticated = false }: { isAuthenticated?: boolean 
   const openMenu = useCallback(() => setMenuOpen(true), [])
   const closeMenu = useCallback(() => setMenuOpen(false), [])
 
-  const navVariant = isScrolled ? 'dark' : 'light'
-  const logoVariant = isScrolled ? 'auto' : 'light'
+  const isSolid = isScrolled || !isHomePage
+  const navVariant = isSolid ? 'dark' : 'light'
+  const logoVariant = isSolid ? 'auto' : 'light'
 
   return (
     <>
@@ -58,16 +61,16 @@ export function Header({ isAuthenticated = false }: { isAuthenticated?: boolean 
           'h-[64px] lg:h-[80px]',
           // CSS transition — smooth state change
           'transition-all duration-300 ease-in-out',
-          // State A — transparent overlay
-          !isScrolled && [
+          // State A — transparent overlay on homepage
+          !isSolid && [
             'bg-transparent',
             'border-b border-transparent',
           ],
-          // State B — scrolled with surface background
-          isScrolled && [
-            'bg-[rgba(250,249,247,0.97)]',
+          // State B — scrolled or non-home with surface background
+          isSolid && [
+            'bg-[rgba(255,252,254,0.97)]',
             'border-b border-[var(--border-subtle)]',
-            'shadow-[0_1px_20px_0_rgba(26,23,20,0.06)]',
+            'shadow-subtle',
             '[backdrop-filter:blur(12px)]',
           ]
         )}
@@ -83,13 +86,16 @@ export function Header({ isAuthenticated = false }: { isAuthenticated?: boolean 
 
           {/* ── Desktop Right Actions ── */}
           <div className="hidden lg:flex items-center gap-4 xl:gap-6 flex-shrink-0">
-            <LanguageSwitcher variant="header" />
+            <LanguageSwitcher
+              variant="header"
+              className={!isSolid ? 'text-white/80 hover:text-white' : undefined}
+            />
 
             {/* Divider */}
             <span
               className={cn(
                 'w-px h-4 transition-colors duration-300',
-                isScrolled ? 'bg-[var(--border)]' : 'bg-white/25'
+                isSolid ? 'bg-[var(--border)]' : 'bg-white/25'
               )}
               aria-hidden="true"
             />
@@ -99,7 +105,7 @@ export function Header({ isAuthenticated = false }: { isAuthenticated?: boolean 
               href={isAuthenticated ? "/account" : "/login"}
               className={cn(
                 'text-sm font-medium transition-colors',
-                isScrolled ? 'text-foreground hover:text-accent' : 'text-white/90 hover:text-white'
+                isSolid ? 'text-foreground hover:text-accent' : 'text-white/90 hover:text-white'
               )}
             >
               {isAuthenticated ? t('account') : t('signIn')}
@@ -110,7 +116,7 @@ export function Header({ isAuthenticated = false }: { isAuthenticated?: boolean 
               href="/booking"
               className={cn(
                 'btn btn-md transition-colors duration-200',
-                isScrolled
+                isSolid
                   ? 'btn-primary'
                   : 'border border-white/50 text-white hover:bg-white/10 hover:border-white/80'
               )}
@@ -128,7 +134,7 @@ export function Header({ isAuthenticated = false }: { isAuthenticated?: boolean 
               className={cn(
                 'w-9 h-9 flex items-center justify-center rounded-sm',
                 'transition-colors duration-200',
-                isScrolled
+                isSolid
                   ? 'text-foreground hover:bg-muted'
                   : 'text-white/80 hover:text-white'
               )}
@@ -157,7 +163,7 @@ export function Header({ isAuthenticated = false }: { isAuthenticated?: boolean 
                 'transition-colors duration-200',
                 'focus-visible:outline-none focus-visible:ring-2',
                 'focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2',
-                isScrolled
+                isSolid
                   ? 'text-foreground hover:bg-muted'
                   : 'text-white hover:bg-white/10'
               )}

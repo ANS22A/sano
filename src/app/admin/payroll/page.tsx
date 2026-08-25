@@ -17,12 +17,12 @@ export default async function PayrollPage({ searchParams }: { searchParams: Prom
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
         <div>
           <h1 className="text-3xl font-light text-foreground">Payroll</h1>
-          <p className="text-sm text-neutral-500 mt-1">Manage employee salaries and bonuses.</p>
+          <p className="text-sm text-muted-foreground mt-1">Manage employee salaries and bonuses.</p>
         </div>
         <div className="flex items-center gap-3">
           <Link
             href="/admin/payroll/advances"
-            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-md border border-neutral-200 bg-white text-sm font-medium hover:bg-neutral-50 transition-colors"
+            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-md border border-neutral-200 bg-white text-sm font-medium hover:bg-muted transition-colors"
           >
             Employee Advances
           </Link>
@@ -45,8 +45,8 @@ export default async function PayrollPage({ searchParams }: { searchParams: Prom
         />
       ) : (
         <div className="rounded-lg border border-neutral-200 bg-white shadow-sm overflow-hidden">
-          <table className="w-full text-sm text-left rtl:text-right text-neutral-600">
-            <thead className="bg-neutral-50 text-neutral-900 font-medium border-b border-neutral-200">
+          <table className="w-full text-sm text-left rtl:text-right text-muted-foreground">
+            <thead className="bg-muted text-foreground font-medium border-b border-neutral-200">
               <tr>
                 <th className="px-6 py-4">Reference</th>
                 <th className="px-6 py-4">Staff</th>
@@ -57,16 +57,16 @@ export default async function PayrollPage({ searchParams }: { searchParams: Prom
             </thead>
             <tbody className="divide-y divide-neutral-100">
               {salaries.map(salary => (
-                <tr key={salary.id} className="hover:bg-neutral-50/50 transition-colors">
-                  <td className="px-6 py-4 font-medium text-neutral-900">{salary.reference}</td>
+                <tr key={salary.id} className="hover:bg-muted/50 transition-colors">
+                  <td className="px-6 py-4 font-medium text-foreground">{salary.reference}</td>
                   <td className="px-6 py-4">{salary.staff?.name_en || 'Unknown'}</td>
                   <td className="px-6 py-4">{salary.month}</td>
                   <td className="px-6 py-4 text-right">{salary.net_salary.toLocaleString('en-SA', { style: 'currency', currency: 'SAR' })}</td>
                   <td className="px-6 py-4">
                     <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium \${
-                      salary.payment_status === 'paid' ? 'bg-green-100 text-green-800' :
-                      salary.payment_status === 'void' ? 'bg-neutral-100 text-neutral-800' :
-                      'bg-amber-100 text-amber-800'
+                      salary.payment_status === 'paid' ? 'bg-success-bg text-success' :
+                      salary.payment_status === 'void' ? 'bg-muted text-foreground' :
+                      'bg-warning-bg text-warning'
                     }`}>
                       {salary.payment_status}
                     </span>

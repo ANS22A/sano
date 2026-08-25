@@ -329,8 +329,8 @@ export function ExpensesListClient({
                           disabled={isPending}
                           className={`p-1.5 rounded-lg transition-colors ${
                             e.is_archived
-                              ? 'text-emerald-600 hover:bg-emerald-50'
-                              : 'text-amber-600 hover:bg-amber-50'
+                              ? 'text-success hover:bg-success-bg'
+                              : 'text-warning hover:bg-warning-bg'
                           }`}
                           title={
                             e.is_archived

@@ -33,7 +33,7 @@ export default async function StaffAvailabilityPage({ params }: { params: Promis
                   <span className="text-sm text-muted-foreground">
                     {a.start_time?.slice(0, 5)} — {a.end_time?.slice(0, 5)}
                   </span>
-                  <span className={`text-xs px-2 py-0.5 rounded-full ${a.is_active ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-500'}`}>
+                  <span className={`text-xs px-2 py-0.5 rounded-full ${a.is_active ? 'bg-success-bg text-success' : 'bg-muted text-muted-foreground'}`}>
                     {a.is_active ? 'Active' : 'Inactive'}
                   </span>
                 </div>

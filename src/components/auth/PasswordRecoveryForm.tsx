@@ -72,7 +72,7 @@ export function PasswordRecoveryForm({ type, locale }: { type: 'forgot' | 'reset
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-foreground">{tAuth('email')}</label>
                 <div className="relative">
-                  <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A98FB8]" />
+                  <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <input
                     name="email"
                     type="email"
@@ -87,7 +87,7 @@ export function PasswordRecoveryForm({ type, locale }: { type: 'forgot' | 'reset
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-foreground">{tAuth('newPassword')}</label>
                 <div className="relative">
-                  <Lock className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A98FB8]" />
+                  <Lock className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <input
                     name="password"
                     type="password"
@@ -101,13 +101,13 @@ export function PasswordRecoveryForm({ type, locale }: { type: 'forgot' | 'reset
             )}
 
             {error && (
-              <div className="p-3 rounded-xl bg-red-50 border border-red-100 text-sm text-red-600 font-medium">
+              <div className="p-3 rounded-xl bg-error-bg border border-error-border text-sm text-error font-medium">
                 {error}
               </div>
             )}
             
             {message && (
-              <div className="p-3 rounded-xl bg-green-50 border border-green-100 text-sm text-green-700 font-medium">
+              <div className="p-3 rounded-xl bg-success-bg border border-success-border text-sm text-success font-medium">
                 {message}
               </div>
             )}

@@ -55,13 +55,13 @@ export default function AccountProfilePage() {
       <h1 className="text-2xl font-bold text-foreground mb-8 font-display">{t('profile')}</h1>
 
       {message && (
-        <div className="mb-6 p-4 rounded-xl bg-green-50 border border-green-100 text-sm text-green-700 font-medium">
+        <div className="mb-6 p-4 rounded-xl bg-success-bg border border-green-100 text-sm text-success font-medium">
           {message}
         </div>
       )}
 
       {error && (
-        <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-100 text-sm text-red-600 font-medium flex items-center gap-2">
+        <div className="mb-6 p-4 rounded-xl bg-error-bg border border-error-border text-sm text-error font-medium flex items-center gap-2">
           <AlertCircle className="w-4 h-4 shrink-0" />
           {error}
         </div>
@@ -72,7 +72,7 @@ export default function AccountProfilePage() {
         <div className="space-y-1.5">
           <label className="text-sm font-medium text-foreground">Full Name / الاسم الكامل</label>
           <div className="relative">
-            <User className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A98FB8]" />
+            <User className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
               name="fullName"
               type="text"
@@ -87,7 +87,7 @@ export default function AccountProfilePage() {
         <div className="space-y-1.5">
           <label className="text-sm font-medium text-foreground">Email / البريد الإلكتروني</label>
           <div className="relative">
-            <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A98FB8]" />
+            <Mail className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
               name="email"
               type="email"
@@ -97,14 +97,14 @@ export default function AccountProfilePage() {
               dir="ltr"
             />
           </div>
-          <p className="text-xs text-[#A98FB8] mt-1">Changing your email requires verification.</p>
+          <p className="text-xs text-muted-foreground mt-1">Changing your email requires verification.</p>
         </div>
 
         {/* Phone */}
         <div className="space-y-1.5">
           <label className="text-sm font-medium text-foreground">Phone / رقم الجوال</label>
           <div className="relative">
-            <Phone className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A98FB8]" />
+            <Phone className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
               name="phone"
               type="text"

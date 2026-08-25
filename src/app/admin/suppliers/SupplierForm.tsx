@@ -74,7 +74,7 @@ export function SupplierForm({ supplier, isEdit }: Props) {
       </div>
 
       {error && (
-        <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs font-medium text-red-700">
+        <div className="p-3.5 rounded-xl bg-error-bg border border-error-border text-xs font-medium text-error">
           {error}
         </div>
       )}
@@ -163,7 +163,7 @@ export function SupplierForm({ supplier, isEdit }: Props) {
               defaultChecked={supplier ? supplier.is_active : true}
               className="sr-only peer"
             />
-            <div className="w-10 h-6 bg-muted peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+            <div className="w-10 h-6 bg-muted peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
           </label>
           <span className="text-xs font-medium text-foreground">
             {isAr ? 'مورد نشط (متاح لإجراء المشتريات)' : 'Active Supplier (available for purchases)'}

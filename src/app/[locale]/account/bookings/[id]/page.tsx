@@ -25,7 +25,7 @@ export default async function AccountBookingDetailPage(props: PageProps) {
 
   return (
     <div className="space-y-8 max-w-2xl">
-      <Link href={`/${locale}/account/bookings`} className="inline-flex items-center gap-2 text-sm font-medium text-[#A98FB8] hover:text-secondary transition-colors">
+      <Link href={`/${locale}/account/bookings`} className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-secondary transition-colors">
         <ArrowLeft className="w-4 h-4 rtl:rotate-180" />
         {t('bookings')}
       </Link>
@@ -39,10 +39,10 @@ export default async function AccountBookingDetailPage(props: PageProps) {
             <p className="text-secondary font-medium text-sm tracking-wide uppercase">Booking #{booking.id.slice(0, 8)}</p>
           </div>
           <span className={`inline-flex px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-wider
-            ${booking.status === 'confirmed' ? 'bg-green-100 text-green-700' :
-              booking.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
-              booking.status === 'cancelled' ? 'bg-red-100 text-red-700' :
-              'bg-gray-100 text-gray-700'}`}>
+            ${booking.status === 'confirmed' ? 'bg-success-bg text-success' :
+              booking.status === 'pending' ? 'bg-warning-bg text-warning' :
+              booking.status === 'cancelled' ? 'bg-error-bg text-error' :
+              'bg-muted text-foreground'}`}>
             {booking.status}
           </span>
         </div>
@@ -55,7 +55,7 @@ export default async function AccountBookingDetailPage(props: PageProps) {
               <Calendar className="w-5 h-5 text-secondary" />
             </div>
             <div>
-              <p className="text-sm font-bold text-[#A98FB8] uppercase tracking-wider mb-1">{t('date')}</p>
+              <p className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-1">{t('date')}</p>
               <p className="font-medium text-foreground">
                 {new Date(booking.date).toLocaleDateString(locale, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
               </p>
@@ -67,7 +67,7 @@ export default async function AccountBookingDetailPage(props: PageProps) {
               <Clock className="w-5 h-5 text-secondary" />
             </div>
             <div>
-              <p className="text-sm font-bold text-[#A98FB8] uppercase tracking-wider mb-1">{t('time')}</p>
+              <p className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-1">{t('time')}</p>
               <p className="font-medium text-foreground">
                 {booking.start_time.slice(0, 5)} {booking.services?.duration_minutes ? `(${booking.services.duration_minutes} minutes)` : ''}
               </p>
@@ -79,7 +79,7 @@ export default async function AccountBookingDetailPage(props: PageProps) {
               <CreditCard className="w-5 h-5 text-secondary" />
             </div>
             <div>
-              <p className="text-sm font-bold text-[#A98FB8] uppercase tracking-wider mb-1">{t('price')}</p>
+              <p className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-1">{t('price')}</p>
               <p className="font-medium text-foreground">
                 SAR {booking.price_sar}
               </p>
@@ -91,7 +91,7 @@ export default async function AccountBookingDetailPage(props: PageProps) {
               <MapPin className="w-5 h-5 text-secondary" />
             </div>
             <div>
-              <p className="text-sm font-bold text-[#A98FB8] uppercase tracking-wider mb-1">Location</p>
+              <p className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-1">Location</p>
               <p className="font-medium text-foreground">{locationName}</p>
               {address && <p className="text-sm text-secondary mt-1">{address}</p>}
             </div>

@@ -222,23 +222,23 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
               />
               {/* Payment Status Badge */}
               {isFullyPaid ? (
-                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-success-bg text-success">
                   <CheckCircle2 className="w-3 h-3" />
                   {isAr ? 'مدفوع بالكامل' : 'Fully Paid'}
                 </span>
               ) : netPaid > 0 ? (
-                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-100 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300">
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-info-bg text-info">
                   <AlertCircle className="w-3 h-3" />
                   {isAr ? 'مدفوع جزئياً' : 'Partially Paid'}
                 </span>
               ) : (
-                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300">
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-warning-bg text-warning">
                   <AlertCircle className="w-3 h-3" />
                   {isAr ? 'غير مدفوع' : 'Unpaid'}
                 </span>
               )}
               {hasOverpayment && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-purple-100 text-purple-700">
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-secondary text-primary">
                   {isAr ? 'فائض دفع' : 'Overpaid'}
                 </span>
               )}
@@ -313,7 +313,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                       setRefundAmount(netPaid.toString())
                       setIsRefunding(true)
                     }}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-rose-200 text-rose-700 bg-rose-50 hover:bg-rose-100 text-xs font-medium transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-rose-200 text-error bg-error-bg hover:bg-error-bg text-xs font-medium transition-colors"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
                     {isAr ? 'استرجاع مبلغ' : 'Issue Refund'}
@@ -340,12 +340,12 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                 <p className="text-base font-bold text-foreground mt-1">{priceSar.toFixed(2)} SAR</p>
               </div>
               <div className="p-3 bg-white rounded-xl border border-border/70">
-                <p className="text-xs text-emerald-600 font-medium">{isAr ? 'إجمالي المقبوض' : 'Total Paid'}</p>
-                <p className="text-base font-bold text-emerald-600 mt-1">+{totalPaid.toFixed(2)} SAR</p>
+                <p className="text-xs text-success font-medium">{isAr ? 'إجمالي المقبوض' : 'Total Paid'}</p>
+                <p className="text-base font-bold text-success mt-1">+{totalPaid.toFixed(2)} SAR</p>
               </div>
               <div className="p-3 bg-white rounded-xl border border-border/70">
-                <p className="text-xs text-rose-600 font-medium">{isAr ? 'إجمالي المسترجع' : 'Total Refunded'}</p>
-                <p className="text-base font-bold text-rose-600 mt-1">
+                <p className="text-xs text-error font-medium">{isAr ? 'إجمالي المسترجع' : 'Total Refunded'}</p>
+                <p className="text-base font-bold text-error mt-1">
                   {totalRefunded > 0 ? `-${totalRefunded.toFixed(2)}` : '0.00'} SAR
                 </p>
               </div>
@@ -353,7 +353,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                 <p className="text-xs text-secondary font-semibold">{isAr ? 'المتبقي للدفع' : 'Balance Due'}</p>
                 <p
                   className={`text-base font-bold mt-1 ${
-                    balanceDue > 0 ? 'text-amber-600' : 'text-emerald-600'
+                    balanceDue > 0 ? 'text-warning' : 'text-success'
                   }`}
                 >
                   {balanceDue.toFixed(2)} SAR
@@ -387,8 +387,8 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                             <span
                               className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold ${
                                 isRefund
-                                  ? 'bg-rose-100 text-rose-700'
-                                  : 'bg-emerald-100 text-emerald-700'
+                                  ? 'bg-error-bg text-error'
+                                  : 'bg-success-bg text-success'
                               }`}
                             >
                               {isRefund ? (
@@ -419,7 +419,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                           )}
                           <span
                             className={`text-sm font-bold ${
-                              isRefund ? 'text-rose-600' : 'text-emerald-600'
+                              isRefund ? 'text-error' : 'text-success'
                             }`}
                           >
                             {isRefund ? '-' : '+'}
@@ -488,7 +488,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
               {currentStatus === 'pending' && (
                 <button
                   onClick={() => setPendingAction('confirmed')}
-                  className="w-full px-4 py-2 rounded-xl text-sm font-medium bg-emerald-600 text-white hover:bg-emerald-700 transition-colors"
+                  className="w-full px-4 py-2 rounded-xl text-sm font-medium bg-success text-white hover:bg-success transition-colors"
                 >
                   {t.bookings.confirm}
                 </button>
@@ -497,13 +497,13 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                 <>
                   <button
                     onClick={() => setPendingAction('completed')}
-                    className="w-full px-4 py-2 rounded-xl text-sm font-medium bg-sky-600 text-white hover:bg-sky-700 transition-colors"
+                    className="w-full px-4 py-2 rounded-xl text-sm font-medium bg-info text-white hover:bg-info transition-colors"
                   >
                     {t.bookings.complete}
                   </button>
                   <button
                     onClick={() => setPendingAction('no_show')}
-                    className="w-full px-4 py-2 rounded-xl text-sm font-medium bg-slate-600 text-white hover:bg-slate-700 transition-colors"
+                    className="w-full px-4 py-2 rounded-xl text-sm font-medium bg-muted-foreground text-white hover:bg-muted-foreground transition-colors"
                   >
                     {t.bookings.noShow}
                   </button>
@@ -512,7 +512,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
               {['pending', 'confirmed'].includes(currentStatus) && (
                 <button
                   onClick={() => setPendingAction('cancelled')}
-                  className="w-full px-4 py-2 rounded-xl text-sm font-medium border border-red-200 text-red-600 hover:bg-red-50 transition-colors mt-2"
+                  className="w-full px-4 py-2 rounded-xl text-sm font-medium border border-error-border text-error hover:bg-error-bg transition-colors mt-2"
                 >
                   {t.bookings.cancel}
                 </button>
@@ -576,7 +576,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
 
             <div className="p-6 overflow-y-auto space-y-6 flex-1">
               {rescheduleError && (
-                <div className="p-3 bg-red-50 text-red-600 rounded-lg text-sm border border-red-100">
+                <div className="p-3 bg-error-bg text-error rounded-lg text-sm border border-error-border">
                   {rescheduleError}
                 </div>
               )}
@@ -656,15 +656,15 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
 
             <form onSubmit={handleIssueRefund} className="p-6 space-y-4">
               {refundError && (
-                <div className="p-3 bg-rose-50 text-rose-700 rounded-xl text-xs border border-rose-200">
+                <div className="p-3 bg-error-bg text-error rounded-xl text-xs border border-rose-200">
                   {refundError}
                 </div>
               )}
 
-              <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200 text-xs space-y-1">
+              <div className="p-3 bg-muted rounded-xl border border-neutral-200 text-xs space-y-1">
                 <div className="flex justify-between text-muted-foreground">
                   <span>{isAr ? 'الصافي المدفوع للحجز:' : 'Net Paid on Booking:'}</span>
-                  <span className="font-semibold text-emerald-600">+{netPaid.toFixed(2)} SAR</span>
+                  <span className="font-semibold text-success">+{netPaid.toFixed(2)} SAR</span>
                 </div>
                 <div className="flex justify-between text-muted-foreground">
                   <span>{isAr ? 'أقصى حد للاسترجاع:' : 'Max Refundable:'}</span>
@@ -736,7 +736,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-medium bg-rose-600 text-white hover:bg-rose-700 transition-colors disabled:opacity-50"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-medium bg-error text-white hover:opacity-90 transition-colors disabled:opacity-50"
                 >
                   {isPending && <Loader2 className="w-3 h-3 animate-spin" />}
                   {isAr ? 'تأكيد الاسترجاع' : 'Confirm Refund'}

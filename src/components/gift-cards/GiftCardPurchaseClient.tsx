@@ -27,25 +27,25 @@ const THEMES: { id: CardTheme; nameAr: string; nameEn: string; bg: string; text:
     id: 'classic-gold',
     nameAr: 'الذهب الكلاسيكي',
     nameEn: 'Classic Gold',
-    bg: 'linear-gradient(135deg, #2E1F38 0%, #6F4E7C 50%, #2E1F38 100%)',
+    bg: 'linear-gradient(135deg, #3B1F4A 0%, #76547A 50%, #3B1F4A 100%)',
     text: '#ffffff',
-    accent: '#D4AF37',
+    accent: '#C9A96E',
   },
   {
     id: 'rose-plum',
     nameAr: 'البرقوق والروز',
     nameEn: 'Rose Plum',
-    bg: 'linear-gradient(135deg, #6F4E7C 0%, #A98FB8 50%, #6F4E7C 100%)',
+    bg: 'linear-gradient(135deg, #76547A 0%, #B9A5C8 50%, #76547A 100%)',
     text: '#ffffff',
-    accent: '#D4AF37',
+    accent: '#C9A96E',
   },
   {
     id: 'sandstone',
     nameAr: 'الأرجواني الناعم',
     nameEn: 'Soft Purple',
-    bg: 'linear-gradient(135deg, #D6C2D9 0%, #E7DBEC 50%, #D6C2D9 100%)',
-    text: '#2E1F38',
-    accent: '#D4AF37',
+    bg: 'linear-gradient(135deg, #D8B8C8 0%, #F6F1F7 50%, #D8B8C8 100%)',
+    text: '#3B1F4A',
+    accent: '#C9A96E',
   },
   {
     id: 'emerald',
@@ -53,7 +53,7 @@ const THEMES: { id: CardTheme; nameAr: string; nameEn: string; bg: string; text:
     nameEn: 'Royal Emerald',
     bg: 'linear-gradient(135deg, #1B3B36 0%, #132a26 50%, #1B3B36 100%)',
     text: '#ffffff',
-    accent: '#D4AF37',
+    accent: '#C9A96E',
   },
 ]
 
@@ -248,8 +248,8 @@ I would like to complete the payment and confirm my order.`
               </div>
 
               {/* Status Note */}
-              <div className="flex items-start gap-2.5 p-3.5 bg-amber-50 rounded-xl border border-amber-200 text-amber-800 text-xs text-start mb-8">
-                <Clock className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+              <div className="flex items-start gap-2.5 p-3.5 bg-warning-bg rounded-xl border border-warning-border text-warning text-xs text-start mb-8">
+                <Clock className="w-4 h-4 text-warning shrink-0 mt-0.5" />
                 <span>{t.secondaryNotice}</span>
               </div>
 
@@ -497,7 +497,7 @@ I would like to complete the payment and confirm my order.`
                   </div>
 
                   {error && (
-                    <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-sm text-red-600 font-medium text-center">
+                    <div className="p-3.5 rounded-xl bg-error-bg border border-error-border text-sm text-error font-medium text-center">
                       {error}
                     </div>
                   )}

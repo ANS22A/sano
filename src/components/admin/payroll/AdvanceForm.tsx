@@ -34,13 +34,13 @@ export function AdvanceForm({ staff }: Props) {
       <div className="flex items-center gap-4">
         <Link
           href="/admin/payroll/advances"
-          className="p-2 rounded-full hover:bg-neutral-100 transition-colors"
+          className="p-2 rounded-full hover:bg-muted transition-colors"
         >
-          <ArrowLeft className="w-5 h-5 text-neutral-600" />
+          <ArrowLeft className="w-5 h-5 text-muted-foreground" />
         </Link>
         <div>
           <h1 className="text-2xl font-light text-foreground">Record Employee Advance</h1>
-          <p className="text-sm text-neutral-500">Record a salary advance for an employee.</p>
+          <p className="text-sm text-muted-foreground">Record a salary advance for an employee.</p>
         </div>
       </div>
 
@@ -50,7 +50,7 @@ export function AdvanceForm({ staff }: Props) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="staff_id" className="block text-sm font-medium text-foreground mb-1">
-                  Employee <span className="text-red-500">*</span>
+                  Employee <span className="text-error">*</span>
                 </label>
                 <select
                   id="staff_id"
@@ -67,7 +67,7 @@ export function AdvanceForm({ staff }: Props) {
 
               <div>
                 <label htmlFor="date" className="block text-sm font-medium text-foreground mb-1">
-                  Date <span className="text-red-500">*</span>
+                  Date <span className="text-error">*</span>
                 </label>
                 <input
                   id="date"
@@ -83,7 +83,7 @@ export function AdvanceForm({ staff }: Props) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="reference" className="block text-sm font-medium text-foreground mb-1">
-                  Reference # <span className="text-red-500">*</span>
+                  Reference # <span className="text-error">*</span>
                 </label>
                 <input
                   id="reference"
@@ -97,7 +97,7 @@ export function AdvanceForm({ staff }: Props) {
 
               <div>
                 <label htmlFor="amount" className="block text-sm font-medium text-foreground mb-1">
-                  Amount (SAR) <span className="text-red-500">*</span>
+                  Amount (SAR) <span className="text-error">*</span>
                 </label>
                 <input
                   id="amount"
@@ -115,7 +115,7 @@ export function AdvanceForm({ staff }: Props) {
             <div className="grid grid-cols-1 gap-4">
               <div>
                 <label htmlFor="payment_method" className="block text-sm font-medium text-foreground mb-1">
-                  Payment Method <span className="text-red-500">*</span>
+                  Payment Method <span className="text-error">*</span>
                 </label>
                 <select
                   id="payment_method"
@@ -147,7 +147,7 @@ export function AdvanceForm({ staff }: Props) {
           </div>
 
           {errorMsg && (
-            <div className="p-3 bg-red-50 text-red-600 text-sm rounded-md border border-red-200">
+            <div className="p-3 bg-error-bg text-error text-sm rounded-md border border-error-border">
               {errorMsg}
             </div>
           )}

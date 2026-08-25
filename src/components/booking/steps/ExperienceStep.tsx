@@ -52,16 +52,16 @@ export function ExperienceStep({ draft, onUpdate, onContinue, isAr, services }: 
       </div>
 
       {/* Tab switcher */}
-      <div className="flex gap-1 p-1 bg-background rounded-sm w-fit">
+      <div className="flex gap-2 p-1.5 bg-surface-muted rounded-sm border border-border-subtle w-fit">
         {(['services', 'packages'] as Tab[]).map((tabKey) => (
           <button
             key={tabKey}
             onClick={() => setTab(tabKey)}
             className={cn(
-              'px-4 py-1.5 text-sm rounded-sm transition-colors',
+              'px-6 py-2 text-sm rounded-sm transition-all duration-200 font-medium',
               tab === tabKey
-                ? 'bg-white text-foreground shadow-sm font-medium'
-                : 'text-[var(--color-text-muted)] hover:text-foreground'
+                ? 'bg-primary text-white shadow-sm ring-1 ring-accent/40'
+                : 'text-muted-foreground hover:text-foreground'
             )}
           >
             {tabKey === 'services' ? t.services : t.packages}
@@ -71,7 +71,7 @@ export function ExperienceStep({ draft, onUpdate, onContinue, isAr, services }: 
 
       {/* Service list */}
       {tab === 'services' && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[420px] overflow-y-auto pe-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 max-h-[460px] overflow-y-auto pe-1">
           {services.map((service) => {
             const isSelected = draft.serviceId === service.id
             const name = isAr ? service.name_ar : service.name_en
@@ -83,28 +83,36 @@ export function ExperienceStep({ draft, onUpdate, onContinue, isAr, services }: 
                 onClick={() => selectService(service.id)}
                 aria-pressed={isSelected}
                 className={cn(
-                  'text-start p-4 border rounded-sm transition-all duration-200',
-                  'focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-1',
+                  'text-start p-5 border rounded-sm transition-all duration-200 flex flex-col justify-between',
+                  'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1',
                   isSelected
-                    ? 'border-foreground bg-[var(--surface)] ring-1 ring-[var(--secondary)]'
-                    : 'border-[var(--border-subtle)] hover:border-accent hover:bg-[var(--surface)]'
+                    ? 'border-primary bg-surface-lavender ring-2 ring-accent/60 shadow-medium'
+                    : 'border-border-subtle bg-background hover:border-accent/50 hover:bg-surface-warm shadow-subtle'
                 )}
               >
-                <div className="flex items-start justify-between gap-2">
-                  <span className="font-medium text-sm text-foreground leading-snug">{name}</span>
-                  {isSelected && (
-                    <span className="text-[10px] text-primary bg-background px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">
-                      {t.selected}
-                    </span>
-                  )}
+                <div>
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <span className="font-display font-medium text-base text-foreground leading-snug">{name}</span>
+                    {isSelected ? (
+                      <span className="text-[10px] text-white bg-primary font-semibold px-2.5 py-0.5 rounded-full shrink-0 whitespace-nowrap border border-accent/40 shadow-xs">
+                        {t.selected}
+                      </span>
+                    ) : (
+                      <span className="text-xs text-accent opacity-60">✦</span>
+                    )}
+                  </div>
+                  <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed mb-4">
+                    {shortDesc}
+                  </p>
                 </div>
-                <p className="text-xs text-[var(--color-text-muted)] mt-1 line-clamp-2 leading-relaxed">
-                  {shortDesc}
-                </p>
-                <div className="flex items-center gap-3 mt-2 text-xs text-primary">
-                  <span>{service.duration_minutes} {t.min}</span>
-                  <span className="text-[var(--border-subtle)]">·</span>
-                  <span className="font-medium">{Number(service.price_sar)} {t.sar}</span>
+
+                <div className="flex items-center justify-between pt-3 border-t border-border-subtle text-xs">
+                  <span className="font-display font-medium text-foreground text-sm">
+                    {service.price_sar} <span className="text-[11px] text-muted-foreground font-sans">{t.sar}</span>
+                  </span>
+                  <span className="text-muted-foreground">
+                    {service.duration_minutes} {t.min}
+                  </span>
                 </div>
               </button>
             )
@@ -114,11 +122,11 @@ export function ExperienceStep({ draft, onUpdate, onContinue, isAr, services }: 
 
       {/* Package list */}
       {tab === 'packages' && (
-        <div className="grid grid-cols-1 gap-3 max-h-[420px] overflow-y-auto pe-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 max-h-[460px] overflow-y-auto pe-1">
           {packages.filter((p) => p.is_active).map((pkg) => {
             const isSelected = draft.packageSlug === pkg.slug
             const name = isAr ? pkg.name_ar : pkg.name_en
-            const tagline = isAr ? (pkg.tagline_ar ?? '') : (pkg.tagline_en ?? '')
+            const tagline = isAr ? pkg.tagline_ar : pkg.tagline_en
             const desc = isAr ? pkg.description_ar : pkg.description_en
 
             return (
@@ -127,29 +135,41 @@ export function ExperienceStep({ draft, onUpdate, onContinue, isAr, services }: 
                 onClick={() => selectPackage(pkg.slug)}
                 aria-pressed={isSelected}
                 className={cn(
-                  'text-start p-4 border rounded-sm transition-all duration-200',
-                  'focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-1',
+                  'text-start p-5 border rounded-sm transition-all duration-200 flex flex-col justify-between',
+                  'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1',
                   isSelected
-                    ? 'border-foreground bg-[var(--surface)] ring-1 ring-[var(--secondary)]'
-                    : 'border-[var(--border-subtle)] hover:border-accent hover:bg-[var(--surface)]'
+                    ? 'border-primary bg-surface-lavender ring-2 ring-accent/60 shadow-medium'
+                    : 'border-border-subtle bg-background hover:border-accent/50 hover:bg-surface-warm shadow-subtle'
                 )}
               >
-                <div className="flex items-start justify-between gap-2">
-                  <div>
-                    {tagline && <p className="text-[10px] text-primary tracking-widest uppercase mb-0.5">{tagline}</p>}
-                    <span className="font-medium text-sm text-foreground">{name}</span>
-                  </div>
-                  {isSelected && (
-                    <span className="text-[10px] text-primary bg-background px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">
-                      {t.selected}
-                    </span>
+                <div>
+                  {tagline && (
+                    <p className="text-[10px] text-accent uppercase tracking-widest font-semibold mb-1">
+                      {tagline}
+                    </p>
                   )}
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <span className="font-display font-medium text-base text-foreground leading-snug">{name}</span>
+                    {isSelected ? (
+                      <span className="text-[10px] text-white bg-primary font-semibold px-2.5 py-0.5 rounded-full shrink-0 whitespace-nowrap border border-accent/40 shadow-xs">
+                        {t.selected}
+                      </span>
+                    ) : (
+                      <span className="text-xs text-accent opacity-60">✦</span>
+                    )}
+                  </div>
+                  <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed mb-4">
+                    {desc}
+                  </p>
                 </div>
-                <p className="text-xs text-[var(--color-text-muted)] mt-1 line-clamp-2 leading-relaxed">{desc}</p>
-                <div className="flex items-center gap-3 mt-2 text-xs text-primary">
-                  <span>{pkg.total_duration_minutes} {t.min}</span>
-                  <span>·</span>
-                  <span className="font-medium">{pkg.price_sar} {t.sar}</span>
+
+                <div className="flex items-center justify-between pt-3 border-t border-border-subtle text-xs">
+                  <span className="font-display font-medium text-foreground text-sm">
+                    {pkg.price_sar} <span className="text-[11px] text-muted-foreground font-sans">{t.sar}</span>
+                  </span>
+                  <span className="text-muted-foreground">
+                    {pkg.total_duration_minutes} {t.min}
+                  </span>
                 </div>
               </button>
             )
@@ -157,20 +177,21 @@ export function ExperienceStep({ draft, onUpdate, onContinue, isAr, services }: 
         </div>
       )}
 
-      {/* Continue */}
-      <button
-        onClick={onContinue}
-        disabled={!hasSelection}
-        className={cn(
-          'mt-2 self-end px-8 py-3 rounded-sm text-sm tracking-wide transition-all duration-200',
-          'focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2',
-          hasSelection
-            ? 'bg-foreground text-white hover:bg-foreground'
-            : 'bg-background text-[var(--color-text-muted)] cursor-not-allowed'
-        )}
-      >
-        {t.continue}
-      </button>
+      {/* Continue CTA */}
+      <div className="pt-2">
+        <button
+          onClick={onContinue}
+          disabled={!hasSelection}
+          className={cn(
+            'btn btn-md px-8 py-2.5 font-medium shadow-sm transition-all duration-200',
+            hasSelection
+              ? 'btn-primary shadow-medium hover:shadow-luxury hover:scale-[1.01]'
+              : 'bg-muted text-muted-foreground cursor-not-allowed opacity-50'
+          )}
+        >
+          {t.continue}
+        </button>
+      </div>
     </div>
   )
 }

@@ -65,7 +65,7 @@ export default async function TeamPage({
                       'group flex flex-col items-center text-center',
                       'p-8 rounded-sm border border-[var(--border-subtle)] bg-background',
                       'transition-all duration-300',
-                      'hover:border-[var(--border-strong)] hover:shadow-[0_8px_24px_rgba(26,23,20,0.06)]'
+                      'hover:border-[var(--border-strong)] hover:shadow-medium'
                     )}
                   >
                     {/* Avatar */}

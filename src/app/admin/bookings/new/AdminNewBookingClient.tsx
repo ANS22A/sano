@@ -404,7 +404,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
 
       {/* Error */}
       {error && (
-        <div className="bg-red-50 text-red-700 text-sm p-3 rounded-xl border border-red-200">
+        <div className="bg-error-bg text-error text-sm p-3 rounded-xl border border-error-border">
           {error}
         </div>
       )}
@@ -608,7 +608,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                   className={`text-start p-4 rounded-xl border transition-all ${
                     selectedService?.id === s.id
                       ? 'border-secondary bg-surface-muted ring-1 ring-ring'
-                      : 'border-border hover:border-[#A98FB8] hover:bg-surface'
+                      : 'border-border hover:border-border-strong hover:bg-surface'
                   }`}
                 >
                   <p className="text-sm font-medium text-foreground">
@@ -671,7 +671,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                       className={`px-3 py-2 rounded-xl text-sm font-medium border transition-colors ${
                         selectedSlot === s.startTime
                           ? 'bg-secondary text-white border-secondary'
-                          : 'bg-white text-foreground border-border hover:border-[#A98FB8]'
+                          : 'bg-white text-foreground border-border hover:border-border-strong'
                       }`}
                     >
                       {s.startTime}
@@ -761,8 +761,8 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
       {/* ─── STEP: Success ─── */}
       {step === 'success' && (
         <div className="bg-white rounded-2xl border border-border p-8 text-center space-y-4">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-50">
-            <CheckCircle className="w-8 h-8 text-green-600" />
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-success-bg">
+            <CheckCircle className="w-8 h-8 text-success" />
           </div>
           <h2 className="text-lg font-bold text-foreground">{labels.bookingCreated}</h2>
           <p className="text-sm text-muted-foreground">

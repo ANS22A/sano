@@ -16,20 +16,13 @@ export function SignatureSection() {
   return (
     <section
       ref={ref}
-      className="relative section-sl overflow-hidden bg-[var(--primary)]"
+      className="relative py-24 lg:py-32 overflow-hidden bg-primary text-white"
       aria-labelledby="signature-heading"
     >
-      {/* Background image — hero bg reused at lower opacity */}
-      <div className="absolute inset-0 z-0" aria-hidden="true">
-        <Image
-          src="/images/hero/hero-bg.jpg"
-          alt=""
-          fill
-          quality={70}
-          sizes="100vw"
-          className="object-cover object-center opacity-20"
-        />
-        <div className="absolute inset-0 bg-gradient-to-e from-black/90 via-black/60 to-transparent" />
+      {/* Ambient background glow & radial gradient */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div className="absolute -top-24 -start-24 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
+        <div className="absolute -bottom-24 -end-24 w-96 h-96 bg-primary-hover rounded-full blur-3xl" />
       </div>
 
       <div className="relative z-10 container-sl">
@@ -42,16 +35,19 @@ export function SignatureSection() {
             animate={controls}
             variants={{ visible: { opacity: 1, x: 0, transition: { duration: 0.85 } } }}
           >
-            <p className="text-accent text-xs tracking-[0.2em] uppercase mb-4">{t('overline')}</p>
+            <div className="inline-flex items-center gap-2 mb-4">
+              <span className="text-accent text-xs">✦</span>
+              <p className="text-accent text-xs tracking-[0.25em] uppercase font-semibold">{t('overline')}</p>
+            </div>
 
             <h2 id="signature-heading" className={cn(
-              'font-display font-light leading-[1.05] mb-6',
-              'text-[clamp(2.5rem,5vw,4rem)] text-white'
+              'font-display font-light leading-[1.08] mb-6',
+              'text-[clamp(2.4rem,4.5vw,3.8rem)] text-white'
             )}>
               {t('title')}
             </h2>
 
-            <p className="text-white/60 text-sm tracking-wide mb-6 font-medium">
+            <p className="text-accent/90 text-sm tracking-wider mb-6 font-medium uppercase">
               {t('subtitle')}
             </p>
 
@@ -60,42 +56,42 @@ export function SignatureSection() {
             </p>
 
             {/* Details */}
-            <div className="flex items-center gap-6 mb-8 pb-8 border-b border-white/10">
+            <div className="flex items-center gap-6 mb-8 pb-8 border-b border-white/15">
               <div>
-                <p className="text-[10px] text-white/40 uppercase tracking-[0.15em] mb-1">{isAr ? 'المدة' : 'Duration'}</p>
-                <p className="text-white font-medium">{t('duration')}</p>
+                <p className="text-[10px] text-accent/80 uppercase tracking-widest mb-1 font-semibold">{isAr ? 'المدة' : 'Duration'}</p>
+                <p className="text-white font-medium text-base">{t('duration')}</p>
               </div>
-              <div className="w-px h-10 bg-white/10" aria-hidden="true" />
+              <div className="w-px h-10 bg-white/15" aria-hidden="true" />
               <div>
-                <p className="text-[10px] text-white/40 uppercase tracking-[0.15em] mb-1">{isAr ? 'السعر' : 'Price'}</p>
-                <p className="text-white font-medium">{t('price')}</p>
+                <p className="text-[10px] text-accent/80 uppercase tracking-widest mb-1 font-semibold">{isAr ? 'السعر' : 'Price'}</p>
+                <p className="text-white font-medium text-base">{t('price')}</p>
               </div>
-              <div className="w-px h-10 bg-white/10" aria-hidden="true" />
+              <div className="w-px h-10 bg-white/15" aria-hidden="true" />
               <div>
-                <p className="text-[10px] text-white/40 uppercase tracking-[0.15em] mb-1">{isAr ? 'يشمل' : 'Includes'}</p>
-                <p className="text-white/70 text-xs leading-relaxed">{t('includes')}</p>
+                <p className="text-[10px] text-accent/80 uppercase tracking-widest mb-1 font-semibold">{isAr ? 'يشمل' : 'Includes'}</p>
+                <p className="text-white/80 text-xs leading-relaxed max-w-[200px]">{t('includes')}</p>
               </div>
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex flex-col sm:flex-row gap-3.5">
               <Link
                 href="/booking"
                 className={cn(
                   'btn btn-lg',
-                  'bg-accent text-foreground',
-                  'hover:bg-surface',
-                  'transition-colors duration-200'
+                  'bg-accent text-foreground font-semibold',
+                  'hover:bg-accent/90 shadow-luxury hover:scale-[1.02]',
+                  'transition-all duration-200'
                 )}
               >
                 {t('cta')}
               </Link>
               <Link
-                href="/packages/complete-ritual"
+                href="/packages"
                 className={cn(
                   'btn btn-lg',
-                  'border border-white/25 text-white/80',
-                  'hover:bg-white/8 hover:border-white/50 hover:text-white',
+                  'border border-white/30 text-white',
+                  'hover:bg-white/10 hover:border-white/60 hover:text-white',
                   'transition-colors duration-200'
                 )}
               >

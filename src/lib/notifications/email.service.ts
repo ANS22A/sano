@@ -13,13 +13,13 @@ try {
 }
 
 const defaultFrom = process.env.RESEND_FROM_EMAIL || 'SANO LUNA <no-reply@sanoluna.com>'
-export const brandGold = '#D4AF37'
-export const brandPurple = '#2E1F38'
-export const brandMauve = '#6F4E7C'
-export const brandLavender = '#A98FB8'
-export const brandPinkMauve = '#D6C2D9'
-export const brandLightLilac = '#E7DBEC'
-export const brandBg = '#FAF7F4'
+export const brandGold = '#C9A96E'
+export const brandPurple = '#3B1F4A'
+export const brandMauve = '#76547A'
+export const brandLavender = '#B9A5C8'
+export const brandPinkMauve = '#D8B8C8'
+export const brandLightLilac = '#F6F1F7'
+export const brandBg = '#FFFCFE'
 
 export interface EmailBookingDetails {
   bookingNumber: string
@@ -64,8 +64,8 @@ function getBaseTemplate(title: string, content: string, locale: 'en' | 'ar' = '
         }
       </style>
     </head>
-    <body style="font-family: ${fontFamily}; background-color: #FAF7F4; color: ${brandPurple}; line-height: 1.7; margin: 0; padding: 24px 12px;">
-      <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #FAF7F4;">
+    <body style="font-family: ${fontFamily}; background-color: #FFFCFE; color: ${brandPurple}; line-height: 1.7; margin: 0; padding: 24px 12px;">
+      <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #FFFCFE;">
         <tr>
           <td align="center">
             <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; background-color: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid ${brandLightLilac}; box-shadow: 0 4px 20px rgba(46, 31, 56, 0.05);">
@@ -87,7 +87,7 @@ function getBaseTemplate(title: string, content: string, locale: 'en' | 'ar' = '
               
               <!-- Footer -->
               <tr>
-                <td style="background-color: #FAF7F4; border-top: 1px solid ${brandLightLilac}; padding: 24px; text-align: center; font-size: 13px; color: ${brandMauve};">
+                <td style="background-color: #FFFCFE; border-top: 1px solid ${brandLightLilac}; padding: 24px; text-align: center; font-size: 13px; color: ${brandMauve};">
                   <p style="margin: 0 0 8px 0; font-weight: 500;">${isRtl ? 'لأي استفسار أو مساعدة، يرجى التواصل معنا عبر:' : 'For any inquiries or assistance, please reach out to us at:'}</p>
                   <p style="margin: 0; color: ${brandPurple}; font-weight: 600;">
                     <a href="mailto:${contact.email}" style="color: ${brandMauve}; text-decoration: none;">${contact.email}</a>
@@ -131,7 +131,7 @@ export async function sendBookingCreated(details: EmailBookingDetails): Promise<
       <h2 style="color: ${brandPurple}; margin-top: 0; font-size: 20px; font-weight: 600;">مرحباً ${details.customerName}،</h2>
       <p style="color: ${brandMauve}; font-size: 15px;">تم استلام طلب حجزك بنجاح في سانو لونا. سنقوم بمراجعة الطلب وتأكيده لك في أقرب وقت.</p>
       
-      <div style="background-color: #FAF7F4; border: 1px solid ${brandLightLilac}; border-radius: 12px; padding: 22px; margin: 24px 0;">
+      <div style="background-color: #FFFCFE; border: 1px solid ${brandLightLilac}; border-radius: 12px; padding: 22px; margin: 24px 0;">
         <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="6" style="font-size: 14px; color: ${brandPurple};">
           <tr>
             <td style="color: ${brandMauve}; font-weight: 600; width: 35%;">رقم الحجز:</td>
@@ -170,7 +170,7 @@ export async function sendBookingCreated(details: EmailBookingDetails): Promise<
       <h2 style="color: ${brandPurple}; margin-top: 0; font-size: 20px; font-weight: 600;">Hello ${details.customerName},</h2>
       <p style="color: ${brandMauve}; font-size: 15px;">We have received your booking request at SANO LUNA. Our team will review and confirm your reservation shortly.</p>
       
-      <div style="background-color: #FAF7F4; border: 1px solid ${brandLightLilac}; border-radius: 12px; padding: 22px; margin: 24px 0;">
+      <div style="background-color: #FFFCFE; border: 1px solid ${brandLightLilac}; border-radius: 12px; padding: 22px; margin: 24px 0;">
         <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="6" style="font-size: 14px; color: ${brandPurple};">
           <tr>
             <td style="color: ${brandMauve}; font-weight: 600; width: 35%;">Booking Ref:</td>
@@ -246,7 +246,7 @@ export async function sendBookingConfirmation(details: EmailBookingDetails): Pro
       <h2 style="color: ${brandPurple}; margin-top: 0; font-size: 20px; font-weight: 600;">مرحباً ${details.customerName}،</h2>
       <p style="color: ${brandMauve}; font-size: 15px;">يسعدنا إعلامك بأنه تم تأكيد حجزك بنجاح. نحن بانتظارك في سانو لونا لتجربة استثنائية من العناية والاسترخاء.</p>
       
-      <div style="background-color: #FAF7F4; border: 1px solid ${brandLightLilac}; border-radius: 12px; padding: 22px; margin: 24px 0;">
+      <div style="background-color: #FFFCFE; border: 1px solid ${brandLightLilac}; border-radius: 12px; padding: 22px; margin: 24px 0;">
         <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="6" style="font-size: 14px; color: ${brandPurple};">
           <tr>
             <td style="color: ${brandMauve}; font-weight: 600; width: 35%;">رقم الحجز:</td>
@@ -286,7 +286,7 @@ export async function sendBookingConfirmation(details: EmailBookingDetails): Pro
       <h2 style="color: ${brandPurple}; margin-top: 0; font-size: 20px; font-weight: 600;">Hello ${details.customerName},</h2>
       <p style="color: ${brandMauve}; font-size: 15px;">Your booking has been successfully confirmed. We look forward to welcoming you for an exceptional home spa experience.</p>
       
-      <div style="background-color: #FAF7F4; border: 1px solid ${brandLightLilac}; border-radius: 12px; padding: 22px; margin: 24px 0;">
+      <div style="background-color: #FFFCFE; border: 1px solid ${brandLightLilac}; border-radius: 12px; padding: 22px; margin: 24px 0;">
         <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="6" style="font-size: 14px; color: ${brandPurple};">
           <tr>
             <td style="color: ${brandMauve}; font-weight: 600; width: 35%;">Booking Ref:</td>
@@ -456,7 +456,7 @@ export async function sendBookingReschedule(details: EmailBookingDetails): Promi
       <h2 style="color: ${brandPurple}; margin-top: 0; font-size: 20px; font-weight: 600;">مرحباً ${details.customerName}،</h2>
       <p style="color: ${brandMauve}; font-size: 15px;">تم تعديل موعد حجزك بنجاح في سانو لونا. إليك التفاصيل المحدثة:</p>
       
-      <div style="background-color: #FAF7F4; border: 1px solid ${brandLightLilac}; border-radius: 12px; padding: 22px; margin: 24px 0;">
+      <div style="background-color: #FFFCFE; border: 1px solid ${brandLightLilac}; border-radius: 12px; padding: 22px; margin: 24px 0;">
         <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="6" style="font-size: 14px; color: ${brandPurple};">
           <tr>
             <td style="color: ${brandMauve}; font-weight: 600; width: 35%;">رقم الحجز:</td>
@@ -468,8 +468,8 @@ export async function sendBookingReschedule(details: EmailBookingDetails): Promi
           </tr>
           ${details.oldDate ? `
           <tr>
-            <td style="color: #6F4E7C; font-weight: 600;">الموعد السابق:</td>
-            <td style="color: #6F4E7C; text-decoration: line-through;">${details.oldDate} الساعة ${details.oldStartTime?.slice(0, 5)}</td>
+            <td style="color: ${brandMauve}; font-weight: 600;">الموعد السابق:</td>
+            <td style="color: ${brandMauve}; text-decoration: line-through;">${details.oldDate} الساعة ${details.oldStartTime?.slice(0, 5)}</td>
           </tr>
           ` : ''}
           <tr>
@@ -497,7 +497,7 @@ export async function sendBookingReschedule(details: EmailBookingDetails): Promi
       <h2 style="color: ${brandPurple}; margin-top: 0; font-size: 20px; font-weight: 600;">Hello ${details.customerName},</h2>
       <p style="color: ${brandMauve}; font-size: 15px;">Your booking with SANO LUNA has been successfully updated. Here are your new details:</p>
       
-      <div style="background-color: #FAF7F4; border: 1px solid ${brandLightLilac}; border-radius: 12px; padding: 22px; margin: 24px 0;">
+      <div style="background-color: #FFFCFE; border: 1px solid ${brandLightLilac}; border-radius: 12px; padding: 22px; margin: 24px 0;">
         <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="6" style="font-size: 14px; color: ${brandPurple};">
           <tr>
             <td style="color: ${brandMauve}; font-weight: 600; width: 35%;">Booking Ref:</td>
@@ -509,8 +509,8 @@ export async function sendBookingReschedule(details: EmailBookingDetails): Promi
           </tr>
           ${details.oldDate ? `
           <tr>
-            <td style="color: #6F4E7C; font-weight: 600;">Previous Time:</td>
-            <td style="color: #6F4E7C; text-decoration: line-through;">${details.oldDate} at ${details.oldStartTime?.slice(0, 5)}</td>
+            <td style="color: ${brandMauve}; font-weight: 600;">Previous Time:</td>
+            <td style="color: ${brandMauve}; text-decoration: line-through;">${details.oldDate} at ${details.oldStartTime?.slice(0, 5)}</td>
           </tr>
           ` : ''}
           <tr>
@@ -582,13 +582,13 @@ export async function sendGiftCardEmail(details: EmailGiftCardDetails) {
       </p>
 
       ${details.personalMessage ? `
-      <div style="background-color: #FAF7F4; border-right: 4px solid ${brandGold}; padding: 16px; border-radius: 8px; margin: 20px 0; font-style: italic; color: ${brandPurple};">
+      <div style="background-color: #FFFCFE; border-right: 4px solid ${brandGold}; padding: 16px; border-radius: 8px; margin: 20px 0; font-style: italic; color: ${brandPurple};">
         "${details.personalMessage}"
         <div style="text-align: left; font-size: 12px; color: ${brandMauve}; margin-top: 8px;">— ${details.senderName}</div>
       </div>
       ` : ''}
 
-      <div style="background-color: #2E1F38; color: #FAF7F4; border-radius: 16px; padding: 28px 24px; text-align: center; margin: 24px 0; border: 1px solid ${brandGold}; box-shadow: 0 4px 16px rgba(46,31,56,0.15);">
+      <div style="background-color: #3B1F4A; color: #FFFCFE; border-radius: 16px; padding: 28px 24px; text-align: center; margin: 24px 0; border: 1px solid ${brandGold}; box-shadow: 0 4px 16px rgba(59,31,74,0.15);">
         <div style="font-size: 12px; letter-spacing: 2px; color: ${brandGold}; text-transform: uppercase; margin-bottom: 8px;">بطاقة إهداء سانو لونا | GIFT VOUCHER</div>
         <div style="font-size: 32px; font-weight: 700; color: #ffffff; margin-bottom: 12px;">${details.amount} <span style="font-size: 18px; color: ${brandGold};">ريال سعودي</span></div>
         <div style="background-color: rgba(255,255,255,0.08); border: 1px dashed ${brandGold}; border-radius: 10px; padding: 12px 16px; font-family: monospace; font-size: 22px; font-weight: 700; color: ${brandGold}; letter-spacing: 3px; display: inline-block; margin-bottom: 12px; direction: ltr;">
@@ -619,13 +619,13 @@ export async function sendGiftCardEmail(details: EmailGiftCardDetails) {
       </p>
 
       ${details.personalMessage ? `
-      <div style="background-color: #FAF7F4; border-left: 4px solid ${brandGold}; padding: 16px; border-radius: 8px; margin: 20px 0; font-style: italic; color: ${brandPurple};">
+      <div style="background-color: #FFFCFE; border-left: 4px solid ${brandGold}; padding: 16px; border-radius: 8px; margin: 20px 0; font-style: italic; color: ${brandPurple};">
         "${details.personalMessage}"
         <div style="text-align: right; font-size: 12px; color: ${brandMauve}; margin-top: 8px;">— ${details.senderName}</div>
       </div>
       ` : ''}
 
-      <div style="background-color: #2E1F38; color: #FAF7F4; border-radius: 16px; padding: 28px 24px; text-align: center; margin: 24px 0; border: 1px solid ${brandGold}; box-shadow: 0 4px 16px rgba(46,31,56,0.15);">
+      <div style="background-color: #3B1F4A; color: #FFFCFE; border-radius: 16px; padding: 28px 24px; text-align: center; margin: 24px 0; border: 1px solid ${brandGold}; box-shadow: 0 4px 16px rgba(59,31,74,0.15);">
         <div style="font-size: 12px; letter-spacing: 2px; color: ${brandGold}; text-transform: uppercase; margin-bottom: 8px;">SANO LUNA GIFT VOUCHER</div>
         <div style="font-size: 32px; font-weight: 700; color: #ffffff; margin-bottom: 12px;">${details.amount} <span style="font-size: 18px; color: ${brandGold};">SAR</span></div>
         <div style="background-color: rgba(255,255,255,0.08); border: 1px dashed ${brandGold}; border-radius: 10px; padding: 12px 16px; font-family: monospace; font-size: 22px; font-weight: 700; color: ${brandGold}; letter-spacing: 3px; display: inline-block; margin-bottom: 12px;">

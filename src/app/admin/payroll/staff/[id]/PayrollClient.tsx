@@ -82,7 +82,7 @@ export function PayrollClient({ staffId, month, salary }: PayrollClientProps) {
           <button
             onClick={handleMarkPaid}
             disabled={isPending}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700 transition-colors text-sm font-medium disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-success text-white hover:bg-success transition-colors text-sm font-medium disabled:opacity-50"
           >
             {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
             <CheckCircle className="w-4 h-4" />

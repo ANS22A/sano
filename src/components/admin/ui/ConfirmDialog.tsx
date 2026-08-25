@@ -73,7 +73,7 @@ export function ConfirmDialog({
             className={cn(
               'px-4 py-2 rounded-xl text-sm font-medium text-white transition-colors disabled:opacity-50',
               destructive
-                ? 'bg-red-600 hover:bg-red-700'
+                ? 'bg-error hover:opacity-90'
                 : 'bg-primary hover:bg-primary-hover'
             )}
           >

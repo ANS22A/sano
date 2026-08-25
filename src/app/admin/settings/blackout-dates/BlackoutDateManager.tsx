@@ -77,7 +77,7 @@ export function BlackoutDateManager({ dates, locationId }: {
                 <button
                   onClick={() => handleRemove(d.id)}
                   disabled={isPending}
-                  className="p-2 rounded-lg text-red-600 hover:bg-red-50 transition-colors disabled:opacity-50"
+                  className="p-2 rounded-lg text-error hover:bg-error-bg transition-colors disabled:opacity-50"
                   aria-label="Remove blackout date"
                 >
                   <Trash2 className="w-4 h-4" />

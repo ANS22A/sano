@@ -31,10 +31,10 @@ export const GiftCardVoucher = React.forwardRef<HTMLDivElement, GiftCardVoucherP
     
     // Theme mapping - fallback to classic-gold
     const themeStyles: Record<string, { bg: string; text: string; accent: string }> = {
-      'classic-gold': { bg: 'bg-[#2E1F38]', text: 'text-white', accent: 'text-[#D4AF37]' },
-      'rose-plum': { bg: 'bg-[#6F4E7C]', text: 'text-white', accent: 'text-[#E7DBEC]' },
-      'sandstone': { bg: 'bg-[#FAF7F4]', text: 'text-[#2E1F38]', accent: 'text-[#D4AF37]' },
-      'emerald': { bg: 'bg-[#1a2f24]', text: 'text-white', accent: 'text-[#D4AF37]' },
+      'classic-gold': { bg: 'bg-[#3B1F4A]', text: 'text-white', accent: 'text-[#C9A96E]' },
+      'rose-plum': { bg: 'bg-[#76547A]', text: 'text-white', accent: 'text-[#F6F1F7]' },
+      'sandstone': { bg: 'bg-[#FFFCFE]', text: 'text-[#3B1F4A]', accent: 'text-[#C9A96E]' },
+      'emerald': { bg: 'bg-[#1a2f24]', text: 'text-white', accent: 'text-[#C9A96E]' },
     }
     
     const currentTheme = themeStyles[theme] || themeStyles['classic-gold']

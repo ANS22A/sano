@@ -65,6 +65,16 @@
   --color-destructive:         var(--error);
   --color-destructive-foreground: var(--error-foreground);
 
+  /* === SEMANTIC BACKGROUNDS & BORDERS === */
+  --color-success-bg:          var(--success-bg);
+  --color-success-border:      var(--success-border);
+  --color-warning-bg:          var(--warning-bg);
+  --color-warning-border:      var(--warning-border);
+  --color-error-bg:            var(--error-bg);
+  --color-error-border:        var(--error-border);
+  --color-info-bg:             var(--info-bg);
+  --color-info-border:         var(--info-border);
+
   /* === SIDEBAR === */
   --color-sidebar-ring:                var(--sidebar-ring);
   --color-sidebar-border:              var(--sidebar-border);
@@ -95,10 +105,10 @@
 
   /* === SHADOWS === */
   --shadow-none:     none;
-  --shadow-subtle:   0 1px 3px 0 rgb(46 31 56 / 0.04), 0 1px 2px -1px rgb(46 31 56 / 0.04);
-  --shadow-medium:   0 4px 16px -2px rgb(46 31 56 / 0.08), 0 2px 8px -2px rgb(46 31 56 / 0.04);
-  --shadow-elevated: 0 12px 40px -4px rgb(46 31 56 / 0.12), 0 4px 16px -4px rgb(46 31 56 / 0.06);
-  --shadow-luxury:   0 24px 64px -8px rgb(46 31 56 / 0.16);
+  --shadow-subtle:   0 1px 3px 0 rgb(59 31 74 / 0.04), 0 1px 2px -1px rgb(59 31 74 / 0.04);
+  --shadow-medium:   0 4px 16px -2px rgb(59 31 74 / 0.08), 0 2px 8px -2px rgb(59 31 74 / 0.04);
+  --shadow-elevated: 0 12px 40px -4px rgb(59 31 74 / 0.12), 0 4px 16px -4px rgb(59 31 74 / 0.06);
+  --shadow-luxury:   0 24px 64px -8px rgb(59 31 74 / 0.16);
 
   /* === SPACING === */
   --spacing-0:   0;
@@ -145,94 +155,119 @@
 }
 
 /* --------------------------------------------------------------------------- */
-/* LIGHT MODE COLOR TOKENS — "SANO LUNA Luxury Palette"                        */
+/* LIGHT MODE COLOR TOKENS — "SANO LUNA Quiet Luxury Palette"                  */
+/* Approved palette:                                                            */
+/*   Deep Royal Purple #3B1F4A · Mauve Purple #76547A · Lavender #B9A5C8        */
+/*   Soft Pink Mauve #D8B8C8 · Very Light Lilac #F6F1F7 · Warm Gold #C9A96E    */
+/*   Deep Charcoal #29232B · Muted Plum Gray #766B78 · Soft White #FFFCFE      */
 /* --------------------------------------------------------------------------- */
 
 :root {
-  /* Background layers */
-  --background:       #FFFFFF;    /* Clean white for maximum lightness */
-  --surface:          #FAF7F4;    /* Warm white for subtle contrast */
-  --surface-elevated: #FFFFFF;    /* Pure white for cards */
-  --surface-muted:    #E7DBEC;    /* Very Light Lilac for soft sections */
+  /* ── Background Hierarchy ── */
+  --background:       #FFFCFE;    /* Soft White — page background */
+  --surface:          #FFFCFE;    /* Soft White — matching for clean look */
+  --surface-elevated: #FFFFFF;    /* Pure white for floating cards */
+  --surface-muted:    #F6F1F7;    /* Very Light Lilac for muted sections */
+  --surface-warm:     #F8F3F6;    /* Soft warm spa tint with subtle pink-lilac warmth */
+  --surface-pink:     #FAF0F4;    /* Soft Pink Mauve tint */
+  --surface-lilac:    #F6F1F7;    /* Very Light Lilac */
+  --surface-lavender: #EFEAF2;    /* Elegant lavender surface */
 
-  /* Text */
-  --foreground:       #2E1F38;    /* Deep Royal Purple for readability */
-  --foreground-secondary: #6F4E7C; /* Mauve Purple for secondary text */
+  /* ── Legacy Aliases for Components ── */
+  --color-surface-warm: var(--surface-warm);
+  --color-text-muted:   var(--muted-foreground);
+  --color-accent:       var(--accent);
+  --color-primary:      var(--primary);
 
-  /* Cards / Popover */
+  /* ── Text Hierarchy ── */
+  --foreground:           #29232B; /* Deep Charcoal — primary readable text */
+  --foreground-secondary: #766B78; /* Muted Plum Gray — secondary text */
+
+  /* ── Cards / Popover ── */
   --card:             #FFFFFF;
-  --card-foreground:  #2E1F38;
+  --card-foreground:  #29232B;
   --popover:          #FFFFFF;
-  --popover-foreground: #2E1F38;
+  --popover-foreground: #29232B;
 
-  /* Brand Primary — Deep Royal Purple */
-  --primary:          #2E1F38;    
-  --primary-hover:    #6F4E7C;    /* Mauve on hover */
-  --primary-foreground: #FFFFFF;  /* White on primary */
+  /* ── Brand Primary — Deep Royal Purple ── */
+  --primary:            #3B1F4A;
+  --primary-hover:      #76547A;    /* Mauve on hover */
+  --primary-foreground: #FFFFFF;    /* White on primary */
 
-  /* Brand Secondary — Very Light Lilac (used for secondary buttons) */
-  --secondary:        #E7DBEC;    
-  --secondary-hover:  #D6C2D9;    /* Soft Lilac on hover */
-  --secondary-foreground: #2E1F38;/* Deep Purple text */
+  /* ── Brand Secondary — Very Light Lilac ── */
+  --secondary:            #F6F1F7;
+  --secondary-hover:      #EDE5F0;  /* Slightly deeper lilac on hover */
+  --secondary-foreground: #3B1F4A;  /* Deep Purple text */
 
-  /* Accent — Warm Gold */
-  --accent:           #D4AF37;    
-  --accent-foreground: #2E1F38;
-  --accent-subtle:    #F7F3E8;    /* Very faint gold tint for subtle highlights */
+  /* ── Accent — Warm Gold (LIMITED use) ── */
+  --accent:             #C9A96E;
+  --accent-foreground:  #29232B;
+  --accent-subtle:      #FAF6EF;    /* Barely-there gold tint */
 
-  /* Muted */
-  --muted:            #E7DBEC;    /* Very Light Lilac */
-  --muted-foreground: #6F4E7C;    /* Mauve */
+  /* ── Muted ── */
+  --muted:            #F6F1F7;      /* Very Light Lilac */
+  --muted-foreground: #766B78;      /* Muted Plum Gray */
 
-  /* Borders */
-  --border:           #D6C2D9;    /* Soft Lilac */
-  --border-subtle:    #E7DBEC;    /* Very Light Lilac */
-  --border-strong:    #A98FB8;    /* Lavender */
+  /* ── Borders ── */
+  --border:           #E8DFE9;      /* Soft plum-tinted border */
+  --border-subtle:    #F0EAF1;      /* Very subtle separator */
+  --border-strong:    #B9A5C8;      /* Lavender for emphasis */
 
-  /* Form inputs */
+  /* ── Form inputs ── */
   --input:            #FFFFFF;
-  --ring:             #6F4E7C;    /* Focus ring = Mauve */
+  --ring:             #76547A;      /* Focus ring = Mauve Purple */
 
-  /* Semantic */
-  --success:          #4A7C59;
-  --success-foreground: #FFFFFF;
-  --warning:          #A86826;
-  --warning-foreground: #FFFFFF;
-  --error:            #C0392B;
-  --error-foreground: #FFFFFF;
-  --info:             #2C6E8A;
-  --info-foreground:  #FFFFFF;
+  /* ── Semantic States ── */
+  --success:              #3D7A52;
+  --success-foreground:   #FFFFFF;
+  --success-bg:           #EFF7F1;
+  --success-border:       #C2DEC9;
 
-  /* Sidebar */
-  --sidebar:          #2E1F38;    /* Deep Royal Purple admin sidebar */
-  --sidebar-foreground: #FFFFFF;
-  --sidebar-primary:  #D4AF37;    /* Gold active indicator */
-  --sidebar-primary-foreground: #2E1F38;
-  --sidebar-accent:   #6F4E7C;    /* Mauve hover */
-  --sidebar-accent-foreground: #FFFFFF;
-  --sidebar-border:   #6F4E7C;
-  --sidebar-ring:     #D4AF37;
+  --warning:              #9A6B2F;
+  --warning-foreground:   #FFFFFF;
+  --warning-bg:           #FDF6EC;
+  --warning-border:       #EDDCB8;
 
-  /* Font families */
+  --error:                #B53B2E;
+  --error-foreground:     #FFFFFF;
+  --error-bg:             #FDF0EE;
+  --error-border:         #F0C5BF;
+
+  --info:                 #2C6882;
+  --info-foreground:      #FFFFFF;
+  --info-bg:              #EEF5F8;
+  --info-border:          #BBD6E0;
+
+  /* ── Admin Sidebar ── */
+  --sidebar:                    #3B1F4A;  /* Deep Royal Purple */
+  --sidebar-foreground:         #FFFFFF;
+  --sidebar-primary:            #C9A96E;  /* Gold active indicator */
+  --sidebar-primary-foreground: #29232B;
+  --sidebar-accent:             #76547A;  /* Mauve hover */
+  --sidebar-accent-foreground:  #FFFFFF;
+  --sidebar-border:             rgba(255, 255, 255, 0.08);
+  --sidebar-ring:               #C9A96E;
+
+  /* ── Font families ── */
   --font-display-en:  'Cinzel', 'Georgia', serif;
   --font-body-en:     'Montserrat', 'system-ui', sans-serif;
   --font-display-ar:  'Cairo', 'sans-serif';
   --font-body-ar:     'Tajawal', 'sans-serif';
 
-  /* Navigation tokens */
+  /* ── Navigation ── */
   --nav-height-desktop: 80px;
   --nav-height-mobile:  64px;
   --nav-border:         var(--border-subtle);
-  --nav-bg:             rgba(255, 255, 255, 0.95);
-  --nav-bg-scrolled:    rgba(255, 255, 255, 0.98);
+  --nav-bg:             rgba(255, 252, 254, 0.95);
+  --nav-bg-scrolled:    rgba(255, 252, 254, 0.98);
 
-  /* Section padding */
+  /* ── Section padding ── */
   --section-padding-y-desktop: 120px;
   --section-padding-y-tablet:  80px;
   --section-padding-y-mobile:  60px;
 
-  /* Modal */
-  --modal-overlay:    rgba(46, 31, 56, 0.6);
+  /* ── Modal ── */
+  --modal-overlay:    rgba(59, 31, 74, 0.5);
   --modal-radius:     var(--radius-xl);
   --modal-shadow:     var(--shadow-luxury);
 }
@@ -894,7 +929,7 @@
 
   .form-input:focus {
     border-color: var(--ring);
-    box-shadow: 0 0 0 3px rgba(111, 78, 124, 0.12); /* Mauve halo */
+    box-shadow: 0 0 0 3px rgba(118, 84, 122, 0.12); /* Mauve halo */
   }
 
   .form-input.error {
@@ -1294,7 +1329,7 @@
   }
   [class*="Input"]:focus {
     border-color: var(--ring) !important;
-    box-shadow: 0 0 0 3px rgba(111, 78, 124, 0.12) !important;
+    box-shadow: 0 0 0 3px rgba(118, 84, 122, 0.12) !important;
   }
 
   /* Override badge */
@@ -1312,13 +1347,13 @@
 
 :root {
   /* Surface warm — mapping back to our brand */
-  --color-surface-warm: #FAF7F4;
+  --color-surface-warm: #FFFCFE;
 
   /* Text muted alias */
-  --color-text-muted: #6F4E7C;  /* Mauve Purple */
+  --color-text-muted: #766B78;  /* Muted Plum Gray */
 
   /* Accent shorthand */
-  --color-accent: #D4AF37;      /* Warm Gold */
+  --color-accent: #C9A96E;      /* Warm Gold */
 }
 
 @layer utilities {

@@ -84,27 +84,27 @@ export function BookingCalendar({ selectedDate, onSelectDate, isAr, minDate }: B
 
   return (
     <div
-      className="select-none"
+      className="select-none p-5 bg-background rounded-sm border border-border-subtle shadow-subtle"
       dir={isAr ? 'rtl' : 'ltr'}
       role="group"
       aria-label={isAr ? 'التقويم' : 'Calendar'}
     >
       {/* Month navigation */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-5 px-2 py-2 rounded-sm bg-surface-muted border border-border-subtle">
         <button
           onClick={prevMonth}
           disabled={!canGoPrev}
           aria-label={isAr ? 'الشهر السابق' : 'Previous month'}
           className={cn(
-            'w-8 h-8 flex items-center justify-center rounded-full transition-colors',
-            'hover:bg-background focus:outline-none focus:ring-2 focus:ring-[var(--ring)]',
-            !canGoPrev && 'opacity-30 pointer-events-none'
+            'w-8 h-8 flex items-center justify-center rounded-full transition-all text-foreground',
+            'hover:bg-accent/20 hover:text-primary focus:outline-none focus:ring-2 focus:ring-ring',
+            !canGoPrev && 'opacity-20 pointer-events-none'
           )}
         >
-          <span className="rtl:rotate-180 inline-block">‹</span>
+          <span className="rtl:rotate-180 inline-block font-bold">‹</span>
         </button>
 
-        <h3 className="text-sm font-medium text-foreground">
+        <h3 className="text-sm font-semibold font-display text-primary tracking-wide">
           {months[viewMonth]} {viewYear}
         </h3>
 
@@ -112,25 +112,25 @@ export function BookingCalendar({ selectedDate, onSelectDate, isAr, minDate }: B
           onClick={nextMonth}
           aria-label={isAr ? 'الشهر التالي' : 'Next month'}
           className={cn(
-            'w-8 h-8 flex items-center justify-center rounded-full transition-colors',
-            'hover:bg-background focus:outline-none focus:ring-2 focus:ring-[var(--ring)]'
+            'w-8 h-8 flex items-center justify-center rounded-full transition-all text-foreground',
+            'hover:bg-accent/20 hover:text-primary focus:outline-none focus:ring-2 focus:ring-ring'
           )}
         >
-          <span className="rtl:rotate-180 inline-block">›</span>
+          <span className="rtl:rotate-180 inline-block font-bold">›</span>
         </button>
       </div>
 
       {/* Day headers */}
-      <div className="grid grid-cols-7 mb-1">
+      <div className="grid grid-cols-7 mb-2">
         {days.map((d, i) => (
-          <div key={i} className="text-center text-xs text-[var(--color-text-muted)] font-medium py-1">
+          <div key={i} className="text-center text-xs text-accent font-semibold py-1 uppercase tracking-wider">
             {d}
           </div>
         ))}
       </div>
 
       {/* Day cells */}
-      <div className="grid grid-cols-7 gap-y-1" role="grid">
+      <div className="grid grid-cols-7 gap-1.5" role="grid">
         {calendarDays.map((cell, idx) => {
           if (!cell.day || !cell.iso) {
             return <div key={idx} role="gridcell" aria-hidden="true" />
@@ -141,7 +141,7 @@ export function BookingCalendar({ selectedDate, onSelectDate, isAr, minDate }: B
           const isPast = cell.iso < min
 
           return (
-            <div key={idx} role="gridcell">
+            <div key={idx} role="gridcell" className="flex items-center justify-center">
               <button
                 onClick={() => !isPast && onSelectDate(cell.iso!)}
                 disabled={isPast}
@@ -150,12 +150,12 @@ export function BookingCalendar({ selectedDate, onSelectDate, isAr, minDate }: B
                 aria-disabled={isPast}
                 tabIndex={isPast ? -1 : 0}
                 className={cn(
-                  'w-full aspect-square flex items-center justify-center rounded-full text-sm',
-                  'transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-1',
-                  isSelected && 'bg-foreground text-white font-semibold',
-                  !isSelected && !isPast && isToday && 'ring-1 ring-[var(--border-strong)] text-foreground font-medium',
-                  !isSelected && !isPast && !isToday && 'hover:bg-background text-foreground',
-                  isPast && 'text-[var(--color-text-muted)] opacity-35 cursor-not-allowed'
+                  'w-10 h-10 aspect-square flex items-center justify-center rounded-full text-sm',
+                  'transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1',
+                  isSelected && 'bg-primary text-white font-bold ring-2 ring-accent shadow-md scale-105',
+                  !isSelected && !isPast && isToday && 'ring-2 ring-accent/70 bg-accent/15 text-primary font-bold',
+                  !isSelected && !isPast && !isToday && 'hover:bg-surface-lavender hover:text-primary text-foreground font-medium',
+                  isPast && 'text-muted-foreground/30 cursor-not-allowed line-through'
                 )}
               >
                 {cell.day}

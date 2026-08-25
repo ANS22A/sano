@@ -9,17 +9,17 @@ interface AdminBadgeProps {
 }
 
 const STATUS_STYLES: Record<string, string> = {
-  pending:   'bg-amber-50 text-amber-700 border-amber-200',
-  confirmed: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-  cancelled: 'bg-red-50 text-red-600 border-red-200',
-  completed: 'bg-sky-50 text-sky-700 border-sky-200',
-  no_show:   'bg-slate-100 text-slate-600 border-slate-200',
-  active:    'bg-emerald-50 text-emerald-700 border-emerald-200',
-  inactive:  'bg-slate-100 text-slate-500 border-slate-200',
+  pending:   'bg-warning-bg text-warning border-warning-border',
+  confirmed: 'bg-success-bg text-success border-success-border',
+  cancelled: 'bg-error-bg text-error border-error-border',
+  completed: 'bg-info-bg text-info border-info-border',
+  no_show:   'bg-muted text-muted-foreground border-border',
+  active:    'bg-success-bg text-success border-success-border',
+  inactive:  'bg-muted text-muted-foreground border-border',
 }
 
 export function AdminBadge({ status, label, size = 'md' }: AdminBadgeProps) {
-  const style = STATUS_STYLES[status] ?? 'bg-slate-100 text-slate-600 border-slate-200'
+  const style = STATUS_STYLES[status] ?? 'bg-muted text-muted-foreground border-border'
   return (
     <span
       className={cn(

@@ -125,7 +125,7 @@ export function ReviewStep({ draft, onBack, onConfirmed, isAr, onGoToStep, servi
         <h2 className="font-display text-2xl text-foreground">{t.title}</h2>
       </div>
 
-      <dl className="bg-[var(--surface)] border border-[var(--border-subtle)] rounded-sm px-5 py-1 max-w-lg">
+      <dl className="bg-background border border-border-subtle rounded-sm px-6 py-2 max-w-lg shadow-subtle">
         <ReviewRow onGoToStep={onGoToStep} editLabel={t.edit} label={t.service} value={serviceName} step={1} />
         <ReviewRow
           onGoToStep={onGoToStep} editLabel={t.edit}
@@ -142,9 +142,9 @@ export function ReviewStep({ draft, onBack, onConfirmed, isAr, onGoToStep, servi
           label={t.details}
           value={
             <span className="flex flex-col gap-0.5">
-              <span>{draft.customer.fullName}</span>
-              <span className="text-[var(--color-text-muted)] font-normal text-xs">{draft.customer.phone}</span>
-              <span className="text-[var(--color-text-muted)] font-normal text-xs">{draft.customer.email}</span>
+              <span className="font-medium text-foreground">{draft.customer.fullName}</span>
+              <span className="text-muted-foreground font-normal text-xs">{draft.customer.phone}</span>
+              <span className="text-muted-foreground font-normal text-xs">{draft.customer.email}</span>
             </span>
           }
           step={3}
@@ -154,8 +154,8 @@ export function ReviewStep({ draft, onBack, onConfirmed, isAr, onGoToStep, servi
         )}
         <ReviewRow
           label={t.price}
-          value={<span className="text-base font-semibold">{price} <span className="text-xs font-normal">{t.sar}</span></span>}
-          className="!border-t-2 !border-surface"
+          value={<span className="text-base font-semibold text-primary font-display tabular-nums">{price} <span className="text-xs font-normal text-muted-foreground font-sans">{t.sar}</span></span>}
+          className="!border-t-2 !border-border-subtle"
         />
       </dl>
 
@@ -167,16 +167,16 @@ export function ReviewStep({ draft, onBack, onConfirmed, isAr, onGoToStep, servi
       )}
 
       {/* Disclaimer */}
-      <p className="text-xs text-[var(--color-text-muted)] max-w-lg">
+      <p className="text-xs text-muted-foreground max-w-lg">
         {t.disclaimer}
       </p>
 
       {/* Navigation */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 mt-4">
         <button
           onClick={onBack}
           disabled={isPending}
-          className="px-5 py-2.5 text-sm border border-[var(--border-subtle)] rounded-sm hover:bg-[var(--surface)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--ring)] disabled:opacity-50"
+          className="btn btn-md btn-secondary px-6 border border-border-subtle shadow-sm disabled:opacity-50"
         >
           {t.back}
         </button>
@@ -184,10 +184,7 @@ export function ReviewStep({ draft, onBack, onConfirmed, isAr, onGoToStep, servi
           onClick={handleConfirm}
           disabled={isPending}
           className={cn(
-            'px-8 py-2.5 bg-foreground text-white rounded-sm text-sm tracking-wide',
-            'hover:bg-foreground transition-colors',
-            'focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2',
-            'disabled:opacity-70 disabled:cursor-wait',
+            'btn btn-md btn-primary px-8 shadow-medium hover:shadow-luxury hover:scale-[1.01] transition-all',
             'flex items-center gap-2'
           )}
         >

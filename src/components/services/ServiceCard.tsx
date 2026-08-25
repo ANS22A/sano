@@ -26,24 +26,19 @@ export function ServiceCard({ service, category, index = 0 }: ServiceCardProps) 
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.06, ease: [0.25, 0.46, 0.45, 0.94] }}
+      transition={{ duration: 0.5, delay: index * 0.05, ease: [0.25, 0.46, 0.45, 0.94] }}
       className={cn(
         'group flex flex-col overflow-hidden rounded-sm',
-        'border border-[var(--border-subtle)] bg-background',
+        'border border-border-subtle bg-background shadow-subtle',
         'transition-all duration-300',
-        'hover:border-border',
-        'hover:shadow-[0_12px_40px_rgba(26,23,20,0.09)]'
+        'hover:border-accent/40 hover:shadow-elevated hover:-translate-y-1'
       )}
     >
-      {/* Image */}
+      {/* Image / Artwork Banner */}
       <div
         className={cn(
           'relative h-52 flex-shrink-0 overflow-hidden',
-          'bg-gradient-to-br',
-          index % 4 === 0 && 'from-background to-surface',
-          index % 4 === 1 && 'from-surface to-accent',
-          index % 4 === 2 && 'from-background to-accent',
-          index % 4 === 3 && 'from-background to-surface',
+          'bg-gradient-to-br from-surface-lavender via-surface-pink to-accent/15 flex items-center justify-center'
         )}
         aria-hidden="true"
       >
@@ -53,11 +48,13 @@ export function ServiceCard({ service, category, index = 0 }: ServiceCardProps) 
             alt={name}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+            className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center opacity-20">
-            <span className="text-5xl text-primary font-display font-light">✦</span>
+          <div className="flex flex-col items-center justify-center text-primary/70 p-4 text-center">
+            <span className="text-3xl text-accent mb-1 animate-pulse">✦</span>
+            <span className="font-display text-xs tracking-widest text-primary uppercase font-medium">{catName || 'SANO LUNA'}</span>
+            <span className="text-[10px] text-muted-foreground mt-0.5">{isAr ? 'عناية فاخرة في منزلك' : 'Luxury At-Home Spa'}</span>
           </div>
         )}
 
@@ -65,16 +62,16 @@ export function ServiceCard({ service, category, index = 0 }: ServiceCardProps) 
         <div className="absolute top-3 start-3 flex gap-1.5 z-10">
           {service.is_popular && (
             <span className={cn(
-              'px-2.5 py-1 rounded-sm text-[10px] tracking-[0.12em] uppercase font-medium',
-              'bg-foreground/90 text-background backdrop-blur-[4px]'
+              'px-2.5 py-1 rounded-sm text-[10px] tracking-wider uppercase font-semibold',
+              'bg-primary text-white border border-accent/40 shadow-sm backdrop-blur-sm'
             )}>
               {t('popular')}
             </span>
           )}
           {service.is_featured && !service.is_popular && (
             <span className={cn(
-              'px-2.5 py-1 rounded-sm text-[10px] tracking-[0.12em] uppercase font-medium',
-              'bg-background/90 text-foreground backdrop-blur-[4px]'
+              'px-2.5 py-1 rounded-sm text-[10px] tracking-wider uppercase font-semibold',
+              'bg-accent text-foreground shadow-sm backdrop-blur-sm'
             )}>
               {t('featured')}
             </span>
@@ -86,33 +83,33 @@ export function ServiceCard({ service, category, index = 0 }: ServiceCardProps) 
       <div className="flex flex-col flex-1 p-5">
         {/* Category */}
         {catName && (
-          <p className="text-[10px] tracking-[0.18em] uppercase text-[var(--color-text-muted)] mb-2">
+          <p className="text-[10px] tracking-widest uppercase text-accent font-semibold mb-1.5">
             {catName}
           </p>
         )}
 
         {/* Name */}
         <h3 className={cn(
-          'font-display text-lg font-light text-foreground leading-snug mb-2',
-          'group-hover:text-[var(--color-accent)] transition-colors duration-200'
+          'font-display text-lg font-medium text-foreground leading-snug mb-2',
+          'group-hover:text-primary transition-colors duration-200'
         )}>
           {name}
         </h3>
 
         {/* Short description */}
-        <p className="text-sm text-[var(--color-text-muted)] leading-relaxed mb-4 flex-1 line-clamp-2">
+        <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1 line-clamp-2">
           {shortDesc}
         </p>
 
         {/* Footer */}
-        <div className="flex items-center justify-between pt-4 border-t border-[var(--border-subtle)]">
+        <div className="flex items-center justify-between pt-4 border-t border-border-subtle mt-auto">
           {/* Price & duration */}
-          <div className="flex items-center gap-2.5">
-            <span className="text-sm font-medium text-foreground tabular-nums">
-              {service.price_sar} {t('currency')}
+          <div className="flex items-center gap-2">
+            <span className="text-base font-medium text-foreground tabular-nums font-display">
+              {service.price_sar} <span className="text-xs text-muted-foreground font-sans">{t('currency')}</span>
             </span>
-            <span className="text-[var(--border)] text-xs" aria-hidden="true">·</span>
-            <span className="text-xs text-[var(--color-text-muted)]">
+            <span className="text-border-strong text-xs" aria-hidden="true">·</span>
+            <span className="text-xs text-muted-foreground">
               {service.duration_minutes} {t('duration')}
             </span>
           </div>
@@ -121,17 +118,17 @@ export function ServiceCard({ service, category, index = 0 }: ServiceCardProps) 
           <Link
             href={`/booking?service=${service.slug}`}
             className={cn(
-              'text-xs font-medium',
-              'text-[var(--color-accent)] hover:text-foreground',
+              'text-xs font-semibold',
+              'text-primary group-hover/cta:text-accent',
               'transition-colors duration-200',
               'flex items-center gap-1 group/cta'
             )}
             aria-label={`${isAr ? 'استكشفي' : 'Explore'} ${name}`}
           >
-            {t('viewDetails')}
+            <span>{t('viewDetails')}</span>
             <span
               aria-hidden="true"
-              className="transition-transform duration-200 group-hover/cta:translate-x-0.5 rtl:group-hover/cta:-translate-x-0.5"
+              className="transition-transform duration-200 group-hover/cta:translate-x-1 rtl:group-hover/cta:-translate-x-1 text-accent font-bold"
             >
               {isAr ? '←' : '→'}
             </span>

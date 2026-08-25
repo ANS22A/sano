@@ -67,10 +67,10 @@ function FooterLink({ item }: { item: NavItem }) {
       <Link
         href={item.href as '/'}
         className={cn(
-          'text-body-sm text-muted-foreground',
-          'hover:text-foreground transition-colors duration-150',
+          'text-body-sm text-white/70',
+          'hover:text-white hover:translate-x-1 rtl:hover:-translate-x-1 inline-block transition-all duration-200',
           'focus-visible:outline-none focus-visible:ring-2',
-          'focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm'
+          'focus-visible:ring-accent focus-visible:ring-offset-2 rounded-sm'
         )}
       >
         {t(item.key as 'home')}
@@ -96,11 +96,11 @@ function SocialLink({ href, ariaLabel, icon }: SocialLinkProps) {
       aria-label={ariaLabel}
       className={cn(
         'w-9 h-9 flex items-center justify-center rounded-sm',
-        'text-muted-foreground hover:text-foreground',
-        'border border-border hover:border-border-strong',
-        'transition-colors duration-200',
+        'text-white/80 hover:text-white',
+        'border border-white/20 hover:border-accent hover:bg-white/10',
+        'transition-all duration-200',
         'focus-visible:outline-none focus-visible:ring-2',
-        'focus-visible:ring-ring focus-visible:ring-offset-2'
+        'focus-visible:ring-accent focus-visible:ring-offset-2'
       )}
     >
       {icon}
@@ -121,27 +121,33 @@ export function Footer() {
 
   return (
     <footer
-      className="bg-surface border-t border-border"
+      className="bg-primary text-white border-t border-primary-hover relative overflow-hidden"
       role="contentinfo"
     >
+      {/* Subtle luxury glow ornament */}
+      <div 
+        className="absolute top-0 end-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none" 
+        aria-hidden="true" 
+      />
+
       {/* ── Main Footer Grid ── */}
-      <div className="container-sl section-py-sm">
+      <div className="container-sl section-py-sm relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 xl:gap-16">
 
           {/* Column 1 — Brand */}
           <div className="md:col-span-2 lg:col-span-1">
-            <Logo variant="dark" size="md" asDiv className="mb-5" />
-            <p className="text-body-sm text-muted-foreground leading-relaxed max-w-xs">
+            <Logo variant="light" size="md" asDiv className="mb-5" />
+            <p className="text-body-sm text-white/70 leading-relaxed max-w-xs">
               {t('tagline')}
             </p>
 
             {/* Brand accent line — signature */}
-            <span className="divider-sl mt-6 block" aria-hidden="true" />
+            <span className="w-12 h-0.5 bg-accent/60 mt-6 block rounded-full" aria-hidden="true" />
           </div>
 
           {/* Column 2 — Explore */}
           <div>
-            <h3 className="text-overline text-foreground mb-5">
+            <h3 className="text-overline text-accent mb-5 tracking-widest uppercase">
               {t('exploreTitle')}
             </h3>
             <ul className="space-y-3" role="list">
@@ -153,7 +159,7 @@ export function Footer() {
 
           {/* Column 3 — Experience */}
           <div>
-            <h3 className="text-overline text-foreground mb-5">
+            <h3 className="text-overline text-accent mb-5 tracking-widest uppercase">
               {t('experienceTitle')}
             </h3>
             <ul className="space-y-3" role="list">
@@ -165,7 +171,7 @@ export function Footer() {
 
           {/* Column 4 — Contact */}
           <div>
-            <h3 className="text-overline text-foreground mb-5">
+            <h3 className="text-overline text-accent mb-5 tracking-widest uppercase">
               {t('contactTitle')}
             </h3>
             <address className="not-italic space-y-3">
@@ -173,7 +179,7 @@ export function Footer() {
               {contactConfig.phone && (
                 <a
                   href={`tel:${contactConfig.phone.replace(/\s/g, '')}`}
-                  className="flex items-start gap-2.5 text-body-sm text-muted-foreground hover:text-foreground transition-colors duration-150 group"
+                  className="flex items-start gap-2.5 text-body-sm text-white/70 hover:text-white transition-colors duration-150 group"
                   dir="ltr"
                 >
                   <svg
@@ -192,7 +198,7 @@ export function Footer() {
               {contactConfig.email && (
                 <a
                   href={`mailto:${contactConfig.email}`}
-                  className="flex items-start gap-2.5 text-body-sm text-muted-foreground hover:text-foreground transition-colors duration-150"
+                  className="flex items-start gap-2.5 text-body-sm text-white/70 hover:text-white transition-colors duration-150"
                 >
                   <svg
                     width="15" height="15" viewBox="0 0 24 24" fill="none"
@@ -209,7 +215,7 @@ export function Footer() {
 
               {/* Address */}
               {address && (
-                <div className="flex items-start gap-2.5 text-body-sm text-muted-foreground">
+                <div className="flex items-start gap-2.5 text-body-sm text-white/70">
                   <svg
                     width="15" height="15" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
@@ -225,7 +231,7 @@ export function Footer() {
 
               {/* Hours */}
               {hours && (
-                <div className="flex items-start gap-2.5 text-body-sm text-muted-foreground">
+                <div className="flex items-start gap-2.5 text-body-sm text-white/70">
                   <svg
                     width="15" height="15" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
@@ -244,12 +250,12 @@ export function Footer() {
       </div>
 
       {/* ── Footer Bottom Bar ── */}
-      <div className="border-t border-border-subtle">
+      <div className="border-t border-white/10">
         <div className="container-sl">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 py-5">
 
             {/* Copyright */}
-            <p className="text-caption text-muted-foreground order-2 sm:order-1">
+            <p className="text-caption text-white/50 order-2 sm:order-1">
               {t('copyright', { year })}
             </p>
 
@@ -285,11 +291,21 @@ export function Footer() {
               )}
             </div>
 
-            {/* Legal */}
-            <div className="flex items-center gap-3 order-3 text-caption text-muted-foreground">
-              <span>{t('privacyPolicy')}</span>
-              <span aria-hidden="true">·</span>
-              <span>{t('termsOfService')}</span>
+            {/* Legal Links */}
+            <div className="flex items-center gap-4 text-caption text-white/60 order-3">
+              <Link
+                href="/policies"
+                className="hover:text-white transition-colors duration-150"
+              >
+                {t('privacyPolicy')}
+              </Link>
+              <span className="text-white/20" aria-hidden="true">·</span>
+              <Link
+                href="/policies"
+                className="hover:text-white transition-colors duration-150"
+              >
+                {t('termsOfService')}
+              </Link>
             </div>
           </div>
         </div>

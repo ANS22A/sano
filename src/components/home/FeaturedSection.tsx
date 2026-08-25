@@ -25,10 +25,10 @@ export function FeaturedSection({ featuredServices }: FeaturedSectionProps) {
   return (
     <section
       ref={ref}
-      className="section-sl bg-[var(--color-surface-warm)]"
+      className="py-20 lg:py-28 bg-surface-warm border-y border-border-subtle relative overflow-hidden"
       aria-labelledby="featured-heading"
     >
-      <div className="container-sl">
+      <div className="container-sl relative z-10">
         {/* Header */}
         <div className="flex items-end justify-between mb-12 lg:mb-16 gap-6">
           <motion.div
@@ -36,7 +36,10 @@ export function FeaturedSection({ featuredServices }: FeaturedSectionProps) {
             animate={controls}
             variants={{ visible: { opacity: 1, y: 0, transition: { duration: 0.7 } } }}
           >
-            <p className="overline-sl mb-3">{t('overline')}</p>
+            <div className="inline-flex items-center gap-2 mb-3">
+              <span className="text-accent text-xs">✦</span>
+              <p className="overline-sl text-accent uppercase tracking-widest">{t('overline')}</p>
+            </div>
             <h2 id="featured-heading" className="heading-sl-lg">{t('title')}</h2>
           </motion.div>
 
@@ -48,7 +51,7 @@ export function FeaturedSection({ featuredServices }: FeaturedSectionProps) {
           >
             <Link
               href="/services"
-              className="text-sm text-[var(--color-text-muted)] hover:text-foreground transition-colors duration-200 flex items-center gap-1.5"
+              className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors duration-200 flex items-center gap-1.5"
             >
               {t('viewAll')}
               <span aria-hidden="true">{isAr ? '←' : '→'}</span>
@@ -57,7 +60,7 @@ export function FeaturedSection({ featuredServices }: FeaturedSectionProps) {
         </div>
 
         <motion.p
-          className="text-body-muted max-w-xl mb-12"
+          className="text-muted-foreground max-w-xl mb-12 text-base leading-relaxed"
           initial={{ opacity: 0, y: 12 }}
           animate={controls}
           variants={{ visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.1 } } }}
@@ -67,7 +70,7 @@ export function FeaturedSection({ featuredServices }: FeaturedSectionProps) {
 
         {/* Services grid */}
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
           variants={staggerContainer}
           initial="hidden"
           animate={controls}
@@ -79,18 +82,16 @@ export function FeaturedSection({ featuredServices }: FeaturedSectionProps) {
               className={cn(
                 'group',
                 'relative flex flex-col overflow-hidden',
-                'rounded-sm border border-[var(--border-subtle)]',
-                'bg-background',
-                'transition-all duration-350',
-                'hover:border-border',
-                'hover:shadow-[0_12px_40px_rgba(26,23,20,0.1)]',
+                'rounded-sm border border-border-subtle bg-background shadow-subtle',
+                'transition-all duration-300',
+                'hover:border-accent/40 hover:shadow-elevated hover:-translate-y-1',
               )}
             >
               {/* Image */}
               <div
                 className={cn(
                   'relative h-52 w-full flex-shrink-0 overflow-hidden',
-                  'bg-gradient-to-br from-background to-surface'
+                  'bg-gradient-to-br from-surface-lavender via-surface-pink to-accent/15 flex items-center justify-center'
                 )}
                 aria-hidden="true"
               >
@@ -100,11 +101,13 @@ export function FeaturedSection({ featuredServices }: FeaturedSectionProps) {
                     alt={isAr ? service.name_ar : service.name_en}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+                    className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                   />
                 ) : (
-                  <div className="absolute inset-0 flex items-center justify-center opacity-20">
-                    <span className="text-5xl font-display font-light text-primary">✦</span>
+                  <div className="flex flex-col items-center justify-center text-primary/70 p-4 text-center">
+                    <span className="text-3xl text-accent mb-1 animate-pulse">✦</span>
+                    <span className="font-display text-xs tracking-widest text-primary uppercase font-medium">{isAr ? service.category.name_ar : service.category.name_en}</span>
+                    <span className="text-[10px] text-muted-foreground mt-0.5">{isAr ? 'عناية فاخرة في منزلك' : 'Luxury At-Home Spa'}</span>
                   </div>
                 )}
                 
@@ -113,8 +116,8 @@ export function FeaturedSection({ featuredServices }: FeaturedSectionProps) {
                   <div className={cn(
                     'absolute top-3 start-3 z-10',
                     'px-2.5 py-1 rounded-sm',
-                    'bg-background/90 backdrop-blur-[4px]',
-                    'text-[10px] tracking-[0.15em] uppercase font-medium text-foreground'
+                    'bg-primary text-white border border-accent/40 shadow-sm backdrop-blur-sm',
+                    'text-[10px] tracking-wider uppercase font-semibold'
                   )}>
                     {isAr ? 'الأكثر طلباً' : 'Popular'}
                   </div>
@@ -122,44 +125,46 @@ export function FeaturedSection({ featuredServices }: FeaturedSectionProps) {
               </div>
 
               {/* Content */}
-              <div className="flex flex-col flex-1 p-5">
+              <div className="flex flex-col flex-1 p-6">
                 {/* Category */}
-                <p className="text-[10px] tracking-[0.18em] uppercase text-[var(--color-text-muted)] mb-2">
+                <p className="text-[10px] tracking-widest uppercase text-accent font-semibold mb-1.5">
                   {isAr ? service.category.name_ar : service.category.name_en}
                 </p>
 
                 {/* Name */}
-                <h3 className="font-display text-lg font-light text-foreground mb-2 leading-snug group-hover:text-[var(--color-accent)] transition-colors duration-200">
+                <h3 className="font-display text-lg font-medium text-foreground mb-2 leading-snug group-hover:text-primary transition-colors duration-200">
                   {isAr ? service.name_ar : service.name_en}
                 </h3>
 
                 {/* Description */}
-                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed mb-4 flex-1 line-clamp-2">
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1 line-clamp-2">
                   {isAr ? service.description_ar : service.description_en}
                 </p>
 
                 {/* Footer */}
-                <div className="flex items-center justify-between pt-4 border-t border-[var(--border-subtle)]">
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm font-medium text-foreground tabular-nums">
-                      {service.price_sar} {isAr ? 'ريال' : 'SAR'}
+                <div className="flex items-center justify-between pt-4 border-t border-border-subtle mt-auto">
+                  <div className="flex items-center gap-2">
+                    <span className="text-base font-medium text-foreground tabular-nums font-display">
+                      {service.price_sar} <span className="text-xs text-muted-foreground font-sans">{isAr ? 'ريال' : 'SAR'}</span>
                     </span>
-                    <span className="text-[var(--border)] text-xs">·</span>
-                    <span className="text-xs text-[var(--color-text-muted)]">
+                    <span className="text-border-strong text-xs">·</span>
+                    <span className="text-xs text-muted-foreground">
                       {service.duration_minutes} {t('duration')}
                     </span>
                   </div>
 
                   <Link
-                    href="/booking"
+                    href={`/booking?service=${service.slug}`}
                     className={cn(
-                      'text-xs font-medium text-[var(--color-accent)]',
-                      'hover:text-foreground transition-colors duration-200',
-                      'flex items-center gap-1'
+                      'text-xs font-semibold text-primary hover:text-accent',
+                      'transition-colors duration-200',
+                      'flex items-center gap-1 group/btn'
                     )}
                   >
-                    {t('book')}
-                    <span aria-hidden="true">{isAr ? '←' : '→'}</span>
+                    <span>{t('book')}</span>
+                    <span aria-hidden="true" className="transition-transform duration-200 group-hover/btn:translate-x-1 rtl:group-hover/btn:-translate-x-1 text-accent font-bold">
+                      {isAr ? '←' : '→'}
+                    </span>
                   </Link>
                 </div>
               </div>
@@ -169,7 +174,7 @@ export function FeaturedSection({ featuredServices }: FeaturedSectionProps) {
 
         {/* View all CTA */}
         <motion.div
-          className="mt-10 md:mt-12 text-center"
+          className="mt-12 text-center"
           initial={{ opacity: 0, y: 12 }}
           animate={controls}
           variants={{ visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.5 } } }}
@@ -178,7 +183,7 @@ export function FeaturedSection({ featuredServices }: FeaturedSectionProps) {
             href="/services"
             className={cn(
               'btn btn-md btn-secondary',
-              'inline-flex items-center gap-2'
+              'inline-flex items-center gap-2 border border-border-subtle shadow-sm hover:border-accent/40'
             )}
           >
             {t('viewAll')}

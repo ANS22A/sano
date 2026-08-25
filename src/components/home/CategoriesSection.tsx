@@ -17,10 +17,10 @@ export function CategoriesSection() {
   return (
     <section
       ref={ref}
-      className="section-sl bg-background"
+      className="py-16 lg:py-24 bg-background border-b border-border-subtle relative overflow-hidden"
       aria-labelledby="categories-heading"
     >
-      <div className="container-sl">
+      <div className="container-sl relative z-10">
         {/* Header */}
         <div className="flex items-end justify-between mb-12 lg:mb-16 gap-6">
           <motion.div
@@ -28,7 +28,10 @@ export function CategoriesSection() {
             animate={controls}
             variants={{ visible: { opacity: 1, y: 0, transition: { duration: 0.7 } } }}
           >
-            <p className="overline-sl mb-3">{t('overline')}</p>
+            <div className="inline-flex items-center gap-2 mb-3">
+              <span className="text-accent text-xs">✦</span>
+              <p className="overline-sl text-accent uppercase tracking-widest">{t('overline')}</p>
+            </div>
             <h2 id="categories-heading" className="heading-sl-lg">{t('title')}</h2>
           </motion.div>
 
@@ -40,11 +43,7 @@ export function CategoriesSection() {
           >
             <Link
               href="/services"
-              className={cn(
-                'text-sm text-[var(--color-text-muted)]',
-                'hover:text-foreground transition-colors duration-200',
-                'flex items-center gap-1.5'
-              )}
+              className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors duration-200 flex items-center gap-1.5"
             >
               {t('viewAll')}
               <span aria-hidden="true">{isAr ? '←' : '→'}</span>
@@ -54,7 +53,7 @@ export function CategoriesSection() {
 
         {/* Subtitle */}
         <motion.p
-          className="text-body-muted max-w-xl mb-12"
+          className="text-muted-foreground max-w-xl mb-12 text-base leading-relaxed"
           initial={{ opacity: 0, y: 12 }}
           animate={controls}
           variants={{ visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.1 } } }}
@@ -64,10 +63,7 @@ export function CategoriesSection() {
 
         {/* Category grid */}
         <motion.div
-          className={cn(
-            'grid gap-4',
-            'grid-cols-2 md:grid-cols-3 lg:grid-cols-6'
-          )}
+          className="grid gap-4 sm:gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-6"
           variants={staggerContainer}
           initial="hidden"
           animate={controls}
@@ -79,21 +75,19 @@ export function CategoriesSection() {
                 className={cn(
                   'group flex flex-col items-center text-center',
                   'p-5 lg:p-6 rounded-sm',
-                  'border border-[var(--border-subtle)]',
-                  'bg-[var(--color-surface-warm)]',
+                  'border border-border-subtle bg-background shadow-subtle',
                   'transition-all duration-300',
-                  'hover:border-border',
-                  'hover:shadow-[0_8px_32px_rgba(26,23,20,0.08)]',
-                  'hover:-translate-y-1'
+                  'hover:border-accent/50 hover:bg-surface-warm',
+                  'hover:shadow-elevated hover:-translate-y-1.5'
                 )}
               >
-                {/* Icon */}
+                {/* Icon bubble */}
                 <div
                   className={cn(
-                    'w-12 h-12 rounded-full flex items-center justify-center mb-4',
-                    'bg-background text-foreground',
-                    'text-xl',
-                    'group-hover:bg-surface transition-colors duration-300'
+                    'w-14 h-14 rounded-full flex items-center justify-center mb-4',
+                    'bg-surface-lavender text-primary ring-1 ring-accent/30',
+                    'text-xl shadow-xs',
+                    'group-hover:bg-primary group-hover:text-accent group-hover:scale-105 transition-all duration-300'
                   )}
                   aria-hidden="true"
                 >
@@ -101,15 +95,12 @@ export function CategoriesSection() {
                 </div>
 
                 {/* Name */}
-                <h3 className={cn(
-                  'font-medium text-sm text-foreground leading-snug mb-2',
-                  'group-hover:text-[var(--color-accent)] transition-colors duration-200'
-                )}>
+                <h3 className="font-display font-medium text-sm text-foreground leading-snug mb-1.5 group-hover:text-primary transition-colors">
                   {isAr ? cat.name_ar : cat.name_en}
                 </h3>
 
                 {/* Count */}
-                <p className="text-[11px] text-[var(--color-text-muted)] tabular-nums">
+                <p className="text-[11px] text-muted-foreground tabular-nums">
                   {cat.service_count} {t('services')}
                 </p>
               </Link>

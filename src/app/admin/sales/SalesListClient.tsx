@@ -149,12 +149,12 @@ export function SalesListClient({
             <span className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">
               {isAr ? 'صافي الإيراد المحقق' : 'Net Realized Revenue'}
             </span>
-            <div className="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400">
+            <div className="p-2 rounded-lg bg-success-bg dark:bg-success-bg text-success dark:text-success">
               <DollarSign className="w-5 h-5" />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
+            <div className="text-2xl font-bold text-success dark:text-success">
               {totalRealized.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}{' '}
               <span className="text-sm font-normal text-muted-foreground dark:text-muted-foreground">SAR</span>
             </div>
@@ -170,7 +170,7 @@ export function SalesListClient({
             <span className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">
               {isAr ? 'إجمالي المقبوضات' : 'Total Payments Received'}
             </span>
-            <div className="p-2 rounded-lg bg-secondary/10 text-secondary dark:text-[#A98FB8]">
+            <div className="p-2 rounded-lg bg-secondary/10 text-secondary dark:text-muted-foreground">
               <ArrowDownLeft className="w-5 h-5" />
             </div>
           </div>
@@ -191,12 +191,12 @@ export function SalesListClient({
             <span className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">
               {isAr ? 'إجمالي المرتجعات' : 'Total Refunds Issued'}
             </span>
-            <div className="p-2 rounded-lg bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400">
+            <div className="p-2 rounded-lg bg-error-bg dark:bg-error-bg/40 text-error dark:text-error">
               <ArrowUpRight className="w-5 h-5" />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-bold text-rose-600 dark:text-rose-400">
+            <div className="text-2xl font-bold text-error dark:text-error">
               {totalRefunds.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}{' '}
               <span className="text-sm font-normal text-muted-foreground dark:text-muted-foreground">SAR</span>
             </div>
@@ -212,7 +212,7 @@ export function SalesListClient({
             <span className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">
               {isAr ? 'عدد المعاملات' : 'Total Transactions'}
             </span>
-            <div className="p-2 rounded-lg bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400">
+            <div className="p-2 rounded-lg bg-warning-bg dark:bg-warning-bg text-warning dark:text-warning">
               <Receipt className="w-5 h-5" />
             </div>
           </div>
@@ -334,7 +334,7 @@ export function SalesListClient({
           {(currentFromDate || currentToDate || currentType !== 'all' || currentPaymentMethod !== 'all' || currentSource !== 'all') && (
             <button
               onClick={() => router.push('/admin/sales')}
-              className="text-xs text-secondary dark:text-[#A98FB8] hover:underline font-medium ms-auto"
+              className="text-xs text-secondary dark:text-muted-foreground hover:underline font-medium ms-auto"
             >
               {isAr ? 'إعادة تعيين الفلاتر' : 'Reset Filters'}
             </button>
@@ -391,7 +391,7 @@ export function SalesListClient({
                     <tr
                       key={sale.id}
                       className={`hover:bg-surface/50 dark:hover:bg-primary/30 transition-colors ${
-                        isVoid ? 'opacity-50 bg-neutral-50 dark:bg-neutral-900/40' : ''
+                        isVoid ? 'opacity-50 bg-muted dark:bg-muted' : ''
                       }`}
                     >
                       {/* Reference */}
@@ -400,8 +400,8 @@ export function SalesListClient({
                           <span
                             className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold ${
                               isRefund
-                                ? 'bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300'
-                                : 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300'
+                                ? 'bg-error-bg dark:bg-error-bg/60 text-error dark:text-error'
+                                : 'bg-success-bg dark:bg-success-bg text-success dark:text-success'
                             }`}
                           >
                             {isRefund ? (
@@ -427,7 +427,7 @@ export function SalesListClient({
                         {sale.bookings ? (
                           <Link
                             href={`/admin/bookings/${sale.bookings.id}`}
-                            className="inline-flex items-center gap-1 text-xs font-medium text-secondary dark:text-[#A98FB8] hover:underline"
+                            className="inline-flex items-center gap-1 text-xs font-medium text-secondary dark:text-muted-foreground hover:underline"
                           >
                             <Calendar className="w-3 h-3" />
                             <span>{sale.bookings.booking_number}</span>
@@ -476,8 +476,8 @@ export function SalesListClient({
                         <span
                           className={
                             isRefund
-                              ? 'text-rose-600 dark:text-rose-400'
-                              : 'text-emerald-600 dark:text-emerald-400'
+                              ? 'text-error dark:text-error'
+                              : 'text-success dark:text-success'
                           }
                         >
                           {isRefund ? '-' : '+'}
@@ -494,10 +494,10 @@ export function SalesListClient({
                         <span
                           className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${
                             isVoid
-                              ? 'bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400'
+                              ? 'bg-muted dark:bg-muted text-muted-foreground dark:text-muted-foreground'
                               : sale.status === 'completed'
-                              ? 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300'
-                              : 'bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300'
+                              ? 'bg-success-bg dark:bg-success-bg text-success dark:text-success'
+                              : 'bg-warning-bg dark:bg-warning-bg text-warning dark:text-warning'
                           }`}
                         >
                           {isVoid ? (
@@ -542,7 +542,7 @@ export function SalesListClient({
                               onClick={() => handleVoid(sale.id)}
                               disabled={isPending}
                               title={isAr ? 'إلغاء / أرشفة المعاملة' : 'Void transaction'}
-                              className="p-1.5 rounded-lg text-neutral-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors"
+                              className="p-1.5 rounded-lg text-muted-foreground hover:text-error hover:bg-error-bg dark:hover:bg-error-bg/30 transition-colors"
                             >
                               <Archive className="w-4 h-4" />
                             </button>

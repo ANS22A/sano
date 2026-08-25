@@ -27,7 +27,7 @@ export function AdminHeader({ profile, onMenuClick }: Props) {
   const pageTitle = getPageTitle(pathname, t.nav)
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center border-b border-border bg-white/80 backdrop-blur-md px-4 sm:px-6 gap-4 shadow-[0_4px_20px_-4px_rgba(42,33,24,0.02)]">
+    <header className="sticky top-0 z-30 flex h-16 items-center border-b border-border bg-white/80 backdrop-blur-md px-4 sm:px-6 gap-4 shadow-subtle">
       {/* Mobile menu button */}
       <button
         onClick={onMenuClick}

@@ -21,35 +21,35 @@ export function PrintableStatement({
   return (
     <div className="hidden print:block w-full text-black p-8 bg-white font-sans text-sm" dir={isAr ? 'rtl' : 'ltr'}>
       {/* Header */}
-      <div className="flex justify-between items-start border-b border-gray-300 pb-6 mb-6">
+      <div className="flex justify-between items-start border-b border-border pb-6 mb-6">
         <div>
           <h1 className="text-3xl font-bold tracking-tighter uppercase">SANO LUNA</h1>
-          <p className="text-gray-500 mt-1">{isAr ? 'مسير الرواتب' : 'Payroll Statement'}</p>
+          <p className="text-muted-foreground mt-1">{isAr ? 'مسير الرواتب' : 'Payroll Statement'}</p>
         </div>
         <div className="text-right">
-          <p className="font-medium text-gray-800">{isAr ? 'فترة الراتب:' : 'Payroll Period:'} {month}</p>
-          <p className="text-gray-500 mt-1">{isAr ? 'تاريخ الإصدار:' : 'Issue Date:'} {new Date().toLocaleDateString()}</p>
+          <p className="font-medium text-foreground">{isAr ? 'فترة الراتب:' : 'Payroll Period:'} {month}</p>
+          <p className="text-muted-foreground mt-1">{isAr ? 'تاريخ الإصدار:' : 'Issue Date:'} {new Date().toLocaleDateString()}</p>
         </div>
       </div>
 
       {/* Employee Details */}
       <div className="mb-8">
-        <h2 className="text-lg font-bold border-b border-gray-200 pb-2 mb-4">{isAr ? 'بيانات الموظف' : 'Employee Information'}</h2>
+        <h2 className="text-lg font-bold border-b border-border-subtle pb-2 mb-4">{isAr ? 'بيانات الموظف' : 'Employee Information'}</h2>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="text-gray-500 text-xs uppercase">{isAr ? 'اسم الموظف' : 'Employee Name'}</p>
+            <p className="text-muted-foreground text-xs uppercase">{isAr ? 'اسم الموظف' : 'Employee Name'}</p>
             <p className="font-semibold text-base">{isAr ? staff.name_ar : staff.name_en}</p>
           </div>
           <div>
-            <p className="text-gray-500 text-xs uppercase">{isAr ? 'رقم الموظف' : 'Employee ID'}</p>
+            <p className="text-muted-foreground text-xs uppercase">{isAr ? 'رقم الموظف' : 'Employee ID'}</p>
             <p className="font-semibold text-base">{staff.id.split('-')[0].toUpperCase()}</p>
           </div>
           <div>
-            <p className="text-gray-500 text-xs uppercase">{isAr ? 'المنصب' : 'Position'}</p>
+            <p className="text-muted-foreground text-xs uppercase">{isAr ? 'المنصب' : 'Position'}</p>
             <p className="font-semibold text-base">{staff.slug}</p>
           </div>
           <div>
-            <p className="text-gray-500 text-xs uppercase">{isAr ? 'نظام الراتب' : 'Salary Basis'}</p>
+            <p className="text-muted-foreground text-xs uppercase">{isAr ? 'نظام الراتب' : 'Salary Basis'}</p>
             <p className="font-semibold text-base">{staff.salary_basis}</p>
           </div>
         </div>
@@ -57,21 +57,21 @@ export function PrintableStatement({
 
       {/* Financial Summary */}
       <div className="mb-8">
-        <h2 className="text-lg font-bold border-b border-gray-200 pb-2 mb-4">{isAr ? 'الملخص المالي' : 'Financial Summary'}</h2>
+        <h2 className="text-lg font-bold border-b border-border-subtle pb-2 mb-4">{isAr ? 'الملخص المالي' : 'Financial Summary'}</h2>
         <div className="flex flex-col gap-2">
           <div className="flex justify-between">
             <span>{isAr ? 'الراتب الأساسي' : 'Base Salary'}</span>
             <span>{baseSalary.toFixed(2)} SAR</span>
           </div>
-          <div className="flex justify-between text-red-600">
+          <div className="flex justify-between text-error">
             <span>{isAr ? 'إجمالي السلف' : 'Total Advances'}</span>
             <span>- {totalAdvances.toFixed(2)} SAR</span>
           </div>
-          <div className="flex justify-between text-red-600">
+          <div className="flex justify-between text-error">
             <span>{isAr ? 'خصومات أخرى' : 'Other Deductions'}</span>
             <span>- 0.00 SAR</span>
           </div>
-          <div className="flex justify-between font-bold text-lg pt-2 mt-2 border-t border-gray-300">
+          <div className="flex justify-between font-bold text-lg pt-2 mt-2 border-t border-border">
             <span>{isAr ? 'صافي الراتب المستحق' : 'Net Payable'}</span>
             <span>{netPayable.toFixed(2)} SAR</span>
           </div>
@@ -81,10 +81,10 @@ export function PrintableStatement({
       {/* Transactions */}
       {advances.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-lg font-bold border-b border-gray-200 pb-2 mb-4">{isAr ? 'حركات السلف للفترة' : 'Period Transactions (Advances)'}</h2>
+          <h2 className="text-lg font-bold border-b border-border-subtle pb-2 mb-4">{isAr ? 'حركات السلف للفترة' : 'Period Transactions (Advances)'}</h2>
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-gray-300 text-gray-500">
+              <tr className="border-b border-border text-muted-foreground">
                 <th className="py-2">{isAr ? 'التاريخ' : 'Date'}</th>
                 <th className="py-2">{isAr ? 'المرجع' : 'Reference'}</th>
                 <th className="py-2">{isAr ? 'النوع' : 'Type'}</th>
@@ -93,11 +93,11 @@ export function PrintableStatement({
             </thead>
             <tbody>
               {advances.map(adv => (
-                <tr key={adv.id} className="border-b border-gray-100">
+                <tr key={adv.id} className="border-b border-border-subtle">
                   <td className="py-2">{adv.date}</td>
-                  <td className="py-2 text-gray-500 font-mono text-xs">{adv.reference}</td>
+                  <td className="py-2 text-muted-foreground font-mono text-xs">{adv.reference}</td>
                   <td className="py-2">{isAr ? 'سلفة' : 'Advance'}</td>
-                  <td className="py-2 text-right text-red-600">- {Number(adv.amount).toFixed(2)} SAR</td>
+                  <td className="py-2 text-right text-error">- {Number(adv.amount).toFixed(2)} SAR</td>
                 </tr>
               ))}
             </tbody>
@@ -106,7 +106,7 @@ export function PrintableStatement({
       )}
 
       {/* Status Footer */}
-      <div className="mt-12 text-center text-gray-500 text-xs border-t border-gray-200 pt-4">
+      <div className="mt-12 text-center text-muted-foreground text-xs border-t border-border-subtle pt-4">
         {salary ? (
           <p>
             {isAr ? 'حالة الدفع:' : 'Payment Status:'} {salary.payment_status.toUpperCase()} 

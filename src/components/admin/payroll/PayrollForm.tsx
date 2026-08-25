@@ -39,13 +39,13 @@ export function PayrollForm({ staff }: Props) {
       <div className="flex items-center gap-4">
         <Link
           href="/admin/payroll"
-          className="p-2 rounded-full hover:bg-neutral-100 transition-colors"
+          className="p-2 rounded-full hover:bg-muted transition-colors"
         >
-          <ArrowLeft className="w-5 h-5 text-neutral-600" />
+          <ArrowLeft className="w-5 h-5 text-muted-foreground" />
         </Link>
         <div>
           <h1 className="text-2xl font-light text-foreground">New Payroll Record</h1>
-          <p className="text-sm text-neutral-500">Record employee salary.</p>
+          <p className="text-sm text-muted-foreground">Record employee salary.</p>
         </div>
       </div>
 
@@ -55,7 +55,7 @@ export function PayrollForm({ staff }: Props) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="staff_id" className="block text-sm font-medium text-foreground mb-1">
-                  Employee <span className="text-red-500">*</span>
+                  Employee <span className="text-error">*</span>
                 </label>
                 <select
                   id="staff_id"
@@ -72,7 +72,7 @@ export function PayrollForm({ staff }: Props) {
 
               <div>
                 <label htmlFor="month" className="block text-sm font-medium text-foreground mb-1">
-                  Month (YYYY-MM) <span className="text-red-500">*</span>
+                  Month (YYYY-MM) <span className="text-error">*</span>
                 </label>
                 <input
                   id="month"
@@ -88,7 +88,7 @@ export function PayrollForm({ staff }: Props) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="reference" className="block text-sm font-medium text-foreground mb-1">
-                  Reference # <span className="text-red-500">*</span>
+                  Reference # <span className="text-error">*</span>
                 </label>
                 <input
                   id="reference"
@@ -145,7 +145,7 @@ export function PayrollForm({ staff }: Props) {
 
             <div>
               <label htmlFor="net_salary" className="block text-sm font-medium text-foreground mb-1">
-                Net Salary <span className="text-red-500">*</span>
+                Net Salary <span className="text-error">*</span>
               </label>
               <input
                 id="net_salary"
@@ -172,7 +172,7 @@ export function PayrollForm({ staff }: Props) {
           </div>
 
           {errorMsg && (
-            <div className="px-4 py-3 bg-red-50 text-red-700 text-sm rounded-md border border-red-200">
+            <div className="px-4 py-3 bg-error-bg text-error text-sm rounded-md border border-error-border">
               {errorMsg}
             </div>
           )}
@@ -180,7 +180,7 @@ export function PayrollForm({ staff }: Props) {
           <div className="flex items-center justify-end gap-3 pt-4 border-t border-neutral-100">
             <Link
               href="/admin/payroll"
-              className="px-4 py-2 text-sm font-medium text-neutral-600 hover:text-neutral-900 transition-colors"
+              className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               Cancel
             </Link>

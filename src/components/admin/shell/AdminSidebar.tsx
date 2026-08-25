@@ -164,8 +164,8 @@ function SidebarContent({
                     className={cn(
                       'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200',
                       active
-                        ? 'bg-accent text-foreground shadow-sm'
-                        : 'text-white/70 hover:text-white hover:bg-white/10 hover:translate-x-1 rtl:hover:-translate-x-1'
+                        ? 'bg-white/12 text-white border-s-2 border-s-accent shadow-sm'
+                        : 'text-white/70 hover:text-white hover:bg-white/8 hover:translate-x-1 rtl:hover:-translate-x-1'
                     )}
                     aria-current={active ? 'page' : undefined}
                   >

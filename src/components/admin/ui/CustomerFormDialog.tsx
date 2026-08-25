@@ -101,7 +101,7 @@ export function CustomerFormDialog({ open, onClose, t, dir, customer }: Customer
         </h2>
         
         {error && (
-          <div className="mb-4 p-3 text-sm text-red-600 bg-red-50 rounded-lg">
+          <div className="mb-4 p-3 text-sm text-error bg-error-bg rounded-lg">
             {error}
           </div>
         )}

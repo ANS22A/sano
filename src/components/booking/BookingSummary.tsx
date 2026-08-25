@@ -64,57 +64,64 @@ export function BookingSummary({ draft, isAr, className, services }: BookingSumm
 
   return (
     <aside className={cn(
-      'bg-[var(--surface)] border border-[var(--border-subtle)] rounded-sm p-5',
+      'bg-background border border-border-subtle rounded-sm p-6 shadow-subtle relative overflow-hidden',
       className
     )}>
-      <h2 className="text-xs tracking-[0.2em] uppercase text-[var(--color-text-muted)] font-medium mb-4">
-        {label('title')}
-      </h2>
+      {/* Top brand gradient line */}
+      <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-primary via-accent to-primary" />
+
+      <div className="flex items-center gap-2 mb-5">
+        <span className="text-accent text-xs">✦</span>
+        <h2 className="text-xs tracking-[0.2em] uppercase text-accent font-semibold">
+          {label('title')}
+        </h2>
+      </div>
 
       {!hasSelection ? (
-        <p className="text-sm text-[var(--color-text-muted)] italic">
-          {label('nothing')}
-        </p>
+        <div className="py-6 text-center text-sm text-muted-foreground italic flex flex-col items-center gap-2">
+          <span className="text-xl text-accent/40">◌</span>
+          <span>{label('nothing')}</span>
+        </div>
       ) : (
-        <dl className="space-y-3">
+        <dl className="space-y-3.5">
           {/* Experience */}
           {name && (
-            <div className="flex justify-between gap-3 text-sm">
-              <dt className="text-[var(--color-text-muted)] shrink-0">{label('experience')}</dt>
-              <dd className="text-foreground font-medium text-end">{name}</dd>
+            <div className="flex justify-between gap-3 text-sm pb-3 border-b border-border-subtle">
+              <dt className="text-muted-foreground shrink-0">{label('experience')}</dt>
+              <dd className="text-primary font-display font-medium text-end">{name}</dd>
             </div>
           )}
 
           {/* Date */}
           {date && (
             <div className="flex justify-between gap-3 text-sm">
-              <dt className="text-[var(--color-text-muted)] shrink-0">{label('date')}</dt>
-              <dd className="text-foreground text-end">{formatDate(date, isAr)}</dd>
+              <dt className="text-muted-foreground shrink-0">{label('date')}</dt>
+              <dd className="text-foreground font-medium text-end">{formatDate(date, isAr)}</dd>
             </div>
           )}
 
           {/* Time */}
           {startTime && (
             <div className="flex justify-between gap-3 text-sm">
-              <dt className="text-[var(--color-text-muted)] shrink-0">{label('time')}</dt>
-              <dd className="text-foreground text-end">{startTime}{endTime && ` — ${endTime}`}</dd>
+              <dt className="text-muted-foreground shrink-0">{label('time')}</dt>
+              <dd className="text-foreground font-mono font-medium text-end">{startTime}{endTime && ` — ${endTime}`}</dd>
             </div>
           )}
 
           {/* Duration */}
           {duration && (
             <div className="flex justify-between gap-3 text-sm">
-              <dt className="text-[var(--color-text-muted)] shrink-0">{label('duration')}</dt>
+              <dt className="text-muted-foreground shrink-0">{label('duration')}</dt>
               <dd className="text-foreground text-end">{duration} {label('min')}</dd>
             </div>
           )}
 
-          {/* Price */}
+          {/* Price Box */}
           {price && (
-            <div className="flex justify-between gap-3 text-sm pt-3 border-t border-[var(--border-subtle)]">
-              <dt className="text-[var(--color-text-muted)] shrink-0">{label('price')}</dt>
-              <dd className="text-foreground font-semibold text-base text-end">
-                {price} <span className="text-xs font-normal">{label('sar')}</span>
+            <div className="mt-4 p-4 rounded-sm bg-surface-warm border border-border-subtle flex justify-between items-center">
+              <dt className="text-sm font-medium text-foreground">{label('price')}</dt>
+              <dd className="text-xl font-light font-display text-primary tabular-nums">
+                {price} <span className="text-xs text-muted-foreground font-sans">{label('sar')}</span>
               </dd>
             </div>
           )}

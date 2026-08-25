@@ -102,7 +102,7 @@ export function PurchaseForm({ purchase, suppliers, isEdit }: Props) {
       </div>
 
       {error && (
-        <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs font-medium text-red-700">
+        <div className="p-3.5 rounded-xl bg-error-bg border border-error-border text-xs font-medium text-error">
           {error}
         </div>
       )}
@@ -282,7 +282,7 @@ export function PurchaseForm({ purchase, suppliers, isEdit }: Props) {
               <button
                 type="button"
                 onClick={() => setSelectedFile(null)}
-                className="text-xs text-red-600 hover:underline"
+                className="text-xs text-error hover:underline"
               >
                 {isAr ? 'إلغاء الملف' : 'Remove'}
               </button>

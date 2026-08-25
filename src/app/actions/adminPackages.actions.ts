@@ -107,6 +107,7 @@ export async function createAdminPackage(formData: FormData) {
 
   revalidatePath('/admin/packages')
   revalidatePath('/packages')
+  revalidatePath('/', 'layout')
   return { success: true }
 }
 
@@ -172,6 +173,7 @@ export async function updateAdminPackage(id: string, formData: FormData) {
 
   revalidatePath('/admin/packages')
   revalidatePath('/packages')
+  revalidatePath('/', 'layout')
   return { success: true }
 }
 
@@ -185,5 +187,6 @@ export async function updatePackageOrder(updates: { id: string; sort_order: numb
 
   revalidatePath('/admin/packages')
   revalidatePath('/packages')
+  revalidatePath('/', 'layout')
   return { success: true }
 }

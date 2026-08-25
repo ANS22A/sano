@@ -103,7 +103,7 @@ export function SaleForm({
       </div>
 
       {error && (
-        <div className="p-4 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-sm">
+        <div className="p-4 rounded-xl bg-error-bg dark:bg-error-bg/40 border border-rose-200 dark:border-rose-800 text-error dark:text-error text-sm">
           {error}
         </div>
       )}
@@ -129,7 +129,7 @@ export function SaleForm({
             {suggestedAmount !== undefined && (
               <div className="flex justify-between items-center text-xs text-muted-foreground dark:text-muted-foreground">
                 <span>{isAr ? 'المبلغ المتبقي المطلوب:' : 'Balance Due:'}</span>
-                <span className="font-bold text-secondary dark:text-[#A98FB8]">
+                <span className="font-bold text-secondary dark:text-muted-foreground">
                   {suggestedAmount.toFixed(2)} SAR
                 </span>
               </div>
@@ -243,7 +243,7 @@ export function SaleForm({
             />
             <label htmlFor="file-upload" className="cursor-pointer block">
               <Upload className="w-6 h-6 text-muted-foreground dark:text-muted-foreground mx-auto mb-2" />
-              <span className="text-xs font-medium text-secondary dark:text-[#A98FB8] hover:underline">
+              <span className="text-xs font-medium text-secondary dark:text-muted-foreground hover:underline">
                 {selectedFile
                   ? selectedFile.name
                   : isAr

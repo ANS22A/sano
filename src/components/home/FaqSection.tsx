@@ -19,23 +19,32 @@ export function FaqSection() {
   return (
     <section
       ref={ref}
-      className="section-sl bg-background border-t border-[var(--border-subtle)]"
+      className="py-20 lg:py-28 bg-surface-warm border-y border-border-subtle relative overflow-hidden"
       aria-labelledby="faq-heading"
     >
-      <div className="container-sl max-w-3xl">
+      {/* Decorative luxury ornament */}
+      <div 
+        className="absolute top-1/2 start-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-accent/5 rounded-full blur-3xl pointer-events-none" 
+        aria-hidden="true" 
+      />
+
+      <div className="container-sl max-w-3xl relative z-10">
         <motion.div
           className="text-center mb-14"
           initial={{ opacity: 0, y: 20 }}
           animate={controls}
           variants={{ visible: { opacity: 1, y: 0, transition: { duration: 0.7 } } }}
         >
-          <p className="overline-sl mb-3">{t('overline')}</p>
+          <div className="inline-flex items-center gap-2 mb-3">
+            <span className="text-accent text-xs">✦</span>
+            <p className="overline-sl text-accent uppercase tracking-widest">{t('overline')}</p>
+          </div>
           <h2 id="faq-heading" className="heading-sl-lg mb-4">{t('title')}</h2>
-          <p className="text-body-muted">{t('subtitle')}</p>
+          <p className="text-muted-foreground max-w-lg mx-auto text-base">{t('subtitle')}</p>
         </motion.div>
 
         <motion.div
-          className="divide-y divide-[var(--border-subtle)]"
+          className="space-y-4"
           variants={staggerContainer}
           initial="hidden"
           animate={controls}
@@ -43,31 +52,39 @@ export function FaqSection() {
           {homepageFaqs.map((faq) => {
             const isOpen = openId === faq.id
             return (
-              <motion.div key={faq.id} variants={staggerItem}>
+              <motion.div
+                key={faq.id}
+                variants={staggerItem}
+                className={cn(
+                  'rounded-sm bg-background border transition-all duration-300 shadow-subtle',
+                  isOpen
+                    ? 'border-accent/50 shadow-medium'
+                    : 'border-border-subtle hover:border-border hover:shadow-subtle'
+                )}
+              >
                 <button
                   id={`faq-btn-${faq.id}`}
                   onClick={() => setOpenId(isOpen ? null : faq.id)}
                   aria-expanded={isOpen}
                   aria-controls={`faq-answer-${faq.id}`}
                   className={cn(
-                    'group w-full flex items-start justify-between gap-4',
-                    'py-5 text-start',
-                    'focus-visible:outline-none focus-visible:ring-2',
-                    'focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2',
-                    'rounded-sm'
+                    'group w-full flex items-center justify-between gap-4 p-5 md:p-6 text-start',
+                    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'
                   )}
                 >
                   <span className={cn(
-                    'text-sm font-medium leading-snug text-foreground',
-                    'group-hover:text-[var(--color-accent)] transition-colors duration-200'
+                    'text-base font-medium leading-snug transition-colors duration-200',
+                    isOpen ? 'text-primary' : 'text-foreground group-hover:text-primary'
                   )}>
                     {isAr ? faq.question_ar : faq.question_en}
                   </span>
+                  
                   <span
                     className={cn(
-                      'flex-shrink-0 w-5 h-5 flex items-center justify-center',
-                      'text-[var(--color-text-muted)] transition-transform duration-300',
-                      isOpen && 'rotate-45'
+                      'flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-light transition-all duration-300',
+                      isOpen
+                        ? 'bg-primary text-white rotate-45 shadow-sm'
+                        : 'bg-surface-muted text-muted-foreground group-hover:bg-accent/20 group-hover:text-foreground'
                     )}
                     aria-hidden="true"
                   >
@@ -87,9 +104,11 @@ export function FaqSection() {
                       transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
                       className="overflow-hidden"
                     >
-                      <p className="text-sm text-[var(--color-text-muted)] leading-relaxed pb-5">
-                        {isAr ? faq.answer_ar : faq.answer_en}
-                      </p>
+                      <div className="px-5 md:px-6 pb-6 pt-2 border-t border-border-subtle">
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {isAr ? faq.answer_ar : faq.answer_en}
+                        </p>
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -98,20 +117,16 @@ export function FaqSection() {
           })}
         </motion.div>
 
-        {/* View all */}
-        <motion.div
-          className="mt-10 text-center"
-          initial={{ opacity: 0 }}
-          animate={controls}
-          variants={{ visible: { opacity: 1, transition: { duration: 0.5, delay: 0.4 } } }}
-        >
+        {/* View all FAQs link */}
+        <div className="text-center mt-12">
           <Link
             href="/faq"
-            className="text-sm text-[var(--color-text-muted)] hover:text-foreground transition-colors duration-200 flex items-center gap-1.5 justify-center"
+            className="inline-flex items-center gap-2 text-sm text-accent hover:text-foreground font-medium transition-colors duration-200"
           >
-            {t('viewAll')} <span aria-hidden="true">{isAr ? '←' : '→'}</span>
+            <span>{t('viewAll')}</span>
+            <span aria-hidden="true">{isAr ? '←' : '→'}</span>
           </Link>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

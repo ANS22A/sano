@@ -19,21 +19,33 @@ export function PackageCard({ pkg, locale }: PackageCardProps) {
 
   return (
     <article className={cn(
-      'group relative flex flex-col bg-white border border-[var(--border-subtle)]',
-      'rounded-sm overflow-hidden hover:shadow-md transition-shadow duration-300'
+      'group relative flex flex-col bg-background border border-border-subtle shadow-subtle',
+      'rounded-sm overflow-hidden transition-all duration-300',
+      'hover:border-accent/40 hover:shadow-elevated hover:-translate-y-1'
     )}>
-      {/* Image */}
-      <div className="h-48 relative overflow-hidden bg-gradient-to-br from-surface to-accent flex items-center justify-center">
+      {/* Image / Luxury Visual Banner */}
+      <div className="h-52 relative overflow-hidden bg-gradient-to-br from-primary via-primary-hover to-surface-lavender flex items-center justify-center">
         {pkg.image_url ? (
           <Image
             src={pkg.image_url}
             alt={name}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          <span className="text-4xl opacity-30">✦</span>
+          <div className="flex flex-col items-center justify-center text-white/90 p-4 text-center">
+            <span className="text-3xl text-accent mb-1 animate-pulse">✦</span>
+            <span className="font-display text-sm tracking-widest text-accent uppercase">{isAr ? 'باقة طقوس راقية' : 'Luxury Ritual'}</span>
+            <span className="text-[11px] text-white/60 mt-1">{isAr ? 'عناية متكاملة في منزلك' : 'Complete Home Wellness'}</span>
+          </div>
+        )}
+
+        {/* Guest Badge */}
+        {pkg.max_guests > 1 && (
+          <div className="absolute top-3 start-3 z-10 px-2.5 py-1 rounded-sm bg-primary/90 text-white text-[10px] tracking-wider uppercase font-medium border border-accent/30 backdrop-blur-sm">
+            {isAr ? 'لشخصين' : 'For 2 Guests'}
+          </div>
         )}
       </div>
 
@@ -42,40 +54,48 @@ export function PackageCard({ pkg, locale }: PackageCardProps) {
         <div className="flex items-start justify-between gap-4">
           <div>
             {tagline && (
-              <p className="text-primary text-xs tracking-widest uppercase mb-1">
+              <p className="text-accent text-xs tracking-widest uppercase font-medium mb-1">
                 {tagline}
               </p>
             )}
-            <h2 className="font-display text-xl text-foreground">{name}</h2>
+            <h2 className="font-display text-xl text-foreground font-medium group-hover:text-primary transition-colors">{name}</h2>
           </div>
           <div className="shrink-0 text-end">
-            <span className="text-lg font-semibold text-foreground">
+            <span className="text-2xl font-light text-foreground tabular-nums font-display">
               {pkg.price_sar}
             </span>
-            <span className="text-xs text-[var(--color-text-muted)] ms-1">
+            <span className="text-xs text-muted-foreground ms-1">
               {isAr ? 'ريال' : 'SAR'}
             </span>
           </div>
         </div>
 
         {/* Description */}
-        <p className="text-[var(--color-text-muted)] text-sm leading-relaxed line-clamp-3">
+        <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2">
           {description}
         </p>
 
         {/* Included services list */}
-        <ul className="space-y-1 flex-1">
-          {includedServices.map((item, i) => (
-            <li key={i} className="flex items-center gap-2 text-sm text-foreground">
-              <span className="text-border text-xs">✦</span>
-              {item}
-            </li>
-          ))}
-        </ul>
+        <div className="space-y-1.5 flex-1 bg-surface-muted/60 p-3.5 rounded-sm border border-border-subtle">
+          <p className="text-[10px] text-accent font-semibold uppercase tracking-wider mb-2">
+            {isAr ? 'الخدمات المشمولة في الباقة:' : 'Includes in package:'}
+          </p>
+          <ul className="space-y-1">
+            {includedServices.map((item, i) => (
+              <li key={i} className="flex items-center gap-2 text-xs text-foreground">
+                <span className="text-accent text-[10px]" aria-hidden="true">✦</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         {/* Meta */}
-        <div className="flex items-center gap-4 text-xs text-[var(--color-text-muted)] border-t border-[var(--border-subtle)] pt-4">
-          <span>{pkg.total_duration_minutes} {isAr ? 'دقيقة' : 'min'}</span>
+        <div className="flex items-center justify-between text-xs text-muted-foreground border-t border-border-subtle pt-3">
+          <span className="flex items-center gap-1">
+            <span className="text-accent">◌</span>
+            <span>{pkg.total_duration_minutes} {isAr ? 'دقيقة' : 'min'}</span>
+          </span>
           {pkg.max_guests > 1 && (
             <span>
               {isAr ? `${pkg.max_guests} ضيوف` : `Up to ${pkg.max_guests} guests`}
@@ -88,13 +108,11 @@ export function PackageCard({ pkg, locale }: PackageCardProps) {
           href={`/booking?package=${pkg.slug}`}
           className={cn(
             'mt-2 inline-flex items-center justify-center gap-2',
-            'bg-foreground text-white text-sm tracking-wide',
-            'px-6 py-3 rounded-sm',
-            'hover:bg-foreground transition-colors duration-200',
-            'focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2'
+            'btn btn-md btn-primary',
+            'w-full shadow-sm hover:shadow-luxury hover:scale-[1.01] transition-all'
           )}
         >
-          {isAr ? 'احجزي الآن' : 'Book Now'}
+          {isAr ? 'احجزي الباقة الآن' : 'Book This Package'}
         </Link>
       </div>
     </article>

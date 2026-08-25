@@ -80,7 +80,7 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
     'placeholder:text-[var(--color-text-muted)] transition-colors duration-150',
     'focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-1',
     hasError
-      ? 'border-red-400 focus:ring-red-300'
+      ? 'border-error focus:ring-red-300'
       : 'border-[var(--border-subtle)] focus:border-primary'
   )
 
@@ -109,7 +109,7 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
             className={inputClass(!!errors.fullName)}
           />
           {errors.fullName && (
-            <p id="fullName-error" role="alert" className="text-xs text-red-500">
+            <p id="fullName-error" role="alert" className="text-xs text-error">
               {t.errors[errors.fullName.message ?? ''] ?? errors.fullName.message}
             </p>
           )}
@@ -133,7 +133,7 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
             className={inputClass(!!errors.phone)}
           />
           {errors.phone && (
-            <p id="phone-error" role="alert" className="text-xs text-red-500">
+            <p id="phone-error" role="alert" className="text-xs text-error">
               {t.errors[errors.phone.message ?? ''] ?? errors.phone.message}
             </p>
           )}
@@ -156,7 +156,7 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
             className={inputClass(!!errors.email)}
           />
           {errors.email && (
-            <p id="email-error" role="alert" className="text-xs text-red-500">
+            <p id="email-error" role="alert" className="text-xs text-error">
               {t.errors[errors.email.message ?? ''] ?? errors.email.message}
             </p>
           )}
@@ -179,7 +179,7 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
             className={inputClass(!!errors.address)}
           />
           {errors.address && (
-            <p id="address-error" role="alert" className="text-xs text-red-500">
+            <p id="address-error" role="alert" className="text-xs text-error">
               {t.errors[errors.address.message ?? ''] ?? errors.address.message}
             </p>
           )}
@@ -209,17 +209,17 @@ export function DetailsStep({ draft, onUpdate, onContinue, onBack, isAr }: Detai
       </div>
 
       {/* Navigation */}
-      <div className="flex items-center gap-3 mt-2">
+      <div className="flex items-center gap-3 mt-4">
         <button
           type="button"
           onClick={onBack}
-          className="px-5 py-2.5 text-sm border border-[var(--border-subtle)] rounded-sm hover:bg-[var(--surface)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+          className="btn btn-md btn-secondary px-6 border border-border-subtle shadow-sm"
         >
           {t.back}
         </button>
         <button
           type="submit"
-          className="px-8 py-2.5 bg-foreground text-white rounded-sm text-sm tracking-wide hover:bg-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2"
+          className="btn btn-md btn-primary px-8 shadow-medium hover:shadow-luxury hover:scale-[1.01] transition-all"
         >
           {t.continue}
         </button>

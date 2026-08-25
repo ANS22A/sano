@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils/cn'
 import type { DbStaff } from '@/services/team.service'
 
 interface TeamSectionProps {
-  initialStaff: DbStaff[]
+  initialStaff?: DbStaff[] | null
 }
 
 export function TeamSection({ initialStaff }: TeamSectionProps) {
@@ -26,7 +26,7 @@ export function TeamSection({ initialStaff }: TeamSectionProps) {
   return (
     <section
       ref={ref}
-      className="section-sl bg-[var(--color-surface-warm)]"
+      className="section-sl bg-surface-muted border-y border-border-subtle relative overflow-hidden"
       aria-labelledby="team-heading"
     >
       <div className="container-sl">
@@ -36,7 +36,10 @@ export function TeamSection({ initialStaff }: TeamSectionProps) {
             animate={controls}
             variants={{ visible: { opacity: 1, y: 0, transition: { duration: 0.7 } } }}
           >
-            <p className="overline-sl mb-3">{t('overline')}</p>
+            <div className="inline-flex items-center gap-2 mb-3">
+              <span className="text-accent text-xs">✦</span>
+              <p className="overline-sl text-accent uppercase tracking-widest">{t('overline')}</p>
+            </div>
             <h2 id="team-heading" className="heading-sl-lg">{t('title')}</h2>
           </motion.div>
           <motion.div
@@ -45,14 +48,14 @@ export function TeamSection({ initialStaff }: TeamSectionProps) {
             variants={{ visible: { opacity: 1, transition: { duration: 0.5, delay: 0.2 } } }}
             className="hidden sm:block flex-shrink-0"
           >
-            <Link href="/team" className="text-sm text-[var(--color-text-muted)] hover:text-foreground transition-colors duration-200 flex items-center gap-1.5">
+            <Link href="/team" className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 flex items-center gap-1.5 font-medium">
               {t('viewAll')} <span aria-hidden="true">{isAr ? '←' : '→'}</span>
             </Link>
           </motion.div>
         </div>
 
         <motion.p
-          className="text-body-muted max-w-xl mb-12"
+          className="text-muted-foreground max-w-xl mb-12 text-base leading-relaxed"
           initial={{ opacity: 0 }}
           animate={controls}
           variants={{ visible: { opacity: 1, transition: { duration: 0.6, delay: 0.1 } } }}
@@ -61,7 +64,7 @@ export function TeamSection({ initialStaff }: TeamSectionProps) {
         </motion.p>
 
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
           variants={staggerContainer}
           initial="hidden"
           animate={controls}
@@ -69,6 +72,8 @@ export function TeamSection({ initialStaff }: TeamSectionProps) {
           {initialStaff.map((member) => {
             const name = isAr ? member.name_ar : member.name_en
             const bio = isAr ? member.bio_ar : member.bio_en
+            const role = bio || (isAr ? 'أخصائية معتمدة في العناية والسبا المنزلي' : 'Certified Luxury Spa Specialist')
+            const initial = name ? name.charAt(0) : 'S'
             
             return (
               <motion.article
@@ -76,42 +81,67 @@ export function TeamSection({ initialStaff }: TeamSectionProps) {
                 variants={staggerItem}
                 className={cn(
                   'group flex flex-col items-center text-center',
-                  'p-8 rounded-sm border border-[var(--border-subtle)] bg-background',
-                  'transition-all duration-300',
-                  'hover:border-border hover:shadow-[0_8px_24px_rgba(26,23,20,0.06)]'
+                  'p-8 rounded-sm border border-border-subtle bg-background shadow-subtle',
+                  'transition-all duration-300 relative overflow-hidden',
+                  'hover:border-accent/40 hover:shadow-elevated hover:-translate-y-1'
                 )}
               >
-                {/* Avatar */}
-                <div
-                  className={cn(
-                    'w-24 h-24 rounded-full mb-5 flex-shrink-0 relative overflow-hidden',
-                    'bg-gradient-to-br from-surface to-accent'
-                  )}
-                  aria-hidden="true"
-                >
-                  {member.image_url ? (
-                    <Image
-                      src={member.image_url}
-                      alt={name}
-                      fill
-                      sizes="96px"
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                    />
-                  ) : (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-2xl text-primary">◌</span>
-                    </div>
-                  )}
+                {/* Top luxury accent badge */}
+                <div className="absolute top-4 end-4">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-accent/10 text-accent border border-accent/20">
+                    <span>✦</span> 5.0
+                  </span>
                 </div>
 
-                <h3 className="font-medium text-base text-foreground mb-2">
+                {/* Avatar frame */}
+                <div
+                  className={cn(
+                    'w-28 h-28 rounded-full mb-6 flex-shrink-0 relative overflow-hidden',
+                    'ring-2 ring-accent/30 p-1 bg-surface-lavender'
+                  )}
+                >
+                  <div className="w-full h-full rounded-full overflow-hidden relative bg-gradient-to-br from-primary to-primary-hover flex items-center justify-center shadow-inner">
+                    {member.image_url ? (
+                      <Image
+                        src={member.image_url}
+                        alt={name}
+                        fill
+                        sizes="112px"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="flex flex-col items-center justify-center text-white">
+                        <span className="font-display text-2xl font-light text-accent">{initial}</span>
+                        <span className="text-[10px] text-white/60 tracking-widest uppercase mt-0.5">SANO</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <h3 className="font-display text-lg font-medium text-foreground mb-1.5 group-hover:text-primary transition-colors">
                   {name}
                 </h3>
-                {bio && (
-                  <p className="text-sm text-[var(--color-text-muted)] line-clamp-3">
-                    {bio}
-                  </p>
-                )}
+                
+                <p className="text-xs text-accent font-medium uppercase tracking-wider mb-4">
+                  {isAr ? 'أخصائية معتمدة' : 'Certified Specialist'}
+                </p>
+
+                <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-6">
+                  {role}
+                </p>
+
+                {/* Service pills */}
+                <div className="mt-auto pt-4 border-t border-border-subtle w-full flex flex-wrap items-center justify-center gap-1.5">
+                  <span className="px-2 py-0.5 text-[11px] rounded-sm bg-surface-muted text-muted-foreground">
+                    {isAr ? 'مساج استرخائي' : 'Relaxation'}
+                  </span>
+                  <span className="px-2 py-0.5 text-[11px] rounded-sm bg-surface-muted text-muted-foreground">
+                    {isAr ? 'حمام مغربي' : 'Moroccan Bath'}
+                  </span>
+                  <span className="px-2 py-0.5 text-[11px] rounded-sm bg-surface-muted text-muted-foreground">
+                    {isAr ? 'عناية ممتازة' : 'Premium Care'}
+                  </span>
+                </div>
               </motion.article>
             )
           })}

@@ -63,7 +63,7 @@ export default async function AccountDashboardPage(props: PageProps) {
           </div>
         ) : (
           <div className="text-center py-12 px-4 bg-surface rounded-2xl border border-subtle border-dashed">
-            <p className="text-[#A98FB8] font-medium">{t('noUpcoming')}</p>
+            <p className="text-muted-foreground font-medium">{t('noUpcoming')}</p>
           </div>
         )}
       </div>

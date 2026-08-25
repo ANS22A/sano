@@ -16,11 +16,11 @@ interface CalendarBooking {
 }
 
 const STATUS_COLORS: Record<string, string> = {
-  pending:   'bg-amber-100 text-amber-800 border-amber-200 hover:bg-amber-200',
-  confirmed: 'bg-emerald-100 text-emerald-800 border-emerald-200 hover:bg-emerald-200',
-  completed: 'bg-sky-100 text-sky-800 border-sky-200 hover:bg-sky-200',
-  cancelled: 'bg-red-100 text-red-800 border-red-200 hover:bg-red-200',
-  no_show:   'bg-slate-100 text-slate-800 border-slate-200 hover:bg-slate-200',
+  pending:   'bg-warning-bg text-warning border-warning-border hover:opacity-80',
+  confirmed: 'bg-success-bg text-success border-success-border hover:opacity-80',
+  completed: 'bg-info-bg text-info border-info-border hover:opacity-80',
+  cancelled: 'bg-error-bg text-error border-error-border hover:opacity-80',
+  no_show:   'bg-muted text-muted-foreground border-border hover:opacity-80',
 }
 
 function getDaysInMonth(year: number, month: number) {

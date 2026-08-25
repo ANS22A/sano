@@ -14,10 +14,10 @@ export function TrustSection() {
   return (
     <section
       ref={ref}
-      className="section-sl bg-[var(--color-surface-warm)] border-b border-[var(--border-subtle)]"
+      className="py-16 lg:py-24 bg-surface-pink/30 border-b border-border-subtle relative overflow-hidden"
       aria-labelledby="trust-heading"
     >
-      <div className="container-sl">
+      <div className="container-sl relative z-10">
         {/* Header */}
         <motion.div
           className="text-center max-w-2xl mx-auto mb-12 lg:mb-16"
@@ -25,9 +25,12 @@ export function TrustSection() {
           animate={controls}
           variants={{ visible: { opacity: 1, y: 0, transition: { duration: 0.7 } } }}
         >
-          <p className="overline-sl mb-3">{t('overline')}</p>
+          <div className="inline-flex items-center gap-2 mb-3">
+            <span className="text-accent text-xs">✦</span>
+            <p className="overline-sl text-accent uppercase tracking-widest">{t('overline')}</p>
+          </div>
           <h2 id="trust-heading" className="heading-sl-md mb-4">{t('title')}</h2>
-          <p className="text-body-muted">{t('subtitle')}</p>
+          <p className="text-muted-foreground text-base max-w-lg mx-auto leading-relaxed">{t('subtitle')}</p>
         </motion.div>
 
         {/* Principles grid */}
@@ -50,19 +53,19 @@ export function TrustSection() {
                 variants={staggerItem}
                 className={cn(
                   'group flex flex-col items-start p-6 lg:p-7',
-                  'rounded-sm border border-[var(--border-subtle)]',
-                  'bg-background',
+                  'rounded-sm border border-border-subtle',
+                  'bg-background shadow-subtle',
                   'transition-all duration-300',
-                  'hover:border-border hover:shadow-[0_4px_24px_rgba(26,23,20,0.06)]'
+                  'hover:border-accent/40 hover:shadow-elevated hover:-translate-y-1'
                 )}
               >
                 {/* Icon */}
                 <div
                   className={cn(
-                    'w-10 h-10 rounded-sm flex items-center justify-center mb-5',
-                    'bg-background text-foreground',
-                    'text-lg font-light',
-                    'group-hover:bg-surface transition-colors duration-300'
+                    'w-12 h-12 rounded-full flex items-center justify-center mb-5',
+                    'bg-surface-lavender text-primary ring-1 ring-accent/30',
+                    'text-lg font-light shadow-xs',
+                    'group-hover:bg-primary group-hover:text-accent group-hover:scale-105 transition-all duration-300'
                   )}
                   aria-hidden="true"
                 >
@@ -70,10 +73,10 @@ export function TrustSection() {
                 </div>
 
                 {/* Title */}
-                <h3 className="heading-sl-xs mb-2">{t(titleKey)}</h3>
+                <h3 className="font-display font-medium text-base text-foreground mb-2 group-hover:text-primary transition-colors">{t(titleKey)}</h3>
 
                 {/* Description */}
-                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   {t(descKey)}
                 </p>
               </motion.div>
