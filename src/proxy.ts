@@ -60,8 +60,8 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  // Match all pathnames except static files, Next.js internals, and API routes
+  // Match all pathnames except static files, Next.js internals, API routes, and verification files
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|public|icons|images|auth).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|google[a-z0-9]+\\.html|.*\\..*|public|icons|images|auth).*)',
   ],
 }
