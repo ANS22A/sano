@@ -50,6 +50,9 @@ export function generateSiteMetadata({
         en: `${siteConfig.url}/en${path === '/' ? '' : path}`,
       },
     },
+    verification: {
+      google: 'dK1A_tXocq4aX_g-WpzvawLlKWJbcCoay152tCMTAB0',
+    },
     openGraph: {
       title: siteTitle,
       description: siteDescription,
