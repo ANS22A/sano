@@ -215,7 +215,7 @@ export function AdminGiftCardsClient({
             <DollarSign className="w-4 h-4 text-accent" />
           </div>
           <div className="text-2xl font-display font-bold text-foreground">
-            {stats.totalIssued.toLocaleString()} <span className="text-xs font-sans font-normal text-muted-foreground">{t.sar}</span>
+            {stats.totalIssued.toLocaleString('en-US')} <span className="text-xs font-sans font-normal text-muted-foreground">{t.sar}</span>
           </div>
         </div>
 
@@ -225,7 +225,7 @@ export function AdminGiftCardsClient({
             <CreditCard className="w-4 h-4 text-success" />
           </div>
           <div className="text-2xl font-display font-bold text-success">
-            {stats.activeBalance.toLocaleString()} <span className="text-xs font-sans font-normal text-muted-foreground">{t.sar}</span>
+            {stats.activeBalance.toLocaleString('en-US')} <span className="text-xs font-sans font-normal text-muted-foreground">{t.sar}</span>
           </div>
           <div className="text-[11px] text-muted-foreground mt-1">
             {stats.activeCount} {isAr ? 'كرت ساري ومتاح' : 'active available cards'}
@@ -238,7 +238,7 @@ export function AdminGiftCardsClient({
             <TrendingUp className="w-4 h-4 text-muted-foreground" />
           </div>
           <div className="text-2xl font-display font-bold text-foreground">
-            {stats.totalRedeemed.toLocaleString()} <span className="text-xs font-sans font-normal text-muted-foreground">{t.sar}</span>
+            {stats.totalRedeemed.toLocaleString('en-US')} <span className="text-xs font-sans font-normal text-muted-foreground">{t.sar}</span>
           </div>
         </div>
       </div>
