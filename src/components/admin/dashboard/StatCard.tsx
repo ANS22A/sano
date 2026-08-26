@@ -19,23 +19,23 @@ export function StatCard({ title, value, subtitle, icon, trend, trendLabel, acce
     <div className={cn(
       'rounded-[20px] p-6 border transition-all duration-300 relative overflow-hidden',
       accent
-          ? 'bg-accent text-accent-foreground shadow-medium hover:shadow-lg hover:-translate-y-0.5'
+          ? 'bg-surface-muted border-border text-foreground shadow-medium hover:shadow-lg hover:border-primary/30 hover:-translate-y-0.5'
           : 'bg-surface border-border text-foreground shadow-subtle hover:shadow-medium hover:border-accent/30 hover:-translate-y-0.5'
     )}>
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
           <p className={cn('text-xs font-medium uppercase tracking-wide mb-1',
-            accent ? 'text-white/50' : 'text-muted-foreground'
+            accent ? 'text-primary' : 'text-muted-foreground'
           )}>
             {title}
           </p>
           <p className={cn('text-3xl font-heading font-bold tracking-tight',
-            accent ? 'text-accent' : 'text-foreground'
+            'text-foreground'
           )}>
             {value}
           </p>
           {subtitle && (
-            <p className={cn('text-xs mt-1', accent ? 'text-white/40' : 'text-muted-foreground')}>
+            <p className={cn('text-xs mt-1', accent ? 'text-primary/70' : 'text-muted-foreground')}>
               {subtitle}
             </p>
           )}
@@ -43,7 +43,7 @@ export function StatCard({ title, value, subtitle, icon, trend, trendLabel, acce
         {icon && (
           <div className={cn(
             'w-11 h-11 rounded-xl flex items-center justify-center shrink-0',
-            accent ? 'bg-white/10 text-accent' : 'bg-surface text-accent border border-border'
+            accent ? 'bg-primary/5 text-accent border border-primary/10' : 'bg-surface text-accent border border-border'
           )}>
             {icon}
           </div>
