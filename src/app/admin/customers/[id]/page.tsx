@@ -32,12 +32,12 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
       </div>
 
       {/* Customer info */}
-      <div className="bg-white rounded-2xl border border-border overflow-hidden">
+      <div className="bg-surface rounded-2xl border border-border overflow-hidden">
         <dl className="divide-y divide-border-subtle">
           {[
-            ['Phone', customer.phone],
-            ['Email', customer.email ?? '—'],
-            ['Customer since', new Date(customer.created_at).toLocaleDateString()],
+            [lang === 'ar' ? 'الهاتف' : 'Phone', customer.phone],
+            [lang === 'ar' ? 'البريد الإلكتروني' : 'Email', customer.email ?? '—'],
+            [lang === 'ar' ? 'عميل منذ' : 'Customer since', new Date(customer.created_at).toLocaleDateString()],
           ].map(([label, value]) => (
             <div key={label} className="flex px-6 py-3 gap-4">
               <dt className="text-xs font-medium text-muted-foreground w-32 shrink-0">{label}</dt>
@@ -49,16 +49,22 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
 
       {/* Booking history */}
       <div>
-        <h2 className="text-sm font-semibold text-foreground mb-3">Booking History ({bookings.length})</h2>
-        <div className="bg-white rounded-2xl border border-border overflow-hidden">
+        <h2 className="text-sm font-semibold text-foreground mb-3">{lang === 'ar' ? 'سجل الحجوزات' : 'Booking History'} ({bookings.length})</h2>
+        <div className="bg-surface rounded-2xl border border-border overflow-hidden">
           {bookings.length === 0 ? (
-            <p className="text-center text-sm text-muted-foreground py-8">No bookings yet</p>
+            <p className="text-center text-sm text-muted-foreground py-8">{lang === 'ar' ? 'لا توجد حجوزات حتى الآن' : 'No bookings yet'}</p>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="bg-surface border-b border-border">
-                    {['Booking #', 'Service', 'Date', 'Status', 'Price'].map((h) => (
+                    {[
+                      lang === 'ar' ? 'رقم الحجز' : 'Booking #', 
+                      lang === 'ar' ? 'الخدمة' : 'Service', 
+                      lang === 'ar' ? 'التاريخ' : 'Date', 
+                      lang === 'ar' ? 'الحالة' : 'Status', 
+                      lang === 'ar' ? 'السعر' : 'Price'
+                    ].map((h) => (
                       <th key={h} className="text-start px-4 py-3 text-xs font-medium text-muted-foreground">{h}</th>
                     ))}
                   </tr>
@@ -72,11 +78,11 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
                         </Link>
                       </td>
                       <td className="px-4 py-3 text-muted-foreground">
-                        {(b.services as { name_en: string } | null)?.name_en ?? '—'}
+                        {(lang === 'ar' ? (b.services as { name_ar: string } | null)?.name_ar : (b.services as { name_en: string } | null)?.name_en) ?? '—'}
                       </td>
                       <td className="px-4 py-3 text-muted-foreground">{b.date}</td>
                       <td className="px-4 py-3"><AdminBadge status={b.status ?? ''} label={b.status ?? ''} /></td>
-                      <td className="px-4 py-3 font-medium text-foreground">{Number(b.price_sar).toLocaleString()} SAR</td>
+                      <td className="px-4 py-3 font-medium text-foreground">{Number(b.price_sar).toLocaleString()} {lang === 'ar' ? 'ر.س' : 'SAR'}</td>
                     </tr>
                   ))}
                 </tbody>

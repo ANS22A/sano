@@ -1,80 +1,89 @@
 import { requireRole } from '@/lib/admin/auth'
-import { getAdminPayroll } from '@/app/actions/adminPayroll.actions'
+import { getAdminPayroll, toggleArchiveSalary } from '@/app/actions/adminPayroll.actions'
+import { adminT, ADMIN_LANG_COOKIE, type AdminLang } from '@/lib/admin/translations'
+import { cookies } from 'next/headers'
 import { AdminEmptyState } from '@/components/admin/ui/AdminEmptyState'
 import { Banknote, Plus } from 'lucide-react'
 import Link from 'next/link'
+import { AdminBadge } from '@/components/admin/ui/AdminBadge'
+import { AdminPagination } from '@/components/admin/ui/AdminPagination'
+import { PayrollListClient } from './PayrollListClient'
 
 export default async function PayrollPage({ searchParams }: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
   await requireRole('admin')
   
+  const cookieStore = await cookies()
+  const lang = (cookieStore.get(ADMIN_LANG_COOKIE)?.value || 'en') as AdminLang
+  const t = adminT[lang] as typeof adminT['en']
+  const dir = lang === 'ar' ? 'rtl' : 'ltr'
+  
   const resolvedParams = await searchParams
   const page = resolvedParams.page ? parseInt(resolvedParams.page) : 1
+  const archivedStatus = (resolvedParams.archivedStatus || 'active') as 'active' | 'archived' | 'all'
   
-  const { salaries } = await getAdminPayroll({ page })
+  const { salaries, count, totalPages } = await getAdminPayroll({ page, archivedStatus })
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
         <div>
-          <h1 className="text-3xl font-light text-foreground">Payroll</h1>
-          <p className="text-sm text-muted-foreground mt-1">Manage employee salaries and bonuses.</p>
+          <h1 className="text-2xl font-heading font-bold text-foreground tracking-tight">{t.payroll.title}</h1>
+          <p className="text-sm text-muted-foreground mt-0.5">{t.payroll.subtitle}</p>
         </div>
         <div className="flex items-center gap-3">
           <Link
             href="/admin/payroll/advances"
-            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-md border border-neutral-200 bg-white text-sm font-medium hover:bg-muted transition-colors"
+            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl text-sm font-medium text-foreground bg-surface-muted hover:bg-surface-elevated transition-colors border border-border"
           >
-            Employee Advances
+            {t.payroll.employeeAdvances}
           </Link>
           <Link
             href="/admin/payroll/new"
-            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-md bg-primary text-white text-sm font-medium hover:bg-secondary transition-colors"
+            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:bg-primary-hover transition-colors"
           >
             <Plus className="w-4 h-4" />
-            New Payroll
+            {t.payroll.newPayroll}
           </Link>
         </div>
+      </div>
+
+      <div className="flex gap-2 border-b border-border">
+        <Link
+          href="?archivedStatus=active"
+          className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${archivedStatus === 'active' ? 'border-primary text-primary' : 'border-transparent text-muted-foreground hover:text-foreground'}`}
+        >
+          {t.common.active}
+        </Link>
+        <Link
+          href="?archivedStatus=archived"
+          className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${archivedStatus === 'archived' ? 'border-primary text-primary' : 'border-transparent text-muted-foreground hover:text-foreground'}`}
+        >
+          {t.payroll.archived}
+        </Link>
+        <Link
+          href="?archivedStatus=all"
+          className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${archivedStatus === 'all' ? 'border-primary text-primary' : 'border-transparent text-muted-foreground hover:text-foreground'}`}
+        >
+          {t.common.all}
+        </Link>
       </div>
 
       {salaries.length === 0 ? (
         <AdminEmptyState
           icon={<Banknote className="w-8 h-8" />}
-          title="No payroll records found"
-          description="Start managing employee salaries."
-          action={<Link href="/admin/payroll/new" className="h-10 px-4 inline-flex items-center justify-center rounded-md bg-primary text-white text-sm font-medium">Create Payroll</Link>}
+          title={t.payroll.noRecordsFound}
+          description={t.payroll.noRecordsDesc}
+          action={<Link href="/admin/payroll/new" className="h-10 px-4 inline-flex items-center justify-center rounded-xl bg-primary text-primary-foreground text-sm font-medium">{t.payroll.newPayroll}</Link>}
         />
       ) : (
-        <div className="rounded-lg border border-neutral-200 bg-white shadow-sm overflow-hidden">
-          <table className="w-full text-sm text-left rtl:text-right text-muted-foreground">
-            <thead className="bg-muted text-foreground font-medium border-b border-neutral-200">
-              <tr>
-                <th className="px-6 py-4">Reference</th>
-                <th className="px-6 py-4">Staff</th>
-                <th className="px-6 py-4">Month</th>
-                <th className="px-6 py-4 text-right">Net Salary</th>
-                <th className="px-6 py-4">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-neutral-100">
-              {salaries.map(salary => (
-                <tr key={salary.id} className="hover:bg-muted/50 transition-colors">
-                  <td className="px-6 py-4 font-medium text-foreground">{salary.reference}</td>
-                  <td className="px-6 py-4">{salary.staff?.name_en || 'Unknown'}</td>
-                  <td className="px-6 py-4">{salary.month}</td>
-                  <td className="px-6 py-4 text-right">{salary.net_salary.toLocaleString('en-SA', { style: 'currency', currency: 'SAR' })}</td>
-                  <td className="px-6 py-4">
-                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium \${
-                      salary.payment_status === 'paid' ? 'bg-success-bg text-success' :
-                      salary.payment_status === 'void' ? 'bg-muted text-foreground' :
-                      'bg-warning-bg text-warning'
-                    }`}>
-                      {salary.payment_status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="rounded-2xl border border-border bg-white shadow-sm overflow-hidden">
+          <PayrollListClient salaries={salaries} t={t} lang={lang} />
+        </div>
+      )}
+      
+      {totalPages > 1 && (
+        <div className="flex justify-end">
+          <AdminPagination total={count} />
         </div>
       )}
     </div>

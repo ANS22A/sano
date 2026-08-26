@@ -95,7 +95,7 @@ export function SuppliersListClient({
       </div>
 
       {/* Filters & Search */}
-      <div className="bg-white rounded-2xl border border-border p-4 flex flex-col sm:flex-row gap-3 shadow-xs">
+      <div className="bg-surface rounded-2xl border border-border p-4 flex flex-col sm:flex-row gap-3 shadow-xs">
         <div className="flex-1">
           <AdminSearchBar
             placeholder={isAr ? 'البحث باسم المورد، الهاتف، البريد…' : 'Search supplier name, phone, email…'}
@@ -131,7 +131,7 @@ export function SuppliersListClient({
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-2xl border border-border overflow-hidden shadow-sm">
+      <div className="bg-surface rounded-2xl border border-border overflow-hidden shadow-sm">
         {suppliers.length === 0 ? (
           <AdminEmptyState
             icon={<Building2 className="w-6 h-6 text-muted-foreground" />}

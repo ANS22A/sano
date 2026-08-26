@@ -29,7 +29,7 @@ export default async function AdminPackagesPage() {
         </Link>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-border overflow-hidden">
+      <div className="bg-surface rounded-2xl shadow-sm border border-border overflow-hidden">
         {packages.length === 0 ? (
           <AdminEmptyState
             icon={<Package className="w-8 h-8 opacity-50" />}

@@ -26,7 +26,7 @@ export default async function BusinessHoursPage({
         <p className="text-sm text-muted-foreground mt-1">Manage opening hours for {activeLocation?.name_en ?? 'all locations'}</p>
       </div>
 
-      <div className="bg-white rounded-2xl border border-border overflow-hidden">
+      <div className="bg-surface rounded-2xl border border-border overflow-hidden">
         <div className="px-6 py-4 border-b border-border flex items-center gap-3 bg-surface">
           <Clock className="w-5 h-5 text-accent" />
           <span className="text-sm font-medium text-foreground">Weekly Schedule</span>

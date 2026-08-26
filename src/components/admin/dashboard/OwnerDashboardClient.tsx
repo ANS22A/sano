@@ -33,7 +33,7 @@ export function OwnerDashboardClient({ stats, t, currentRange, from, to }: Props
   return (
     <div className="space-y-8">
       {/* Filters */}
-      <div className="flex items-center gap-4 bg-white p-4 rounded-[20px] border border-border shadow-sm">
+      <div className="flex items-center gap-4 bg-surface p-4 rounded-[20px] border border-border shadow-sm">
         <label className="text-sm font-medium text-foreground">{t.ownerDashboard.dateRange}</label>
         <select 
           value={currentRange}

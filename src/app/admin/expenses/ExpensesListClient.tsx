@@ -49,7 +49,7 @@ export function ExpensesListClient({
   currentToDate = '',
   includeArchived = false,
 }: Props) {
-  const { lang } = useAdmin()
+  const { lang, t } = useAdmin()
   const router = useRouter()
   const [expenses, setExpenses] = useState(initialExpenses)
   const [isPending, startTransition] = useTransition()
@@ -117,7 +117,7 @@ export function ExpensesListClient({
         <div className="flex items-center gap-2">
           <Link
             href="/admin/expenses/categories"
-            className="px-3.5 py-2 rounded-xl text-xs font-medium border border-border bg-white text-muted-foreground hover:bg-surface-muted hover:text-foreground transition-colors"
+            className="px-3.5 py-2 rounded-xl text-xs font-medium border border-border bg-surface text-muted-foreground hover:bg-surface-muted hover:text-foreground transition-colors"
           >
             {isAr ? 'التصنيفات' : 'Categories'}
           </Link>
@@ -133,7 +133,7 @@ export function ExpensesListClient({
 
       {/* KPI / Total Card */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white rounded-2xl border border-border p-4 flex items-center gap-3 shadow-xs">
+        <div className="bg-surface rounded-2xl border border-border p-4 flex items-center gap-3 shadow-xs">
           <div className="w-10 h-10 rounded-xl bg-surface-muted flex items-center justify-center text-accent">
             <DollarSign className="w-5 h-5" />
           </div>
@@ -142,12 +142,12 @@ export function ExpensesListClient({
               {isAr ? 'إجمالي المصروفات المعروضة' : 'Total Filtered Expenses'}
             </p>
             <p className="text-lg font-bold text-foreground">
-              {Number(totalAmount).toLocaleString(undefined, { minimumFractionDigits: 2 })} SAR
+              {Number(totalAmount).toLocaleString(undefined, { minimumFractionDigits: 2 })} {t.common.sar}
             </p>
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl border border-border p-4 flex items-center gap-3 shadow-xs">
+        <div className="bg-surface rounded-2xl border border-border p-4 flex items-center gap-3 shadow-xs">
           <div className="w-10 h-10 rounded-xl bg-surface-muted flex items-center justify-center text-accent">
             <Receipt className="w-5 h-5" />
           </div>
@@ -161,7 +161,7 @@ export function ExpensesListClient({
       </div>
 
       {/* Filters & Search */}
-      <div className="bg-white rounded-2xl border border-border p-4 space-y-3 shadow-xs">
+      <div className="bg-surface rounded-2xl border border-border p-4 space-y-3 shadow-xs">
         <div className="flex flex-col lg:flex-row gap-3">
           <div className="flex-1">
             <AdminSearchBar
@@ -243,7 +243,7 @@ export function ExpensesListClient({
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-2xl border border-border overflow-hidden shadow-sm">
+      <div className="bg-surface rounded-2xl border border-border overflow-hidden shadow-sm">
         {expenses.length === 0 ? (
           <AdminEmptyState
             icon={<Receipt className="w-6 h-6 text-muted-foreground" />}
@@ -298,10 +298,10 @@ export function ExpensesListClient({
                       )}
                     </td>
                     <td className="px-4 py-3 text-xs text-muted-foreground capitalize">
-                      {e.payment_method.replace('_', ' ')}
+                      {t.paymentMethods[e.payment_method as keyof typeof t.paymentMethods] || e.payment_method.replace('_', ' ')}
                     </td>
                     <td className="px-4 py-3 font-semibold text-foreground whitespace-nowrap">
-                      {Number(e.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })} SAR
+                      {Number(e.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })} {t.common.sar}
                     </td>
                     <td className="px-4 py-3">
                       {e.attachment_url ? (

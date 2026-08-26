@@ -27,7 +27,7 @@ export function AdminHeader({ profile, onMenuClick }: Props) {
   const pageTitle = getPageTitle(pathname, t.nav)
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center border-b border-border bg-white/80 backdrop-blur-md px-4 sm:px-6 gap-4 shadow-subtle">
+    <header className="sticky top-0 z-30 flex h-16 items-center border-b border-border bg-surface/80 backdrop-blur-md px-4 sm:px-6 gap-4 shadow-subtle">
       {/* Mobile menu button */}
       <button
         onClick={onMenuClick}
@@ -38,7 +38,7 @@ export function AdminHeader({ profile, onMenuClick }: Props) {
       </button>
 
       {/* Page title */}
-      <h1 className="flex-1 text-sm font-semibold text-foreground truncate">
+      <h1 className="flex-1 text-lg font-heading font-semibold text-foreground tracking-wide truncate">
         {pageTitle}
       </h1>
 
@@ -66,11 +66,15 @@ export function AdminHeader({ profile, onMenuClick }: Props) {
         <button
           onClick={handleSignOut}
           disabled={isPending}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-muted-foreground
-            hover:bg-surface-muted hover:text-foreground disabled:opacity-50 transition-all duration-200 ms-2"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-foreground bg-surface-muted border border-border
+            hover:bg-surface-elevated hover:text-foreground disabled:opacity-50 transition-all duration-200 ms-2"
           aria-label={t.nav.signOut}
         >
-          <LogOut className="w-3.5 h-3.5" />
+          {isPending ? (
+            <span className="w-3.5 h-3.5 border-2 border-current border-t-transparent rounded-full animate-spin shrink-0" />
+          ) : (
+            <LogOut className="w-3.5 h-3.5" />
+          )}
           <span className="hidden sm:block">{t.nav.signOut}</span>
         </button>
       </div>
@@ -97,11 +101,15 @@ function LanguageToggle({ currentLang }: { currentLang: string }) {
     <button
       onClick={toggle}
       disabled={isPending}
-      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-muted-foreground
-        hover:bg-surface-muted hover:text-foreground disabled:opacity-50 transition-colors border border-border"
+      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-foreground bg-surface-muted
+        hover:bg-surface-elevated hover:text-foreground disabled:opacity-50 transition-all duration-200 border border-border"
       title="Switch language"
     >
-      <Globe className="w-3.5 h-3.5" />
+      {isPending ? (
+        <span className="w-3.5 h-3.5 border-2 border-current border-t-transparent rounded-full animate-spin shrink-0" />
+      ) : (
+        <Globe className="w-3.5 h-3.5" />
+      )}
       <span>{currentLang === 'en' ? 'العربية' : 'English'}</span>
     </button>
   )

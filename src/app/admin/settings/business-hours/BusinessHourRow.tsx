@@ -2,6 +2,7 @@
 
 import { useTransition } from 'react'
 import { updateBusinessHour } from '@/app/actions/adminLocations.actions'
+import { useAdmin } from '@/components/admin/shell/AdminShell'
 
 interface HourRowProps {
   id: string
@@ -12,6 +13,8 @@ interface HourRowProps {
 }
 
 export function BusinessHourRow({ id, day, openTime, closeTime, isClosed: initialClosed }: HourRowProps) {
+  const { lang } = useAdmin()
+  const isAr = lang === 'ar'
   const [isPending, startTransition] = useTransition()
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -41,7 +44,7 @@ export function BusinessHourRow({ id, day, openTime, closeTime, isClosed: initia
           }}
           className="w-4 h-4 rounded accent-accent"
         />
-        <span className="text-sm text-muted-foreground">Closed</span>
+        <span className="text-sm text-muted-foreground">{isAr ? 'مغلق' : 'Closed'}</span>
       </label>
 
       <div className="flex items-center gap-2 flex-1">
@@ -67,7 +70,7 @@ export function BusinessHourRow({ id, day, openTime, closeTime, isClosed: initia
         disabled={isPending}
         className="px-4 py-1.5 rounded-lg bg-primary text-white text-xs font-medium hover:bg-primary-hover disabled:opacity-60 transition-colors"
       >
-        {isPending ? '…' : 'Save'}
+        {isPending ? '…' : isAr ? 'حفظ' : 'Save'}
       </button>
     </form>
   )

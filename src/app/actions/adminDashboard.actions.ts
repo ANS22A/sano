@@ -33,51 +33,51 @@ export async function getDashboardStats(): Promise<DashboardStats> {
   const supabase = await createClient()
   const today = riyadhToday()
 
-  // Today's bookings
-  const { data: todayBookings } = await supabase
-    .from('bookings')
-    .select('status, price_sar')
-    .eq('date', today)
-    .neq('status', 'cancelled')
-
-  const todayCount = todayBookings?.length ?? 0
-  const todayRevenue = (todayBookings ?? []).reduce((sum, b) => sum + Number(b.price_sar), 0)
-
-  // Pending bookings (all time)
-  const { count: pendingCount } = await supabase
-    .from('bookings')
-    .select('id', { count: 'exact', head: true })
-    .eq('status', 'pending')
-
-  // Cancelled this month
+  // Run all independent count/stat queries concurrently
   const monthStart = today.slice(0, 7) + '-01'
-  const { count: cancelledCount } = await supabase
-    .from('bookings')
-    .select('id', { count: 'exact', head: true })
-    .eq('status', 'cancelled')
-    .gte('date', monthStart)
+  const [
+    todayBookingsRes,
+    pendingRes,
+    cancelledRes,
+    completedRes,
+    totalThisMonthRes,
+  ] = await Promise.all([
+    supabase
+      .from('bookings')
+      .select('status, price_sar')
+      .eq('date', today)
+      .neq('status', 'cancelled'),
+    supabase
+      .from('bookings')
+      .select('id', { count: 'exact', head: true })
+      .eq('status', 'pending'),
+    supabase
+      .from('bookings')
+      .select('id', { count: 'exact', head: true })
+      .eq('status', 'cancelled')
+      .gte('date', monthStart),
+    supabase
+      .from('bookings')
+      .select('id', { count: 'exact', head: true })
+      .eq('status', 'completed')
+      .gte('date', monthStart),
+    supabase
+      .from('bookings')
+      .select('id', { count: 'exact', head: true })
+      .gte('date', monthStart)
+      .neq('status', 'cancelled'),
+  ])
 
-  // Completed this month
-  const { count: completedCount } = await supabase
-    .from('bookings')
-    .select('id', { count: 'exact', head: true })
-    .eq('status', 'completed')
-    .gte('date', monthStart)
-
-  // Total this month (non-cancelled)
-  const { count: totalThisMonth } = await supabase
-    .from('bookings')
-    .select('id', { count: 'exact', head: true })
-    .gte('date', monthStart)
-    .neq('status', 'cancelled')
+  const todayCount = todayBookingsRes.data?.length ?? 0
+  const todayRevenue = (todayBookingsRes.data ?? []).reduce((sum, b) => sum + Number(b.price_sar), 0)
 
   return {
     todayCount,
     todayRevenue,
-    pendingCount: pendingCount ?? 0,
-    cancelledCount: cancelledCount ?? 0,
-    completedCount: completedCount ?? 0,
-    totalThisMonth: totalThisMonth ?? 0,
+    pendingCount: pendingRes.count ?? 0,
+    cancelledCount: cancelledRes.count ?? 0,
+    completedCount: completedRes.count ?? 0,
+    totalThisMonth: totalThisMonthRes.count ?? 0,
   }
 }
 

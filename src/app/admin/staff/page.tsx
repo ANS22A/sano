@@ -24,7 +24,7 @@ export default async function AdminStaffPage() {
         <StaffFormWrapper t={t} dir={dir} />
       </div>
 
-      <div className="bg-white rounded-2xl border border-border overflow-hidden">
+      <div className="bg-surface rounded-2xl border border-border overflow-hidden">
         {staff.length === 0 ? (
           <AdminEmptyState icon={<UserCheck className="w-6 h-6" />} title={t.staff.noResults} />
         ) : (
@@ -32,7 +32,12 @@ export default async function AdminStaffPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-surface border-b border-border">
-                  {['Name (EN)', 'Name (AR)', 'Active', 'Actions'].map((h) => (
+                  {[
+                    lang === 'ar' ? 'الاسم (إنجليزي)' : 'Name (EN)', 
+                    lang === 'ar' ? 'الاسم (عربي)' : 'Name (AR)', 
+                    lang === 'ar' ? 'الحالة' : 'Active', 
+                    lang === 'ar' ? 'الإجراءات' : 'Actions'
+                  ].map((h) => (
                     <th key={h} className="text-start px-4 py-3 text-xs font-medium text-muted-foreground">{h}</th>
                   ))}
                 </tr>

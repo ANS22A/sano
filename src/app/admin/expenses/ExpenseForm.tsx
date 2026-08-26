@@ -79,7 +79,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
       <div className="flex items-center gap-3">
         <Link
           href="/admin/expenses"
-          className="p-2 rounded-xl border border-border bg-white text-muted-foreground hover:text-foreground hover:bg-surface transition-colors"
+          className="p-2 rounded-xl border border-border bg-surface text-muted-foreground hover:text-foreground hover:bg-surface-muted transition-colors"
         >
           {isAr ? <ArrowRight className="w-4 h-4" /> : <ArrowLeft className="w-4 h-4" />}
         </Link>
@@ -108,7 +108,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
       )}
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-border p-6 shadow-sm space-y-5">
+      <form onSubmit={handleSubmit} className="bg-surface rounded-2xl border border-border p-6 shadow-sm space-y-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Category */}
           <div>

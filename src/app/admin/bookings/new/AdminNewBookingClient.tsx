@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useTransition, useCallback, useEffect, useMemo } from 'react'
 import { useAdmin } from '@/components/admin/shell/AdminShell'
@@ -18,7 +18,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 
-// ─── Translations ────────────────────────────
+// â”€â”€â”€ Translations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const t9b = {
   en: {
@@ -30,7 +30,7 @@ const t9b = {
     stepSchedule: 'Date & Time',
     stepReview: 'Review & Confirm',
     // Customer
-    searchCustomer: 'Search existing customer…',
+    searchCustomer: 'Search existing customerâ€¦',
     orCreateNew: 'Or create a new customer',
     customerName: 'Full Name',
     customerPhone: 'Phone',
@@ -57,7 +57,7 @@ const t9b = {
     selectDate: 'Select Date',
     selectTime: 'Select Time',
     noSlots: 'No available slots for this date',
-    loadingSlots: 'Loading available times…',
+    loadingSlots: 'Loading available timesâ€¦',
     // Notes
     notes: 'Internal Notes',
     notesHint: 'Admin-only notes (not visible to customer)',
@@ -73,7 +73,7 @@ const t9b = {
     back: 'Back',
     next: 'Next',
     createBooking: 'Create Booking',
-    creating: 'Creating…',
+    creating: 'Creatingâ€¦',
     // Success
     bookingCreated: 'Booking Created!',
     bookingNumber: 'Booking Number',
@@ -84,56 +84,56 @@ const t9b = {
     errorPhone: 'Invalid phone number',
   },
   ar: {
-    title: 'حجز جديد',
-    subtitle: 'إنشاء حجز يدوي',
-    stepCustomer: 'العميلة',
-    stepService: 'الخدمة',
-    stepSchedule: 'التاريخ والوقت',
-    stepReview: 'المراجعة والتأكيد',
-    searchCustomer: 'البحث عن عميلة…',
-    orCreateNew: 'أو إنشاء عميلة جديدة',
-    customerName: 'الاسم الكامل',
-    customerPhone: 'رقم الجوال',
-    customerEmail: 'البريد الإلكتروني (اختياري)',
-    customerAddress: 'عنوان الخدمة',
-    customerAddressHint: 'مكان تقديم الخدمة',
-    selectExisting: 'اختيار',
-    newCustomer: 'عميلة جديدة',
-    existingCustomer: 'عميلة مسجلة',
-    noCustomersFound: 'لا توجد عميلات',
-    bookingSource: 'مصدر الحجز',
-    sourceWebsite: 'الموقع',
-    sourceWhatsapp: 'واتساب',
-    sourcePhone: 'هاتف',
-    sourceAdmin: 'إدارة',
-    sourceOther: 'أخرى',
-    selectService: 'اختيار الخدمة',
-    price: 'السعر',
-    duration: 'المدة',
-    minUnit: 'د',
-    selectDate: 'اختيار التاريخ',
-    selectTime: 'اختيار الوقت',
-    noSlots: 'لا توجد مواعيد متاحة لهذا التاريخ',
-    loadingSlots: 'جارٍ تحميل المواعيد…',
-    notes: 'ملاحظات داخلية',
-    notesHint: 'ملاحظات للإدارة فقط (غير مرئية للعميلة)',
-    reviewTitle: 'مراجعة الحجز',
-    customer: 'العميلة',
-    service: 'الخدمة',
-    date: 'التاريخ',
-    time: 'الوقت',
-    source: 'المصدر',
-    address: 'العنوان',
-    back: 'رجوع',
-    next: 'التالي',
-    createBooking: 'إنشاء الحجز',
-    creating: 'جارٍ الإنشاء…',
-    bookingCreated: 'تم إنشاء الحجز!',
-    bookingNumber: 'رقم الحجز',
-    viewBookings: 'عرض الحجوزات',
-    createAnother: 'إنشاء حجز آخر',
-    errorRequired: 'هذا الحقل مطلوب',
-    errorPhone: 'رقم الجوال غير صحيح',
+    title: 'ط­ط¬ط² ط¬ط¯ظٹط¯',
+    subtitle: 'ط¥ظ†ط´ط§ط، ط­ط¬ط² ظٹط¯ظˆظٹ',
+    stepCustomer: 'ط§ظ„ط¹ظ…ظٹظ„ط©',
+    stepService: 'ط§ظ„ط®ط¯ظ…ط©',
+    stepSchedule: 'ط§ظ„طھط§ط±ظٹط® ظˆط§ظ„ظˆظ‚طھ',
+    stepReview: 'ط§ظ„ظ…ط±ط§ط¬ط¹ط© ظˆط§ظ„طھط£ظƒظٹط¯',
+    searchCustomer: 'ط§ظ„ط¨ط­ط« ط¹ظ† ط¹ظ…ظٹظ„ط©â€¦',
+    orCreateNew: 'ط£ظˆ ط¥ظ†ط´ط§ط، ط¹ظ…ظٹظ„ط© ط¬ط¯ظٹط¯ط©',
+    customerName: 'ط§ظ„ط§ط³ظ… ط§ظ„ظƒط§ظ…ظ„',
+    customerPhone: 'ط±ظ‚ظ… ط§ظ„ط¬ظˆط§ظ„',
+    customerEmail: 'ط§ظ„ط¨ط±ظٹط¯ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ (ط§ط®طھظٹط§ط±ظٹ)',
+    customerAddress: 'ط¹ظ†ظˆط§ظ† ط§ظ„ط®ط¯ظ…ط©',
+    customerAddressHint: 'ظ…ظƒط§ظ† طھظ‚ط¯ظٹظ… ط§ظ„ط®ط¯ظ…ط©',
+    selectExisting: 'ط§ط®طھظٹط§ط±',
+    newCustomer: 'ط¹ظ…ظٹظ„ط© ط¬ط¯ظٹط¯ط©',
+    existingCustomer: 'ط¹ظ…ظٹظ„ط© ظ…ط³ط¬ظ„ط©',
+    noCustomersFound: 'ظ„ط§ طھظˆط¬ط¯ ط¹ظ…ظٹظ„ط§طھ',
+    bookingSource: 'ظ…طµط¯ط± ط§ظ„ط­ط¬ط²',
+    sourceWebsite: 'ط§ظ„ظ…ظˆظ‚ط¹',
+    sourceWhatsapp: 'ظˆط§طھط³ط§ط¨',
+    sourcePhone: 'ظ‡ط§طھظپ',
+    sourceAdmin: 'ط¥ط¯ط§ط±ط©',
+    sourceOther: 'ط£ط®ط±ظ‰',
+    selectService: 'ط§ط®طھظٹط§ط± ط§ظ„ط®ط¯ظ…ط©',
+    price: 'ط§ظ„ط³ط¹ط±',
+    duration: 'ط§ظ„ظ…ط¯ط©',
+    minUnit: 'ط¯',
+    selectDate: 'ط§ط®طھظٹط§ط± ط§ظ„طھط§ط±ظٹط®',
+    selectTime: 'ط§ط®طھظٹط§ط± ط§ظ„ظˆظ‚طھ',
+    noSlots: 'ظ„ط§ طھظˆط¬ط¯ ظ…ظˆط§ط¹ظٹط¯ ظ…طھط§ط­ط© ظ„ظ‡ط°ط§ ط§ظ„طھط§ط±ظٹط®',
+    loadingSlots: 'ط¬ط§ط±ظچ طھط­ظ…ظٹظ„ ط§ظ„ظ…ظˆط§ط¹ظٹط¯â€¦',
+    notes: 'ظ…ظ„ط§ط­ط¸ط§طھ ط¯ط§ط®ظ„ظٹط©',
+    notesHint: 'ظ…ظ„ط§ط­ط¸ط§طھ ظ„ظ„ط¥ط¯ط§ط±ط© ظپظ‚ط· (ط؛ظٹط± ظ…ط±ط¦ظٹط© ظ„ظ„ط¹ظ…ظٹظ„ط©)',
+    reviewTitle: 'ظ…ط±ط§ط¬ط¹ط© ط§ظ„ط­ط¬ط²',
+    customer: 'ط§ظ„ط¹ظ…ظٹظ„ط©',
+    service: 'ط§ظ„ط®ط¯ظ…ط©',
+    date: 'ط§ظ„طھط§ط±ظٹط®',
+    time: 'ط§ظ„ظˆظ‚طھ',
+    source: 'ط§ظ„ظ…طµط¯ط±',
+    address: 'ط§ظ„ط¹ظ†ظˆط§ظ†',
+    back: 'ط±ط¬ظˆط¹',
+    next: 'ط§ظ„طھط§ظ„ظٹ',
+    createBooking: 'ط¥ظ†ط´ط§ط، ط§ظ„ط­ط¬ط²',
+    creating: 'ط¬ط§ط±ظچ ط§ظ„ط¥ظ†ط´ط§ط،â€¦',
+    bookingCreated: 'طھظ… ط¥ظ†ط´ط§ط، ط§ظ„ط­ط¬ط²!',
+    bookingNumber: 'ط±ظ‚ظ… ط§ظ„ط­ط¬ط²',
+    viewBookings: 'ط¹ط±ط¶ ط§ظ„ط­ط¬ظˆط²ط§طھ',
+    createAnother: 'ط¥ظ†ط´ط§ط، ط­ط¬ط² ط¢ط®ط±',
+    errorRequired: 'ظ‡ط°ط§ ط§ظ„ط­ظ‚ظ„ ظ…ط·ظ„ظˆط¨',
+    errorPhone: 'ط±ظ‚ظ… ط§ظ„ط¬ظˆط§ظ„ ط؛ظٹط± طµط­ظٹط­',
   },
 } as const
 
@@ -145,7 +145,7 @@ const SOURCE_OPTIONS: { value: BookingSource; iconKey: string }[] = [
   { value: 'other', iconKey: 'other' },
 ]
 
-// ─── Types ───────────────────────────────────
+// â”€â”€â”€ Types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 interface ServiceOption {
   id: string
@@ -164,7 +164,7 @@ interface CustomerResult {
 
 type Step = 'customer' | 'service' | 'schedule' | 'review' | 'success'
 
-// ─── Component ───────────────────────────────
+// â”€â”€â”€ Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export function AdminNewBookingClient({ locationId }: { locationId: string }) {
   const { lang } = useAdmin()
@@ -212,7 +212,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
   // Error
   const [error, setError] = useState('')
 
-  // ── Customer search ─────────────────────────
+  // â”€â”€ Customer search â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const doSearch = useCallback(async (q: string) => {
     if (q.length < 2) { setSearchResults([]); return }
     setIsSearching(true)
@@ -228,7 +228,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
     return () => clearTimeout(timeout)
   }, [customerSearch, doSearch])
 
-  // ── Load services ───────────────────────────
+  // â”€â”€ Load services â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   useEffect(() => {
     if (servicesLoaded) return
     getServicesForBooking().then((s) => {
@@ -237,7 +237,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
     })
   }, [servicesLoaded])
 
-  // ── Load slots when date changes ────────────
+  // â”€â”€ Load slots when date changes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   useEffect(() => {
     if (!date || !selectedService) return
     let active = true
@@ -253,7 +253,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
     return () => { active = false }
   }, [date, selectedService, locationId])
 
-  // ── Select existing customer ────────────────
+  // â”€â”€ Select existing customer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function selectCustomer(c: CustomerResult) {
     setSelectedCustomer(c)
     setCustomerName(c.full_name)
@@ -262,7 +262,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
     setCustomerMode('search')
   }
 
-  // ── Validation ──────────────────────────────
+  // â”€â”€ Validation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function canAdvance(): boolean {
     switch (step) {
       case 'customer':
@@ -297,7 +297,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
     }
   }
 
-  // ── Submit ──────────────────────────────────
+  // â”€â”€ Submit â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function submitBooking() {
     setError('')
     startTransition(async () => {
@@ -327,7 +327,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
     })
   }
 
-  // ── Reset ───────────────────────────────────
+  // â”€â”€ Reset â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function resetForm() {
     setStep('customer')
     setCustomerSearch('')
@@ -348,7 +348,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
     setError('')
   }
 
-  // ── Source label ─────────────────────────────
+  // â”€â”€ Source label â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function sourceLabel(s: BookingSource): string {
     const map = {
       website: labels.sourceWebsite,
@@ -360,11 +360,11 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
     return map[s]
   }
 
-  // ── Today string ────────────────────────────
+  // â”€â”€ Today string â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   // eslint-disable-next-line react-hooks/purity
   const today = useMemo(() => new Date(Date.now() + 3 * 60 * 60 * 1000).toISOString().slice(0, 10), [])
 
-  // ── Steps indicator ─────────────────────────
+  // â”€â”€ Steps indicator â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const steps: { key: Step; label: string }[] = [
     { key: 'customer', label: labels.stepCustomer },
     { key: 'service', label: labels.stepService },
@@ -409,9 +409,9 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
         </div>
       )}
 
-      {/* ─── STEP: Customer ─── */}
+      {/* â”€â”€â”€ STEP: Customer â”€â”€â”€ */}
       {step === 'customer' && (
-        <div className="bg-white rounded-2xl border border-border p-5 space-y-5">
+        <div className="bg-surface rounded-2xl border border-border p-5 space-y-5">
           {/* Booking Source */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">{labels.bookingSource}</label>
@@ -424,7 +424,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                   className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium border transition-colors ${
                     source === opt.value
                       ? 'bg-secondary text-white border-secondary'
-                      : 'bg-white text-muted-foreground border-border hover:bg-surface-muted'
+                      : 'bg-surface text-muted-foreground border-border hover:bg-surface-muted'
                   }`}
                 >
                   {opt.value === 'whatsapp' && <MessageCircle className="w-3.5 h-3.5" />}
@@ -444,7 +444,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
               className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium border transition-colors ${
                 customerMode === 'search'
                   ? 'bg-primary text-white border-primary'
-                  : 'bg-white text-muted-foreground border-border hover:bg-surface-muted'
+                  : 'bg-surface text-muted-foreground border-border hover:bg-surface-muted'
               }`}
             >
               <Search className="w-3.5 h-3.5" />
@@ -462,7 +462,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
               className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium border transition-colors ${
                 customerMode === 'new'
                   ? 'bg-primary text-white border-primary'
-                  : 'bg-white text-muted-foreground border-border hover:bg-surface-muted'
+                  : 'bg-surface text-muted-foreground border-border hover:bg-surface-muted'
               }`}
             >
               <Plus className="w-3.5 h-3.5" />
@@ -480,7 +480,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                   value={customerSearch}
                   onChange={(e) => setCustomerSearch(e.target.value)}
                   placeholder={labels.searchCustomer}
-                  className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-border bg-white text-foreground focus:border-secondary focus:ring-1 focus:ring-ring outline-none transition-all text-start"
+                  className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-border bg-surface text-foreground focus:border-secondary focus:ring-1 focus:ring-ring outline-none transition-all text-start"
                 />
               </div>
               {isSearching && (
@@ -541,7 +541,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                     type="text"
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-border bg-white text-foreground focus:border-secondary focus:ring-1 focus:ring-ring outline-none transition-all text-start"
+                    className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-border bg-surface text-foreground focus:border-secondary focus:ring-1 focus:ring-ring outline-none transition-all text-start"
                     required
                   />
                 </div>
@@ -555,7 +555,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                     value={customerPhone}
                     onChange={(e) => setCustomerPhone(e.target.value)}
                     placeholder="05X XXX XXXX"
-                    className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-border bg-white text-foreground focus:border-secondary focus:ring-1 focus:ring-ring outline-none transition-all text-start"
+                    className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-border bg-surface text-foreground focus:border-secondary focus:ring-1 focus:ring-ring outline-none transition-all text-start"
                     required
                   />
                 </div>
@@ -568,7 +568,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                     type="email"
                     value={customerEmail}
                     onChange={(e) => setCustomerEmail(e.target.value)}
-                    className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-border bg-white text-foreground focus:border-secondary focus:ring-1 focus:ring-ring outline-none transition-all text-start"
+                    className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-border bg-surface text-foreground focus:border-secondary focus:ring-1 focus:ring-ring outline-none transition-all text-start"
                   />
                 </div>
               </div>
@@ -581,7 +581,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                     value={customerAddress}
                     onChange={(e) => setCustomerAddress(e.target.value)}
                     placeholder={labels.customerAddressHint}
-                    className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-border bg-white text-foreground focus:border-secondary focus:ring-1 focus:ring-ring outline-none transition-all text-start"
+                    className="w-full ps-10 pe-3 py-2.5 rounded-xl text-sm border border-border bg-surface text-foreground focus:border-secondary focus:ring-1 focus:ring-ring outline-none transition-all text-start"
                   />
                 </div>
               </div>
@@ -590,9 +590,9 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
         </div>
       )}
 
-      {/* ─── STEP: Service ─── */}
+      {/* â”€â”€â”€ STEP: Service â”€â”€â”€ */}
       {step === 'service' && (
-        <div className="bg-white rounded-2xl border border-border p-5 space-y-4">
+        <div className="bg-surface rounded-2xl border border-border p-5 space-y-4">
           <h2 className="text-sm font-bold text-foreground">{labels.selectService}</h2>
           {services.length === 0 ? (
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -616,7 +616,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                   </p>
                   <div className="flex items-center gap-3 mt-1.5">
                     <span className="text-xs text-secondary font-medium">
-                      {s.price_sar} {lang === 'ar' ? 'ريال' : 'SAR'}
+                      {s.price_sar} {lang === 'ar' ? 'ط±ظٹط§ظ„' : 'SAR'}
                     </span>
                     <span className="text-xs text-muted-foreground">
                       {s.duration_minutes} {labels.minUnit}
@@ -629,9 +629,9 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
         </div>
       )}
 
-      {/* ─── STEP: Schedule ─── */}
+      {/* â”€â”€â”€ STEP: Schedule â”€â”€â”€ */}
       {step === 'schedule' && (
-        <div className="bg-white rounded-2xl border border-border p-5 space-y-5">
+        <div className="bg-surface rounded-2xl border border-border p-5 space-y-5">
           {/* Date */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground flex items-center gap-1.5">
@@ -643,7 +643,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
               value={date}
               min={today}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full sm:w-64 px-3 py-2.5 rounded-xl text-sm border border-border bg-white text-foreground focus:border-secondary focus:ring-1 focus:ring-ring outline-none transition-all"
+              className="w-full sm:w-64 px-3 py-2.5 rounded-xl text-sm border border-border bg-surface text-foreground focus:border-secondary focus:ring-1 focus:ring-ring outline-none transition-all"
             />
           </div>
 
@@ -671,7 +671,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                       className={`px-3 py-2 rounded-xl text-sm font-medium border transition-colors ${
                         selectedSlot === s.startTime
                           ? 'bg-secondary text-white border-secondary'
-                          : 'bg-white text-foreground border-border hover:border-border-strong'
+                          : 'bg-surface text-foreground border-border hover:border-border-strong'
                       }`}
                     >
                       {s.startTime}
@@ -693,24 +693,24 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
               onChange={(e) => setNotes(e.target.value)}
               rows={3}
               placeholder={labels.notesHint}
-              className="w-full px-3 py-2.5 rounded-xl text-sm border border-border bg-white text-foreground focus:border-secondary focus:ring-1 focus:ring-ring outline-none transition-all resize-none text-start"
+              className="w-full px-3 py-2.5 rounded-xl text-sm border border-border bg-surface text-foreground focus:border-secondary focus:ring-1 focus:ring-ring outline-none transition-all resize-none text-start"
             />
           </div>
         </div>
       )}
 
-      {/* ─── STEP: Review ─── */}
+      {/* â”€â”€â”€ STEP: Review â”€â”€â”€ */}
       {step === 'review' && (
-        <div className="bg-white rounded-2xl border border-border p-5 space-y-4">
+        <div className="bg-surface rounded-2xl border border-border p-5 space-y-4">
           <h2 className="text-sm font-bold text-foreground">{labels.reviewTitle}</h2>
           <div className="divide-y divide-border-subtle">
-            <ReviewRow icon={<User className="w-4 h-4" />} label={labels.customer} value={`${customerName} — ${customerPhone}`} />
+            <ReviewRow icon={<User className="w-4 h-4" />} label={labels.customer} value={`${customerName} â€” ${customerPhone}`} />
             <ReviewRow icon={<FileText className="w-4 h-4" />} label={labels.service} value={selectedService ? (lang === 'ar' ? selectedService.name_ar : selectedService.name_en) : ''} />
             <ReviewRow icon={<CalendarDays className="w-4 h-4" />} label={labels.date} value={date} />
             <ReviewRow icon={<Clock className="w-4 h-4" />} label={labels.time} value={selectedSlot} />
             <ReviewRow icon={<MessageCircle className="w-4 h-4" />} label={labels.source} value={sourceLabel(source)} />
             {selectedService && (
-              <ReviewRow icon={<FileText className="w-4 h-4" />} label={labels.price} value={`${selectedService.price_sar} ${lang === 'ar' ? 'ريال' : 'SAR'}`} />
+              <ReviewRow icon={<FileText className="w-4 h-4" />} label={labels.price} value={`${selectedService.price_sar} ${lang === 'ar' ? 'ط±ظٹط§ظ„' : 'SAR'}`} />
             )}
             {customerAddress && (
               <ReviewRow icon={<MapPin className="w-4 h-4" />} label={labels.address} value={customerAddress} />
@@ -726,30 +726,30 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                 onChange={(e) => setRecordPaymentNow(e.target.checked)}
                 className="w-4 h-4 rounded border-border text-secondary focus:ring-ring"
               />
-              <span>{lang === 'ar' ? 'تسجيل استلام الدفعة الآن في سجل المبيعات' : 'Record payment now into sales ledger'}</span>
+              <span>{lang === 'ar' ? 'طھط³ط¬ظٹظ„ ط§ط³طھظ„ط§ظ… ط§ظ„ط¯ظپط¹ط© ط§ظ„ط¢ظ† ظپظٹ ط³ط¬ظ„ ط§ظ„ظ…ط¨ظٹط¹ط§طھ' : 'Record payment now into sales ledger'}</span>
             </label>
 
             {recordPaymentNow && (
               <div className="p-3.5 bg-surface rounded-xl border border-border space-y-2">
                 <label className="block text-xs font-semibold text-muted-foreground">
-                  {lang === 'ar' ? 'طريقة الدفع' : 'Payment Method'}
+                  {lang === 'ar' ? 'ط·ط±ظٹظ‚ط© ط§ظ„ط¯ظپط¹' : 'Payment Method'}
                 </label>
                 <select
                   value={paymentMethod}
                   onChange={(e) => setPaymentMethod(e.target.value as typeof paymentMethod)}
-                  className="w-full text-sm rounded-lg border border-border bg-white px-3 py-2 text-foreground outline-none focus:border-secondary"
+                  className="w-full text-sm rounded-lg border border-border bg-surface px-3 py-2 text-foreground outline-none focus:border-secondary"
                 >
-                  <option value="mada">{lang === 'ar' ? 'مدى' : 'Mada'}</option>
-                  <option value="credit_card">{lang === 'ar' ? 'بطاقة ائتمانية' : 'Credit Card'}</option>
+                  <option value="mada">{lang === 'ar' ? 'ظ…ط¯ظ‰' : 'Mada'}</option>
+                  <option value="credit_card">{lang === 'ar' ? 'ط¨ط·ط§ظ‚ط© ط§ط¦طھظ…ط§ظ†ظٹط©' : 'Credit Card'}</option>
                   <option value="apple_pay">Apple Pay</option>
                   <option value="stc_pay">STC Pay</option>
-                  <option value="cash">{lang === 'ar' ? 'نقدي' : 'Cash'}</option>
-                  <option value="bank_transfer">{lang === 'ar' ? 'تحويل بنكي' : 'Bank Transfer'}</option>
-                  <option value="other">{lang === 'ar' ? 'أخرى' : 'Other'}</option>
+                  <option value="cash">{lang === 'ar' ? 'ظ†ظ‚ط¯ظٹ' : 'Cash'}</option>
+                  <option value="bank_transfer">{lang === 'ar' ? 'طھط­ظˆظٹظ„ ط¨ظ†ظƒظٹ' : 'Bank Transfer'}</option>
+                  <option value="other">{lang === 'ar' ? 'ط£ط®ط±ظ‰' : 'Other'}</option>
                 </select>
                 <p className="text-xs text-muted-foreground">
                   {lang === 'ar'
-                    ? `سيتم تسجيل عملية قبض بقيمة ${selectedService?.price_sar ?? 0} ريال وإضافتها لسجل المبيعات.`
+                    ? `ط³ظٹطھظ… طھط³ط¬ظٹظ„ ط¹ظ…ظ„ظٹط© ظ‚ط¨ط¶ ط¨ظ‚ظٹظ…ط© ${selectedService?.price_sar ?? 0} ط±ظٹط§ظ„ ظˆط¥ط¶ط§ظپطھظ‡ط§ ظ„ط³ط¬ظ„ ط§ظ„ظ…ط¨ظٹط¹ط§طھ.`
                     : `Will record a payment transaction of ${selectedService?.price_sar ?? 0} SAR into the sales ledger.`}
                 </p>
               </div>
@@ -758,9 +758,9 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
         </div>
       )}
 
-      {/* ─── STEP: Success ─── */}
+      {/* â”€â”€â”€ STEP: Success â”€â”€â”€ */}
       {step === 'success' && (
-        <div className="bg-white rounded-2xl border border-border p-8 text-center space-y-4">
+        <div className="bg-surface rounded-2xl border border-border p-8 text-center space-y-4">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-success-bg">
             <CheckCircle className="w-8 h-8 text-success" />
           </div>
@@ -786,7 +786,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
         </div>
       )}
 
-      {/* ─── Navigation ─── */}
+      {/* â”€â”€â”€ Navigation â”€â”€â”€ */}
       {step !== 'success' && (
         <div className="flex items-center justify-between">
           {step !== 'customer' ? (
@@ -817,7 +817,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
   )
 }
 
-// ─── Review Row ──────────────────────────────
+// â”€â”€â”€ Review Row â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function ReviewRow({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (

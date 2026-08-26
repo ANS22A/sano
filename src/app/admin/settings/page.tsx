@@ -58,7 +58,7 @@ export default async function AdminSettingsPage() {
             <Link
               key={card.href}
               href={card.href}
-              className="group flex flex-col p-6 bg-white rounded-2xl border border-border hover:border-accent hover:shadow-medium transition-all duration-300 transform hover:-translate-y-0.5"
+              className="group flex flex-col p-6 bg-surface rounded-2xl border border-border hover:border-accent hover:shadow-medium transition-all duration-300 transform hover:-translate-y-0.5"
             >
               <div className="w-11 h-11 rounded-xl bg-surface flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-colors duration-300 mb-4 shrink-0 shadow-sm border border-border group-hover:border-accent">
                 <Icon className="w-5 h-5" />

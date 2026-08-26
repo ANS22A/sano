@@ -204,7 +204,7 @@ export function PackageForm({ initialData, availableServices }: Props) {
 
               {packageServices.length === 0 ? (
                 <div className="text-sm text-muted-foreground p-4 bg-muted/50 rounded-lg text-center border border-dashed">
-                  No services added to this package yet.
+                  {isAr ? 'لم تتم إضافة أي خدمات إلى هذه الباقة بعد.' : 'No services added to this package yet.'}
                 </div>
               ) : (
                 <div className="space-y-3">
@@ -218,7 +218,7 @@ export function PackageForm({ initialData, availableServices }: Props) {
                           onChange={(e) => updateServiceId(ps.id, e.target.value)}
                           className="w-full text-sm bg-transparent outline-none focus:ring-2 rounded focus:ring-ring"
                         >
-                          <option value="" disabled>Select a service</option>
+                          <option value="" disabled>{isAr ? 'اختر خدمة' : 'Select a service'}</option>
                           {availableServices.map(srv => (
                             <option key={srv.id} value={srv.id}>
                               {isAr ? srv.name_ar : srv.name_en}

@@ -113,7 +113,7 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
             className={`px-3 py-2 rounded-xl text-xs font-medium border transition-colors ${
               showArchived
                 ? 'bg-primary text-white border-primary'
-                : 'bg-white text-muted-foreground border-border hover:bg-surface-muted'
+                : 'bg-surface text-muted-foreground border-border hover:bg-surface-muted'
             }`}
           >
             {showArchived
@@ -136,7 +136,7 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-2xl border border-border overflow-hidden shadow-sm">
+      <div className="bg-surface rounded-2xl border border-border overflow-hidden shadow-sm">
         {displayed.length === 0 ? (
           <AdminEmptyState
             icon={<Tag className="w-6 h-6 text-muted-foreground" />}
@@ -228,7 +228,7 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs">
-          <div className="bg-white rounded-2xl border border-border w-full max-w-md p-6 shadow-xl space-y-5 animate-in fade-in zoom-in-95 duration-150">
+          <div className="bg-surface rounded-2xl border border-border w-full max-w-md p-6 shadow-xl space-y-5 animate-in fade-in zoom-in-95 duration-150">
             <div className="flex items-center justify-between border-b border-border pb-3">
               <h2 className="text-base font-bold text-foreground">
                 {editingCategory

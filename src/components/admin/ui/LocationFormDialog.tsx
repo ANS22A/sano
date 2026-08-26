@@ -39,7 +39,7 @@ interface LocationFormDialogProps {
   }
 }
 
-export function LocationFormDialog({ open, onClose, t, location }: LocationFormDialogProps) {
+export function LocationFormDialog({ open, onClose, t, dir, location }: LocationFormDialogProps) {
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
@@ -122,9 +122,9 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
       aria-modal="true"
       aria-labelledby="location-dialog-title"
     >
-      <div className="bg-white w-full max-w-lg rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div className="bg-surface w-full max-w-lg rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
         <div className="px-6 py-4 border-b border-border flex items-center justify-between">
-          <h3 id="location-dialog-title" className="text-base font-bold text-foreground">
+          <h3 id="location-dialog-title" className="text-lg font-heading font-bold text-foreground">
             {location ? t.common.edit : `${t.locations.title} +`}
           </h3>
           <button 
@@ -146,7 +146,7 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="name_en" className="block text-sm font-medium text-foreground mb-1">Name (EN) *</label>
+                <label htmlFor="name_en" className="block text-sm font-medium text-foreground mb-1">{dir === 'rtl' ? 'الاسم (EN) *' : 'Name (EN) *'}</label>
                 <input
                   id="name_en"
                   name="name_en"
@@ -161,7 +161,7 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
               </div>
 
               <div>
-                <label htmlFor="name_ar" className="block text-sm font-medium text-foreground mb-1 text-start">Name (AR) *</label>
+                <label htmlFor="name_ar" className="block text-sm font-medium text-foreground mb-1 text-start">{dir === 'rtl' ? 'الاسم (AR) *' : 'Name (AR) *'}</label>
                 <input
                   id="name_ar"
                   name="name_ar"
@@ -178,7 +178,7 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="slug" className="block text-sm font-medium text-foreground mb-1">Slug *</label>
+                <label htmlFor="slug" className="block text-sm font-medium text-foreground mb-1">{dir === 'rtl' ? 'المعرف (Slug) *' : 'Slug *'}</label>
                 <input
                   id="slug"
                   name="slug"
@@ -192,7 +192,7 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
                 />
               </div>
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-1">Phone</label>
+                <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-1">{dir === 'rtl' ? 'الهاتف' : 'Phone'}</label>
                 <input
                   id="phone"
                   name="phone"
@@ -207,7 +207,7 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
             </div>
 
             <div>
-              <label htmlFor="address_en" className="block text-sm font-medium text-foreground mb-1">Address (EN)</label>
+              <label htmlFor="address_en" className="block text-sm font-medium text-foreground mb-1">{dir === 'rtl' ? 'العنوان (EN)' : 'Address (EN)'}</label>
               <textarea
                 id="address_en"
                 name="address_en"
@@ -221,7 +221,7 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
             </div>
 
             <div>
-              <label htmlFor="address_ar" className="block text-sm font-medium text-foreground mb-1 text-start">Address (AR)</label>
+              <label htmlFor="address_ar" className="block text-sm font-medium text-foreground mb-1 text-start">{dir === 'rtl' ? 'العنوان (AR)' : 'Address (AR)'}</label>
               <textarea
                 id="address_ar"
                 name="address_ar"
@@ -236,7 +236,7 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="latitude" className="block text-sm font-medium text-foreground mb-1">Latitude</label>
+                <label htmlFor="latitude" className="block text-sm font-medium text-foreground mb-1">{dir === 'rtl' ? 'خط العرض (Latitude)' : 'Latitude'}</label>
                 <input
                   id="latitude"
                   name="latitude"
@@ -250,7 +250,7 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
                 />
               </div>
               <div>
-                <label htmlFor="longitude" className="block text-sm font-medium text-foreground mb-1">Longitude</label>
+                <label htmlFor="longitude" className="block text-sm font-medium text-foreground mb-1">{dir === 'rtl' ? 'خط الطول (Longitude)' : 'Longitude'}</label>
                 <input
                   id="longitude"
                   name="longitude"
@@ -286,16 +286,20 @@ export function LocationFormDialog({ open, onClose, t, location }: LocationFormD
               type="button"
               onClick={onClose}
               disabled={isPending}
-              className="px-4 py-2 rounded-xl text-sm font-medium text-muted-foreground hover:bg-white hover:text-foreground transition-colors border border-transparent hover:border-border disabled:opacity-50"
+              className="px-4 py-2 rounded-xl text-sm font-medium text-foreground bg-surface-muted hover:bg-surface-elevated transition-colors border border-border disabled:opacity-50"
             >
               {t.common.cancel}
             </button>
             <button
               type="submit"
               disabled={isPending}
-              className="px-6 py-2 rounded-xl text-sm font-medium bg-primary text-white hover:bg-primary transition-colors disabled:opacity-50"
+              className="flex items-center justify-center min-w-[100px] px-6 py-2 rounded-xl text-sm font-medium bg-primary text-primary-foreground hover:bg-primary-hover transition-colors disabled:opacity-50"
             >
-              {isPending ? t.common.saving : t.common.save}
+              {isPending ? (
+                <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin shrink-0" />
+              ) : (
+                location ? t.common.save : t.common.save
+              )}
             </button>
           </div>
         </form>

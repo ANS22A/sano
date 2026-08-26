@@ -121,10 +121,10 @@ export function SalesListClient({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">
+          <h1 className="text-2xl font-heading font-bold text-foreground tracking-tight">
             {isAr ? 'سجل المبيعات والمدفوعات' : 'Sales & Revenue Ledger'}
           </h1>
-          <p className="text-sm text-muted-foreground dark:text-muted-foreground mt-1">
+          <p className="text-sm text-muted-foreground mt-0.5">
             {isAr
               ? 'تتبع الإيرادات المحققة والمعاملات المالية المباشرة والمرتجعات'
               : 'Track realized revenue, incoming payments, refunds, and direct transactions'}
@@ -133,7 +133,7 @@ export function SalesListClient({
         <div className="flex items-center gap-3">
           <Link
             href="/admin/sales/new"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-secondary text-white text-sm font-medium hover:bg-primary-hover transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:bg-primary-hover transition-colors shadow-sm"
           >
             <Plus className="w-4 h-4" />
             {isAr ? 'تسجيل مبيعات / دفعة جديدة' : 'New Direct Sale / Payment'}
@@ -144,9 +144,9 @@ export function SalesListClient({
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Net Realized Revenue */}
-        <div className="bg-white border border-border-subtle p-5 rounded-xl shadow-sm">
+        <div className="bg-surface border border-border p-5 rounded-2xl shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">
+            <span className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wider">
               {isAr ? 'صافي الإيراد المحقق' : 'Net Realized Revenue'}
             </span>
             <div className="p-2 rounded-lg bg-success-bg dark:bg-success-bg text-success dark:text-success">
@@ -154,20 +154,20 @@ export function SalesListClient({
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-bold text-success dark:text-success">
+            <div className="text-2xl font-heading font-bold text-success dark:text-success">
               {totalRealized.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}{' '}
-              <span className="text-sm font-normal text-muted-foreground dark:text-muted-foreground">SAR</span>
+              <span className="text-sm font-sans font-normal text-muted-foreground dark:text-muted-foreground">SAR</span>
             </div>
-            <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
+            <p className="text-xs text-muted-foreground mt-1">
               {isAr ? 'المدفوعات ناقص الاسترجاعات' : 'Gross payments minus refunds'}
             </p>
           </div>
         </div>
 
         {/* Gross Payments */}
-        <div className="bg-white border border-border-subtle p-5 rounded-xl shadow-sm">
+        <div className="bg-surface border border-border p-5 rounded-2xl shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">
+            <span className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wider">
               {isAr ? 'إجمالي المقبوضات' : 'Total Payments Received'}
             </span>
             <div className="p-2 rounded-lg bg-secondary/10 text-secondary dark:text-muted-foreground">
@@ -175,20 +175,20 @@ export function SalesListClient({
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-bold text-foreground">
+            <div className="text-2xl font-heading font-bold text-foreground">
               {totalPayments.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}{' '}
-              <span className="text-sm font-normal text-muted-foreground dark:text-muted-foreground">SAR</span>
+              <span className="text-sm font-sans font-normal text-muted-foreground dark:text-muted-foreground">SAR</span>
             </div>
-            <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
+            <p className="text-xs text-muted-foreground mt-1">
               {isAr ? 'عمليات الدفع المكتملة' : 'Completed inflow transactions'}
             </p>
           </div>
         </div>
 
         {/* Total Refunds */}
-        <div className="bg-white border border-border-subtle p-5 rounded-xl shadow-sm">
+        <div className="bg-surface border border-border p-5 rounded-2xl shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">
+            <span className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wider">
               {isAr ? 'إجمالي المرتجعات' : 'Total Refunds Issued'}
             </span>
             <div className="p-2 rounded-lg bg-error-bg dark:bg-error-bg/40 text-error dark:text-error">
@@ -196,20 +196,20 @@ export function SalesListClient({
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-bold text-error dark:text-error">
+            <div className="text-2xl font-heading font-bold text-error dark:text-error">
               {totalRefunds.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}{' '}
-              <span className="text-sm font-normal text-muted-foreground dark:text-muted-foreground">SAR</span>
+              <span className="text-sm font-sans font-normal text-muted-foreground dark:text-muted-foreground">SAR</span>
             </div>
-            <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
+            <p className="text-xs text-muted-foreground mt-1">
               {isAr ? 'المبالغ المسترجعة للعملاء' : 'Refunds returned to customers'}
             </p>
           </div>
         </div>
 
         {/* Total Transactions */}
-        <div className="bg-white border border-border-subtle p-5 rounded-xl shadow-sm">
+        <div className="bg-surface border border-border p-5 rounded-2xl shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider">
+            <span className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wider">
               {isAr ? 'عدد المعاملات' : 'Total Transactions'}
             </span>
             <div className="p-2 rounded-lg bg-warning-bg dark:bg-warning-bg text-warning dark:text-warning">
@@ -217,10 +217,10 @@ export function SalesListClient({
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-bold text-foreground">
+            <div className="text-2xl font-heading font-bold text-foreground">
               {total}
             </div>
-            <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
+            <p className="text-xs text-muted-foreground mt-1">
               {isAr ? 'معاملة مسجلة في السجل' : 'Transactions in ledger'}
             </p>
           </div>
@@ -228,7 +228,7 @@ export function SalesListClient({
       </div>
 
       {/* Filter Bar */}
-      <div className="bg-white border border-border-subtle p-4 rounded-xl shadow-sm space-y-3">
+      <div className="bg-surface-elevated border border-border p-4 rounded-2xl shadow-sm space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
           {/* Search */}
           <div className="sm:col-span-2">

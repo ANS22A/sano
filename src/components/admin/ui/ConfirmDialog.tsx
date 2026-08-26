@@ -51,11 +51,11 @@ export function ConfirmDialog({
       />
 
       {/* Dialog */}
-      <div className="relative z-10 w-full max-w-sm bg-white rounded-2xl shadow-2xl border border-border p-6">
-        <h2 id="confirm-title" className="text-base font-semibold text-foreground mb-2">
+      <div className="relative z-10 w-full max-w-sm bg-white rounded-2xl shadow-2xl border border-border p-6" dir="auto">
+        <h2 id="confirm-title" className="text-lg font-heading font-semibold text-foreground mb-2">
           {title}
         </h2>
-        <p id="confirm-desc" className="text-sm text-muted-foreground mb-4">
+        <p id="confirm-desc" className="text-sm font-sans text-muted-foreground mb-4">
           {description}
         </p>
         {children}
@@ -63,7 +63,7 @@ export function ConfirmDialog({
           <button
             onClick={onCancel}
             disabled={isPending}
-            className="px-4 py-2 rounded-xl text-sm font-medium text-muted-foreground border border-border hover:bg-surface-muted transition-colors disabled:opacity-50"
+            className="px-4 py-2 rounded-xl text-sm font-medium text-foreground bg-surface-muted border border-border hover:bg-surface-elevated transition-colors disabled:opacity-50"
           >
             {cancelLabel}
           </button>
@@ -71,13 +71,17 @@ export function ConfirmDialog({
             onClick={handleConfirm}
             disabled={isPending}
             className={cn(
-              'px-4 py-2 rounded-xl text-sm font-medium text-white transition-colors disabled:opacity-50',
+              'px-4 py-2 rounded-xl text-sm font-medium transition-colors disabled:opacity-50 flex items-center justify-center min-w-[80px]',
               destructive
-                ? 'bg-error hover:opacity-90'
-                : 'bg-primary hover:bg-primary-hover'
+                ? 'bg-error text-error-foreground hover:bg-error/90'
+                : 'bg-primary text-primary-foreground hover:bg-primary-hover'
             )}
           >
-            {isPending ? '…' : confirmLabel}
+            {isPending ? (
+              <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin shrink-0" />
+            ) : (
+              confirmLabel
+            )}
           </button>
         </div>
       </div>

@@ -185,7 +185,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
         <div className="flex items-center gap-3">
           <Link
             href="/admin/bookings"
-            className="p-2 rounded-xl border border-border bg-white text-muted-foreground hover:text-foreground hover:bg-surface transition-colors"
+            className="p-2 rounded-xl border border-border bg-surface text-muted-foreground hover:text-foreground hover:bg-surface-muted transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
@@ -253,7 +253,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
         {['pending', 'confirmed'].includes(currentStatus) && (
           <button
             onClick={() => setIsRescheduling(true)}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium bg-white border border-border text-foreground hover:bg-surface transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium bg-surface border border-border text-foreground hover:bg-surface-muted transition-colors"
           >
             <CalendarDays className="w-4 h-4 text-accent" />
             {isAr ? 'إعادة جدولة الحجز' : 'Reschedule Booking'}
@@ -265,7 +265,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
         {/* Left 2 Cols: Details, Financials, & Notes */}
         <div className="lg:col-span-2 space-y-6">
           {/* Booking Info Card */}
-          <div className="bg-white rounded-2xl border border-border overflow-hidden">
+          <div className="bg-surface rounded-2xl border border-border overflow-hidden">
             <div className="px-6 py-4 border-b border-border bg-surface">
               <h2 className="text-sm font-semibold text-foreground">{isAr ? 'تفاصيل الحجز' : 'Booking Details'}</h2>
             </div>
@@ -298,7 +298,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
           </div>
 
           {/* FINANCIAL / PAYMENTS SECTION */}
-          <div className="bg-white rounded-2xl border border-border overflow-hidden shadow-sm">
+          <div className="bg-surface rounded-2xl border border-border overflow-hidden shadow-sm">
             <div className="px-6 py-4 border-b border-border bg-surface flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <CreditCard className="w-4 h-4 text-secondary" />
@@ -335,21 +335,21 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
 
             {/* Financial Summary KPIs */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-5 bg-surface/40 border-b border-border">
-              <div className="p-3 bg-white rounded-xl border border-border/70">
+              <div className="p-3 bg-surface rounded-xl border border-border/70">
                 <p className="text-xs text-muted-foreground font-medium">{isAr ? 'سعر الحجز' : 'Booking Price'}</p>
                 <p className="text-base font-bold text-foreground mt-1">{priceSar.toFixed(2)} SAR</p>
               </div>
-              <div className="p-3 bg-white rounded-xl border border-border/70">
+              <div className="p-3 bg-surface rounded-xl border border-border/70">
                 <p className="text-xs text-success font-medium">{isAr ? 'إجمالي المقبوض' : 'Total Paid'}</p>
                 <p className="text-base font-bold text-success mt-1">+{totalPaid.toFixed(2)} SAR</p>
               </div>
-              <div className="p-3 bg-white rounded-xl border border-border/70">
+              <div className="p-3 bg-surface rounded-xl border border-border/70">
                 <p className="text-xs text-error font-medium">{isAr ? 'إجمالي المسترجع' : 'Total Refunded'}</p>
                 <p className="text-base font-bold text-error mt-1">
                   {totalRefunded > 0 ? `-${totalRefunded.toFixed(2)}` : '0.00'} SAR
                 </p>
               </div>
-              <div className="p-3 bg-white rounded-xl border border-border/70">
+              <div className="p-3 bg-surface rounded-xl border border-border/70">
                 <p className="text-xs text-secondary font-semibold">{isAr ? 'المتبقي للدفع' : 'Balance Due'}</p>
                 <p
                   className={`text-base font-bold mt-1 ${
@@ -435,13 +435,13 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
           </div>
 
           {/* Customer Notes */}
-          <div className="bg-white rounded-2xl border border-border overflow-hidden">
+          <div className="bg-surface rounded-2xl border border-border overflow-hidden">
             <div className="px-6 py-4 border-b border-border bg-surface">
-              <h2 className="text-sm font-semibold text-foreground">Customer Notes</h2>
+              <h2 className="text-sm font-semibold text-foreground">{isAr ? 'ملاحظات العميلة' : 'Customer Notes'}</h2>
             </div>
             <div className="p-6">
               <p className="text-sm text-muted-foreground whitespace-pre-wrap leading-relaxed">
-                {booking.notes || 'No notes provided.'}
+                {booking.notes || (isAr ? 'لا توجد ملاحظات.' : 'No notes provided.')}
               </p>
             </div>
           </div>
@@ -450,7 +450,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
         {/* Right Col: Customer & Status Actions */}
         <div className="space-y-6">
           {/* Customer Info Card */}
-          <div className="bg-white rounded-2xl border border-border p-6 space-y-4">
+          <div className="bg-surface rounded-2xl border border-border p-6 space-y-4">
             <h2 className="text-sm font-semibold text-foreground">Customer</h2>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
@@ -475,15 +475,15 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                   className="mt-2 inline-flex items-center gap-2 text-xs font-medium text-accent hover:underline"
                 >
                   <FileText className="w-3.5 h-3.5" />
-                  View History
+                  {isAr ? 'عرض السجل' : 'View History'}
                 </Link>
               )}
             </div>
           </div>
 
           {/* Status Actions */}
-          <div className="bg-white rounded-2xl border border-border p-6 space-y-4">
-            <h2 className="text-sm font-semibold text-foreground">Status Actions</h2>
+          <div className="bg-surface rounded-2xl border border-border p-6 space-y-4">
+            <h2 className="text-sm font-semibold text-foreground">{isAr ? 'إجراءات الحالة' : 'Status Actions'}</h2>
             <div className="flex flex-col gap-2">
               {currentStatus === 'pending' && (
                 <button
@@ -518,7 +518,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                 </button>
               )}
               {['cancelled', 'completed', 'no_show'].includes(currentStatus) && (
-                <p className="text-xs text-muted-foreground text-center">No further status actions available.</p>
+                <p className="text-xs text-muted-foreground text-center">{isAr ? 'لا تتوفر إجراءات حالة أخرى.' : 'No further status actions available.'}</p>
               )}
             </div>
           </div>
@@ -541,7 +541,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
           }}
         >
           <div className="mt-4">
-            <label className="block text-xs font-medium text-muted-foreground mb-1">Reason (optional)</label>
+            <label className="block text-xs font-medium text-muted-foreground mb-1">{isAr ? 'السبب (اختياري)' : 'Reason (optional)'}</label>
             <textarea
               className="w-full p-2.5 rounded-lg border border-border bg-surface text-sm text-foreground outline-none focus:border-accent"
               rows={3}
@@ -566,7 +566,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
       {/* Reschedule Modal */}
       {isRescheduling && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-primary/40 backdrop-blur-sm">
-          <div className="bg-white w-full max-w-lg rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
+          <div className="bg-surface w-full max-w-lg rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
             <div className="px-6 py-4 border-b border-border flex items-center justify-between">
               <h3 className="text-base font-bold text-foreground">Reschedule Booking</h3>
               <button onClick={() => setIsRescheduling(false)} className="text-muted-foreground hover:text-foreground">
@@ -610,7 +610,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                             ? 'opacity-40 bg-surface-muted text-muted-foreground cursor-not-allowed border-transparent'
                             : rescheduleSlot === slot.startTime
                             ? 'bg-accent text-white border-accent shadow-sm'
-                            : 'bg-white text-foreground border-border hover:border-accent hover:bg-surface'
+                            : 'bg-surface text-foreground border-border hover:border-accent hover:bg-surface-muted'
                         }`}
                       >
                         {slot.startTime}
@@ -644,7 +644,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
       {/* Refund Modal */}
       {isRefunding && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-primary/40 backdrop-blur-sm">
-          <div className="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden flex flex-col">
+          <div className="bg-surface w-full max-w-md rounded-2xl shadow-xl overflow-hidden flex flex-col">
             <div className="px-6 py-4 border-b border-border flex items-center justify-between">
               <h3 className="text-base font-bold text-foreground">
                 {isAr ? 'إصدار استرجاع مالي' : 'Issue Refund'}

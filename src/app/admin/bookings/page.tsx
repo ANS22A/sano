@@ -69,7 +69,7 @@ export default async function AdminBookingsPage({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h1 className="text-xl font-bold text-foreground">{t.bookings.title}</h1>
-          <p className="text-sm text-muted-foreground">{total} total</p>
+          <p className="text-sm text-muted-foreground">{total} {lang === 'ar' ? 'إجمالي' : 'total'}</p>
         </div>
         <Link
           href="/admin/bookings/new"
@@ -91,7 +91,7 @@ export default async function AdminBookingsPage({
             paramName="serviceId"
             defaultValue="all"
             options={[
-              { value: 'all', label: 'All Services' },
+              { value: 'all', label: lang === 'ar' ? 'جميع الخدمات' : 'All Services' },
               ...services.map(s => ({ value: s.id, label: lang === 'ar' ? s.name_ar : s.name_en }))
             ]}
           />
@@ -100,7 +100,7 @@ export default async function AdminBookingsPage({
             paramName="locationId"
             defaultValue="all"
             options={[
-              { value: 'all', label: 'All Locations' },
+              { value: 'all', label: lang === 'ar' ? 'جميع الفروع' : 'All Locations' },
               ...locations.map(l => ({ value: l.id, label: lang === 'ar' ? l.name_ar : l.name_en }))
             ]}
           />
@@ -126,7 +126,7 @@ export default async function AdminBookingsPage({
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors capitalize ${
                   (sp.status ?? 'all') === s
                     ? 'bg-primary text-white border-primary'
-                    : 'bg-white text-muted-foreground border-border hover:bg-surface-muted'
+                    : 'bg-surface text-muted-foreground border-border hover:bg-surface-muted'
                 }`}
               >
                 {t.status[s as keyof typeof t.status] ?? s}
@@ -137,7 +137,7 @@ export default async function AdminBookingsPage({
                 href="/admin/bookings"
                 className="px-3 py-1.5 rounded-lg text-xs font-medium text-error hover:bg-error-bg transition-colors"
               >
-                Clear
+                {lang === 'ar' ? 'مسح' : 'Clear'}
               </Link>
             )}
           </div>
@@ -145,7 +145,7 @@ export default async function AdminBookingsPage({
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-2xl border border-border overflow-hidden">
+      <div className="bg-surface rounded-2xl border border-border overflow-hidden">
         {bookings.length === 0 ? (
           <AdminEmptyState
             icon={<BookOpen className="w-6 h-6" />}

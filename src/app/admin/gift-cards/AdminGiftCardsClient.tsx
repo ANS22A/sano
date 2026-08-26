@@ -196,7 +196,7 @@ export function AdminGiftCardsClient({
 
       {/* KPI Stats Bar */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white p-5 rounded-2xl border border-border shadow-sm">
+        <div className="bg-surface p-5 rounded-2xl border border-border shadow-sm">
           <div className="flex items-center justify-between text-muted-foreground mb-2 text-xs font-semibold">
             <span>{t.statPendingPayment}</span>
             <Clock className="w-4 h-4 text-warning" />
@@ -209,7 +209,7 @@ export function AdminGiftCardsClient({
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-border shadow-sm">
+        <div className="bg-surface p-5 rounded-2xl border border-border shadow-sm">
           <div className="flex items-center justify-between text-muted-foreground mb-2 text-xs font-semibold">
             <span>{t.statTotalIssued}</span>
             <DollarSign className="w-4 h-4 text-accent" />
@@ -219,7 +219,7 @@ export function AdminGiftCardsClient({
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-border shadow-sm">
+        <div className="bg-surface p-5 rounded-2xl border border-border shadow-sm">
           <div className="flex items-center justify-between text-muted-foreground mb-2 text-xs font-semibold">
             <span>{t.statActiveBalance}</span>
             <CreditCard className="w-4 h-4 text-success" />
@@ -232,7 +232,7 @@ export function AdminGiftCardsClient({
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-border shadow-sm">
+        <div className="bg-surface p-5 rounded-2xl border border-border shadow-sm">
           <div className="flex items-center justify-between text-muted-foreground mb-2 text-xs font-semibold">
             <span>{t.statRedeemed}</span>
             <TrendingUp className="w-4 h-4 text-muted-foreground" />
@@ -244,7 +244,7 @@ export function AdminGiftCardsClient({
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white p-4 rounded-2xl border border-border shadow-sm flex flex-col md:flex-row gap-3 items-center justify-between">
+      <div className="bg-surface p-4 rounded-2xl border border-border shadow-sm flex flex-col md:flex-row gap-3 items-center justify-between">
         {/* Search */}
         <form method="GET" className="relative w-full md:w-80">
           <Search className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -287,7 +287,7 @@ export function AdminGiftCardsClient({
       </div>
 
       {/* Cards Table */}
-      <div className="bg-white rounded-2xl border border-border overflow-hidden shadow-sm">
+      <div className="bg-surface rounded-2xl border border-border overflow-hidden shadow-sm">
         {giftCards.length === 0 ? (
           <AdminEmptyState
             icon={<Gift className="w-8 h-8 text-accent" />}
@@ -443,7 +443,7 @@ export function AdminGiftCardsClient({
       {/* Confirm Activation Modal */}
       {confirmActivationCard && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-border space-y-6">
+          <div className="bg-surface rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-border space-y-6">
             <div className="flex items-center gap-3 text-warning">
               <AlertTriangle className="w-7 h-7 shrink-0" />
               <h3 className="font-display text-lg font-bold text-foreground">
@@ -505,7 +505,7 @@ export function AdminGiftCardsClient({
       {/* Details Modal */}
       {selectedCard && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-border space-y-6">
+          <div className="bg-surface rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-border space-y-6">
             <div className="flex justify-between items-center pb-3 border-b border-border">
               <h3 className="font-display text-lg font-bold text-foreground flex items-center gap-2">
                 <Gift className="w-5 h-5 text-accent" />
@@ -564,7 +564,7 @@ export function AdminGiftCardsClient({
       {/* New Gift Card Modal */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-border space-y-6">
+          <div className="bg-surface rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-border space-y-6">
             <div className="flex justify-between items-center pb-3 border-b border-border">
               <h3 className="font-display text-lg font-bold text-foreground flex items-center gap-2">
                 <Plus className="w-5 h-5 text-accent" />

@@ -52,12 +52,12 @@ export function WithdrawalForm({ partners }: Props) {
           {isAr ? <ArrowRight className="h-4 w-4" /> : <ArrowLeft className="h-4 w-4" />}
           {t.common.cancel}
         </Link>
-        <h1 className="text-2xl font-bold mt-4">
-          {t.partners?.newWithdrawal || 'New Withdrawal'}
+        <h1 className="text-2xl font-heading font-bold mt-4">
+          {t.partners?.newWithdrawal}
         </h1>
       </div>
 
-      <div className="bg-card rounded-xl border shadow-sm">
+      <div className="bg-surface rounded-xl border border-border shadow-sm">
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           {error && (
             <div className="p-4 bg-destructive/10 text-destructive rounded-lg text-sm">
@@ -68,15 +68,16 @@ export function WithdrawalForm({ partners }: Props) {
           <div className="grid gap-6 md:grid-cols-2">
             <div className="space-y-2">
               <label htmlFor="partner_id" className="text-sm font-medium">
-                {t.partners?.partner || 'Partner'} <span className="text-destructive">*</span>
+                {t.partners?.partner} <span className="text-destructive">*</span>
               </label>
               <select
                 id="partner_id"
                 name="partner_id"
                 required
                 className={inputCls}
+                dir={isAr ? 'rtl' : 'ltr'}
               >
-                <option value="">Select...</option>
+                <option value="">{t.terms.select}</option>
                 {partners.map(p => (
                   <option key={p.id} value={p.id}>{p.name}</option>
                 ))}
@@ -85,7 +86,7 @@ export function WithdrawalForm({ partners }: Props) {
 
             <div className="space-y-2">
               <label htmlFor="amount" className="text-sm font-medium">
-                {t.reports?.columns?.amount || 'Amount'} (SAR) <span className="text-destructive">*</span>
+                {t.reports?.columns?.amount} ({t.common.sar}) <span className="text-destructive">*</span>
               </label>
               <input
                 type="number"
@@ -102,7 +103,7 @@ export function WithdrawalForm({ partners }: Props) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <label htmlFor="withdrawal_date" className="text-sm font-medium">
-                {t.reports?.columns?.date || 'Date'} <span className="text-destructive">*</span>
+                {t.reports?.columns?.date} <span className="text-destructive">*</span>
               </label>
               <input
                 type="date"
@@ -116,25 +117,26 @@ export function WithdrawalForm({ partners }: Props) {
 
             <div className="space-y-2">
               <label htmlFor="payment_method" className="text-sm font-medium">
-                Payment Method <span className="text-destructive">*</span>
+                {t.reports?.columns?.paymentMethod} <span className="text-destructive">*</span>
               </label>
               <select
                 id="payment_method"
                 name="payment_method"
                 required
                 className={inputCls}
+                dir={isAr ? 'rtl' : 'ltr'}
               >
-                <option value="bank_transfer">Bank Transfer</option>
-                <option value="cash">Cash</option>
-                <option value="mada">Mada</option>
-                <option value="credit_card">Credit Card</option>
-                <option value="other">Other</option>
+                <option value="bank_transfer">{t.paymentMethods.bank_transfer}</option>
+                <option value="cash">{t.paymentMethods.cash}</option>
+                <option value="mada">{t.paymentMethods.mada}</option>
+                <option value="credit_card">{t.paymentMethods.credit_card}</option>
+                <option value="other">{t.paymentMethods.other}</option>
               </select>
             </div>
 
             <div className="space-y-2">
               <label htmlFor="reference" className="text-sm font-medium">
-                {t.reports?.columns?.reference || 'Reference'} <span className="text-destructive">*</span>
+                {t.reports?.columns?.reference} <span className="text-destructive">*</span>
               </label>
               <input
                 id="reference"
@@ -148,7 +150,7 @@ export function WithdrawalForm({ partners }: Props) {
 
           <div className="space-y-2">
             <label htmlFor="notes" className="text-sm font-medium">
-              Notes
+              {t.partners?.notes}
             </label>
             <textarea
               id="notes"
@@ -159,7 +161,7 @@ export function WithdrawalForm({ partners }: Props) {
 
           {/* ATTACHMENT UPLOAD (Optional) */}
           <div>
-            <label className={labelCls}>Attachment</label>
+            <label className={labelCls}>{t.terms.attachment}</label>
             <div className="border-2 border-dashed border-border rounded-xl p-6 text-center hover:bg-surface-muted/50 transition-colors">
               <input type="file" name="file" id="file_upload" className="hidden" 
                 onChange={(e) => setSelectedFile(e.target.files?.[0] || null)}
@@ -168,7 +170,7 @@ export function WithdrawalForm({ partners }: Props) {
                 <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center">
                   <Upload className="w-5 h-5" />
                 </div>
-                <span className="text-sm font-medium text-primary">Upload File</span>
+                <span className="text-sm font-medium text-primary">{t.terms.uploadFile}</span>
                 {selectedFile && <span className="text-xs text-muted-foreground">{selectedFile.name}</span>}
               </label>
             </div>
@@ -179,15 +181,15 @@ export function WithdrawalForm({ partners }: Props) {
               href="/admin/partners/withdrawals"
               className="px-5 py-2.5 rounded-xl border border-border text-foreground text-sm font-medium hover:bg-surface-muted transition-colors"
             >
-              Cancel
+              {t.common.cancel}
             </Link>
             <button
               type="submit"
               disabled={isPending}
-              className="px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-hover disabled:opacity-50 transition-colors inline-flex items-center gap-2"
+              className="px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:bg-primary-hover disabled:opacity-50 transition-colors inline-flex items-center gap-2"
             >
               {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
-              Save
+              {t.common.save}
             </button>
           </div>
         </form>

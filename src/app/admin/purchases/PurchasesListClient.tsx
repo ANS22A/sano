@@ -53,7 +53,7 @@ export function PurchasesListClient({
   currentToDate = '',
   includeArchived = false,
 }: Props) {
-  const { lang } = useAdmin()
+  const { lang, t } = useAdmin()
   const router = useRouter()
   const [purchases, setPurchases] = useState(initialPurchases)
   const [isPending, startTransition] = useTransition()
@@ -128,7 +128,7 @@ export function PurchasesListClient({
         <div className="flex items-center gap-2">
           <Link
             href="/admin/suppliers"
-            className="px-3.5 py-2 rounded-xl text-xs font-medium border border-border bg-white text-muted-foreground hover:bg-surface-muted hover:text-foreground transition-colors"
+            className="px-3.5 py-2 rounded-xl text-xs font-medium border border-border bg-surface text-muted-foreground hover:bg-surface-muted hover:text-foreground transition-colors"
           >
             {isAr ? 'الموردون' : 'Suppliers'}
           </Link>
@@ -144,7 +144,7 @@ export function PurchasesListClient({
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white rounded-2xl border border-border p-4 flex items-center gap-3 shadow-xs">
+        <div className="bg-surface rounded-2xl border border-border p-4 flex items-center gap-3 shadow-xs">
           <div className="w-10 h-10 rounded-xl bg-surface-muted flex items-center justify-center text-accent">
             <DollarSign className="w-5 h-5" />
           </div>
@@ -153,12 +153,12 @@ export function PurchasesListClient({
               {isAr ? 'إجمالي المشتريات المعروضة' : 'Total Filtered Purchases'}
             </p>
             <p className="text-lg font-bold text-foreground">
-              {Number(totalAmount).toLocaleString(undefined, { minimumFractionDigits: 2 })} SAR
+              {Number(totalAmount).toLocaleString(undefined, { minimumFractionDigits: 2 })} {t.common.sar}
             </p>
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl border border-border p-4 flex items-center gap-3 shadow-xs">
+        <div className="bg-surface rounded-2xl border border-border p-4 flex items-center gap-3 shadow-xs">
           <div className="w-10 h-10 rounded-xl bg-surface-muted flex items-center justify-center text-accent">
             <ShoppingBag className="w-5 h-5" />
           </div>
@@ -172,7 +172,7 @@ export function PurchasesListClient({
       </div>
 
       {/* Filters & Search */}
-      <div className="bg-white rounded-2xl border border-border p-4 space-y-3 shadow-xs">
+      <div className="bg-surface rounded-2xl border border-border p-4 space-y-3 shadow-xs">
         <div className="flex flex-col lg:flex-row gap-3">
           <div className="flex-1">
             <AdminSearchBar
@@ -267,7 +267,7 @@ export function PurchasesListClient({
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-2xl border border-border overflow-hidden shadow-sm">
+      <div className="bg-surface rounded-2xl border border-border overflow-hidden shadow-sm">
         {purchases.length === 0 ? (
           <AdminEmptyState
             icon={<ShoppingBag className="w-6 h-6 text-muted-foreground" />}
@@ -346,11 +346,11 @@ export function PurchasesListClient({
                         }
                       />
                       <span className="block text-[11px] text-muted-foreground mt-0.5 capitalize">
-                        {p.payment_method.replace('_', ' ')}
+                        {t.paymentMethods[p.payment_method as keyof typeof t.paymentMethods] || p.payment_method.replace('_', ' ')}
                       </span>
                     </td>
                     <td className="px-4 py-3 font-semibold text-foreground whitespace-nowrap">
-                      {Number(p.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })} SAR
+                      {Number(p.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })} {t.common.sar}
                     </td>
                     <td className="px-4 py-3">
                       {p.attachment_url ? (

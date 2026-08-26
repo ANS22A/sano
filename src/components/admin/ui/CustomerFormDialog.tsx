@@ -95,8 +95,8 @@ export function CustomerFormDialog({ open, onClose, t, dir, customer }: Customer
       />
 
       {/* Dialog */}
-      <div className="relative z-10 w-full max-w-md bg-white rounded-2xl shadow-2xl border border-border p-6 max-h-[90vh] overflow-y-auto">
-        <h2 className="text-lg font-semibold text-foreground mb-4">
+      <div className="relative z-10 w-full max-w-md bg-surface rounded-2xl shadow-2xl border border-border p-6 max-h-[90vh] overflow-y-auto">
+        <h2 className="text-xl font-heading font-semibold text-foreground mb-4">
           {customer ? t.common.edit : t.customers.title}
         </h2>
         
@@ -117,7 +117,7 @@ export function CustomerFormDialog({ open, onClose, t, dir, customer }: Customer
               value={formData.full_name}
               onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
               className="w-full px-3 py-2 rounded-xl text-sm border border-border bg-white text-foreground focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-all"
-              placeholder="Full Name"
+              placeholder={dir === 'rtl' ? 'الاسم الكامل' : 'Full Name'}
               disabled={isPending}
             />
           </div>
@@ -159,16 +159,20 @@ export function CustomerFormDialog({ open, onClose, t, dir, customer }: Customer
               type="button"
               onClick={onClose}
               disabled={isPending}
-              className="px-4 py-2 rounded-xl text-sm font-medium text-muted-foreground border border-border hover:bg-surface-muted transition-colors disabled:opacity-50"
+              className="px-4 py-2 rounded-xl text-sm font-medium text-foreground bg-surface-muted border border-border hover:bg-surface-elevated transition-colors disabled:opacity-50"
             >
               {t.common.cancel}
             </button>
             <button
               type="submit"
               disabled={isPending}
-              className="px-4 py-2 rounded-xl text-sm font-medium text-white bg-primary hover:bg-primary-hover transition-colors disabled:opacity-50"
+              className="flex items-center justify-center min-w-[100px] px-4 py-2 rounded-xl text-sm font-medium text-primary-foreground bg-primary hover:bg-primary-hover transition-colors disabled:opacity-50"
             >
-              {isPending ? t.common.saving : t.common.save}
+              {isPending ? (
+                <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin shrink-0" />
+              ) : (
+                customer ? t.common.save : t.common.save
+              )}
             </button>
           </div>
         </form>

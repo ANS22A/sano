@@ -29,14 +29,14 @@ export default async function AdminCustomersPage({
       <div className="flex items-center justify-between gap-3">
         <div>
           <h1 className="text-xl font-bold text-foreground">{t.customers.title}</h1>
-          <p className="text-sm text-muted-foreground">{total} total</p>
+          <p className="text-sm text-muted-foreground">{total} {lang === 'ar' ? 'إجمالي' : 'total'}</p>
         </div>
         <CustomerFormWrapper t={t} dir={dir} />
       </div>
 
       <AdminSearchBar placeholder={t.customers.search} paramName="q" />
 
-      <div className="bg-white rounded-2xl border border-border overflow-hidden">
+      <div className="bg-surface rounded-2xl border border-border overflow-hidden">
         {customers.length === 0 ? (
           <AdminEmptyState icon={<Users className="w-6 h-6" />} title={t.customers.noResults} />
         ) : (

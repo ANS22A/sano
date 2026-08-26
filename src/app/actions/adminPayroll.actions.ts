@@ -49,13 +49,14 @@ export interface GetPayrollParams {
   staffId?: string
   month?: string
   paymentStatus?: 'pending' | 'paid' | 'void' | 'all'
+  archivedStatus?: 'active' | 'archived' | 'all'
 }
 
 export async function getAdminPayroll(params: GetPayrollParams = {}) {
   const session = await requireRole('admin')
   const supabase = await createClient()
 
-  const { page = 1, staffId, month, paymentStatus = 'all' } = params
+  const { page = 1, staffId, month, paymentStatus = 'all', archivedStatus = 'active' } = params
   const from = (page - 1) * PAGE_SIZE
   const to = from + PAGE_SIZE - 1
 
@@ -66,6 +67,8 @@ export async function getAdminPayroll(params: GetPayrollParams = {}) {
   if (staffId) query = query.eq('staff_id', staffId)
   if (month) query = query.eq('month', month)
   if (paymentStatus !== 'all') query = query.eq('payment_status', paymentStatus)
+  if (archivedStatus === 'active') query = query.eq('is_archived', false)
+  if (archivedStatus === 'archived') query = query.eq('is_archived', true)
 
   const { data, count, error } = await query
     .order('month', { ascending: false })
@@ -201,6 +204,28 @@ export async function voidSalary(id: string) {
 
   revalidatePath('/admin/payroll')
   revalidatePath('/admin/payroll/advances')
+  return { success: true }
+}
+
+export async function toggleArchiveSalary(id: string, archive: boolean) {
+  const session = await requireRole('admin')
+  const supabase = await createClient()
+
+  const { error } = await supabase
+    .from('salaries')
+    .update({ is_archived: archive, updated_at: new Date().toISOString() })
+    .eq('id', id)
+
+  if (error) throw new Error(error.message)
+
+  await writeAuditLog({
+    action: archive ? 'salary.archived' : 'salary.unarchived',
+    adminUserId: session.userId,
+    entityType: 'salaries',
+    entityId: id,
+  })
+
+  revalidatePath('/admin/payroll')
   return { success: true }
 }
 

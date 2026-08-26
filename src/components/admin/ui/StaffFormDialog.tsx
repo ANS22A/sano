@@ -35,7 +35,7 @@ interface StaffFormDialogProps {
   }
 }
 
-export function StaffFormDialog({ open, onClose, t, staff }: StaffFormDialogProps) {
+export function StaffFormDialog({ open, onClose, t, dir, staff }: StaffFormDialogProps) {
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
@@ -104,9 +104,9 @@ export function StaffFormDialog({ open, onClose, t, staff }: StaffFormDialogProp
       aria-modal="true"
       aria-labelledby="staff-dialog-title"
     >
-      <div className="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div className="bg-surface w-full max-w-md rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
         <div className="px-6 py-4 border-b border-border flex items-center justify-between">
-          <h3 id="staff-dialog-title" className="text-base font-bold text-foreground">
+          <h3 id="staff-dialog-title" className="text-lg font-heading font-bold text-foreground">
             {staff ? t.common.edit : `${t.staff.title} +`}
           </h3>
           <button 
@@ -127,7 +127,7 @@ export function StaffFormDialog({ open, onClose, t, staff }: StaffFormDialogProp
             )}
 
             <div>
-              <label htmlFor="name_en" className="block text-sm font-medium text-foreground mb-1">Name (EN) *</label>
+              <label htmlFor="name_en" className="block text-sm font-medium text-foreground mb-1">{dir === 'rtl' ? 'الاسم (EN) *' : 'Name (EN) *'}</label>
               <input
                 id="name_en"
                 name="name_en"
@@ -142,7 +142,7 @@ export function StaffFormDialog({ open, onClose, t, staff }: StaffFormDialogProp
             </div>
 
             <div>
-              <label htmlFor="name_ar" className="block text-sm font-medium text-foreground mb-1 text-start">Name (AR) *</label>
+              <label htmlFor="name_ar" className="block text-sm font-medium text-foreground mb-1 text-start">{dir === 'rtl' ? 'الاسم (AR) *' : 'Name (AR) *'}</label>
               <input
                 id="name_ar"
                 name="name_ar"
@@ -157,7 +157,7 @@ export function StaffFormDialog({ open, onClose, t, staff }: StaffFormDialogProp
             </div>
 
             <div>
-              <label htmlFor="slug" className="block text-sm font-medium text-foreground mb-1">Slug *</label>
+              <label htmlFor="slug" className="block text-sm font-medium text-foreground mb-1">{dir === 'rtl' ? 'المعرف (Slug) *' : 'Slug *'}</label>
               <input
                 id="slug"
                 name="slug"
@@ -172,7 +172,7 @@ export function StaffFormDialog({ open, onClose, t, staff }: StaffFormDialogProp
             </div>
 
             <div>
-              <label htmlFor="bio_en" className="block text-sm font-medium text-foreground mb-1">Bio (EN)</label>
+              <label htmlFor="bio_en" className="block text-sm font-medium text-foreground mb-1">{dir === 'rtl' ? 'نبذة (EN)' : 'Bio (EN)'}</label>
               <textarea
                 id="bio_en"
                 name="bio_en"
@@ -186,7 +186,7 @@ export function StaffFormDialog({ open, onClose, t, staff }: StaffFormDialogProp
             </div>
 
             <div>
-              <label htmlFor="bio_ar" className="block text-sm font-medium text-foreground mb-1 text-start">Bio (AR)</label>
+              <label htmlFor="bio_ar" className="block text-sm font-medium text-foreground mb-1 text-start">{dir === 'rtl' ? 'نبذة (AR)' : 'Bio (AR)'}</label>
               <textarea
                 id="bio_ar"
                 name="bio_ar"
@@ -201,7 +201,7 @@ export function StaffFormDialog({ open, onClose, t, staff }: StaffFormDialogProp
 
             {staff?.id && (
               <div>
-                <label className="block text-sm font-medium text-foreground mb-3">Staff Image</label>
+                <label className="block text-sm font-medium text-foreground mb-3">{dir === 'rtl' ? 'صورة العضو' : 'Staff Image'}</label>
                 <AdminImageUpload
                   entityId={staff.id}
                   imageUrl={staff.image_url ?? null}
@@ -219,16 +219,20 @@ export function StaffFormDialog({ open, onClose, t, staff }: StaffFormDialogProp
               type="button"
               onClick={onClose}
               disabled={isPending}
-              className="px-4 py-2 rounded-xl text-sm font-medium text-muted-foreground hover:bg-white hover:text-foreground transition-colors border border-transparent hover:border-border disabled:opacity-50"
+              className="px-4 py-2 rounded-xl text-sm font-medium text-foreground bg-surface-muted hover:bg-surface-elevated transition-colors border border-border disabled:opacity-50"
             >
               {t.common.cancel}
             </button>
             <button
               type="submit"
               disabled={isPending}
-              className="px-6 py-2 rounded-xl text-sm font-medium bg-primary text-white hover:bg-primary transition-colors disabled:opacity-50"
+              className="flex items-center justify-center min-w-[100px] px-6 py-2 rounded-xl text-sm font-medium bg-primary text-primary-foreground hover:bg-primary-hover transition-colors disabled:opacity-50"
             >
-              {isPending ? t.common.saving : t.common.save}
+              {isPending ? (
+                <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin shrink-0" />
+              ) : (
+                staff ? t.common.save : t.common.save
+              )}
             </button>
           </div>
         </form>

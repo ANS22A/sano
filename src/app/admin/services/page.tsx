@@ -47,7 +47,7 @@ export default async function AdminServicesPage({
         {['all', 'true', 'false'].map((a) => (
           <Link key={a} href={`/admin/services?active=${a}`}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors capitalize ${
-              (sp.active ?? 'all') === a ? 'bg-primary text-white border-primary' : 'bg-white text-muted-foreground border-border hover:bg-surface-muted'
+              (sp.active ?? 'all') === a ? 'bg-primary text-white border-primary' : 'bg-surface text-muted-foreground border-border hover:bg-surface-muted'
             }`}
           >
             {a === 'all' ? t.common.all : a === 'true' ? t.common.active : t.common.inactive}
@@ -55,7 +55,7 @@ export default async function AdminServicesPage({
         ))}
       </div>
 
-      <div className="bg-white rounded-2xl border border-border overflow-hidden">
+      <div className="bg-surface rounded-2xl border border-border overflow-hidden">
         {services.length === 0 ? (
           <AdminEmptyState icon={<Package2 className="w-6 h-6" />} title={t.services.noResults} />
         ) : (
@@ -76,9 +76,9 @@ export default async function AdminServicesPage({
                       <p className="text-xs text-muted-foreground">{s.name_ar}</p>
                     </td>
                     <td className="px-4 py-3 text-muted-foreground text-xs">
-                      {(s.service_categories as { name_en: string } | null)?.name_en ?? '—'}
+                      {(lang === 'ar' ? (s.service_categories as unknown as { name_ar: string } | null)?.name_ar : (s.service_categories as unknown as { name_en: string } | null)?.name_en) ?? '—'}
                     </td>
-                    <td className="px-4 py-3 text-foreground font-medium">{Number(s.price_sar).toLocaleString()} SAR</td>
+                    <td className="px-4 py-3 text-foreground font-medium">{Number(s.price_sar).toLocaleString()} {lang === 'ar' ? 'ر.س' : 'SAR'}</td>
                     <td className="px-4 py-3 text-muted-foreground">{s.duration_minutes} {t.common.min}</td>
                     <td className="px-4 py-3">
                       <AdminBadge

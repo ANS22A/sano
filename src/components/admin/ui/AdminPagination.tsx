@@ -29,7 +29,7 @@ export function AdminPagination({ total, perPage = 25, dir = 'ltr' }: Props) {
   const NextIcon = dir === 'rtl' ? ChevronLeft : ChevronRight
 
   return (
-    <div className={`flex items-center gap-2 justify-end mt-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+    <div className="flex items-center gap-2 justify-end mt-4">
       <span className="text-xs text-muted-foreground">
         Page {page} / {totalPages}
       </span>
@@ -38,7 +38,7 @@ export function AdminPagination({ total, perPage = 25, dir = 'ltr' }: Props) {
         href={pageHref(page - 1)}
         aria-disabled={page <= 1}
         className={cn(
-          'p-1.5 rounded-lg border border-border text-muted-foreground hover:bg-surface-muted transition-colors',
+          'p-1.5 rounded-lg border border-border text-foreground bg-surface-muted hover:bg-surface-elevated transition-colors',
           page <= 1 && 'pointer-events-none opacity-40'
         )}
         aria-label="Previous page"
@@ -50,7 +50,7 @@ export function AdminPagination({ total, perPage = 25, dir = 'ltr' }: Props) {
         href={pageHref(page + 1)}
         aria-disabled={page >= totalPages}
         className={cn(
-          'p-1.5 rounded-lg border border-border text-muted-foreground hover:bg-surface-muted transition-colors',
+          'p-1.5 rounded-lg border border-border text-foreground bg-surface-muted hover:bg-surface-elevated transition-colors',
           page >= totalPages && 'pointer-events-none opacity-40'
         )}
         aria-label="Next page"

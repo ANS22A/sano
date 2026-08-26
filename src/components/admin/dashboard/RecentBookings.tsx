@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import { AdminBadge } from '../ui/AdminBadge'
 import { AdminEmptyState } from '../ui/AdminEmptyState'
-import { BookOpen } from 'lucide-react'
+import { BookOpen, ArrowRight, ArrowLeft } from 'lucide-react'
 import type { RecentBooking } from '@/app/actions/adminDashboard.actions'
+import { AdminDir } from '@/lib/admin/translations'
 
 interface Props {
   bookings: RecentBooking[]
@@ -16,18 +17,22 @@ interface Props {
     status: string
     price: string
   }
+  dir?: AdminDir
 }
 
-export function RecentBookings({ bookings, t }: Props) {
+export function RecentBookings({ bookings, t, dir = 'ltr' }: Props) {
+  const ArrowIcon = dir === 'rtl' ? ArrowLeft : ArrowRight
+
   return (
-    <div className="bg-white rounded-2xl border border-border overflow-hidden">
+    <div className="bg-surface rounded-2xl border border-border overflow-hidden">
       <div className="flex items-center justify-between px-6 py-4 border-b border-border">
-        <h2 className="text-sm font-semibold text-foreground">{t.recentBookings}</h2>
+        <h2 className="text-base font-heading font-semibold text-foreground tracking-wide">{t.recentBookings}</h2>
         <Link
           href="/admin/bookings"
-          className="text-xs font-medium text-accent hover:text-accent transition-colors"
+          className="text-xs font-medium text-accent hover:text-accent/80 transition-colors flex items-center gap-1"
         >
-          View all →
+          {dir === 'rtl' ? 'عرض الكل' : 'View all'}
+          <ArrowIcon className="w-3.5 h-3.5" />
         </Link>
       </div>
 
@@ -68,7 +73,7 @@ export function RecentBookings({ bookings, t }: Props) {
                     <AdminBadge status={b.status} label={b.status} />
                   </td>
                   <td className="px-4 py-3 text-foreground font-medium whitespace-nowrap">
-                    {b.price_sar.toLocaleString()} SAR
+                    {b.price_sar.toLocaleString()} {dir === 'rtl' ? 'ر.س' : 'SAR'}
                   </td>
                 </tr>
               ))}

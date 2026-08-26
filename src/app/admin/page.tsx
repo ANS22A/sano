@@ -120,7 +120,7 @@ export default async function AdminDashboardPage({
     <div className="space-y-6">
       {/* Page header */}
       <div>
-        <h1 className="text-xl font-bold text-foreground">{t.dashboard.title}</h1>
+        <h1 className="text-2xl font-heading font-bold text-foreground tracking-tight">{t.dashboard.title}</h1>
         <p className="text-sm text-muted-foreground mt-0.5">{todayStr}</p>
       </div>
 
@@ -170,6 +170,7 @@ export default async function AdminDashboardPage({
           status: t.bookings.status,
           price: t.bookings.price,
         }}
+        dir={lang === 'ar' ? 'rtl' : 'ltr'}
       />
     </div>
   )

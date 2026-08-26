@@ -147,7 +147,7 @@ function SidebarContent({
 
           return (
             <div key={group.label} className="space-y-1">
-              <h3 className="px-3 text-[10px] font-bold uppercase tracking-wider text-white/30 mb-2 text-start">
+              <h3 className="px-3 text-[10px] font-heading font-bold uppercase tracking-wider text-white/40 mb-2 text-start">
                 {group.label}
               </h3>
               {groupVisibleItems.map((item) => {
@@ -162,10 +162,10 @@ function SidebarContent({
                     href={href}
                     onClick={onClose}
                     className={cn(
-                      'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200',
+                      'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-sans font-medium transition-all duration-200',
                       active
-                        ? 'bg-white/12 text-white border-s-2 border-s-accent shadow-sm'
-                        : 'text-white/70 hover:text-white hover:bg-white/8 hover:translate-x-1 rtl:hover:-translate-x-1'
+                        ? 'bg-accent/20 text-accent font-semibold border-s-2 border-s-accent shadow-sm'
+                        : 'text-white/70 hover:text-white hover:bg-white/10 hover:translate-x-1 rtl:hover:-translate-x-1'
                     )}
                     aria-current={active ? 'page' : undefined}
                   >

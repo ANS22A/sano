@@ -27,7 +27,7 @@ interface ServiceFormProps {
 }
 
 export function ServiceForm({ service, categories, isEdit }: ServiceFormProps) {
-  const { t } = useAdmin()
+  const { t, lang } = useAdmin()
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
 
@@ -54,7 +54,7 @@ export function ServiceForm({ service, categories, isEdit }: ServiceFormProps) {
     })
   }
 
-  const inputCls = 'w-full px-4 py-2.5 rounded-xl border border-border bg-white text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent'
+  const inputCls = 'w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent'
   const labelCls = 'block text-xs font-medium text-muted-foreground mb-1.5'
 
   return (
@@ -79,8 +79,8 @@ export function ServiceForm({ service, categories, isEdit }: ServiceFormProps) {
       </div>
 
       {isEdit && service && (
-        <div className="bg-white rounded-2xl border border-border p-6">
-          <h2 className="text-sm font-bold text-foreground mb-4">Service Image</h2>
+        <div className="bg-surface rounded-2xl border border-border p-6">
+          <h2 className="text-sm font-bold text-foreground mb-4">{lang === 'ar' ? 'صورة الخدمة' : 'Service Image'}</h2>
           <AdminImageUpload
             entityId={service.id}
             imageUrl={service.image_url ?? null}
@@ -91,7 +91,7 @@ export function ServiceForm({ service, categories, isEdit }: ServiceFormProps) {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-border p-6 space-y-5">
+      <form onSubmit={handleSubmit} className="bg-surface rounded-2xl border border-border p-6 space-y-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className={labelCls}>{t.services.nameEn} *</label>
@@ -118,9 +118,9 @@ export function ServiceForm({ service, categories, isEdit }: ServiceFormProps) {
           <div>
             <label className={labelCls}>{t.services.category}</label>
             <select name="category_id" defaultValue={service?.category_id ?? ''} className={inputCls}>
-              <option value="">— None —</option>
+              <option value="">{lang === 'ar' ? '— لا يوجد —' : '— None —'}</option>
               {categories.map((c) => (
-                <option key={c.id} value={c.id}>{c.name_en}</option>
+                <option key={c.id} value={c.id}>{lang === 'ar' ? c.name_ar : c.name_en}</option>
               ))}
             </select>
           </div>
@@ -135,11 +135,11 @@ export function ServiceForm({ service, categories, isEdit }: ServiceFormProps) {
         </div>
 
         <div>
-          <label className={labelCls}>Short Description (EN)</label>
+          <label className={labelCls}>{lang === 'ar' ? 'وصف قصير (EN)' : 'Short Description (EN)'}</label>
           <textarea name="short_description_en" defaultValue={service?.short_description_en ?? ''} rows={2} className={inputCls} />
         </div>
         <div>
-          <label className={labelCls}>Short Description (AR)</label>
+          <label className={labelCls}>{lang === 'ar' ? 'وصف قصير (AR)' : 'Short Description (AR)'}</label>
           <textarea name="short_description_ar" defaultValue={service?.short_description_ar ?? ''} rows={2} dir="rtl" className={inputCls} />
         </div>
 
