@@ -8,6 +8,7 @@ import { AdminSearchBar } from '@/components/admin/ui/AdminSearchBar'
 import { AdminFilterSelect } from '@/components/admin/ui/AdminFilterSelect'
 import { BookOpen, Plus } from 'lucide-react'
 import { cookies } from 'next/headers'
+import { formatAppointmentTime } from '@/lib/utils/format'
 import { adminT, type AdminLang } from '@/lib/admin/translations'
 import { getAdminLocations } from '@/app/actions/adminLocations.actions'
 import { getAdminServices } from '@/app/actions/adminServices.actions'
@@ -169,7 +170,7 @@ export default async function AdminBookingsPage({
                     </td>
                     <td className="px-4 py-3 font-medium text-foreground">{b.customer_name}</td>
                     <td className="px-4 py-3 text-muted-foreground max-w-40 truncate">{b.service_name}</td>
-                    <td className="px-4 py-3 text-muted-foreground whitespace-nowrap">{b.date} {b.start_time.slice(0,5)}</td>
+                    <td className="px-4 py-3 text-muted-foreground whitespace-nowrap">{b.date} {formatAppointmentTime(b.start_time.slice(0,5), lang)}</td>
                     <td className="px-4 py-3">
                       <AdminBadge status={b.status} label={t.status[b.status as keyof typeof t.status] ?? b.status} />
                     </td>

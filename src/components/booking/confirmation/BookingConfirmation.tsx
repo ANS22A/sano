@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils/cn'
 import { Link } from '@/i18n/navigation'
 import { generateICSContent, downloadICS } from '@/lib/booking/ics'
 import type { BookingResult } from '@/data/booking.types'
+import { formatAppointmentTime } from '@/lib/utils/format'
 
 interface BookingConfirmationProps {
   result: BookingResult
@@ -85,7 +86,7 @@ export function BookingConfirmation({ result, isAr }: BookingConfirmationProps) 
           { label: t.service, value: serviceName },
           {
             label: t.dateTime,
-            value: `${formatConfirmDate(result.date, isAr)}, ${result.startTime}${result.endTime ? ` — ${result.endTime}` : ''}`,
+            value: `${formatConfirmDate(result.date, isAr)}, ${formatAppointmentTime(result.startTime, isAr ? 'ar' : 'en')}${result.endTime ? ` — ${formatAppointmentTime(result.endTime, isAr ? 'ar' : 'en')}` : ''}`,
           },
           { label: t.location, value: `${locationName}\n${address}` },
           { label: t.customer, value: `${result.customerName}\n${result.customerPhone}\n${result.customerEmail}` },

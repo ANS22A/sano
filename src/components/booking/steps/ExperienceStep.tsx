@@ -73,14 +73,14 @@ export function ExperienceStep({ draft, onUpdate, onContinue, isAr, services }: 
       {tab === 'services' && (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 max-h-[460px] overflow-y-auto pe-1">
           {services.map((service) => {
-            const isSelected = draft.serviceId === service.id
+            const isSelected = draft.serviceId === service.slug
             const name = isAr ? service.name_ar : service.name_en
             const shortDesc = isAr ? service.short_description_ar : service.short_description_en
 
             return (
               <button
                 key={service.id}
-                onClick={() => selectService(service.id)}
+                onClick={() => selectService(service.slug)}
                 aria-pressed={isSelected}
                 className={cn(
                   'text-start p-5 border rounded-sm transition-all duration-200 flex flex-col justify-between',

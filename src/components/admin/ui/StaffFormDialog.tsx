@@ -111,7 +111,7 @@ export function StaffFormDialog({ open, onClose, t, dir, staff }: StaffFormDialo
           </h3>
           <button 
             onClick={onClose}
-            className="text-muted-foreground hover:text-foreground transition-colors"
+            className="p-2 rounded-lg text-foreground hover:bg-surface-muted transition-colors"
             aria-label="Close"
           >
             ✕

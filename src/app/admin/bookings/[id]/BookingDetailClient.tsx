@@ -8,6 +8,7 @@ import { AdminBadge } from '@/components/admin/ui/AdminBadge'
 import { ConfirmDialog } from '@/components/admin/ui/ConfirmDialog'
 import { useAdmin } from '@/components/admin/shell/AdminShell'
 import { AdminDocumentLink } from '@/components/admin/ui/AdminDocumentLink'
+import { formatAppointmentTime } from '@/lib/utils/format'
 import {
   ArrowLeft,
   User,
@@ -273,7 +274,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
               {[
                 [lang === 'ar' && svc ? svc.name_ar : svc?.name_en ?? '—', t.bookings.service],
                 [booking.date, t.bookings.date],
-                [`${booking.start_time.slice(0, 5)} → ${booking.end_time.slice(0, 5)}`, t.bookings.time],
+                [`${formatAppointmentTime(booking.start_time.slice(0, 5), lang)} → ${formatAppointmentTime(booking.end_time.slice(0, 5), lang)}`, t.bookings.time],
                 [
                   booking.locations
                     ? lang === 'ar'
@@ -613,7 +614,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                             : 'bg-surface text-foreground border-border hover:border-accent hover:bg-surface-muted'
                         }`}
                       >
-                        {slot.startTime}
+                        {formatAppointmentTime(slot.startTime, lang)}
                       </button>
                     ))}
                   </div>

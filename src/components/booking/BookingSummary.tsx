@@ -1,6 +1,7 @@
 'use client'
 
 import { cn } from '@/lib/utils/cn'
+import { formatAppointmentTime } from '@/lib/utils/format'
 import type { BookingDraft } from '@/data/booking.types'
 import { packages } from '@/data/content.data'
 import type { Service } from '@/data/types'
@@ -104,7 +105,7 @@ export function BookingSummary({ draft, isAr, className, services }: BookingSumm
           {startTime && (
             <div className="flex justify-between gap-3 text-sm">
               <dt className="text-muted-foreground shrink-0">{label('time')}</dt>
-              <dd className="text-foreground font-mono font-medium text-end">{startTime}{endTime && ` — ${endTime}`}</dd>
+              <dd className="text-foreground font-mono font-medium text-end">{formatAppointmentTime(startTime, isAr ? 'ar' : 'en')}{endTime && ` — ${formatAppointmentTime(endTime, isAr ? 'ar' : 'en')}`}</dd>
             </div>
           )}
 

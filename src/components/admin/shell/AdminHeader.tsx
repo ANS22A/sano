@@ -28,10 +28,9 @@ export function AdminHeader({ profile, onMenuClick }: Props) {
 
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center border-b border-border bg-surface/80 backdrop-blur-md px-4 sm:px-6 gap-4 shadow-subtle">
-      {/* Mobile menu button */}
       <button
         onClick={onMenuClick}
-        className="lg:hidden p-2 rounded-lg text-muted-foreground hover:bg-surface-muted hover:text-foreground transition-colors"
+        className="lg:hidden p-2 rounded-lg text-foreground hover:bg-surface-muted transition-colors"
         aria-label="Open navigation menu"
       >
         <Menu className="w-5 h-5" />

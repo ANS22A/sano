@@ -4,6 +4,7 @@ import { useState, useEffect, useTransition } from 'react'
 import { cn } from '@/lib/utils/cn'
 import { BookingCalendar } from '@/components/booking/calendar/BookingCalendar'
 import { getBookingSlots } from '@/app/actions/booking.actions'
+import { formatAppointmentTime } from '@/lib/utils/format'
 import type { BookingDraft, AvailableSlot } from '@/data/booking.types'
 
 interface DateTimeStepProps {
@@ -129,7 +130,7 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
                       !slot.available && 'border-border-subtle bg-surface-muted text-muted-foreground/30 opacity-40 cursor-not-allowed line-through'
                     )}
                   >
-                    {slot.startTime}
+                    {formatAppointmentTime(slot.startTime, isAr ? 'ar' : 'en')}
                   </button>
                 )
               })}

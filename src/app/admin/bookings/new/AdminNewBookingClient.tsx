@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState, useTransition, useCallback, useEffect, useMemo } from 'react'
 import { useAdmin } from '@/components/admin/shell/AdminShell'
@@ -17,6 +17,7 @@ import {
   Plus, MessageCircle,
 } from 'lucide-react'
 import Link from 'next/link'
+import { formatAppointmentTime } from '@/lib/utils/format'
 
 // â”€â”€â”€ Translations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
@@ -674,7 +675,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                           : 'bg-surface text-foreground border-border hover:border-border-strong'
                       }`}
                     >
-                      {s.startTime}
+                      {formatAppointmentTime(s.startTime, lang)}
                     </button>
                   ))}
                 </div>

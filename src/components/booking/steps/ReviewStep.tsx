@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react'
 import { cn } from '@/lib/utils/cn'
 import { createBooking } from '@/app/actions/booking.actions'
+import { formatAppointmentTime } from '@/lib/utils/format'
 import type { BookingDraft, BookingResult } from '@/data/booking.types'
 import { packages } from '@/data/content.data'
 import { activeLocations } from '@/data/locations.data'
@@ -131,7 +132,7 @@ export function ReviewStep({ draft, onBack, onConfirmed, isAr, onGoToStep, servi
           onGoToStep={onGoToStep} editLabel={t.edit}
           label={t.dateTime}
           value={draft.date && draft.startTime
-            ? `${formatDate(draft.date, isAr)}, ${draft.startTime}`
+            ? `${formatDate(draft.date, isAr)}, ${formatAppointmentTime(draft.startTime, isAr ? 'ar' : 'en')}`
             : '—'}
           step={2}
         />

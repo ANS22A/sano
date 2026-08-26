@@ -43,21 +43,37 @@ export function formatDate(
 }
 
 /**
- * Format a time string (HH:MM) for display, respecting locale.
+ * Format an internal 24-hour time string (HH:MM) into a customer-facing 12-hour format.
+ * Guarantees western numerals and predictable AM/PM indicators.
  */
-export function formatTime(
-  timeString: string,
+export function formatAppointmentTime(
+  timeString: string | null | undefined,
   locale: Locale = 'ar'
 ): string {
-  const localeCode = locale === 'ar' ? 'ar-SA' : 'en-US'
-  const [hours, minutes] = timeString.split(':').map(Number)
-  const date = new Date()
-  date.setHours(hours, minutes, 0, 0)
-  return new Intl.DateTimeFormat(localeCode, {
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true,
-  }).format(date)
+  if (!timeString) return ''
+  
+  // Extract hours and minutes from HH:MM
+  const [hStr, mStr] = timeString.split(':')
+  if (!hStr || !mStr) return timeString
+
+  let h = parseInt(hStr, 10)
+  const isPm = h >= 12
+  
+  // Convert 0 and 13-23 to 12-hour format
+  if (h === 0) h = 12
+  else if (h > 12) h -= 12
+  
+  const isAr = locale === 'ar'
+  
+  // Arabic pads the hour (e.g. 04:00), English does not (e.g. 4:00)
+  const hh = isAr ? String(h).padStart(2, '0') : String(h)
+  const mm = mStr.substring(0, 2)
+  
+  if (isAr) {
+    // Prefix with LRM (\u200E) to force correct LTR rendering of the time within RTL layouts
+    return `\u200E${hh}:${mm} ${isPm ? 'م' : 'ص'}`
+  }
+  return `${hh}:${mm} ${isPm ? 'PM' : 'AM'}`
 }
 
 /**

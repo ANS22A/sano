@@ -140,8 +140,16 @@ export async function getAvailableSlots(params: GetAvailableSlotsParams): Promis
   // 2. Get the day of week (0=Sun)
   const dayOfWeek = new Date(date + 'T00:00:00').getDay() as 0 | 1 | 2 | 3 | 4 | 5 | 6
 
-  // 3. Get business hours for this location/day
-  const hours = getHoursForDay(locationId, dayOfWeek)
+  // 3. Get business hours for this location/day from the database
+  const { createClient } = await import('@/lib/supabase/server')
+  const supabase = await createClient()
+  const { data: hours } = await supabase
+    .from('business_hours')
+    .select('open_time, close_time, is_closed')
+    .eq('location_id', locationId)
+    .eq('day_of_week', dayOfWeek)
+    .single()
+
   if (!hours || hours.is_closed || !hours.open_time || !hours.close_time) {
     return []
   }

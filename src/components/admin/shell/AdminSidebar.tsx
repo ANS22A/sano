@@ -93,7 +93,7 @@ export function AdminSidebar({ role, mobileOpen, onClose }: Props) {
           <LogoMark />
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+            className="p-1.5 rounded-lg text-white/90 hover:text-white hover:bg-white/10 transition-colors"
             aria-label="Close menu"
           >
             <X className="w-5 h-5" />
@@ -113,7 +113,7 @@ function LogoMark() {
       </div>
       <div>
         <p className="text-white text-sm font-semibold tracking-wide">SANO LUNA</p>
-        <p className="text-white/40 text-xs">Administration</p>
+        <p className="text-white/70 text-xs">Administration</p>
       </div>
     </div>
   )
@@ -147,7 +147,7 @@ function SidebarContent({
 
           return (
             <div key={group.label} className="space-y-1">
-              <h3 className="px-3 text-[10px] font-heading font-bold uppercase tracking-wider text-white/40 mb-2 text-start">
+              <h3 className="px-3 text-[10px] font-heading font-bold uppercase tracking-wider text-white/70 mb-2 text-start">
                 {group.label}
               </h3>
               {groupVisibleItems.map((item) => {
@@ -165,7 +165,7 @@ function SidebarContent({
                       'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-sans font-medium transition-all duration-200',
                       active
                         ? 'bg-accent/20 text-accent font-semibold border-s-2 border-s-accent shadow-sm'
-                        : 'text-white/70 hover:text-white hover:bg-white/10 hover:translate-x-1 rtl:hover:-translate-x-1'
+                        : 'text-white/90 hover:text-white hover:bg-white/10 hover:translate-x-1 rtl:hover:-translate-x-1'
                     )}
                     aria-current={active ? 'page' : undefined}
                   >
@@ -181,7 +181,7 @@ function SidebarContent({
 
       {/* Footer */}
       <div className="p-3 border-t border-white/10">
-        <p className="text-xs text-white/25 text-center">SANO LUNA © 2026</p>
+        <p className="text-xs text-white/60 text-center">SANO LUNA © 2026</p>
       </div>
     </div>
   )
