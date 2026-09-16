@@ -60,15 +60,20 @@ export async function createAdminPackage(formData: FormData) {
   const slug = formData.get('slug') as string
   const nameEn = formData.get('name_en') as string
   const nameAr = formData.get('name_ar') as string
+  const taglineEn = (formData.get('tagline_en') as string) || null
+  const taglineAr = (formData.get('tagline_ar') as string) || null
   const descriptionEn = formData.get('description_en') as string
   const descriptionAr = formData.get('description_ar') as string
   const priceSar = Number(formData.get('price_sar'))
   const totalDurationMinutes = Number(formData.get('total_duration_minutes'))
+  const maxGuests = Number(formData.get('max_guests')) || 1
+  const sortOrder = Number(formData.get('sort_order')) || 0
   const isActive = formData.get('is_active') === 'true'
   const imageUrl = formData.get('image_url') as string
   const servicesJson = formData.get('services') as string // array of { service_id, sequence_order }
 
-  const { data, error } = await supabase.from('packages').insert({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const insertData: Record<string, any> = {
     slug,
     name_en: nameEn,
     name_ar: nameAr,
@@ -77,8 +82,15 @@ export async function createAdminPackage(formData: FormData) {
     price_sar: priceSar,
     total_duration_minutes: totalDurationMinutes,
     is_active: isActive,
-    image_url: imageUrl || null
-  }).select('id').single()
+    sort_order: sortOrder,
+    image_url: imageUrl || null,
+  }
+  // New columns — included only when migration has been applied
+  if (taglineEn !== null) insertData.tagline_en = taglineEn
+  if (taglineAr !== null) insertData.tagline_ar = taglineAr
+  if (maxGuests > 0) insertData.max_guests = maxGuests
+
+  const { data, error } = await supabase.from('packages').insert(insertData as any).select('id').single()
 
   if (error) {
     if (error.code === '23505') {
@@ -126,15 +138,20 @@ export async function updateAdminPackage(id: string, formData: FormData) {
   const slug = formData.get('slug') as string
   const nameEn = formData.get('name_en') as string
   const nameAr = formData.get('name_ar') as string
+  const taglineEn = (formData.get('tagline_en') as string) || null
+  const taglineAr = (formData.get('tagline_ar') as string) || null
   const descriptionEn = formData.get('description_en') as string
   const descriptionAr = formData.get('description_ar') as string
   const priceSar = Number(formData.get('price_sar'))
   const totalDurationMinutes = Number(formData.get('total_duration_minutes'))
+  const maxGuests = Number(formData.get('max_guests')) || 1
+  const sortOrder = Number(formData.get('sort_order')) || 0
   const isActive = formData.get('is_active') === 'true'
   const imageUrl = formData.get('image_url') as string
   const servicesJson = formData.get('services') as string
 
-  const { error } = await supabase.from('packages').update({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const updateData: Record<string, any> = {
     slug,
     name_en: nameEn,
     name_ar: nameAr,
@@ -143,8 +160,15 @@ export async function updateAdminPackage(id: string, formData: FormData) {
     price_sar: priceSar,
     total_duration_minutes: totalDurationMinutes,
     is_active: isActive,
-    image_url: imageUrl || null
-  }).eq('id', id)
+    sort_order: sortOrder,
+    image_url: imageUrl || null,
+  }
+  // New columns — included only when migration has been applied
+  if (taglineEn !== null) updateData.tagline_en = taglineEn
+  if (taglineAr !== null) updateData.tagline_ar = taglineAr
+  if (maxGuests > 0) updateData.max_guests = maxGuests
+
+  const { error } = await supabase.from('packages').update(updateData as any).eq('id', id)
 
   if (error) {
     if (error.code === '23505') {

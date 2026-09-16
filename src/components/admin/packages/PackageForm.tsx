@@ -12,6 +12,7 @@ interface ServiceOption {
   id: string
   name_en: string
   name_ar: string
+  is_active?: boolean
 }
 
 export interface PackageData {
@@ -19,11 +20,15 @@ export interface PackageData {
   slug: string
   name_en: string
   name_ar: string
+  tagline_en?: string | null
+  tagline_ar?: string | null
   description_en: string
   description_ar: string
   price_sar: number
   total_duration_minutes: number
+  max_guests?: number
   is_active: boolean
+  sort_order?: number
   image_url: string | null
   package_services?: { service_id: string; sequence_order: number }[]
 }
@@ -32,6 +37,9 @@ interface Props {
   initialData?: PackageData
   availableServices: ServiceOption[]
 }
+
+const inputClasses = 'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
+const textareaClasses = 'flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
 
 export function PackageForm({ initialData, availableServices }: Props) {
   const { lang, t } = useAdmin()
@@ -116,8 +124,9 @@ export function PackageForm({ initialData, availableServices }: Props) {
 
         <div className="grid gap-6 md:grid-cols-3">
           <div className="md:col-span-2 space-y-6">
+            {/* Package Details */}
             <div className="bg-card rounded-xl border shadow-sm p-6 space-y-6">
-              <h2 className="text-lg font-semibold">{t.common.all}</h2>
+              <h2 className="text-lg font-semibold">{isAr ? 'بيانات الباقة' : 'Package Details'}</h2>
               <div className="grid gap-6 md:grid-cols-2">
                 <div className="space-y-2">
                   <label htmlFor="name_en" className="text-sm font-medium">
@@ -128,7 +137,7 @@ export function PackageForm({ initialData, availableServices }: Props) {
                     name="name_en"
                     required
                     defaultValue={initialData?.name_en}
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    className={inputClasses}
                   />
                 </div>
 
@@ -142,7 +151,34 @@ export function PackageForm({ initialData, availableServices }: Props) {
                     required
                     dir="rtl"
                     defaultValue={initialData?.name_ar}
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    className={inputClasses}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="tagline_en" className="text-sm font-medium">
+                    {t.packages.taglineEn}
+                  </label>
+                  <input
+                    id="tagline_en"
+                    name="tagline_en"
+                    defaultValue={initialData?.tagline_en ?? ''}
+                    placeholder={isAr ? '' : 'e.g. For you and someone you love'}
+                    className={inputClasses}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="tagline_ar" className="text-sm font-medium">
+                    {t.packages.taglineAr}
+                  </label>
+                  <input
+                    id="tagline_ar"
+                    name="tagline_ar"
+                    dir="rtl"
+                    defaultValue={initialData?.tagline_ar ?? ''}
+                    placeholder={isAr ? 'مثال: لكِ ولمن تحبين' : ''}
+                    className={inputClasses}
                   />
                 </div>
 
@@ -155,7 +191,7 @@ export function PackageForm({ initialData, availableServices }: Props) {
                     name="slug"
                     required
                     defaultValue={initialData?.slug}
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    className={inputClasses}
                   />
                 </div>
 
@@ -168,7 +204,7 @@ export function PackageForm({ initialData, availableServices }: Props) {
                     name="description_en"
                     rows={3}
                     defaultValue={initialData?.description_en}
-                    className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    className={textareaClasses}
                   />
                 </div>
 
@@ -182,7 +218,7 @@ export function PackageForm({ initialData, availableServices }: Props) {
                     rows={3}
                     dir="rtl"
                     defaultValue={initialData?.description_ar}
-                    className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    className={textareaClasses}
                   />
                 </div>
               </div>
@@ -191,14 +227,14 @@ export function PackageForm({ initialData, availableServices }: Props) {
             {/* Included Services */}
             <div className="bg-card rounded-xl border shadow-sm p-6 space-y-4">
               <div className="flex items-center justify-between">
-                <h2 className="text-lg font-semibold">{t.services.title}</h2>
+                <h2 className="text-lg font-semibold">{t.packages.includedServices}</h2>
                 <button
                   type="button"
                   onClick={addService}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-secondary text-secondary-foreground rounded-lg text-xs font-medium hover:bg-secondary/80"
                 >
                   <Plus className="w-4 h-4" />
-                  Add
+                  {t.packages.addService}
                 </button>
               </div>
 
@@ -222,6 +258,7 @@ export function PackageForm({ initialData, availableServices }: Props) {
                           {availableServices.map(srv => (
                             <option key={srv.id} value={srv.id}>
                               {isAr ? srv.name_ar : srv.name_en}
+                              {srv.is_active === false ? ` (${isAr ? 'غير مفعّلة' : 'Inactive'})` : ''}
                             </option>
                           ))}
                         </select>
@@ -242,7 +279,7 @@ export function PackageForm({ initialData, availableServices }: Props) {
 
           <div className="space-y-6">
             <div className="bg-card rounded-xl border shadow-sm p-6 space-y-6">
-              <h2 className="text-lg font-semibold">{t.common.filters}</h2>
+              <h2 className="text-lg font-semibold">{isAr ? 'إعدادات الباقة' : 'Package Settings'}</h2>
               
               <div className="space-y-2">
                 <label htmlFor="price_sar" className="text-sm font-medium">
@@ -256,7 +293,7 @@ export function PackageForm({ initialData, availableServices }: Props) {
                   min="0"
                   required
                   defaultValue={initialData?.price_sar}
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  className={inputClasses}
                 />
               </div>
 
@@ -271,7 +308,35 @@ export function PackageForm({ initialData, availableServices }: Props) {
                   min="1"
                   required
                   defaultValue={initialData?.total_duration_minutes}
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  className={inputClasses}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="max_guests" className="text-sm font-medium">
+                  {t.packages.maxGuests}
+                </label>
+                <input
+                  id="max_guests"
+                  name="max_guests"
+                  type="number"
+                  min="1"
+                  defaultValue={initialData?.max_guests ?? 1}
+                  className={inputClasses}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="sort_order" className="text-sm font-medium">
+                  {t.packages.sortOrder}
+                </label>
+                <input
+                  id="sort_order"
+                  name="sort_order"
+                  type="number"
+                  min="0"
+                  defaultValue={initialData?.sort_order ?? 0}
+                  className={inputClasses}
                 />
               </div>
 
