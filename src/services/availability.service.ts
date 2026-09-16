@@ -18,7 +18,7 @@ import 'server-only'
 import type { AvailableSlot } from '@/data/booking.types'
 import { SLOT_INTERVAL_MINUTES } from '@/data/booking.types'
 import { getHoursForDay, activeLocations } from '@/data/locations.data'
-import { getServiceBySlug } from '@/services/catalog.service'
+// import { getServiceBySlug } from '@/services/catalog.service' // Removed to avoid circular/active filtering dependency
 import { packages } from '@/data/content.data'
 
 // ─────────────────────────────────────────────
@@ -48,13 +48,16 @@ function toTimeString(minutes: number): string {
  * The server reads duration from data — client value is never trusted.
  */
 export async function resolveServiceDuration(serviceId?: string | null, packageSlug?: string | null): Promise<number | null> {
+  const { createClient } = await import('@/lib/supabase/server')
+  const supabase = await createClient()
+
   if (serviceId) {
-    const service = await getServiceBySlug(serviceId)
-    return service?.duration_minutes ?? null
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(serviceId)
+    const query = supabase.from('services').select('duration_minutes')
+    const { data: dbSrv } = await (isUuid ? query.eq('id', serviceId) : query.eq('slug', serviceId)).single()
+    return dbSrv?.duration_minutes ?? null
   }
   if (packageSlug) {
-    const { createClient } = await import('@/lib/supabase/server')
-    const supabase = await createClient()
     const { data: dbPkg } = await supabase.from('packages').select('total_duration_minutes').eq('slug', packageSlug).single()
     if (dbPkg) return dbPkg.total_duration_minutes
     const pkg = packages.find((p) => p.slug === packageSlug)
@@ -68,13 +71,16 @@ export async function resolveServiceDuration(serviceId?: string | null, packageS
 // ─────────────────────────────────────────────
 
 export async function resolveServicePrice(serviceId?: string | null, packageSlug?: string | null): Promise<number | null> {
+  const { createClient } = await import('@/lib/supabase/server')
+  const supabase = await createClient()
+
   if (serviceId) {
-    const service = await getServiceBySlug(serviceId)
-    return service ? Number(service.price_sar) : null
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(serviceId)
+    const query = supabase.from('services').select('price_sar')
+    const { data: dbSrv } = await (isUuid ? query.eq('id', serviceId) : query.eq('slug', serviceId)).single()
+    return dbSrv ? Number(dbSrv.price_sar) : null
   }
   if (packageSlug) {
-    const { createClient } = await import('@/lib/supabase/server')
-    const supabase = await createClient()
     const { data: dbPkg } = await supabase.from('packages').select('price_sar').eq('slug', packageSlug).single()
     if (dbPkg) return Number(dbPkg.price_sar)
     const pkg = packages.find((p) => p.slug === packageSlug)
@@ -91,15 +97,18 @@ export async function resolveServiceName(
   serviceId?: string | null,
   packageSlug?: string | null
 ): Promise<{ name_ar: string; name_en: string }> {
+  const { createClient } = await import('@/lib/supabase/server')
+  const supabase = await createClient()
+
   if (serviceId) {
-    const service = await getServiceBySlug(serviceId)
-    return service
-      ? { name_ar: service.name_ar, name_en: service.name_en }
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(serviceId)
+    const query = supabase.from('services').select('name_ar, name_en')
+    const { data: dbSrv } = await (isUuid ? query.eq('id', serviceId) : query.eq('slug', serviceId)).single()
+    return dbSrv
+      ? { name_ar: dbSrv.name_ar, name_en: dbSrv.name_en }
       : { name_ar: '', name_en: '' }
   }
   if (packageSlug) {
-    const { createClient } = await import('@/lib/supabase/server')
-    const supabase = await createClient()
     const { data: dbPkg } = await supabase.from('packages').select('name_ar, name_en').eq('slug', packageSlug).single()
     if (dbPkg) return { name_ar: dbPkg.name_ar, name_en: dbPkg.name_en }
     const pkg = packages.find((p) => p.slug === packageSlug)
@@ -108,6 +117,29 @@ export async function resolveServiceName(
       : { name_ar: '', name_en: '' }
   }
   return { name_ar: '', name_en: '' }
+}
+
+// ─────────────────────────────────────────────
+// IS_ACTIVE VALIDATION
+// ─────────────────────────────────────────────
+
+export async function checkIsActive(serviceId?: string | null, packageSlug?: string | null): Promise<boolean> {
+  const { createClient } = await import('@/lib/supabase/server')
+  const supabase = await createClient()
+
+  if (serviceId) {
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(serviceId)
+    const query = supabase.from('services').select('is_active')
+    const { data: dbSrv } = await (isUuid ? query.eq('id', serviceId) : query.eq('slug', serviceId)).single()
+    return dbSrv?.is_active ?? false
+  }
+  if (packageSlug) {
+    const { data: dbPkg } = await supabase.from('packages').select('is_active').eq('slug', packageSlug).single()
+    if (dbPkg) return dbPkg.is_active
+    const pkg = packages.find((p) => p.slug === packageSlug)
+    return pkg?.is_active ?? false
+  }
+  return false
 }
 
 // ─────────────────────────────────────────────

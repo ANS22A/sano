@@ -88,6 +88,7 @@ export async function getServiceBySlug(slug: string): Promise<ServiceWithCategor
     .from('services')
     .select('*, service_categories(id, slug, name_ar, name_en)')
     .eq('slug', slug)
+    .eq('is_active', true)
     .single()
 
   if (!data) return null
@@ -116,6 +117,7 @@ export async function getServicesByCategory(categorySlug: string): Promise<Servi
     .from('services')
     .select('*')
     .eq('category_id', category.id)
+    .eq('is_active', true)
     .order('sort_order', { ascending: true })
 
   return (data ?? []) as unknown as Service[]
@@ -131,6 +133,7 @@ export async function getFeaturedServices(): Promise<ServiceWithCategory[]> {
     .from('services')
     .select('*, service_categories(id, slug, name_ar, name_en)')
     .eq('is_featured', true)
+    .eq('is_active', true)
     .order('sort_order', { ascending: true })
 
   if (!data) return []
@@ -146,6 +149,7 @@ export async function getPopularServices(): Promise<ServiceWithCategory[]> {
     .from('services')
     .select('*, service_categories(id, slug, name_ar, name_en)')
     .eq('is_popular', true)
+    .eq('is_active', true)
     .order('sort_order', { ascending: true })
 
   if (!data) return []
@@ -174,6 +178,7 @@ export async function getRelatedServices(
     .from('services')
     .select('*')
     .eq('category_id', current.category_id)
+    .eq('is_active', true)
     .neq('id', serviceId)
     .limit(limit)
   
@@ -184,6 +189,7 @@ export async function getRelatedServices(
     const { data: others } = await supabase
       .from('services')
       .select('*')
+      .eq('is_active', true)
       .neq('category_id', current.category_id)
       .limit(limit - results.length)
     
@@ -211,7 +217,7 @@ export async function getAllServiceSlugs(): Promise<string[]> {
 
 export async function getServiceCountByCategory(): Promise<Record<string, number>> {
   const supabase = await createClient()
-  const { data } = await supabase.from('services').select('category_id')
+  const { data } = await supabase.from('services').select('category_id').eq('is_active', true)
   
   const counts: Record<string, number> = {}
   if (data) {

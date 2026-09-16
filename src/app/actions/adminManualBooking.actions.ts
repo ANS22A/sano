@@ -17,6 +17,7 @@ import {
   resolveServiceName,
   getAvailableSlots,
   getAutoLocationId,
+  checkIsActive,
 } from '@/services/availability.service'
 import { getLocationById } from '@/data/locations.data'
 import { sendBookingCreated } from '@/lib/notifications/email.service'
@@ -108,6 +109,15 @@ export async function createAdminBooking(input: AdminBookingInput): Promise<Admi
   if (!locationId) return { success: false, error: 'No active location found.' }
   const location = getLocationById(locationId)
   if (!location) return { success: false, error: 'Location not found.' }
+
+  // Server-side check for active service/package
+  const isActive = await checkIsActive(data.serviceId, data.packageSlug)
+  if (!isActive) {
+    return {
+      success: false,
+      error: 'The selected service or package is currently inactive.',
+    }
+  }
 
   // 4. Server-side price + duration (never trust client)
   const priceSar = await resolveServicePrice(data.serviceId, data.packageSlug)

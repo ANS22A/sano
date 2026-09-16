@@ -4,11 +4,11 @@ import { requireRole, writeAuditLog } from '@/lib/admin/auth'
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 
-export async function getAdminPackages() {
+export async function getAdminPackages(params?: { active?: string }) {
   await requireRole('admin')
   const supabase = await createClient()
 
-  const { data, error } = await supabase
+  let query = supabase
     .from('packages')
     .select(`
       *,
@@ -19,6 +19,14 @@ export async function getAdminPackages() {
       )
     `)
     .order('sort_order', { ascending: true })
+
+  if (params?.active === 'true') {
+    query = query.eq('is_active', true)
+  } else if (params?.active === 'false') {
+    query = query.eq('is_active', false)
+  }
+
+  const { data, error } = await query
 
   if (error) throw new Error('Failed to fetch packages')
   return data

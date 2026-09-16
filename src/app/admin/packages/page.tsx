@@ -9,12 +9,17 @@ import { adminT, type AdminLang } from '@/lib/admin/translations'
 
 export const metadata: Metadata = { title: 'Packages' }
 
-export default async function AdminPackagesPage() {
+export default async function AdminPackagesPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string>>
+}) {
+  const sp = await searchParams
   const cookieStore = await cookies()
   const lang = (cookieStore.get('admin_lang')?.value ?? 'en') as AdminLang
   const t = adminT[lang]
 
-  const packages = await getAdminPackages()
+  const packages = await getAdminPackages({ active: sp.active })
 
   return (
     <div className="space-y-4">
@@ -27,6 +32,18 @@ export default async function AdminPackagesPage() {
           <Plus className="w-4 h-4" />
           {t.packages.new}
         </Link>
+      </div>
+
+      <div className="flex gap-3">
+        {['all', 'true', 'false'].map((a) => (
+          <Link key={a} href={`/admin/packages?active=${a}`}
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors capitalize ${
+              (sp.active ?? 'all') === a ? 'bg-primary text-white border-primary' : 'bg-surface text-muted-foreground border-border hover:bg-surface-muted'
+            }`}
+          >
+            {a === 'all' ? t.common.all : a === 'true' ? t.common.active : t.common.inactive}
+          </Link>
+        ))}
       </div>
 
       <div className="bg-surface rounded-2xl shadow-sm border border-border overflow-hidden">

@@ -20,7 +20,7 @@ export async function generateMetadata({
   
   const { createClient } = await import('@/lib/supabase/server')
   const supabase = await createClient()
-  const { data: dbPkg } = await supabase.from('packages').select('name_ar, name_en, description_ar, description_en').eq('slug', slug).single()
+  const { data: dbPkg } = await supabase.from('packages').select('name_ar, name_en, description_ar, description_en').eq('slug', slug).eq('is_active', true).single()
   
   const pkg = dbPkg || packages.find((p) => p.slug === slug)
   if (!pkg) return {}
@@ -40,7 +40,7 @@ export default async function PackageDetailPage({
   
   const { createClient } = await import('@/lib/supabase/server')
   const supabase = await createClient()
-  const { data: dbPkg } = await supabase.from('packages').select('*, package_services(services(name_en, name_ar))').eq('slug', slug).single()
+  const { data: dbPkg } = await supabase.from('packages').select('*, package_services(services(name_en, name_ar))').eq('slug', slug).eq('is_active', true).single()
   
   const pkg = dbPkg || packages.find((p) => p.slug === slug && p.is_active)
   if (!pkg) notFound()

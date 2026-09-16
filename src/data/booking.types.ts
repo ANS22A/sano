@@ -114,6 +114,7 @@ export interface BookingError {
   success: false
   code:
     | 'SERVICE_NOT_FOUND'
+    | 'SERVICE_INACTIVE'
     | 'LOCATION_NOT_FOUND'
     | 'SLOT_UNAVAILABLE'
     | 'DOUBLE_BOOKING'

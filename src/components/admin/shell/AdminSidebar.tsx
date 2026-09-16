@@ -30,6 +30,7 @@ const NAV_GROUPS = [
     label: 'Management',
     items: [
       { key: 'services', href: '/admin/services', icon: Package2 },
+      { key: 'packages', href: '/admin/packages', icon: Package2 },
       { key: 'giftCards', href: '/admin/gift-cards', icon: Gift },
       { key: 'customers', href: '/admin/customers', icon: Users },
       { key: 'staff', href: '/admin/staff', icon: UserCheck },

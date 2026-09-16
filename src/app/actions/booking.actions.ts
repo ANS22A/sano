@@ -24,6 +24,7 @@ import {
   resolveServiceName,
   getAvailableSlots,
   getAutoLocationId,
+  checkIsActive,
 } from '@/services/availability.service'
 import { activeLocations, getLocationById } from '@/data/locations.data'
 import type { BookingDraft, BookingResponse } from '@/data/booking.types'
@@ -127,6 +128,17 @@ export async function createBooking(draft: BookingDraft): Promise<BookingRespons
       code: 'LOCATION_NOT_FOUND',
       message: 'Location not found.',
       messageAr: 'الموقع غير موجود.',
+    }
+  }
+
+  // 2b. Server-side check for active service/package
+  const isActive = await checkIsActive(data.serviceId, data.packageSlug)
+  if (!isActive) {
+    return {
+      success: false,
+      code: 'SERVICE_INACTIVE',
+      message: 'The selected service or package is currently unavailable.',
+      messageAr: 'الخدمة أو الباقة المحددة غير متاحة حالياً.',
     }
   }
 
