@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { BookingShell } from '@/components/booking/BookingShell'
 import { getAllServices } from '@/services/catalog.service'
+import { getActivePackages } from '@/services/catalog.service'
 
 export async function generateMetadata({
   params,
@@ -28,8 +29,11 @@ export default async function BookingPage({ params, searchParams }: BookingPageP
   const { service, package: packageSlug } = await searchParams
   const isAr = locale === 'ar'
 
-  // Fetch all active services on the server
-  const services = await getAllServices()
+  // Fetch all active services and packages on the server
+  const [services, packages] = await Promise.all([
+    getAllServices(),
+    getActivePackages(),
+  ])
 
   return (
     <main className="min-h-screen bg-background" dir={isAr ? 'rtl' : 'ltr'}>
@@ -67,6 +71,7 @@ export default async function BookingPage({ params, searchParams }: BookingPageP
           initialServiceSlug={service ?? null}
           initialPackageSlug={packageSlug ?? null}
           services={services}
+          packages={packages}
         />
       </section>
     </main>

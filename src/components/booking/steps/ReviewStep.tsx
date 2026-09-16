@@ -5,9 +5,9 @@ import { cn } from '@/lib/utils/cn'
 import { createBooking } from '@/app/actions/booking.actions'
 import { formatAppointmentTime } from '@/lib/utils/format'
 import type { BookingDraft, BookingResult } from '@/data/booking.types'
-import { packages } from '@/data/content.data'
 import { activeLocations } from '@/data/locations.data'
 import type { Service } from '@/data/types'
+import type { BookingPackage } from '@/services/catalog.service'
 
 // ─────────────────────────────────────────────
 // Row component — declared OUTSIDE ReviewStep
@@ -55,6 +55,7 @@ interface ReviewStepProps {
   isAr: boolean
   onGoToStep: (step: 1 | 2 | 3) => void
   services: Service[]
+  packages: BookingPackage[]
 }
 
 function formatDate(dateStr: string, isAr: boolean): string {
@@ -66,7 +67,7 @@ function formatDate(dateStr: string, isAr: boolean): string {
   } catch { return dateStr }
 }
 
-export function ReviewStep({ draft, onBack, onConfirmed, isAr, onGoToStep, services }: ReviewStepProps) {
+export function ReviewStep({ draft, onBack, onConfirmed, isAr, onGoToStep, services, packages }: ReviewStepProps) {
   const [errorMsg, setErrorMsg] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
 

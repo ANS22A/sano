@@ -3,14 +3,15 @@
 import { cn } from '@/lib/utils/cn'
 import { formatAppointmentTime } from '@/lib/utils/format'
 import type { BookingDraft } from '@/data/booking.types'
-import { packages } from '@/data/content.data'
 import type { Service } from '@/data/types'
+import type { BookingPackage } from '@/services/catalog.service'
 
 interface BookingSummaryProps {
   draft: BookingDraft
   isAr: boolean
   className?: string
   services: Service[]
+  packages: BookingPackage[]
 }
 
 function formatDate(dateStr: string, isAr: boolean): string {
@@ -26,7 +27,7 @@ function formatDate(dateStr: string, isAr: boolean): string {
   }
 }
 
-export function BookingSummary({ draft, isAr, className, services }: BookingSummaryProps) {
+export function BookingSummary({ draft, isAr, className, services, packages }: BookingSummaryProps) {
   const { serviceId, packageSlug, date, startTime, endTime, durationMinutes, priceSar } = draft
 
   // Resolve names

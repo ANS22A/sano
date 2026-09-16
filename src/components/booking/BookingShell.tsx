@@ -14,6 +14,7 @@ import { BOOKING_DRAFT_INITIAL } from '@/data/booking.types'
 import { activeLocations } from '@/data/locations.data'
 import type { BookingDraft, BookingResult } from '@/data/booking.types'
 import type { Service } from '@/data/types'
+import type { BookingPackage } from '@/services/catalog.service'
 
 // ─────────────────────────────────────────────
 // State reducer
@@ -60,13 +61,15 @@ interface BookingShellProps {
   initialPackageSlug?: string | null
   /** Array of all active services from the DB */
   services: Service[]
+  /** Array of all active packages from the DB */
+  packages: BookingPackage[]
 }
 
 // ─────────────────────────────────────────────
 // Component
 // ─────────────────────────────────────────────
 
-export function BookingShell({ initialServiceSlug, initialPackageSlug, services }: BookingShellProps) {
+export function BookingShell({ initialServiceSlug, initialPackageSlug, services, packages }: BookingShellProps) {
   const locale = useLocale()
   const isAr = locale === 'ar'
 
@@ -121,6 +124,7 @@ export function BookingShell({ initialServiceSlug, initialPackageSlug, services 
               onContinue={nextStep}
               isAr={isAr}
               services={services}
+              packages={packages}
             />
           )}
           {draft.currentStep === 2 && (
@@ -149,6 +153,7 @@ export function BookingShell({ initialServiceSlug, initialPackageSlug, services 
               onGoToStep={(step: 1 | 2 | 3) => goToStep(step)}
               isAr={isAr}
               services={services}
+              packages={packages}
             />
           )}
         </div>
@@ -158,7 +163,7 @@ export function BookingShell({ initialServiceSlug, initialPackageSlug, services 
           'lg:sticky lg:top-28',
           isAr ? 'lg:order-1' : 'lg:order-2'
         )}>
-          <BookingSummary draft={draft} isAr={isAr} services={services} />
+          <BookingSummary draft={draft} isAr={isAr} services={services} packages={packages} />
         </div>
       </div>
     </div>

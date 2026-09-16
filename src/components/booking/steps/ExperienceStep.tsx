@@ -2,9 +2,9 @@
 
 import { useState } from 'react'
 import { cn } from '@/lib/utils/cn'
-import { packages } from '@/data/content.data'
 import type { BookingDraft } from '@/data/booking.types'
 import type { Service } from '@/data/types'
+import type { BookingPackage } from '@/services/catalog.service'
 
 interface ExperienceStepProps {
   draft: BookingDraft
@@ -12,11 +12,12 @@ interface ExperienceStepProps {
   onContinue: () => void
   isAr: boolean
   services: Service[]
+  packages: BookingPackage[]
 }
 
 type Tab = 'services' | 'packages'
 
-export function ExperienceStep({ draft, onUpdate, onContinue, isAr, services }: ExperienceStepProps) {
+export function ExperienceStep({ draft, onUpdate, onContinue, isAr, services, packages }: ExperienceStepProps) {
   const [tab, setTab] = useState<Tab>(() => {
     if (draft.packageSlug) return 'packages'
     return 'services'
@@ -123,7 +124,7 @@ export function ExperienceStep({ draft, onUpdate, onContinue, isAr, services }: 
       {/* Package list */}
       {tab === 'packages' && (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 max-h-[460px] overflow-y-auto pe-1">
-          {packages.filter((p) => p.is_active).map((pkg) => {
+          {packages.map((pkg) => {
             const isSelected = draft.packageSlug === pkg.slug
             const name = isAr ? pkg.name_ar : pkg.name_en
             const tagline = isAr ? pkg.tagline_ar : pkg.tagline_en

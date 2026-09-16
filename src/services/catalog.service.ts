@@ -227,3 +227,38 @@ export async function getServiceCountByCategory(): Promise<Record<string, number
   }
   return counts
 }
+
+// ─────────────────────────────────────────────
+// PACKAGES — ACTIVE (for booking flow)
+// ─────────────────────────────────────────────
+
+/**
+ * DB-backed package shape for the booking flow.
+ * Only includes fields that actually exist in the database.
+ */
+export interface BookingPackage {
+  id: string
+  slug: string
+  name_ar: string
+  name_en: string
+  tagline_ar: string | null
+  tagline_en: string | null
+  description_ar: string | null
+  description_en: string | null
+  price_sar: number
+  total_duration_minutes: number
+  max_guests: number
+  image_url: string | null
+  is_active: boolean
+  sort_order: number
+}
+
+export async function getActivePackages(): Promise<BookingPackage[]> {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('packages')
+    .select('id, slug, name_ar, name_en, tagline_ar, tagline_en, description_ar, description_en, price_sar, total_duration_minutes, max_guests, image_url, is_active, sort_order')
+    .eq('is_active', true)
+    .order('sort_order', { ascending: true })
+  return (data ?? []).map(p => ({ ...p, price_sar: Number(p.price_sar) })) as BookingPackage[]
+}

@@ -481,6 +481,9 @@ export type Database = {
           image_url: string | null
           is_active: boolean
           sort_order: number
+          tagline_ar: string | null
+          tagline_en: string | null
+          max_guests: number
           created_at: string
           updated_at: string
         }
@@ -496,6 +499,9 @@ export type Database = {
           image_url?: string | null
           is_active?: boolean
           sort_order?: number
+          tagline_ar?: string | null
+          tagline_en?: string | null
+          max_guests?: number
           created_at?: string
           updated_at?: string
         }
@@ -511,6 +517,9 @@ export type Database = {
           image_url?: string | null
           is_active?: boolean
           sort_order?: number
+          tagline_ar?: string | null
+          tagline_en?: string | null
+          max_guests?: number
           created_at?: string
           updated_at?: string
         }
