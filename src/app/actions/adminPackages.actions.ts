@@ -198,3 +198,22 @@ export async function updatePackageOrder(updates: { id: string; sort_order: numb
   revalidatePath('/', 'layout')
   return { success: true }
 }
+
+export async function togglePackageActive(id: string, isActive: boolean) {
+  const session = await requireRole('admin')
+  const supabase = await createClient()
+  const { error } = await supabase.from('packages').update({ is_active: isActive }).eq('id', id)
+  if (error) return { error: error.message }
+
+  await writeAuditLog({
+    adminUserId: session.userId,
+    action: isActive ? 'package.activate' : 'package.deactivate',
+    entityType: 'package',
+    entityId: id,
+  })
+
+  revalidatePath('/admin/packages')
+  revalidatePath('/packages')
+  revalidatePath('/', 'layout')
+  return { success: true }
+}

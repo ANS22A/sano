@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { getAdminPackages } from '@/app/actions/adminPackages.actions'
 import { AdminBadge } from '@/components/admin/ui/AdminBadge'
 import { AdminEmptyState } from '@/components/admin/ui/AdminEmptyState'
+import { TogglePackageButton } from '@/components/admin/packages/TogglePackageButton'
 import { Package, Plus } from 'lucide-react'
 import { cookies } from 'next/headers'
 import { adminT, type AdminLang } from '@/lib/admin/translations'
@@ -65,6 +66,8 @@ export default async function AdminPackagesPage({
                   <th className="px-4 py-3 font-medium">{t.packages.nameEn}</th>
                   <th className="px-4 py-3 font-medium">{t.packages.nameAr}</th>
                   <th className="px-4 py-3 font-medium text-right">{t.packages.price}</th>
+                  <th className="px-4 py-3 font-medium text-center">{t.services.duration}</th>
+                  <th className="px-4 py-3 font-medium text-center">{t.services.title}</th>
                   <th className="px-4 py-3 font-medium text-center">{t.packages.active}</th>
                   <th className="px-4 py-3 font-medium text-right">{t.common.actions}</th>
                 </tr>
@@ -77,19 +80,28 @@ export default async function AdminPackagesPage({
                     <td className="px-4 py-3 text-right tabular-nums text-foreground/80">
                       {pkg.price_sar.toFixed(2)}
                     </td>
+                    <td className="px-4 py-3 text-center text-muted-foreground">
+                      {pkg.total_duration_minutes} {t.common.min}
+                    </td>
+                    <td className="px-4 py-3 text-center text-muted-foreground">
+                      {pkg.package_services?.length ?? 0}
+                    </td>
                     <td className="px-4 py-3 text-center">
                       <AdminBadge 
                         status={pkg.is_active ? 'active' : 'inactive'} 
-                        label={pkg.is_active ? t.common.yes : t.common.no}
+                        label={pkg.is_active ? t.common.active : t.common.inactive}
                       />
                     </td>
                     <td className="px-4 py-3 text-right">
-                      <Link
-                        href={`/admin/packages/${pkg.id}/edit`}
-                        className="text-primary hover:underline"
-                      >
-                        {t.common.edit}
-                      </Link>
+                      <div className="inline-flex items-center gap-2">
+                        <Link
+                          href={`/admin/packages/${pkg.id}/edit`}
+                          className="text-primary hover:underline text-xs font-medium"
+                        >
+                          {t.common.edit}
+                        </Link>
+                        <TogglePackageButton id={pkg.id} isActive={pkg.is_active} />
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -101,3 +113,4 @@ export default async function AdminPackagesPage({
     </div>
   )
 }
+
