@@ -45,6 +45,9 @@ export default async function PackageDetailPage({
   const pkg = dbPkg || packages.find((p) => p.slug === slug && p.is_active)
   if (!pkg) notFound()
 
+  const { getPackageBookability } = await import('@/services/catalog.service')
+  const isBookable = dbPkg ? await getPackageBookability(slug) : true
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const anyPkg = pkg as any
   const name = isAr ? pkg.name_ar : pkg.name_en
@@ -80,11 +83,11 @@ export default async function PackageDetailPage({
       </nav>
 
       {/* Hero */}
-      <section className="py-12 bg-[var(--surface)]">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      <section className="relative pt-32 pb-24 bg-[var(--surface-alt)]">
+        <div className="container mx-auto px-6 max-w-5xl relative z-10">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Image */}
-            <div className="aspect-[4/3] bg-[var(--surface-muted)] rounded-sm flex items-center justify-center relative overflow-hidden">
+            <div className="aspect-[4/5] bg-[var(--border-subtle)] rounded-sm overflow-hidden flex items-center justify-center relative">
               {pkg.image_url ? (
                 <Image
                   src={pkg.image_url}
@@ -125,12 +128,21 @@ export default async function PackageDetailPage({
                   <span className="text-3xl font-semibold text-[var(--foreground)]">{pkg.price_sar}</span>
                   <span className="text-sm text-[var(--color-text-muted)] ms-1">{isAr ? 'ريال' : 'SAR'}</span>
                 </div>
-                <Link
-                  href={`/booking?package=${pkg.slug}`}
-                  className="inline-flex items-center justify-center px-8 py-3 bg-[var(--foreground)] text-white text-sm tracking-wide rounded-sm hover:bg-[var(--primary)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2"
-                >
-                  {isAr ? 'احجزي الآن' : 'Book Now'}
-                </Link>
+                {isBookable ? (
+                  <Link
+                    href={`/booking?package=${pkg.slug}`}
+                    className="inline-flex items-center justify-center px-8 py-3 bg-[var(--foreground)] text-white text-sm tracking-wide rounded-sm hover:bg-[var(--primary)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2"
+                  >
+                    {isAr ? 'احجزي الآن' : 'Book Now'}
+                  </Link>
+                ) : (
+                  <button
+                    disabled
+                    className="inline-flex items-center justify-center px-8 py-3 bg-[var(--surface-muted)] text-[var(--color-text-muted)] text-sm tracking-wide rounded-sm cursor-not-allowed opacity-80"
+                  >
+                    {isAr ? 'غير متاح مؤقتًا' : 'Temporarily Unavailable'}
+                  </button>
+                )}
               </div>
             </div>
           </div>

@@ -122,6 +122,17 @@ export function PackageForm({ initialData, availableServices }: Props) {
           </div>
         )}
 
+        {packageServices.some(ps => {
+          const srv = availableServices.find(s => s.id === ps.service_id)
+          return srv && srv.is_active === false
+        }) && (
+          <div className="p-4 bg-amber-500/10 text-amber-600 dark:text-amber-500 rounded-lg text-sm font-medium border border-amber-500/20">
+            {isAr 
+              ? 'تحتوي هذه الباقة على خدمات غير نشطة، ولن تكون قابلة للحجز حتى يتم تفعيل جميع الخدمات المضمنة.' 
+              : 'This package contains inactive services and will not be bookable until all included services are active.'}
+          </div>
+        )}
+
         <div className="grid gap-6 md:grid-cols-3">
           <div className="md:col-span-2 space-y-6">
             {/* Package Details */}

@@ -251,14 +251,52 @@ export interface BookingPackage {
   image_url: string | null
   is_active: boolean
   sort_order: number
+  is_bookable: boolean
 }
 
 export async function getActivePackages(): Promise<BookingPackage[]> {
   const supabase = await createClient()
   const { data } = await supabase
     .from('packages')
-    .select('id, slug, name_ar, name_en, tagline_ar, tagline_en, description_ar, description_en, price_sar, total_duration_minutes, max_guests, image_url, is_active, sort_order')
+    .select('id, slug, name_ar, name_en, tagline_ar, tagline_en, description_ar, description_en, price_sar, total_duration_minutes, max_guests, image_url, is_active, sort_order, package_services(services(is_active))')
     .eq('is_active', true)
     .order('sort_order', { ascending: true })
-  return (data ?? []).map(p => ({ ...p, price_sar: Number(p.price_sar) })) as BookingPackage[]
+
+  return (data ?? []).map(p => {
+    // A package is bookable only if all its included services are active.
+    // If it has no services, it defaults to bookable (preserves current behavior).
+    const psArray = Array.isArray(p.package_services) ? p.package_services : []
+    const isBookable = psArray.every((ps: any) => ps.services?.is_active === true)
+
+    return {
+      ...p,
+      price_sar: Number(p.price_sar),
+      is_bookable: isBookable
+    }
+  }) as BookingPackage[]
+}
+
+/**
+ * Validates whether a specific package is bookable.
+ * True ONLY IF package exists, is_active=true, AND all included services are active.
+ */
+export async function getPackageBookability(slug: string): Promise<boolean> {
+  const supabase = await createClient()
+  const { data: dbPkg } = await supabase
+    .from('packages')
+    .select('is_active, package_services(services(is_active))')
+    .eq('slug', slug)
+    .single()
+
+  if (!dbPkg || !dbPkg.is_active) {
+    return false
+  }
+
+  const psArray = Array.isArray(dbPkg.package_services) ? dbPkg.package_services : []
+  // If zero package_services rows, preserve current behavior (true)
+  if (psArray.length === 0) {
+    return true
+  }
+
+  return psArray.every((ps: any) => ps.services?.is_active === true)
 }

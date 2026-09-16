@@ -134,8 +134,17 @@ export async function checkIsActive(serviceId?: string | null, packageSlug?: str
     return dbSrv?.is_active ?? false
   }
   if (packageSlug) {
-    const { data: dbPkg } = await supabase.from('packages').select('is_active').eq('slug', packageSlug).single()
-    if (dbPkg) return dbPkg.is_active
+    const { getPackageBookability } = await import('@/services/catalog.service')
+    
+    // First, verify if the package exists in the database
+    const { data: dbPkg } = await supabase.from('packages').select('id').eq('slug', packageSlug).maybeSingle()
+    
+    if (dbPkg) {
+      // If it exists in DB, DB is authoritative. Enforce the derived bookability rule.
+      return await getPackageBookability(packageSlug)
+    }
+
+    // Static fallback only if the package does not exist in DB
     const pkg = packages.find((p) => p.slug === packageSlug)
     return pkg?.is_active ?? false
   }
@@ -165,7 +174,11 @@ export interface GetAvailableSlotsParams {
 export async function getAvailableSlots(params: GetAvailableSlotsParams): Promise<AvailableSlot[]> {
   const { serviceId, packageSlug, locationId, date, existingBookings = [] } = params
 
-  // 1. Resolve duration
+  // 1. Verify active/bookable status before generating slots
+  const isActive = await checkIsActive(serviceId, packageSlug)
+  if (!isActive) return []
+
+  // 2. Resolve duration
   const duration = await resolveServiceDuration(serviceId, packageSlug)
   if (!duration) return []
 

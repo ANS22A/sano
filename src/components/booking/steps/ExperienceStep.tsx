@@ -124,7 +124,7 @@ export function ExperienceStep({ draft, onUpdate, onContinue, isAr, services, pa
       {/* Package list */}
       {tab === 'packages' && (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 max-h-[460px] overflow-y-auto pe-1">
-          {packages.map((pkg) => {
+          {packages.filter((p) => p.is_bookable).map((pkg) => {
             const isSelected = draft.packageSlug === pkg.slug
             const name = isAr ? pkg.name_ar : pkg.name_en
             const tagline = isAr ? pkg.tagline_ar : pkg.tagline_en
