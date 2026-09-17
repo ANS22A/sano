@@ -29,9 +29,7 @@ export default async function PackagesPage({
   const supabase = await createClient()
   const { data: dbPackages } = await supabase.from('packages').select('*, package_services(services(name_en, name_ar))').eq('is_active', true).order('sort_order')
   
-  const activePackages = dbPackages && dbPackages.length > 0 
-    ? dbPackages 
-    : packages.filter((p) => p.is_active)
+  const activePackages = dbPackages ?? []
 
   return (
     <main className="min-h-screen">

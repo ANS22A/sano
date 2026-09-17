@@ -20,9 +20,9 @@ export async function generateMetadata({
   
   const { createClient } = await import('@/lib/supabase/server')
   const supabase = await createClient()
-  const { data: dbPkg } = await supabase.from('packages').select('name_ar, name_en, description_ar, description_en').eq('slug', slug).eq('is_active', true).single()
+  const { data: dbPkg } = await supabase.from('packages').select('name_ar, name_en, description_ar, description_en').eq('slug', slug).eq('is_active', true).maybeSingle()
   
-  const pkg = dbPkg || packages.find((p) => p.slug === slug)
+  const pkg = dbPkg
   if (!pkg) return {}
   return {
     title: isAr ? `${pkg.name_ar} — سانو لونا` : `${pkg.name_en} — SANO LUNA`,
@@ -40,13 +40,13 @@ export default async function PackageDetailPage({
   
   const { createClient } = await import('@/lib/supabase/server')
   const supabase = await createClient()
-  const { data: dbPkg } = await supabase.from('packages').select('*, package_services(services(name_en, name_ar))').eq('slug', slug).eq('is_active', true).single()
+  const { data: dbPkg } = await supabase.from('packages').select('*, package_services(services(name_en, name_ar))').eq('slug', slug).eq('is_active', true).maybeSingle()
   
-  const pkg = dbPkg || packages.find((p) => p.slug === slug && p.is_active)
+  const pkg = dbPkg
   if (!pkg) notFound()
 
   const { getPackageBookability } = await import('@/services/catalog.service')
-  const isBookable = dbPkg ? await getPackageBookability(slug) : true
+  const isBookable = await getPackageBookability(slug)
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const anyPkg = pkg as any
@@ -55,9 +55,8 @@ export default async function PackageDetailPage({
   const description = isAr ? pkg.description_ar : pkg.description_en
   
   // Resolve included services whether from DB or static
-  const dbServices = dbPkg?.package_services?.map((ps: { services: { name_ar: string; name_en: string } | null } | null) => isAr ? ps?.services?.name_ar : ps?.services?.name_en) || []
-  const staticServices = isAr ? anyPkg.included_services_ar : anyPkg.included_services_en
-  const includedServices = dbPkg ? dbServices : (staticServices || [])
+  const dbServices = dbPkg?.package_services?.map((ps: { services: { name_ar: string; name_en: string } | null } | null) => isAr ? ps?.services?.name_ar : ps?.services?.name_en).filter(Boolean) as string[] || []
+  const includedServices = dbServices
 
   return (
     <main className="min-h-screen">

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { cn } from '@/lib/utils/cn'
 import type { BookingDraft } from '@/data/booking.types'
 import type { Service } from '@/data/types'
@@ -23,7 +23,29 @@ export function ExperienceStep({ draft, onUpdate, onContinue, isAr, services, pa
     return 'services'
   })
 
-  const hasSelection = draft.serviceId || draft.packageSlug
+  // Validate the selection against active items from DB. If not found, clear it safely.
+  useEffect(() => {
+    if (draft.packageSlug) {
+      const isValid = packages.some((p) => p.slug === draft.packageSlug)
+      if (!isValid) {
+        onUpdate({ packageSlug: null, durationMinutes: null, priceSar: null })
+      }
+    } else if (draft.serviceId) {
+      // serviceId is actually the slug
+      const isValid = services.some((s) => s.slug === draft.serviceId)
+      if (!isValid) {
+        onUpdate({ serviceId: null, durationMinutes: null, priceSar: null })
+      }
+    }
+  }, [draft.packageSlug, draft.serviceId, packages, services, onUpdate])
+
+  const isValidSelection = draft.packageSlug 
+    ? packages.some(p => p.slug === draft.packageSlug)
+    : draft.serviceId 
+      ? services.some(s => s.slug === draft.serviceId)
+      : false
+
+  const hasSelection = isValidSelection
 
   const selectService = (id: string) => {
     onUpdate({ serviceId: id, packageSlug: null, durationMinutes: null, priceSar: null })

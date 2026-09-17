@@ -61,6 +61,9 @@ export default async function AdminLayout({
   if (!session) {
     return (
       <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'} className={`h-full antialiased ${cinzel.variable} ${montserrat.variable} ${cairo.variable} ${tajawal.variable}`}>
+        <head>
+          <meta charSet="utf-8" />
+        </head>
         <body className="h-full bg-background text-foreground">
           {children}
         </body>
@@ -73,6 +76,9 @@ export default async function AdminLayout({
   if (!profile || !profile.is_active) {
     return (
       <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'} className={`h-full antialiased ${cinzel.variable} ${montserrat.variable} ${cairo.variable} ${tajawal.variable}`}>
+        <head>
+          <meta charSet="utf-8" />
+        </head>
         <body className="h-full bg-background text-foreground">
           {children}
         </body>
@@ -82,6 +88,9 @@ export default async function AdminLayout({
 
   return (
     <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'} className={`h-full antialiased ${cinzel.variable} ${montserrat.variable} ${cairo.variable} ${tajawal.variable}`}>
+      <head>
+        <meta charSet="utf-8" />
+      </head>
       <body className="h-full bg-background text-foreground">
         <AdminShell profile={profile} lang={lang}>
           {children}
