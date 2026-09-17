@@ -6,7 +6,9 @@ import { Link } from '@/i18n/navigation'
 import type { Package } from '@/data/types'
 
 interface PackageCardProps {
-  pkg: Package
+  pkg: Package & {
+    package_services?: Array<{ services?: { name_ar: string; name_en: string } | null } | null>
+  }
   locale: string
 }
 
@@ -15,7 +17,11 @@ export function PackageCard({ pkg, locale }: PackageCardProps) {
   const name = isAr ? pkg.name_ar : pkg.name_en
   const tagline = isAr ? (pkg.tagline_ar ?? '') : (pkg.tagline_en ?? '')
   const description = isAr ? pkg.description_ar : pkg.description_en
-  const includedServices = isAr ? pkg.included_services_ar : pkg.included_services_en
+
+  // Safely resolve included services (DB relation vs static fallback)
+  const dbServices = pkg.package_services?.map((ps) => isAr ? ps?.services?.name_ar : ps?.services?.name_en).filter(Boolean) as string[] | undefined
+  const staticServices = isAr ? pkg.included_services_ar : pkg.included_services_en
+  const includedServices: string[] = (pkg.package_services && dbServices?.length) ? dbServices : (staticServices || [])
 
   return (
     <article className={cn(

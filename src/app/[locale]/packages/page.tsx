@@ -27,7 +27,7 @@ export default async function PackagesPage({
   const isAr = locale === 'ar'
   const { createClient } = await import('@/lib/supabase/server')
   const supabase = await createClient()
-  const { data: dbPackages } = await supabase.from('packages').select('*').eq('is_active', true).order('sort_order')
+  const { data: dbPackages } = await supabase.from('packages').select('*, package_services(services(name_en, name_ar))').eq('is_active', true).order('sort_order')
   
   const activePackages = dbPackages && dbPackages.length > 0 
     ? dbPackages 
