@@ -39,7 +39,7 @@ export async function getCategoryBySlug(slug: string): Promise<ServiceCategory |
 
 export async function getAllServices(filters?: ServiceFilters): Promise<Service[]> {
   const supabase = await createClient()
-  let query = supabase.from('services').select('*').eq('is_active', true)
+  let query = supabase.from('services').select('id, slug, name_ar, name_en, short_description_ar, short_description_en, description_ar, description_en, price_sar, duration_minutes, image_url, is_active, is_featured, is_popular, category_id, sort_order, tags').eq('is_active', true)
 
   if (filters?.category) {
     query = query.eq('category_id', filters.category)
@@ -254,6 +254,10 @@ export interface BookingPackage {
   is_bookable: boolean
 }
 
+interface PackageServiceDbRow {
+  services: { is_active: boolean } | null
+}
+
 export async function getActivePackages(): Promise<BookingPackage[]> {
   const supabase = await createClient()
   const { data } = await supabase
@@ -266,7 +270,7 @@ export async function getActivePackages(): Promise<BookingPackage[]> {
     // A package is bookable only if all its included services are active.
     // If it has no services, it defaults to bookable (preserves current behavior).
     const psArray = Array.isArray(p.package_services) ? p.package_services : []
-    const isBookable = psArray.every((ps: any) => ps.services?.is_active === true)
+    const isBookable = psArray.every((ps: PackageServiceDbRow) => ps.services?.is_active === true)
 
     return {
       ...p,
@@ -298,5 +302,5 @@ export async function getPackageBookability(slug: string): Promise<boolean> {
     return true
   }
 
-  return psArray.every((ps: any) => ps.services?.is_active === true)
+  return psArray.every((ps: PackageServiceDbRow) => ps.services?.is_active === true)
 }

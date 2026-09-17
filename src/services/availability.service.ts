@@ -174,12 +174,12 @@ export interface GetAvailableSlotsParams {
 export async function getAvailableSlots(params: GetAvailableSlotsParams): Promise<AvailableSlot[]> {
   const { serviceId, packageSlug, locationId, date, existingBookings = [] } = params
 
-  // 1. Verify active/bookable status before generating slots
-  const isActive = await checkIsActive(serviceId, packageSlug)
+  // 1+2. Verify active status and resolve duration in parallel (independent queries)
+  const [isActive, duration] = await Promise.all([
+    checkIsActive(serviceId, packageSlug),
+    resolveServiceDuration(serviceId, packageSlug),
+  ])
   if (!isActive) return []
-
-  // 2. Resolve duration
-  const duration = await resolveServiceDuration(serviceId, packageSlug)
   if (!duration) return []
 
   // 2. Get the day of week (0=Sun)

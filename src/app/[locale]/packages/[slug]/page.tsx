@@ -40,21 +40,26 @@ export default async function PackageDetailPage({
   
   const { createClient } = await import('@/lib/supabase/server')
   const supabase = await createClient()
-  const { data: dbPkg } = await supabase.from('packages').select('*, package_services(services(name_en, name_ar))').eq('slug', slug).eq('is_active', true).maybeSingle()
+  const { data: dbPkg } = await supabase.from('packages').select('*, package_services(services(name_en, name_ar, is_active))').eq('slug', slug).eq('is_active', true).maybeSingle()
   
   const pkg = dbPkg
   if (!pkg) notFound()
 
-  const { getPackageBookability } = await import('@/services/catalog.service')
-  const isBookable = await getPackageBookability(slug)
+  // Compute bookability inline from already-fetched data (avoids duplicate DB query)
+  interface PackageServiceDbRow {
+    services: { is_active: boolean } | null
+  }
+  const psArray = Array.isArray((pkg as unknown as { package_services: PackageServiceDbRow[] }).package_services) 
+    ? (pkg as unknown as { package_services: PackageServiceDbRow[] }).package_services 
+    : []
+  const isBookable = psArray.length === 0 || psArray.every((ps: PackageServiceDbRow) => ps.services?.is_active === true)
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const anyPkg = pkg as any
+  const typedPkg = pkg as unknown as { tagline_ar: string | null; tagline_en: string | null; max_guests: number }
   const name = isAr ? pkg.name_ar : pkg.name_en
-  const tagline = isAr ? (anyPkg.tagline_ar ?? '') : (anyPkg.tagline_en ?? '')
+  const tagline = isAr ? (typedPkg.tagline_ar ?? '') : (typedPkg.tagline_en ?? '')
   const description = isAr ? pkg.description_ar : pkg.description_en
   
-  // Resolve included services whether from DB or static
+  // Resolve included services from DB join
   const dbServices = dbPkg?.package_services?.map((ps: { services: { name_ar: string; name_en: string } | null } | null) => isAr ? ps?.services?.name_ar : ps?.services?.name_en).filter(Boolean) as string[] || []
   const includedServices = dbServices
 
@@ -114,9 +119,9 @@ export default async function PackageDetailPage({
                 <span className="px-3 py-1 bg-[var(--surface-muted)] text-[var(--primary)] text-sm rounded-full">
                   {pkg.total_duration_minutes} {isAr ? 'دقيقة' : 'min'}
                 </span>
-                {anyPkg.max_guests > 1 && (
+                {typedPkg.max_guests > 1 && (
                   <span className="px-3 py-1 bg-[var(--surface-muted)] text-[var(--primary)] text-sm rounded-full">
-                    {isAr ? `${anyPkg.max_guests} ضيوف` : `Up to ${anyPkg.max_guests} guests`}
+                    {isAr ? `${typedPkg.max_guests} ضيوف` : `Up to ${typedPkg.max_guests} guests`}
                   </span>
                 )}
               </div>
