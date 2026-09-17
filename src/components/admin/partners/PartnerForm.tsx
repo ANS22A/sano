@@ -141,7 +141,7 @@ export function PartnerForm({ partner, t, dir }: Props) {
           <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
             <Link
               href="/admin/partners"
-              className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               {t.common.cancel}
             </Link>

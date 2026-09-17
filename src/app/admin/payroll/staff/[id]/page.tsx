@@ -60,7 +60,7 @@ export default async function EmployeePayrollPage({
           <div className="space-y-1">
             <Link 
               href="/admin/payroll/staff" 
-              className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               {isAr ? <ArrowRight className="w-4 h-4" /> : <ArrowLeft className="w-4 h-4" />}
               {isAr ? 'العودة للموظفين' : 'Back to Staff'}

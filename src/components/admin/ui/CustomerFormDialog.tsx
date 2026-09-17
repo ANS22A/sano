@@ -159,14 +159,14 @@ export function CustomerFormDialog({ open, onClose, t, dir, customer }: Customer
               type="button"
               onClick={onClose}
               disabled={isPending}
-              className="px-4 py-2 rounded-xl text-sm font-medium text-foreground bg-surface-muted border border-border hover:bg-surface-elevated transition-colors disabled:opacity-50"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-sm font-medium text-foreground bg-surface-muted border border-border hover:bg-surface-elevated transition-colors disabled:opacity-50"
             >
               {t.common.cancel}
             </button>
             <button
               type="submit"
               disabled={isPending}
-              className="flex items-center justify-center min-w-[100px] px-4 py-2 rounded-xl text-sm font-medium text-primary-foreground bg-primary hover:bg-primary-hover transition-colors disabled:opacity-50"
+              className="flex items-center justify-center min-w-[100px] px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-sm font-medium text-primary-foreground bg-primary hover:bg-primary-hover transition-colors disabled:opacity-50"
             >
               {isPending ? (
                 <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin shrink-0" />

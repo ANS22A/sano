@@ -106,7 +106,7 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
               : 'Manage operational taxonomy for expenses and outflows'}
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <button
             type="button"
             onClick={() => setShowArchived(!showArchived)}
@@ -127,7 +127,7 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
           <button
             type="button"
             onClick={openCreate}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-hover transition-colors shadow-sm"
+            className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-primary text-white text-xs sm:text-sm font-medium hover:bg-primary-hover transition-colors shadow-sm"
           >
             <Plus className="w-4 h-4" />
             <span>{isAr ? 'إضافة تصنيف' : 'New Category'}</span>
@@ -181,7 +181,7 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
                       />
                     </td>
                     <td className="px-4 py-3 text-end">
-                      <div className="inline-flex items-center gap-2">
+                      <div className="inline-flex items-center gap-1.5 sm:gap-2">
                         <button
                           type="button"
                           onClick={() => openEdit(cat)}
@@ -281,14 +281,14 @@ export function ExpenseCategoriesClient({ initialCategories }: Props) {
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2 rounded-xl text-sm font-medium border border-border text-muted-foreground hover:bg-surface transition-colors"
+                  className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-sm font-medium border border-border text-muted-foreground hover:bg-surface transition-colors"
                 >
                   {isAr ? 'إلغاء' : 'Cancel'}
                 </button>
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-hover transition-colors shadow-sm disabled:opacity-50"
+                  className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-primary text-white text-xs sm:text-sm font-medium hover:bg-primary-hover transition-colors shadow-sm disabled:opacity-50"
                 >
                   {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
                   <span>{isAr ? 'حفظ' : 'Save'}</span>

@@ -22,13 +22,13 @@ export default async function AdvancesPage({ searchParams }: { searchParams: Pro
         <div className="flex items-center gap-3">
           <Link
             href="/admin/payroll"
-            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-md border border-neutral-200 bg-white text-sm font-medium hover:bg-muted transition-colors"
+            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-md border border-neutral-200 bg-white text-xs sm:text-sm font-medium hover:bg-muted transition-colors"
           >
             Back to Payroll
           </Link>
           <Link
             href="/admin/payroll/advances/new"
-            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-md bg-primary text-white text-sm font-medium hover:bg-secondary transition-colors"
+            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-md bg-primary text-white text-xs sm:text-sm font-medium hover:bg-primary-hover transition-colors"
           >
             <Plus className="w-4 h-4" />
             New Advance
@@ -41,7 +41,7 @@ export default async function AdvancesPage({ searchParams }: { searchParams: Pro
           icon={<Banknote className="w-8 h-8" />}
           title="No advances found"
           description="Record an employee advance to see it here."
-          action={<Link href="/admin/payroll/advances/new" className="h-10 px-4 inline-flex items-center justify-center rounded-md bg-primary text-white text-sm font-medium">Record Advance</Link>}
+          action={<Link href="/admin/payroll/advances/new" className="h-10 px-4 inline-flex items-center justify-center rounded-md bg-primary text-white text-xs sm:text-sm font-medium">Record Advance</Link>}
         />
       ) : (
         <div className="rounded-lg border border-neutral-200 bg-white shadow-sm overflow-hidden">

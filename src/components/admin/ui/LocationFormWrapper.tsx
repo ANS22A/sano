@@ -46,7 +46,7 @@ export function LocationFormWrapper({ t, dir, location, variant = 'button' }: Lo
       {variant === 'button' ? (
         <button
           onClick={() => setOpen(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-primary text-white text-sm font-medium rounded-xl hover:bg-primary-hover transition-colors"
+          className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-primary text-white text-sm font-medium rounded-xl hover:bg-primary-hover transition-colors"
         >
           {location ? (
             <>

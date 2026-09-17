@@ -232,7 +232,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
           
           {expense?.attachment_url && (
             <div className="flex items-center justify-between p-3 rounded-xl bg-surface border border-border mb-3">
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <FileText className="w-4 h-4 text-accent" />
                 <span className="text-xs font-medium text-foreground">
                   {isAr ? 'المستند الحالي محفوظ بأمان' : 'Current document securely stored'}
@@ -251,7 +251,7 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
           )}
 
           <div className="flex items-center gap-3">
-            <label className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-border bg-surface text-xs font-medium text-foreground hover:bg-surface-muted cursor-pointer transition-colors">
+            <label className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl border border-border bg-surface text-xs font-medium text-foreground hover:bg-surface-muted cursor-pointer transition-colors">
               <Upload className="w-4 h-4 text-muted-foreground" />
               <span>{selectedFile ? selectedFile.name : isAr ? 'اختيار ملف (JPG, PNG, WebP, PDF)' : 'Choose file (JPG, PNG, WebP, PDF)'}</span>
               <input
@@ -283,14 +283,14 @@ export function ExpenseForm({ expense, categories, isEdit }: Props) {
         <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
           <Link
             href="/admin/expenses"
-            className="px-4 py-2 rounded-xl text-sm font-medium border border-border text-muted-foreground hover:bg-surface transition-colors"
+            className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-sm font-medium border border-border text-muted-foreground hover:bg-surface transition-colors"
           >
             {isAr ? 'إلغاء' : 'Cancel'}
           </Link>
           <button
             type="submit"
             disabled={isPending}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-hover transition-colors shadow-sm disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 sm:gap-2 px-5 py-2.5 rounded-xl bg-primary text-white text-xs sm:text-sm font-medium hover:bg-primary-hover transition-colors shadow-sm disabled:opacity-50"
           >
             {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
             <span>{isAr ? 'حفظ المصروف' : 'Save Expense'}</span>

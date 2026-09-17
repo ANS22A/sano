@@ -64,7 +64,7 @@ export default async function AdminLocationsPage() {
                 />
               </div>
               <p className="text-xs text-muted-foreground mb-4">{loc.address_en ?? '—'}</p>
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-3">
                 <Link
                   href={`/admin/settings/business-hours?location=${loc.id}`}
                   className="text-xs font-medium text-accent hover:underline"

@@ -74,7 +74,7 @@ export default async function AdminBookingsPage({
         </div>
         <Link
           href="/admin/bookings/new"
-          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-medium bg-secondary text-white hover:bg-primary-hover transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs sm:text-sm font-medium bg-primary text-white hover:bg-primary-hover transition-colors"
         >
           <Plus className="w-4 h-4" />
           {lang === 'ar' ? 'حجز جديد' : 'New Booking'}

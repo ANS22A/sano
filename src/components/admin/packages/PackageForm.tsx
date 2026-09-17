@@ -104,7 +104,7 @@ export function PackageForm({ initialData, availableServices }: Props) {
         <div>
           <Link 
             href="/admin/packages" 
-            className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-2"
+            className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 sm:gap-2"
           >
             {isAr ? <ArrowRight className="h-4 w-4" /> : <ArrowLeft className="h-4 w-4" />}
             {t.common.cancel}
@@ -242,7 +242,7 @@ export function PackageForm({ initialData, availableServices }: Props) {
                 <button
                   type="button"
                   onClick={addService}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-secondary text-secondary-foreground rounded-lg text-xs font-medium hover:bg-secondary/80"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-secondary text-secondary-foreground rounded-lg text-xs font-medium hover:bg-primary-hover/80"
                 >
                   <Plus className="w-4 h-4" />
                   {t.packages.addService}
@@ -381,14 +381,14 @@ export function PackageForm({ initialData, availableServices }: Props) {
         <div className="flex justify-end gap-3 pt-4 border-t">
           <Link
             href="/admin/packages"
-            className="px-4 py-2 border rounded-md text-sm font-medium hover:bg-accent"
+            className="px-3 py-1.5 sm:px-4 sm:py-2 border rounded-md text-sm font-medium hover:bg-accent"
           >
             {t.common.cancel}
           </Link>
           <button
             type="submit"
             disabled={isPending}
-            className="px-4 py-2 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90 disabled:opacity-50 inline-flex items-center gap-2"
+            className="px-3 py-1.5 sm:px-4 sm:py-2 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90 disabled:opacity-50 inline-flex items-center gap-1.5 sm:gap-2"
           >
             {isPending && <Loader2 className="h-4 w-4 animate-spin" />}
             {t.packages.save}

@@ -46,7 +46,7 @@ export default function AdminLoginPage() {
                 type="email"
                 required
                 autoComplete="email"
-                className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-foreground text-sm
+                className="w-full px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl border border-border bg-surface text-foreground text-sm
                   placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent
                   transition-shadow"
                 placeholder="admin@sanoluna.com"
@@ -63,7 +63,7 @@ export default function AdminLoginPage() {
                 type="password"
                 required
                 autoComplete="current-password"
-                className="w-full px-4 py-2.5 rounded-xl border border-border bg-surface text-foreground text-sm
+                className="w-full px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl border border-border bg-surface text-foreground text-sm
                   placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent
                   transition-shadow"
                 placeholder="••••••••"

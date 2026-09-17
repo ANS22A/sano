@@ -42,7 +42,7 @@ export function AdminHeader({ profile, onMenuClick }: Props) {
       </h1>
 
       {/* Right actions */}
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         {/* Language toggle */}
         <LanguageToggle currentLang={lang} />
 

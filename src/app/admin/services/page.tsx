@@ -33,14 +33,14 @@ export default async function AdminServicesPage({
         <h1 className="text-xl font-bold text-foreground">{t.services.title}</h1>
         <Link
           href="/admin/services/new"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-hover transition-colors"
+          className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-primary text-white text-xs sm:text-sm font-medium hover:bg-primary-hover transition-colors"
         >
           <Plus className="w-4 h-4" />
           {t.services.new}
         </Link>
       </div>
 
-      <div className="flex gap-3">
+      <div className="flex flex-wrap gap-3">
         <div className="flex-1">
           <AdminSearchBar placeholder={t.services.search} paramName="q" />
         </div>

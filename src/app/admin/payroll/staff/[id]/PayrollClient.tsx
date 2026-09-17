@@ -55,7 +55,7 @@ export function PayrollClient({ staffId, month, salary }: PayrollClientProps) {
       <div className="flex flex-wrap items-center gap-3 no-print">
         <button
           onClick={() => setIsModalOpen(true)}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-input bg-background hover:bg-surface-muted transition-colors text-sm font-medium"
+          className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl border border-input bg-background hover:bg-surface-muted transition-colors text-xs sm:text-sm font-medium"
         >
           <Plus className="w-4 h-4" />
           {isAr ? 'إضافة سلفة' : 'Add Advance'}
@@ -63,7 +63,7 @@ export function PayrollClient({ staffId, month, salary }: PayrollClientProps) {
 
         <button
           onClick={handlePrint}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-input bg-background hover:bg-surface-muted transition-colors text-sm font-medium"
+          className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl border border-input bg-background hover:bg-surface-muted transition-colors text-xs sm:text-sm font-medium"
         >
           <Printer className="w-4 h-4" />
           {isAr ? 'طباعة / PDF' : 'Print / PDF'}
@@ -73,7 +73,7 @@ export function PayrollClient({ staffId, month, salary }: PayrollClientProps) {
           <button
             onClick={handleGenerate}
             disabled={isPending}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white hover:bg-primary-hover transition-colors text-sm font-medium disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-primary text-white hover:bg-primary-hover transition-colors text-xs sm:text-sm font-medium disabled:opacity-50"
           >
             {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
             {isAr ? 'إنشاء مسير الراتب' : 'Generate Salary'}
@@ -82,7 +82,7 @@ export function PayrollClient({ staffId, month, salary }: PayrollClientProps) {
           <button
             onClick={handleMarkPaid}
             disabled={isPending}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-success text-white hover:bg-success transition-colors text-sm font-medium disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-success text-white hover:bg-success transition-colors text-xs sm:text-sm font-medium disabled:opacity-50"
           >
             {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
             <CheckCircle className="w-4 h-4" />

@@ -219,7 +219,7 @@ export function StaffFormDialog({ open, onClose, t, dir, staff }: StaffFormDialo
               type="button"
               onClick={onClose}
               disabled={isPending}
-              className="px-4 py-2 rounded-xl text-sm font-medium text-foreground bg-surface-muted hover:bg-surface-elevated transition-colors border border-border disabled:opacity-50"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-sm font-medium text-foreground bg-surface-muted hover:bg-surface-elevated transition-colors border border-border disabled:opacity-50"
             >
               {t.common.cancel}
             </button>

@@ -113,14 +113,14 @@ export function AddAdvanceModal({
             <button 
               type="button" 
               onClick={onClose}
-              className="px-4 py-2 border border-input rounded-xl text-sm font-medium hover:bg-surface-muted transition-colors"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 border border-input rounded-xl text-sm font-medium hover:bg-surface-muted transition-colors"
             >
               {t.common.cancel || 'Cancel'}
             </button>
             <button 
               type="submit" 
               disabled={isPending}
-              className="px-4 py-2 bg-primary text-white rounded-xl text-sm font-medium hover:bg-primary-hover disabled:opacity-50 flex items-center gap-2 transition-colors"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 bg-primary text-white rounded-xl text-sm font-medium hover:bg-primary-hover disabled:opacity-50 flex items-center gap-2 transition-colors"
             >
               {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
               {t.common.save || 'Save'}

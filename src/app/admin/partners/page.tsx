@@ -28,13 +28,13 @@ export default async function PartnersPage({ searchParams }: { searchParams: Pro
         <div className="flex items-center gap-3">
           <Link
             href="/admin/partners/withdrawals"
-            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-md border border-border bg-surface-elevated text-sm font-medium hover:bg-surface-muted transition-colors"
+            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-md border border-border bg-surface-elevated text-xs sm:text-sm font-medium hover:bg-surface-muted transition-colors"
           >
             {t.partners.viewWithdrawals}
           </Link>
           <Link
             href="/admin/partners/new"
-            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary-hover transition-colors"
+            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-md bg-primary text-primary-foreground text-xs sm:text-sm font-medium hover:bg-primary-hover transition-colors"
           >
             <Plus className="w-4 h-4" />
             {t.partners.newPartner}
@@ -47,7 +47,7 @@ export default async function PartnersPage({ searchParams }: { searchParams: Pro
           icon={<Briefcase className="w-8 h-8" />}
           title={t.partners.noResults}
           description={t.partners.noResultsDesc}
-          action={<Link href="/admin/partners/new" className="h-10 px-4 inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground text-sm font-medium">{t.partners.createPartner}</Link>}
+          action={<Link href="/admin/partners/new" className="h-10 px-4 inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground text-xs sm:text-sm font-medium">{t.partners.createPartner}</Link>}
         />
       ) : (
         <div className="rounded-lg border border-border bg-surface shadow-sm overflow-hidden">

@@ -47,7 +47,7 @@ export function WithdrawalForm({ partners }: Props) {
       <div className="mb-8">
         <Link 
           href="/admin/partners/withdrawals" 
-          className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-2"
+          className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 sm:gap-2"
         >
           {isAr ? <ArrowRight className="h-4 w-4" /> : <ArrowLeft className="h-4 w-4" />}
           {t.common.cancel}
@@ -186,7 +186,7 @@ export function WithdrawalForm({ partners }: Props) {
             <button
               type="submit"
               disabled={isPending}
-              className="px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:bg-primary-hover disabled:opacity-50 transition-colors inline-flex items-center gap-2"
+              className="px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:bg-primary-hover disabled:opacity-50 transition-colors inline-flex items-center gap-1.5 sm:gap-2"
             >
               {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
               {t.common.save}

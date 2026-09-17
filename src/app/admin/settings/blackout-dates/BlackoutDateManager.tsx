@@ -46,7 +46,7 @@ export function BlackoutDateManager({ dates, locationId }: {
               type="date"
               name="date"
               required
-              className="w-full px-4 py-2.5 rounded-xl border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+              className="w-full px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
           <div className="flex-[2] min-w-0">
@@ -55,7 +55,7 @@ export function BlackoutDateManager({ dates, locationId }: {
               type="text"
               name="reason"
               placeholder={isAr ? 'مثال: عطلة وطنية' : 'e.g. National Holiday'}
-              className="w-full px-4 py-2.5 rounded-xl border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+              className="w-full px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
           <button

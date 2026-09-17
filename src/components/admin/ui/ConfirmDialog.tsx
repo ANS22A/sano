@@ -63,7 +63,7 @@ export function ConfirmDialog({
           <button
             onClick={onCancel}
             disabled={isPending}
-            className="px-4 py-2 rounded-xl text-sm font-medium text-foreground bg-surface-muted border border-border hover:bg-surface-elevated transition-colors disabled:opacity-50"
+            className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-sm font-medium text-foreground bg-surface-muted border border-border hover:bg-surface-elevated transition-colors disabled:opacity-50"
           >
             {cancelLabel}
           </button>

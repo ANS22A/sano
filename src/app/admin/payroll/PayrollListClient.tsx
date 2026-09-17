@@ -49,7 +49,7 @@ export function PayrollListClient({ salaries, t, lang }: Props) {
                 <td className="px-6 py-4">{salary.month}</td>
                 <td className="px-6 py-4 text-end font-medium text-foreground">{salary.net_salary.toLocaleString(lang === 'ar' ? 'ar-SA' : 'en-SA', { style: 'currency', currency: 'SAR' })}</td>
                 <td className="px-6 py-4">
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <AdminBadge status={salary.payment_status} label={t.status[salary.payment_status as keyof typeof t.status] || salary.payment_status} />
                     {salary.is_archived && (
                       <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-neutral-100 text-neutral-600 border border-neutral-200">

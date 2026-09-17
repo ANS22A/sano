@@ -180,14 +180,14 @@ export function PayrollForm({ staff }: Props) {
           <div className="flex items-center justify-end gap-3 pt-4 border-t border-neutral-100">
             <Link
               href="/admin/payroll"
-              className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               Cancel
             </Link>
             <button
               type="submit"
               disabled={isPending}
-              className="px-6 py-2 bg-primary text-white text-sm font-medium rounded-md hover:bg-secondary transition-colors disabled:opacity-50"
+              className="px-6 py-2 bg-primary text-white text-sm font-medium rounded-md hover:bg-primary-hover transition-colors disabled:opacity-50"
             >
               {isPending ? 'Saving...' : 'Save Payroll'}
             </button>

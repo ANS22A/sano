@@ -28,14 +28,14 @@ export default async function AdminPackagesPage({
         <h1 className="text-xl font-bold text-foreground">{t.packages.title}</h1>
         <Link
           href="/admin/packages/new"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-hover transition-colors"
+          className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-primary text-white text-xs sm:text-sm font-medium hover:bg-primary-hover transition-colors"
         >
           <Plus className="w-4 h-4" />
           {t.packages.new}
         </Link>
       </div>
 
-      <div className="flex gap-3">
+      <div className="flex flex-wrap gap-3">
         {['all', 'true', 'false'].map((a) => (
           <Link key={a} href={`/admin/packages?active=${a}`}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors capitalize ${
@@ -93,7 +93,7 @@ export default async function AdminPackagesPage({
                       />
                     </td>
                     <td className="px-4 py-3 text-right">
-                      <div className="inline-flex items-center gap-2">
+                      <div className="inline-flex items-center gap-1.5 sm:gap-2">
                         <Link
                           href={`/admin/packages/${pkg.id}/edit`}
                           className="text-primary hover:underline text-xs font-medium"

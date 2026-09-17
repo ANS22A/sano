@@ -424,7 +424,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                   onClick={() => setSource(opt.value)}
                   className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium border transition-colors ${
                     source === opt.value
-                      ? 'bg-secondary text-white border-secondary'
+                      ? 'bg-primary text-white border-secondary'
                       : 'bg-surface text-muted-foreground border-border hover:bg-surface-muted'
                   }`}
                 >
@@ -438,7 +438,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
           </div>
 
           {/* Customer mode toggle */}
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <button
               type="button"
               onClick={() => { setCustomerMode('search'); setSelectedCustomer(null) }}
@@ -516,7 +516,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
           {/* Selected customer banner */}
           {selectedCustomer && (
             <div className="flex items-center justify-between bg-surface-muted p-3 rounded-xl">
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <User className="w-4 h-4 text-secondary" />
                 <span className="text-sm font-medium text-foreground">{selectedCustomer.full_name}</span>
                 <span className="text-xs text-secondary">{selectedCustomer.phone}</span>
@@ -671,7 +671,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
                       onClick={() => setSelectedSlot(s.startTime)}
                       className={`px-3 py-2 rounded-xl text-sm font-medium border transition-colors ${
                         selectedSlot === s.startTime
-                          ? 'bg-secondary text-white border-secondary'
+                          ? 'bg-primary text-white border-secondary'
                           : 'bg-surface text-foreground border-border hover:border-border-strong'
                       }`}
                     >
@@ -772,7 +772,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
             <Link
               href="/admin/bookings"
-              className="px-5 py-2.5 rounded-xl text-sm font-medium bg-secondary text-white hover:bg-primary-hover transition-colors"
+              className="px-5 py-2.5 rounded-xl text-sm font-medium bg-primary text-white hover:bg-primary-hover transition-colors"
             >
               {labels.viewBookings}
             </Link>
@@ -804,7 +804,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
             type="button"
             onClick={advanceStep}
             disabled={!canAdvance() || isPending}
-            className="px-6 py-2.5 rounded-xl text-sm font-medium bg-secondary text-white hover:bg-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            className="px-6 py-2.5 rounded-xl text-sm font-medium bg-primary text-white hover:bg-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
             {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
             {step === 'review'

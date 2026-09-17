@@ -33,13 +33,13 @@ export default async function PayrollPage({ searchParams }: { searchParams: Prom
         <div className="flex items-center gap-3">
           <Link
             href="/admin/payroll/advances"
-            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl text-sm font-medium text-foreground bg-surface-muted hover:bg-surface-elevated transition-colors border border-border"
+            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl text-xs sm:text-sm font-medium text-foreground bg-surface-muted hover:bg-surface-elevated transition-colors border border-border"
           >
             {t.payroll.employeeAdvances}
           </Link>
           <Link
             href="/admin/payroll/new"
-            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:bg-primary-hover transition-colors"
+            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground text-xs sm:text-sm font-medium hover:bg-primary-hover transition-colors"
           >
             <Plus className="w-4 h-4" />
             {t.payroll.newPayroll}
@@ -73,7 +73,7 @@ export default async function PayrollPage({ searchParams }: { searchParams: Prom
           icon={<Banknote className="w-8 h-8" />}
           title={t.payroll.noRecordsFound}
           description={t.payroll.noRecordsDesc}
-          action={<Link href="/admin/payroll/new" className="h-10 px-4 inline-flex items-center justify-center rounded-xl bg-primary text-primary-foreground text-sm font-medium">{t.payroll.newPayroll}</Link>}
+          action={<Link href="/admin/payroll/new" className="h-10 px-4 inline-flex items-center justify-center rounded-xl bg-primary text-primary-foreground text-xs sm:text-sm font-medium">{t.payroll.newPayroll}</Link>}
         />
       ) : (
         <div className="rounded-2xl border border-border bg-white shadow-sm overflow-hidden">

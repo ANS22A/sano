@@ -191,7 +191,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
             <ArrowLeft className="w-4 h-4" />
           </Link>
           <div>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <h1 className="text-xl font-bold text-foreground">
                 {t.bookings.bookingNumber} {booking.booking_number}
               </h1>
@@ -254,7 +254,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
         {['pending', 'confirmed'].includes(currentStatus) && (
           <button
             onClick={() => setIsRescheduling(true)}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium bg-surface border border-border text-foreground hover:bg-surface-muted transition-colors"
+            className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-medium bg-surface border border-border text-foreground hover:bg-surface-muted transition-colors"
           >
             <CalendarDays className="w-4 h-4 text-accent" />
             {isAr ? 'إعادة جدولة الحجز' : 'Reschedule Booking'}
@@ -301,13 +301,13 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
           {/* FINANCIAL / PAYMENTS SECTION */}
           <div className="bg-surface rounded-2xl border border-border overflow-hidden shadow-sm">
             <div className="px-6 py-4 border-b border-border bg-surface flex items-center justify-between">
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <CreditCard className="w-4 h-4 text-secondary" />
                 <h2 className="text-sm font-bold text-foreground">
                   {isAr ? 'البيانات المالية والمدفوعات' : 'Financial Ledger & Payments'}
                 </h2>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 {netPaid > 0 && (
                   <button
                     onClick={() => {
@@ -326,7 +326,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                   }&customerName=${encodeURIComponent(
                     booking.customers?.full_name ?? ''
                   )}&amount=${balanceDue}`}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary text-white hover:bg-primary-hover text-xs font-medium transition-colors shadow-sm"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-white hover:bg-primary-hover text-xs font-medium transition-colors shadow-sm"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   {isAr ? 'تسجيل دفعة' : 'Record Payment'}
@@ -384,7 +384,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                         className="p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-surface transition-colors"
                       >
                         <div className="space-y-1">
-                          <div className="flex items-center gap-2">
+                          <div className="flex flex-wrap items-center gap-2">
                             <span
                               className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold ${
                                 isRefund
@@ -473,7 +473,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
               {cust?.id && (
                 <Link
                   href={`/admin/customers/${cust.id}`}
-                  className="mt-2 inline-flex items-center gap-2 text-xs font-medium text-accent hover:underline"
+                  className="mt-2 inline-flex items-center gap-1.5 sm:gap-2 text-xs font-medium text-accent hover:underline"
                 >
                   <FileText className="w-3.5 h-3.5" />
                   {isAr ? 'عرض السجل' : 'View History'}
@@ -489,7 +489,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
               {currentStatus === 'pending' && (
                 <button
                   onClick={() => setPendingAction('confirmed')}
-                  className="w-full px-4 py-2 rounded-xl text-sm font-medium bg-success text-white hover:bg-success transition-colors"
+                  className="w-full px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-sm font-medium bg-success text-white hover:bg-success transition-colors"
                 >
                   {t.bookings.confirm}
                 </button>
@@ -498,13 +498,13 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                 <>
                   <button
                     onClick={() => setPendingAction('completed')}
-                    className="w-full px-4 py-2 rounded-xl text-sm font-medium bg-info text-white hover:bg-info transition-colors"
+                    className="w-full px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-sm font-medium bg-info text-white hover:bg-info transition-colors"
                   >
                     {t.bookings.complete}
                   </button>
                   <button
                     onClick={() => setPendingAction('no_show')}
-                    className="w-full px-4 py-2 rounded-xl text-sm font-medium bg-muted-foreground text-white hover:bg-muted-foreground transition-colors"
+                    className="w-full px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-sm font-medium bg-muted-foreground text-white hover:bg-muted-foreground transition-colors"
                   >
                     {t.bookings.noShow}
                   </button>
@@ -513,7 +513,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
               {['pending', 'confirmed'].includes(currentStatus) && (
                 <button
                   onClick={() => setPendingAction('cancelled')}
-                  className="w-full px-4 py-2 rounded-xl text-sm font-medium border border-error-border text-error hover:bg-error-bg transition-colors mt-2"
+                  className="w-full px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-sm font-medium border border-error-border text-error hover:bg-error-bg transition-colors mt-2"
                 >
                   {t.bookings.cancel}
                 </button>
@@ -625,7 +625,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
             <div className="px-6 py-4 border-t border-border flex justify-end gap-3 bg-surface">
               <button
                 onClick={() => setIsRescheduling(false)}
-                className="px-4 py-2 rounded-xl text-sm font-medium text-muted-foreground hover:bg-white hover:text-foreground transition-colors border border-transparent hover:border-border"
+                className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-sm font-medium text-muted-foreground hover:bg-white hover:text-foreground transition-colors border border-transparent hover:border-border"
                 disabled={isPending}
               >
                 Cancel
@@ -730,14 +730,14 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
                 <button
                   type="button"
                   onClick={() => setIsRefunding(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-medium text-muted-foreground hover:bg-surface"
+                  className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-medium text-muted-foreground hover:bg-surface"
                 >
                   {isAr ? 'إلغاء' : 'Cancel'}
                 </button>
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-medium bg-error text-white hover:opacity-90 transition-colors disabled:opacity-50"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-medium bg-error text-white hover:opacity-90 transition-colors disabled:opacity-50"
                 >
                   {isPending && <Loader2 className="w-3 h-3 animate-spin" />}
                   {isAr ? 'تأكيد الاسترجاع' : 'Confirm Refund'}

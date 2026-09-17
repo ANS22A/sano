@@ -187,7 +187,7 @@ export function AdminGiftCardsClient({
 
         <button
           onClick={() => setModalOpen(true)}
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-white text-sm font-bold hover:bg-primary-hover transition-colors shadow-sm"
+          className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-primary text-white text-xs sm:text-sm font-bold hover:bg-primary-hover transition-colors shadow-sm"
         >
           <Plus className="w-4 h-4 text-accent" />
           <span>{t.newBtn}</span>
@@ -333,7 +333,7 @@ export function AdminGiftCardsClient({
                             {isAr ? 'يُفعّل بعد الدفع' : 'Activates upon payment'}
                           </span>
                         ) : (
-                          <div className="flex items-center gap-2">
+                          <div className="flex flex-wrap items-center gap-2">
                             <span className="font-mono font-bold text-xs bg-primary text-accent px-2 py-0.5 rounded-md tracking-wider dir-ltr" dir="ltr">
                               {card.code}
                             </span>

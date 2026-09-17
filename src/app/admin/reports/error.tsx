@@ -32,7 +32,7 @@ export default function ReportsError({
       </p>
       <button
         onClick={() => reset()}
-        className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors text-sm font-medium"
+        className="px-3 py-1.5 sm:px-4 sm:py-2 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors text-sm font-medium"
       >
         {isAr ? 'حاول مرة أخرى' : 'Try again'}
       </button>

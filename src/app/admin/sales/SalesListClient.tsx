@@ -133,7 +133,7 @@ export function SalesListClient({
         <div className="flex items-center gap-3">
           <Link
             href="/admin/sales/new"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:bg-primary-hover transition-colors shadow-sm"
+            className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-primary text-primary-foreground text-xs sm:text-sm font-medium hover:bg-primary-hover transition-colors shadow-sm"
           >
             <Plus className="w-4 h-4" />
             {isAr ? 'تسجيل مبيعات / دفعة جديدة' : 'New Direct Sale / Payment'}
@@ -298,7 +298,7 @@ export function SalesListClient({
           </div>
 
           {/* Archived Toggle */}
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <label className="flex items-center gap-2 text-xs font-medium text-muted-foreground dark:text-muted-foreground cursor-pointer">
               <input
                 type="checkbox"
@@ -313,7 +313,7 @@ export function SalesListClient({
 
         {/* Date Row */}
         <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-border-subtle/50/50 text-xs text-muted-foreground dark:text-muted-foreground">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <span>{isAr ? 'من تاريخ:' : 'From:'}</span>
             <input
               type="date"
@@ -322,7 +322,7 @@ export function SalesListClient({
               className="rounded-lg border border-border-subtle bg-surface px-2.5 py-1 text-foreground"
             />
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <span>{isAr ? 'إلى تاريخ:' : 'To:'}</span>
             <input
               type="date"
@@ -355,7 +355,7 @@ export function SalesListClient({
           action={
             <Link
               href="/admin/sales/new"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-secondary text-white text-xs font-semibold hover:bg-primary-hover transition-colors"
+              className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-primary text-white text-xs font-semibold hover:bg-primary-hover transition-colors"
             >
               <Plus className="w-4 h-4" />
               {isAr ? 'تسجيل مبيعات جديدة' : 'Record New Sale'}
@@ -396,7 +396,7 @@ export function SalesListClient({
                     >
                       {/* Reference */}
                       <td className="py-3.5 px-4">
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-wrap items-center gap-2">
                           <span
                             className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold ${
                               isRefund

@@ -28,13 +28,13 @@ export default async function WithdrawalsPage({ searchParams }: { searchParams: 
         <div className="flex items-center gap-3">
           <Link
             href="/admin/partners"
-            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-md border border-border bg-surface-elevated text-sm font-medium hover:bg-surface-muted transition-colors"
+            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-md border border-border bg-surface-elevated text-xs sm:text-sm font-medium hover:bg-surface-muted transition-colors"
           >
             {t.partners.backToPartners}
           </Link>
           <Link
             href="/admin/partners/withdrawals/new"
-            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary-hover transition-colors"
+            className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-md bg-primary text-primary-foreground text-xs sm:text-sm font-medium hover:bg-primary-hover transition-colors"
           >
             <Plus className="w-4 h-4" />
             {t.partners.newWithdrawal}
@@ -47,7 +47,7 @@ export default async function WithdrawalsPage({ searchParams }: { searchParams: 
           icon={<CreditCard className="w-8 h-8" />}
           title={t.partners.noWithdrawals}
           description={t.partners.noWithdrawalsDesc}
-          action={<Link href="/admin/partners/withdrawals/new" className="h-10 px-4 inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground text-sm font-medium">{t.partners.recordWithdrawal}</Link>}
+          action={<Link href="/admin/partners/withdrawals/new" className="h-10 px-4 inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground text-xs sm:text-sm font-medium">{t.partners.recordWithdrawal}</Link>}
         />
       ) : (
         <div className="rounded-lg border border-border bg-surface shadow-sm overflow-hidden">
