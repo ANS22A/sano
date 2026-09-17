@@ -103,12 +103,19 @@ export function BookingSummary({ draft, isAr, className, services, packages }: B
           )}
 
           {/* Time */}
-          {startTime && (
-            <div className="flex justify-between gap-3 text-sm">
-              <dt className="text-muted-foreground shrink-0">{label('time')}</dt>
+          {startTime ? (
+            <div className="flex justify-between text-sm py-1.5 border-b border-border">
+              <dt className="text-muted-foreground">{isAr ? 'الوقت' : 'Time'}</dt>
               <dd className="text-foreground font-mono font-medium text-end">{formatAppointmentTime(startTime, isAr ? 'ar' : 'en')}{endTime && ` — ${formatAppointmentTime(endTime, isAr ? 'ar' : 'en')}`}</dd>
             </div>
-          )}
+          ) : date ? (
+            <div className="flex flex-col gap-1 text-sm py-2 border-b border-border">
+              <dt className="text-muted-foreground">{isAr ? 'الوقت' : 'Time'}</dt>
+              <dd className="text-primary font-medium">
+                {isAr ? 'سوف يتم التواصل معك من قبل خدمة العملاء عبر الواتس اب لتحديد الوقت المتاح لكم' : 'Customer service will contact you via WhatsApp to determine the available time'}
+              </dd>
+            </div>
+          ) : null}
 
           {/* Duration */}
           {duration && (

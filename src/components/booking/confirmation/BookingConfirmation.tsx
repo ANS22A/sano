@@ -42,6 +42,7 @@ export function BookingConfirmation({ result, isAr }: BookingConfirmationProps) 
   const address = isAr ? result.address_ar : result.address_en
 
   const handleICS = () => {
+    if (!result.startTime || !result.endTime) return
     const content = generateICSContent({
       uid: result.bookingNumber,
       summary: `SANO LUNA — ${serviceName}`,
@@ -86,7 +87,16 @@ export function BookingConfirmation({ result, isAr }: BookingConfirmationProps) 
           { label: t.service, value: serviceName },
           {
             label: t.dateTime,
-            value: `${formatConfirmDate(result.date, isAr)}, ${formatAppointmentTime(result.startTime, isAr ? 'ar' : 'en')}${result.endTime ? ` — ${formatAppointmentTime(result.endTime, isAr ? 'ar' : 'en')}` : ''}`,
+            value: result.startTime 
+              ? `${formatConfirmDate(result.date, isAr)}, ${formatAppointmentTime(result.startTime, isAr ? 'ar' : 'en')}${result.endTime ? ` — ${formatAppointmentTime(result.endTime, isAr ? 'ar' : 'en')}` : ''}`
+              : (
+                <div className="flex flex-col gap-1 items-end">
+                  <span>{formatConfirmDate(result.date, isAr)}</span>
+                  <span className="text-primary text-xs font-medium max-w-[250px]">
+                    {isAr ? 'سوف يتم التواصل معك من قبل خدمة العملاء عبر الواتس اب لتحديد الوقت المتاح لكم' : 'Customer service will contact you via WhatsApp to determine the available time'}
+                  </span>
+                </div>
+              ),
           },
           { label: t.location, value: `${locationName}\n${address}` },
           { label: t.customer, value: `${result.customerName}\n${result.customerPhone}\n${result.customerEmail}` },
@@ -106,21 +116,23 @@ export function BookingConfirmation({ result, isAr }: BookingConfirmationProps) 
 
       {/* Actions */}
       <div className="flex flex-col sm:flex-row items-center gap-3 w-full">
-        <button
-          onClick={handleICS}
-          className={cn(
-            'flex-1 px-5 py-3 border border-[var(--border-subtle)] rounded-sm text-sm',
-            'hover:bg-[var(--surface)] transition-colors text-foreground',
-            'focus:outline-none focus:ring-2 focus:ring-[var(--ring)]',
-            'flex items-center justify-center gap-2'
-          )}
-        >
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <rect x="2" y="3" width="12" height="12" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
-            <path d="M5 1v4M11 1v4M2 7h12" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-          </svg>
-          {t.calendar}
-        </button>
+        {result.startTime && (
+          <button
+            onClick={handleICS}
+            className={cn(
+              'flex-1 px-5 py-3 border border-[var(--border-subtle)] rounded-sm text-sm',
+              'hover:bg-[var(--surface)] transition-colors text-foreground',
+              'focus:outline-none focus:ring-2 focus:ring-[var(--ring)]',
+              'flex items-center justify-center gap-2'
+            )}
+          >
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <rect x="2" y="3" width="12" height="12" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
+              <path d="M5 1v4M11 1v4M2 7h12" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+            </svg>
+            {t.calendar}
+          </button>
+        )}
         <Link
           href="/"
           className={cn(

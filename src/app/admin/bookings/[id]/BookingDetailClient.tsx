@@ -35,8 +35,8 @@ interface BookingDetailClientProps {
     id: string
     booking_number: string
     date: string
-    start_time: string
-    end_time: string
+    start_time: string | null
+    end_time: string | null
     status: string
     price_sar: number
     notes: string
@@ -274,7 +274,7 @@ export function BookingDetailClient({ booking, financialSummary }: BookingDetail
               {[
                 [lang === 'ar' && svc ? svc.name_ar : svc?.name_en ?? '—', t.bookings.service],
                 [booking.date, t.bookings.date],
-                [`${formatAppointmentTime(booking.start_time.slice(0, 5), lang)} → ${formatAppointmentTime(booking.end_time.slice(0, 5), lang)}`, t.bookings.time],
+                [booking.start_time && booking.end_time ? `${formatAppointmentTime(booking.start_time?.slice(0, 5), lang)} → ${formatAppointmentTime(booking.end_time?.slice(0, 5), lang)}` : 'Pending Time', t.bookings.time],
                 [
                   booking.locations
                     ? lang === 'ar'

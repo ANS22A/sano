@@ -134,7 +134,16 @@ export function ReviewStep({ draft, onBack, onConfirmed, isAr, onGoToStep, servi
           label={t.dateTime}
           value={draft.date && draft.startTime
             ? `${formatDate(draft.date, isAr)}, ${formatAppointmentTime(draft.startTime, isAr ? 'ar' : 'en')}`
-            : '—'}
+            : draft.date
+              ? (
+                <div className="flex flex-col gap-1">
+                  <span>{formatDate(draft.date, isAr)}</span>
+                  <span className="text-primary text-xs font-medium">
+                    {isAr ? 'سوف يتم التواصل معك من قبل خدمة العملاء عبر الواتس اب لتحديد الوقت المتاح لكم' : 'Customer service will contact you via WhatsApp to determine the available time'}
+                  </span>
+                </div>
+              )
+              : '—'}
           step={2}
         />
         <ReviewRow label={t.location} value={locationName} />

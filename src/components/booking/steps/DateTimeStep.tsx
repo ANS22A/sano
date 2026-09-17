@@ -65,7 +65,7 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
     onUpdate({ startTime: slot.startTime, endTime: slot.endTime })
   }
 
-  const canContinue = !!draft.date && !!draft.startTime
+  const canContinue = !!draft.date
 
   const availableSlots = slots.filter((s) => s.available)
   const hasSlots = availableSlots.length > 0
@@ -89,53 +89,19 @@ export function DateTimeStep({ draft, onUpdate, onContinue, onBack, isAr }: Date
           />
         </div>
 
-        {/* Time slots */}
-        <div className="w-full lg:w-72 p-5 bg-background rounded-sm border border-border-subtle shadow-subtle">
-          <h3 className="text-xs uppercase tracking-widest text-accent font-semibold mb-4">
-            {isAr ? 'الأوقات المتاحة' : 'Available Time Slots'}
-          </h3>
-
-          {!draft.date ? (
-            <div className="h-40 flex flex-col items-center justify-center text-sm text-muted-foreground italic gap-2 text-center">
-              <span className="text-xl text-accent">◇</span>
-              <span>{t.selectDate}</span>
-            </div>
-          ) : isPending ? (
-            <div className="h-40 flex items-center justify-center">
-              <div className="flex flex-col items-center gap-3">
-                <div className="w-6 h-6 border-2 border-accent border-t-primary rounded-full animate-spin" />
-                <p className="text-xs text-muted-foreground">{t.loading}</p>
-              </div>
-            </div>
-          ) : !hasSlots ? (
-            <div className="flex flex-col gap-1 py-8 text-center">
-              <p className="text-sm text-foreground font-medium">{t.noSlots}</p>
-              <p className="text-xs text-muted-foreground">{t.noSlotsHint}</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 gap-2.5 max-h-72 overflow-y-auto pe-1">
-              {slots.map((slot) => {
-                const isSelected = draft.startTime === slot.startTime
-                return (
-                  <button
-                    key={slot.startTime}
-                    onClick={() => selectTime(slot)}
-                    disabled={!slot.available}
-                    aria-pressed={isSelected}
-                    className={cn(
-                      'px-3 py-2.5 text-sm rounded-sm border transition-all duration-200 font-mono text-center',
-                      'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1',
-                      isSelected && 'bg-primary text-white border-primary ring-2 ring-accent font-semibold shadow-md scale-[1.02]',
-                      slot.available && !isSelected && 'border-border bg-background hover:bg-surface-lavender hover:border-primary text-foreground font-medium',
-                      !slot.available && 'border-border-subtle bg-surface-muted text-muted-foreground/30 opacity-40 cursor-not-allowed line-through'
-                    )}
-                  >
-                    {formatAppointmentTime(slot.startTime, isAr ? 'ar' : 'en')}
-                  </button>
-                )
-              })}
-            </div>
-          )}
+        {/* Time slots / WhatsApp Message */}
+        <div className="w-full lg:w-72 p-5 bg-background rounded-sm border border-border-subtle shadow-subtle flex flex-col justify-center min-h-[280px]">
+          <div className="flex flex-col items-center gap-4 py-8 text-center px-2">
+            <span className="text-4xl">🗓️</span>
+            <h3 className="text-sm font-semibold text-foreground">
+              {isAr ? 'تحديد الموعد' : 'Appointment Timing'}
+            </h3>
+            <p className="text-sm leading-relaxed text-muted-foreground font-medium bg-surface-lavender/50 p-4 rounded border border-primary/10">
+              {isAr 
+                ? 'سوف يتم التواصل معك من قبل خدمة العملاء عبر الواتس اب لتحديد الوقت المتاح لكم' 
+                : 'Customer service will contact you via WhatsApp to determine the available time'}
+            </p>
+          </div>
         </div>
       </div>
 

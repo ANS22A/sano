@@ -135,9 +135,9 @@ export type Database = {
           currency: string
           customer_id: string
           date: string
-          end_time: string
+          end_time: string | null
           id: string
-          locale: string
+          locale: string | null
           location_id: string | null
           notes: string | null
           package_slug: string | null
@@ -145,7 +145,7 @@ export type Database = {
           service_id: string | null
           source: string
           staff_id: string | null
-          start_time: string
+          start_time: string | null
           status: Database["public"]["Enums"]["booking_status"]
           updated_at: string
         }
@@ -156,9 +156,9 @@ export type Database = {
           currency?: string
           customer_id: string
           date: string
-          end_time: string
+          end_time?: string | null
           id?: string
-          locale?: string
+          locale?: string | null
           location_id?: string | null
           notes?: string | null
           package_slug?: string | null
@@ -166,7 +166,7 @@ export type Database = {
           service_id?: string | null
           source?: string
           staff_id?: string | null
-          start_time: string
+          start_time?: string | null
           status?: Database["public"]["Enums"]["booking_status"]
           updated_at?: string
         }
@@ -177,9 +177,9 @@ export type Database = {
           currency?: string
           customer_id?: string
           date?: string
-          end_time?: string
+          end_time?: string | null
           id?: string
-          locale?: string
+          locale?: string | null
           location_id?: string | null
           notes?: string | null
           package_slug?: string | null
@@ -187,7 +187,7 @@ export type Database = {
           service_id?: string | null
           source?: string
           staff_id?: string | null
-          start_time?: string
+          start_time?: string | null
           status?: Database["public"]["Enums"]["booking_status"]
           updated_at?: string
         }

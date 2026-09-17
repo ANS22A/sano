@@ -51,7 +51,7 @@ export default async function AccountDashboardPage(props: PageProps) {
                 {isAr ? nextBooking.services?.name_ar : nextBooking.services?.name_en}
               </h3>
               <p className="text-secondary font-medium text-sm">
-                {new Date(nextBooking.date).toLocaleDateString(locale, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} • {nextBooking.start_time.slice(0, 5)}
+                {new Date(nextBooking.date).toLocaleDateString(locale, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} • {nextBooking.start_time ? nextBooking.start_time.slice(0, 5) : 'بانتظار تحديد الوقت'}
               </p>
             </div>
             <Link

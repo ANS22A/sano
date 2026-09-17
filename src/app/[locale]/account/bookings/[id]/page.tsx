@@ -69,7 +69,7 @@ export default async function AccountBookingDetailPage(props: PageProps) {
             <div>
               <p className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-1">{t('time')}</p>
               <p className="font-medium text-foreground">
-                {booking.start_time.slice(0, 5)} {booking.services?.duration_minutes ? `(${booking.services.duration_minutes} minutes)` : ''}
+                {booking.start_time ? booking.start_time.slice(0, 5) : 'بانتظار تحديد الوقت'} {booking.services?.duration_minutes ? `(${booking.services.duration_minutes} minutes)` : ''}
               </p>
             </div>
           </div>

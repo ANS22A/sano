@@ -40,7 +40,7 @@ export default async function AccountBookingsPage(props: PageProps) {
             </div>
             
             <p className="text-secondary font-medium text-sm">
-              {new Date(booking.date).toLocaleDateString(locale, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} • {booking.start_time.slice(0, 5)}
+              {new Date(booking.date).toLocaleDateString(locale, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} • {booking.start_time ? booking.start_time.slice(0, 5) : 'بانتظار تحديد الوقت'}
             </p>
           </div>
           

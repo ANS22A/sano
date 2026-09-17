@@ -24,7 +24,7 @@ export const brandBg = '#FFFCFE'
 export interface EmailBookingDetails {
   bookingNumber: string
   date: string
-  startTime: string
+  startTime: string | null
   durationMinutes?: number
   serviceNameAr: string
   serviceNameEn: string
@@ -37,7 +37,7 @@ export interface EmailBookingDetails {
   locale?: 'en' | 'ar'
   cancellationReason?: string
   oldDate?: string
-  oldStartTime?: string
+  oldStartTime?: string | null
   notes?: string
 }
 
@@ -147,7 +147,7 @@ export async function sendBookingCreated(details: EmailBookingDetails): Promise<
           </tr>
           <tr>
             <td style="color: ${brandMauve}; font-weight: 600;">الوقت:</td>
-            <td dir="ltr" style="text-align: right;">${details.startTime.slice(0, 5)} ${durationStr ? `(${durationStr})` : ''}</td>
+            ${details.startTime ? `<td dir="ltr" style="text-align: right;">${details.startTime.slice(0, 5)} ${durationStr ? `(${durationStr})` : ''}</td>` : `<td dir="ltr" style="text-align: right;">بانتظار تحديد الوقت</td>`}
           </tr>
           <tr>
             <td style="color: ${brandMauve}; font-weight: 600;">المنطقة / الموقع:</td>
@@ -186,7 +186,7 @@ export async function sendBookingCreated(details: EmailBookingDetails): Promise<
           </tr>
           <tr>
             <td style="color: ${brandMauve}; font-weight: 600;">Time:</td>
-            <td>${details.startTime.slice(0, 5)} ${durationStr ? `(${durationStr})` : ''}</td>
+            ${details.startTime ? `<td>${details.startTime.slice(0, 5)} ${durationStr ? `(${durationStr})` : ''}</td>` : `<td>Pending Time</td>`}
           </tr>
           <tr>
             <td style="color: ${brandMauve}; font-weight: 600;">Location:</td>
@@ -262,7 +262,7 @@ export async function sendBookingConfirmation(details: EmailBookingDetails): Pro
           </tr>
           <tr>
             <td style="color: ${brandMauve}; font-weight: 600;">الوقت:</td>
-            <td dir="ltr" style="text-align: right;">${details.startTime.slice(0, 5)} ${durationStr ? `(${durationStr})` : ''}</td>
+            ${details.startTime ? `<td dir="ltr" style="text-align: right;">${details.startTime.slice(0, 5)} ${durationStr ? `(${durationStr})` : ''}</td>` : `<td dir="ltr" style="text-align: right;">بانتظار تحديد الوقت</td>`}
           </tr>
           <tr>
             <td style="color: ${brandMauve}; font-weight: 600;">الموقع / المنطقة:</td>
@@ -302,7 +302,7 @@ export async function sendBookingConfirmation(details: EmailBookingDetails): Pro
           </tr>
           <tr>
             <td style="color: ${brandMauve}; font-weight: 600;">Time:</td>
-            <td>${details.startTime.slice(0, 5)} ${durationStr ? `(${durationStr})` : ''}</td>
+            ${details.startTime ? `<td>${details.startTime.slice(0, 5)} ${durationStr ? `(${durationStr})` : ''}</td>` : `<td>Pending Time</td>`}
           </tr>
           <tr>
             <td style="color: ${brandMauve}; font-weight: 600;">Location:</td>
@@ -377,7 +377,7 @@ export async function sendBookingCancellation(details: EmailBookingDetails): Pro
           </tr>
           <tr>
             <td style="color: #991B1B; font-weight: 600;">الوقت:</td>
-            <td dir="ltr" style="text-align: right;">${details.startTime.slice(0, 5)}</td>
+            ${details.startTime ? `<td dir="ltr" style="text-align: right;">${details.startTime.slice(0, 5)}</td>` : `<td dir="ltr" style="text-align: right;">بانتظار تحديد الوقت</td>`}
           </tr>
           <tr>
             <td style="color: #991B1B; font-weight: 600;">الحالة:</td>
@@ -409,7 +409,7 @@ export async function sendBookingCancellation(details: EmailBookingDetails): Pro
           </tr>
           <tr>
             <td style="color: #991B1B; font-weight: 600;">Time:</td>
-            <td>${details.startTime.slice(0, 5)}</td>
+            ${details.startTime ? `<td>${details.startTime.slice(0, 5)}</td>` : `<td>Pending Time</td>`}
           </tr>
           <tr>
             <td style="color: #991B1B; font-weight: 600;">Status:</td>
@@ -478,7 +478,7 @@ export async function sendBookingReschedule(details: EmailBookingDetails): Promi
           </tr>
           <tr>
             <td style="color: #166534; font-weight: 700;">الوقت الجديد:</td>
-            <td dir="ltr" style="text-align: right; color: #166534; font-weight: 700;">${details.startTime.slice(0, 5)}</td>
+            ${details.startTime ? `<td dir="ltr" style="text-align: right; color: #166534; font-weight: 700;">${details.startTime.slice(0, 5)}</td>` : `<td dir="ltr" style="text-align: right; color: #166534; font-weight: 700;">بانتظار تحديد الوقت</td>`}
           </tr>
           <tr>
             <td style="color: ${brandMauve}; font-weight: 600;">الموقع:</td>
@@ -519,7 +519,7 @@ export async function sendBookingReschedule(details: EmailBookingDetails): Promi
           </tr>
           <tr>
             <td style="color: #166534; font-weight: 700;">New Time:</td>
-            <td style="color: #166534; font-weight: 700;">${details.startTime.slice(0, 5)}</td>
+            ${details.startTime ? `<td style="color: #166534; font-weight: 700;">${details.startTime.slice(0, 5)}</td>` : `<td style="color: #166534; font-weight: 700;">Pending Time</td>`}
           </tr>
           <tr>
             <td style="color: ${brandMauve}; font-weight: 600;">Location:</td>

@@ -21,7 +21,7 @@ export interface RecentBooking {
   id: string
   booking_number: string
   date: string
-  start_time: string
+  start_time: string | null
   status: string
   price_sar: number
   customer_name: string

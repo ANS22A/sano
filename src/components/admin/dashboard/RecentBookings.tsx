@@ -67,7 +67,7 @@ export function RecentBookings({ bookings, t, dir = 'ltr' }: Props) {
                   <td className="px-4 py-3 text-foreground font-medium">{b.customer_name}</td>
                   <td className="px-4 py-3 text-muted-foreground max-w-40 truncate">{b.service_name}</td>
                   <td className="px-4 py-3 text-muted-foreground whitespace-nowrap">
-                    {b.date} {b.start_time.slice(0, 5)}
+                    {b.date} {b.start_time ? b.start_time.slice(0, 5) : 'Pending Time'}
                   </td>
                   <td className="px-4 py-3">
                     <AdminBadge status={b.status} label={b.status} />

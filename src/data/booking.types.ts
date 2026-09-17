@@ -95,8 +95,8 @@ export interface BookingResult {
   success: true
   bookingNumber: string
   date: string
-  startTime: string
-  endTime: string
+  startTime: string | null
+  endTime: string | null
   serviceName_ar: string
   serviceName_en: string
   locationName_ar: string

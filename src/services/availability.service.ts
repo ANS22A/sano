@@ -161,7 +161,7 @@ export interface GetAvailableSlotsParams {
   locationId: string
   date: string   // 'YYYY-MM-DD'
   /** Pre-resolved existing bookings — pass from server action to avoid re-query */
-  existingBookings?: Array<{ start_time: string; end_time: string }>
+  existingBookings?: Array<{ start_time: string | null; end_time: string | null }>
 }
 
 /**
@@ -208,23 +208,26 @@ export async function getAvailableSlots(params: GetAvailableSlotsParams): Promis
   }
 
   // 4. Build occupied intervals from existing bookings
-  const occupied: Array<{ start: number; end: number }> = existingBookings.map((b) => {
-    let start = toMinutes(b.start_time.slice(0, 5))
-    let end = toMinutes(b.end_time.slice(0, 5))
-    
-    // Only shift times if this shift spans midnight AND the booking is in the morning hours
-    const spansMidnight = closeMin > 1440
-    if (spansMidnight) {
-      const originalCloseMin = closeMin - 1440
-      if (start <= originalCloseMin) start += 1440
-      if (end <= originalCloseMin) end += 1440
-    }
-    
-    // Fix for cross-midnight bookings within the same day
-    if (end < start) end += 1440
+  const occupied: Array<{ start: number; end: number }> = (existingBookings || [])
+    .map((b) => {
+      if (!b?.start_time || !b?.end_time) return null
+      let start = toMinutes(b.start_time.slice(0, 5))
+      let end = toMinutes(b.end_time.slice(0, 5))
+      
+      // Only shift times if this shift spans midnight AND the booking is in the morning hours
+      const spansMidnight = closeMin > 1440
+      if (spansMidnight) {
+        const originalCloseMin = closeMin - 1440
+        if (start <= originalCloseMin) start += 1440
+        if (end <= originalCloseMin) end += 1440
+      }
+      
+      // Fix for cross-midnight bookings within the same day
+      if (end < start) end += 1440
 
-    return { start, end }
-  })
+      return { start, end }
+    })
+    .filter((block): block is { start: number; end: number } => block !== null)
 
   // 5. Generate slots
   const slots: AvailableSlot[] = []

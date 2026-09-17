@@ -8,8 +8,8 @@ interface CalendarBooking {
   id: string
   booking_number: string
   date: string
-  start_time: string
-  end_time: string
+  start_time: string | null
+  end_time: string | null
   status: string
   customer_name: string
   service_name: string
@@ -96,9 +96,9 @@ export function AdminCalendar({ initialBookings, currentMonth }: { initialBookin
                         'block px-2 py-1 rounded text-[10px] leading-tight border transition-colors truncate',
                         STATUS_COLORS[b.status] ?? STATUS_COLORS.pending
                       )}
-                      title={`${b.start_time.slice(0,5)} ${b.customer_name} - ${b.service_name}`}
+                      title={`${b.start_time ? b.start_time.slice(0,5) : 'Pending Time'} ${b.customer_name} - ${b.service_name}`}
                     >
-                      <span className="font-semibold">{b.start_time.slice(0,5)}</span> {b.customer_name}
+                      <span className="font-semibold">{b.start_time ? b.start_time.slice(0,5) : 'Pending'}</span> {b.customer_name}
                     </Link>
                   ))}
                 </div>

@@ -39,10 +39,10 @@ const saudiPhoneRegex = /^(\+966|0966|966|0)(5\d{8})$/
 
 const BookingSchema = z.object({
   serviceId: z.string().nullable(),
-  packageSlug: z.string().nullable(),
+  packageSlug: z.string().optional().nullable(),
   locationId: z.string().nullable(),
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Invalid date format'),
-  startTime: z.string().regex(/^\d{2}:\d{2}$/, 'Invalid time format'),
+  startTime: z.string().regex(/^\d{2}:\d{2}$/, 'Invalid time format').optional().nullable(),
   customer: z.object({
     fullName: z.string().min(2, 'Name too short').max(100, 'Name too long').trim(),
     phone: z.string().regex(saudiPhoneRegex, 'Invalid Saudi phone number'),
@@ -155,10 +155,13 @@ export async function createBooking(draft: BookingDraft): Promise<BookingRespons
     }
   }
 
-  // 4. Calculate end time
-  const [startH, startM] = data.startTime.split(':').map(Number)
-  const endMinutes = startH * 60 + startM + durationMinutes
-  const endTime = `${String(Math.floor(endMinutes / 60)).padStart(2, '0')}:${String(endMinutes % 60).padStart(2, '0')}`
+  // 4. Resolve exact duration and calculate end time
+  let endTime: string | null = null
+  if (data.startTime) {
+    const [startH, startM] = data.startTime.split(':').map(Number)
+    const endMinutes = startH * 60 + startM + durationMinutes
+    endTime = `${String(Math.floor(endMinutes / 60)).padStart(2, '0')}:${String(endMinutes % 60).padStart(2, '0')}`
+  }
 
   // 5. Re-verify slot availability (server-side, race-condition safe)
   const supabase = await createClient()
@@ -181,13 +184,16 @@ export async function createBooking(draft: BookingDraft): Promise<BookingRespons
     })),
   })
 
-  const requestedSlot = slots.find((s) => s.startTime === data.startTime)
-  if (!requestedSlot?.available) {
-    return {
-      success: false,
-      code: 'SLOT_UNAVAILABLE',
-      message: 'This time slot is no longer available. Please choose another time.',
-      messageAr: 'هذا الوقت لم يعد متاحاً. يرجى اختيار وقت آخر.',
+  // 5. Verify requested slot is still available (only if a time was provided)
+  if (data.startTime) {
+    const requestedSlot = slots.find((s) => s.startTime === data.startTime)
+    if (!requestedSlot?.available) {
+      return {
+        success: false,
+        code: 'SLOT_UNAVAILABLE',
+        message: 'This time slot is no longer available. Please choose another time.',
+        messageAr: 'هذا الوقت لم يعد متاحاً. يرجى اختيار وقت آخر.',
+      }
     }
   }
 
@@ -327,8 +333,8 @@ export async function createBooking(draft: BookingDraft): Promise<BookingRespons
       package_slug: data.packageSlug ?? null,
       location_id: dbLocationId,
       date: data.date,
-      start_time: data.startTime.length === 5 ? data.startTime + ':00' : data.startTime,
-      end_time: endTime.length === 5 ? endTime + ':00' : endTime,
+      start_time: data.startTime ? (data.startTime.length === 5 ? data.startTime + ':00' : data.startTime) : null,
+      end_time: endTime ? (endTime.length === 5 ? endTime + ':00' : endTime) : null,
       customer_id: customerId,
       price_sar: priceSar,
       currency: 'SAR',
@@ -362,7 +368,7 @@ export async function createBooking(draft: BookingDraft): Promise<BookingRespons
     success: true,
     bookingNumber: booking.booking_number,
     date: data.date,
-    startTime: data.startTime,
+    startTime: data.startTime ?? null,
     endTime,
     serviceName_ar: serviceName.name_ar,
     serviceName_en: serviceName.name_en,
@@ -385,7 +391,7 @@ export async function createBooking(draft: BookingDraft): Promise<BookingRespons
   sendBookingConfirmation({
     bookingNumber: booking.booking_number,
     date: data.date,
-    startTime: data.startTime,
+    startTime: data.startTime ?? null,
     durationMinutes,
     serviceNameAr: serviceName.name_ar,
     serviceNameEn: serviceName.name_en,
