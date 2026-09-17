@@ -5,6 +5,9 @@ import { createServerClient } from '@supabase/ssr'
 
 const handleI18nRouting = createMiddleware(routing)
 
+/** Valid admin roles that may access /admin routes */
+const ADMIN_ROLES = ['super_admin', 'admin', 'manager', 'staff'] as const
+
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
@@ -49,6 +52,28 @@ export async function proxy(request: NextRequest) {
     if (!session) {
       const loginUrl = new URL('/admin/login', request.url)
       loginUrl.searchParams.set('redirectTo', pathname)
+      return NextResponse.redirect(loginUrl)
+    }
+
+    // ─── Layer 1: Role verification (defense-in-depth) ────────────────────────
+    // Query the profiles table to verify the authenticated user has an active
+    // admin profile with a recognized role. This prevents customers (who have
+    // valid auth sessions but no admin profile) from reaching admin routes.
+    // This query only runs on /admin/* requests, not on public routes.
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role, is_active')
+      .eq('id', session.user.id)
+      .single()
+
+    if (
+      !profile ||
+      !profile.is_active ||
+      !ADMIN_ROLES.includes(profile.role as typeof ADMIN_ROLES[number])
+    ) {
+      // Not an admin — redirect to login with an error hint
+      const loginUrl = new URL('/admin/login', request.url)
+      loginUrl.searchParams.set('error', 'unauthorized')
       return NextResponse.redirect(loginUrl)
     }
 

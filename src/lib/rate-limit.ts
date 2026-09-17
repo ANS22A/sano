@@ -39,6 +39,33 @@ const limiters = {
         analytics: true,
       })
     : null,
+
+  // Authentication: 5 attempts per 15 minutes per IP
+  auth: redis
+    ? new Ratelimit({
+        redis,
+        limiter: Ratelimit.slidingWindow(5, '15 m'),
+        analytics: true,
+      })
+    : null,
+
+  // Password reset / OTP: 3 attempts per 10 minutes per IP
+  password_reset: redis
+    ? new Ratelimit({
+        redis,
+        limiter: Ratelimit.slidingWindow(3, '10 m'),
+        analytics: true,
+      })
+    : null,
+
+  // Contact form: 3 submissions per 10 minutes per IP
+  contact: redis
+    ? new Ratelimit({
+        redis,
+        limiter: Ratelimit.slidingWindow(3, '10 m'),
+        analytics: true,
+      })
+    : null,
 }
 
 /**

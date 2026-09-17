@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { z } from 'zod'
 import { revalidatePath } from 'next/cache'
+import { checkRateLimit } from '@/lib/rate-limit'
 
 const saudiPhoneRegex = /^(\+966|0966|966|0)(5\d{8})$/
 
@@ -24,6 +25,12 @@ const RegisterSchema = z.object({
 })
 
 export async function customerSignUp(formData: FormData) {
+  // Rate limit: prevent spam account creation
+  const rateLimit = await checkRateLimit('auth')
+  if (!rateLimit.success) {
+    return { error: 'Too many attempts. Please wait a few minutes and try again.' }
+  }
+
   const data = {
     fullName: formData.get('fullName')?.toString() ?? '',
     phone: formData.get('phone')?.toString() ?? '',
@@ -81,6 +88,12 @@ const LoginSchema = z.object({
 })
 
 export async function customerSignIn(formData: FormData) {
+  // Rate limit: prevent brute force login
+  const rateLimit = await checkRateLimit('auth')
+  if (!rateLimit.success) {
+    return { error: 'Too many login attempts. Please wait a few minutes and try again.' }
+  }
+
   const email = formData.get('email')?.toString() ?? ''
   const password = formData.get('password')?.toString() ?? ''
   const locale = formData.get('locale')?.toString() || 'ar'
@@ -181,6 +194,17 @@ export async function resendCustomerOtp({
   email: string
   locale?: string
 }) {
+  // Rate limit: prevent OTP spam
+  const rateLimit = await checkRateLimit('password_reset')
+  if (!rateLimit.success) {
+    return {
+      error:
+        locale === 'ar'
+          ? 'لقد تجاوزت الحد المسموح من المحاولات. يرجى الانتظار بضع دقائق.'
+          : 'Too many attempts. Please wait a few minutes and try again.',
+    }
+  }
+
   const emailParsed = z.string().email().safeParse(email.trim())
   if (!emailParsed.success) {
     return {

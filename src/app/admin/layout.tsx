@@ -3,14 +3,21 @@
  *
  * Independent from the [locale] layout. No public header/footer.
  * Handles: auth session, profile load, admin language from cookie.
+ *
+ * Security: Layer 2 defense-in-depth. Even if middleware is bypassed,
+ * this layout verifies the user has an active admin profile before
+ * rendering any admin content. The login page is the only exception.
  */
 import type { Metadata } from 'next'
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
+import { redirect } from 'next/navigation'
 import { getAdminSession } from '@/lib/admin/auth'
 import { AdminShell } from '@/components/admin/shell/AdminShell'
 import type { AdminLang } from '@/lib/admin/translations'
 import { Cinzel, Montserrat, Cairo, Tajawal } from 'next/font/google'
 import '../globals.css'
+
+const ADMIN_ROLES = ['super_admin', 'admin', 'manager', 'staff'] as const
 
 const cinzel = Cinzel({
   subsets: ['latin'],
@@ -56,34 +63,34 @@ export default async function AdminLayout({
   const cookieStore = await cookies()
   const lang = (cookieStore.get('admin_lang')?.value ?? 'en') as AdminLang
 
-  // If no session exists (e.g. on /admin/login) or profile is inactive, render children without AdminShell.
-  // Protected pages and middleware enforce authentication separately.
+  // Determine current path to allow the login page through
+  const headersList = await headers()
+  const pathname = headersList.get('x-next-pathname') ?? headersList.get('x-invoke-path') ?? ''
+  const isLoginPage = pathname === '/admin/login' || pathname.endsWith('/admin/login')
+
+  // If no session exists, only allow the login page to render.
+  // All other admin routes redirect to login (Layer 2 defense).
   if (!session) {
-    return (
-      <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'} className={`h-full antialiased ${cinzel.variable} ${montserrat.variable} ${cairo.variable} ${tajawal.variable}`}>
-        <head>
-          <meta charSet="utf-8" />
-        </head>
-        <body className="h-full bg-background text-foreground">
-          {children}
-        </body>
-      </html>
-    )
+    if (isLoginPage) {
+      return (
+        <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'} className={`h-full antialiased ${cinzel.variable} ${montserrat.variable} ${cairo.variable} ${tajawal.variable}`}>
+          <head>
+            <meta charSet="utf-8" />
+          </head>
+          <body className="h-full bg-background text-foreground">
+            {children}
+          </body>
+        </html>
+      )
+    }
+    redirect('/admin/login')
   }
   
   const profile = session.profile
 
-  if (!profile || !profile.is_active) {
-    return (
-      <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'} className={`h-full antialiased ${cinzel.variable} ${montserrat.variable} ${cairo.variable} ${tajawal.variable}`}>
-        <head>
-          <meta charSet="utf-8" />
-        </head>
-        <body className="h-full bg-background text-foreground">
-          {children}
-        </body>
-      </html>
-    )
+  // Layer 2: verify the profile has a valid admin role
+  if (!profile || !profile.is_active || !ADMIN_ROLES.includes(profile.role as typeof ADMIN_ROLES[number])) {
+    redirect('/admin/login?error=unauthorized')
   }
 
   return (
