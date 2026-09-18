@@ -23,13 +23,16 @@ export async function proxy(request: NextRequest) {
 
   // ─── Admin routes ───────────────────────────────────────────────────────────
   if (pathname.startsWith('/admin')) {
+    const requestHeaders = new Headers(request.headers)
+    requestHeaders.set('x-next-pathname', pathname)
+
     // Login page is always accessible (skip auth check)
     if (pathname === '/admin/login') {
-      return NextResponse.next()
+      return NextResponse.next({ request: { headers: requestHeaders } })
     }
 
-    // Create a response we can mutate (for cookie refresh)
-    const response = NextResponse.next({ request })
+    // Create a response we can mutate (for cookie refresh) and inject pathname for layouts
+    const response = NextResponse.next({ request: { headers: requestHeaders } })
 
     // Check Supabase session using SSR cookies
     const supabase = createServerClient(

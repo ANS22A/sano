@@ -65,32 +65,50 @@ export default async function AdminLayout({
 
   // Determine current path to allow the login page through
   const headersList = await headers()
-  const pathname = headersList.get('x-next-pathname') ?? headersList.get('x-invoke-path') ?? ''
-  const isLoginPage = pathname === '/admin/login' || pathname.endsWith('/admin/login')
+  const pathname = headersList.get('x-next-pathname') ?? ''
+  
+  // Exact match for the login page, allowing optional trailing slash
+  // Ignore query parameters as they are not part of pathname
+  const isLoginPage = pathname === '/admin/login' || pathname === '/admin/login/'
 
   // If no session exists, only allow the login page to render.
   // All other admin routes redirect to login (Layer 2 defense).
   if (!session) {
-    if (isLoginPage) {
-      return (
-        <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'} className={`h-full antialiased ${cinzel.variable} ${montserrat.variable} ${cairo.variable} ${tajawal.variable}`}>
-          <head>
-            <meta charSet="utf-8" />
-          </head>
-          <body className="h-full bg-background text-foreground">
-            {children}
-          </body>
-        </html>
-      )
+    if (!isLoginPage) {
+      redirect('/admin/login')
     }
-    redirect('/admin/login')
+    // Return early for unauthenticated users on the login page
+    // This allows the login page to render without checking roles.
+    return (
+      <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'} className={`h-full antialiased ${cinzel.variable} ${montserrat.variable} ${cairo.variable} ${tajawal.variable}`}>
+        <head>
+          <meta charSet="utf-8" />
+        </head>
+        <body className="h-full bg-background text-foreground">
+          {children}
+        </body>
+      </html>
+    )
   }
   
   const profile = session.profile
 
   // Layer 2: verify the profile has a valid admin role
   if (!profile || !profile.is_active || !ADMIN_ROLES.includes(profile.role as typeof ADMIN_ROLES[number])) {
-    redirect('/admin/login?error=unauthorized')
+    if (!isLoginPage) {
+      redirect('/admin/login?error=unauthorized')
+    }
+    // If they are on the login page already, let it render (to show the unauthorized error)
+    return (
+      <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'} className={`h-full antialiased ${cinzel.variable} ${montserrat.variable} ${cairo.variable} ${tajawal.variable}`}>
+        <head>
+          <meta charSet="utf-8" />
+        </head>
+        <body className="h-full bg-background text-foreground">
+          {children}
+        </body>
+      </html>
+    )
   }
 
   return (
