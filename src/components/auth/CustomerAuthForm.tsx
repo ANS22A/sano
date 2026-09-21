@@ -40,7 +40,7 @@ const tAuth = {
     hasAccount: 'Already have an account?',
     back: 'Back to Home',
     otpTitle: 'Verify your email',
-    otpSubtitle: 'Enter the 8-digit verification code we sent to your email.',
+    otpSubtitle: 'Enter the 6-digit verification code we sent to your email.',
     otpButton: 'Verify Code',
     otpVerifying: 'Verifying...',
     resendCountdown: 'Resend code in ({seconds}s)',
@@ -67,7 +67,7 @@ const tAuth = {
     hasAccount: 'لديك حساب بالفعل؟',
     back: 'العودة للرئيسية',
     otpTitle: 'تحقق من بريدك الإلكتروني',
-    otpSubtitle: 'أدخل رمز التحقق المكون من 8 أرقام الذي أرسلناه إلى بريدك الإلكتروني.',
+    otpSubtitle: 'أدخل رمز التحقق المكون من 6 أرقام الذي أرسلناه إلى بريدك الإلكتروني.',
     otpButton: 'تأكيد الرمز',
     otpVerifying: 'جارٍ التحقق...',
     resendCountdown: 'إعادة الإرسال بعد ({seconds} ثانية)',
@@ -96,7 +96,7 @@ function CustomerAuthFormContent({
   const [successInfo, setSuccessInfo] = useState('')
   const [requiresOtp, setRequiresOtp] = useState(false)
   const [registeredEmail, setRegisteredEmail] = useState('')
-  const [otpDigits, setOtpDigits] = useState<string[]>(['', '', '', '', '', '', '', ''])
+  const [otpDigits, setOtpDigits] = useState<string[]>(['', '', '', '', '', ''])
   const [countdown, setCountdown] = useState(60)
   const [isPending, startTransition] = useTransition()
   const [isResending, startResendTransition] = useTransition()
@@ -125,16 +125,16 @@ function CustomerAuthFormContent({
     // Only accept numeric input
     const cleanVal = value.replace(/\D/g, '')
 
-    // Handle paste of full or multi-digit code
+    // Handle paste of full or multi-digit code (distribute from current index)
     if (cleanVal.length > 1) {
-      const pastedDigits = cleanVal.slice(0, 8).split('')
+      const pastedDigits = cleanVal.slice(0, 6 - index).split('')
       const nextDigits = [...otpDigits]
       pastedDigits.forEach((digit, i) => {
-        if (i < 8) nextDigits[i] = digit
+        if (index + i < 6) nextDigits[index + i] = digit
       })
       setOtpDigits(nextDigits)
       setError('')
-      const focusIndex = Math.min(pastedDigits.length, 7)
+      const focusIndex = Math.min(index + pastedDigits.length, 5)
       inputRefs.current[focusIndex]?.focus()
       return
     }
@@ -145,7 +145,7 @@ function CustomerAuthFormContent({
     setError('')
 
     // Move to next input if digit entered
-    if (cleanVal && index < 7) {
+    if (cleanVal && index < 5) {
       inputRefs.current[index + 1]?.focus()
     }
   }
@@ -155,24 +155,25 @@ function CustomerAuthFormContent({
       inputRefs.current[index - 1]?.focus()
     } else if (e.key === 'ArrowLeft' && index > 0) {
       inputRefs.current[index - 1]?.focus()
-    } else if (e.key === 'ArrowRight' && index < 7) {
+    } else if (e.key === 'ArrowRight' && index < 5) {
       inputRefs.current[index + 1]?.focus()
     }
   }
 
-  function handleOtpPaste(e: React.ClipboardEvent<HTMLInputElement>) {
+  function handleOtpPaste(index: number, e: React.ClipboardEvent<HTMLInputElement>) {
     e.preventDefault()
     const pastedData = e.clipboardData.getData('text').replace(/\D/g, '')
     if (!pastedData) return
 
-    const digits = pastedData.slice(0, 8).split('')
-    const nextDigits = ['', '', '', '', '', '', '', '']
+    // Distribute from the currently focused index
+    const digits = pastedData.slice(0, 6 - index).split('')
+    const nextDigits = [...otpDigits]
     digits.forEach((digit, i) => {
-      nextDigits[i] = digit
+      if (index + i < 6) nextDigits[index + i] = digit
     })
     setOtpDigits(nextDigits)
     setError('')
-    const focusIndex = Math.min(digits.length, 7)
+    const focusIndex = Math.min(index + digits.length, 5)
     inputRefs.current[focusIndex]?.focus()
   }
 
@@ -182,11 +183,11 @@ function CustomerAuthFormContent({
     setSuccessInfo('')
     const token = otpDigits.join('')
 
-    if (token.length !== 8) {
+    if (token.length !== 6) {
       setError(
         isAr
-          ? 'يرجى إدخال رمز التحقق المكون من 8 أرقام كاملاً.'
-          : 'Please enter the complete 8-digit verification code.'
+          ? 'يرجى إدخال رمز التحقق المكون من 6 أرقام كاملاً.'
+          : 'Please enter the complete 6-digit verification code.'
       )
       return
     }
@@ -257,7 +258,7 @@ function CustomerAuthFormContent({
     })
   }
 
-  // ─── 8-DIGIT OTP VERIFICATION SCREEN ───────────────────────────────────────
+  // ─── 6-DIGIT OTP VERIFICATION SCREEN ───────────────────────────────────────
   if (requiresOtp) {
     return (
       <div
@@ -290,7 +291,7 @@ function CustomerAuthFormContent({
           {/* Card */}
           <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-subtle">
             <form onSubmit={handleVerifyOtp} className="space-y-6">
-              {/* 8-Digit OTP Input Row */}
+              {/* 6-Digit OTP Input Row */}
               <div className="flex items-center justify-center gap-1 sm:gap-2" dir="ltr">
                 {otpDigits.map((digit, idx) => (
                   <input
@@ -306,7 +307,7 @@ function CustomerAuthFormContent({
                     value={digit}
                     onChange={(e) => handleOtpChange(idx, e.target.value)}
                     onKeyDown={(e) => handleOtpKeyDown(idx, e)}
-                    onPaste={handleOtpPaste}
+                    onPaste={(e) => handleOtpPaste(idx, e)}
                     className="w-8 h-12 sm:w-10 sm:h-14 text-center text-lg sm:text-2xl font-bold rounded-xl border border-subtle bg-surface text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all shadow-inner"
                     aria-label={`Digit ${idx + 1}`}
                   />
@@ -330,7 +331,7 @@ function CustomerAuthFormContent({
               {/* Verify Button */}
               <button
                 type="submit"
-                disabled={isPending || otpDigits.join('').length !== 8}
+                disabled={isPending || otpDigits.join('').length !== 6}
                 className="w-full py-3.5 px-4 rounded-xl bg-primary text-white text-sm font-bold tracking-wide
                   hover:bg-primary-hover active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed
                   transition-all duration-200 shadow-md flex items-center justify-center gap-2"

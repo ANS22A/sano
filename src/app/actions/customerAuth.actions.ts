@@ -140,7 +140,7 @@ export async function verifyCustomerOtp({
   const parsed = z
     .object({
       email: z.string().email('Invalid email format').trim(),
-      token: z.string().regex(/^\d{8}$/, 'Verification code must be 8 digits'),
+      token: z.string().regex(/^\d{6}$/, 'Verification code must be 6 digits'),
     })
     .safeParse({ email, token })
 
@@ -148,8 +148,8 @@ export async function verifyCustomerOtp({
     return {
       error:
         locale === 'ar'
-          ? 'يرجى إدخال رمز تحقق صالح مكون من 8 أرقام.'
-          : 'Please enter a valid 8-digit verification code.',
+          ? 'يرجى إدخال رمز تحقق صالح مكون من 6 أرقام.'
+          : 'Please enter a valid 6-digit verification code.',
     }
   }
 
