@@ -39,6 +39,7 @@ export const adminT = {
       businessHours: 'Business Hours',
       blackoutDates: 'Blackout Dates',
       reports: 'Reports',
+      blog: 'Blog',
       signOut: 'Sign Out',
     },
     // Auth
@@ -435,6 +436,7 @@ export const adminT = {
       businessHours: 'ساعات العمل',
       blackoutDates: 'أيام الإغلاق',
       reports: 'التقارير',
+      blog: 'المقالات',
       signOut: 'تسجيل الخروج',
     },
     auth: {

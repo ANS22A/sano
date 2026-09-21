@@ -85,6 +85,75 @@ export type Database = {
           },
         ]
       }
+      blog_posts: {
+        Row: {
+          category: string
+          content_ar: string | null
+          content_en: string | null
+          cover_image: string | null
+          created_at: string
+          created_by: string | null
+          excerpt_ar: string | null
+          excerpt_en: string | null
+          id: string
+          is_published: boolean
+          published_at: string | null
+          related_service_slugs: string[]
+          seo_description_ar: string | null
+          seo_description_en: string | null
+          seo_title_ar: string | null
+          seo_title_en: string | null
+          slug: string
+          title_ar: string
+          title_en: string
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          content_ar?: string | null
+          content_en?: string | null
+          cover_image?: string | null
+          created_at?: string
+          created_by?: string | null
+          excerpt_ar?: string | null
+          excerpt_en?: string | null
+          id?: string
+          is_published?: boolean
+          published_at?: string | null
+          related_service_slugs?: string[]
+          seo_description_ar?: string | null
+          seo_description_en?: string | null
+          seo_title_ar?: string | null
+          seo_title_en?: string | null
+          slug: string
+          title_ar: string
+          title_en: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          content_ar?: string | null
+          content_en?: string | null
+          cover_image?: string | null
+          created_at?: string
+          created_by?: string | null
+          excerpt_ar?: string | null
+          excerpt_en?: string | null
+          id?: string
+          is_published?: boolean
+          published_at?: string | null
+          related_service_slugs?: string[]
+          seo_description_ar?: string | null
+          seo_description_en?: string | null
+          seo_title_ar?: string | null
+          seo_title_en?: string | null
+          slug?: string
+          title_ar?: string
+          title_en?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       booking_items: {
         Row: {
           booking_id: string

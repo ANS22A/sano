@@ -67,6 +67,10 @@ export const can = {
   // Gift Cards
   viewGiftCards: (role: string) => hasMinRole(role, 'manager'),
   manageGiftCards: (role: string) => hasMinRole(role, 'admin'),
+
+  // Blog / Content
+  viewBlog: (role: string) => hasMinRole(role, 'manager'),
+  manageBlog: (role: string) => hasMinRole(role, 'manager'),
 }
 
 /** Navigation items visible to a given role */
@@ -90,5 +94,6 @@ export function getNavItems(role: string) {
     payroll: can.viewPayroll(role),
     settings: can.manageHours(role),
     reports: can.viewReports(role),
+    blog: can.viewBlog(role),
   }
 }

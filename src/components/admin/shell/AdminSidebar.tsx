@@ -9,7 +9,7 @@ import {
   LayoutDashboard, CalendarDays, BookOpen, Package2,
   Users, UserCheck, MapPin, Clock, BarChart3, X,
   Receipt, ShoppingBag, Building2, Tag, CreditCard,
-  Briefcase, Banknote, Gift,
+  Briefcase, Banknote, Gift, FileText,
 } from 'lucide-react'
 
 const NAV_GROUPS = [
@@ -53,6 +53,7 @@ const NAV_GROUPS = [
     label: 'System',
     items: [
       { key: 'reports', href: '/admin/reports', icon: BarChart3 },
+      { key: 'blog', href: '/admin/blog', icon: FileText },
       { key: 'settings', href: '/admin/settings', icon: Clock },
     ],
   },
