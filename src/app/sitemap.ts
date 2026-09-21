@@ -1,11 +1,13 @@
 import type { MetadataRoute } from 'next'
 import { getAllServiceSlugs } from '@/services/catalog.service'
+import { getAllPublishedBlogSlugs } from '@/app/actions/adminBlog.actions'
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://sanoluna.com'
 const LOCALES = ['ar', 'en'] as const
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const serviceSlugs = await getAllServiceSlugs()
+  const blogSlugs = await getAllPublishedBlogSlugs()
 
   // Static routes
   const staticRoutes = [
@@ -16,7 +18,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/team', priority: 0.6, changeFrequency: 'monthly' as const },
     { path: '/contact', priority: 0.7, changeFrequency: 'monthly' as const },
     { path: '/faq', priority: 0.6, changeFrequency: 'monthly' as const },
+    { path: '/faq', priority: 0.6, changeFrequency: 'monthly' as const },
     { path: '/booking', priority: 0.8, changeFrequency: 'weekly' as const },
+    { path: '/blog', priority: 0.9, changeFrequency: 'weekly' as const },
   ]
 
   const staticEntries: MetadataRoute.Sitemap = LOCALES.flatMap((locale) =>
@@ -48,5 +52,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
   )
 
-  return [...staticEntries, ...serviceEntries]
+  // Dynamic blog pages
+  const blogEntries: MetadataRoute.Sitemap = LOCALES.flatMap((locale) =>
+    blogSlugs.map((slug) => ({
+      url: `${BASE_URL}/${locale}/blog/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+      alternates: {
+        languages: Object.fromEntries(
+          LOCALES.map((l) => [l, `${BASE_URL}/${l}/blog/${slug}`])
+        ),
+      },
+    }))
+  )
+
+  return [...staticEntries, ...serviceEntries, ...blogEntries]
 }

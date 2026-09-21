@@ -12,6 +12,8 @@ import {
   getRelatedServices,
   getAllCategories,
 } from '@/services/catalog.service'
+import { getBlogPostsForService } from '@/app/actions/adminBlog.actions'
+import { ArticleCard } from '@/components/blog/ArticleCard'
 
 // ─────────────────────────────────────────────
 // STATIC PARAMS — pre-render all active slugs
@@ -109,8 +111,11 @@ export default async function ServiceDetailPage({
     )
   }
 
-  // Fetch related services
-  const related = await getRelatedServices(service.id, 3)
+  // Fetch related services and blog posts
+  const [related, relatedArticles] = await Promise.all([
+    getRelatedServices(service.id, 3),
+    getBlogPostsForService(service.slug, 3)
+  ])
 
   // Structured data — schema.org Service
   const jsonLd = {
@@ -168,6 +173,37 @@ export default async function ServiceDetailPage({
       {/* Related services */}
       {related.length > 0 && (
         <RelatedServices services={related} categories={categories} />
+      )}
+
+      {/* Related articles */}
+      {relatedArticles.length > 0 && (
+        <section className="py-16 bg-[var(--color-surface)] border-t border-[var(--border-subtle)]">
+          <div className="container-sl">
+            <div className="text-center mb-12">
+              <h2 className="heading-sl-lg mb-4">
+                {isAr ? 'مقالات ذات صلة' : 'Related Articles'}
+              </h2>
+              <p className="text-body-muted max-w-2xl mx-auto">
+                {isAr
+                  ? 'اكتشفي المزيد عن هذه الخدمة في مدونتنا'
+                  : 'Discover more about this service in our blog'}
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {relatedArticles.map((article) => (
+                <ArticleCard key={article.id} post={article} locale={locale} />
+              ))}
+            </div>
+            <div className="mt-12 text-center">
+              <Link
+                href="/blog"
+                className="btn btn-md btn-secondary inline-flex items-center gap-2"
+              >
+                {isAr ? 'عرض جميع المقالات' : 'View All Articles'}
+              </Link>
+            </div>
+          </div>
+        </section>
       )}
 
       {/* Final CTA strip */}
