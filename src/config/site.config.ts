@@ -19,15 +19,33 @@ export const siteConfig: SiteConfig = {
 // NAVIGATION — Primary links (shown in header)
 // ─────────────────────────────────────────────
 
-export const primaryNavigation: NavItem[] = [
+export const mobileNavigation: NavItem[] = [
   { key: 'home', href: '/' },
-  { key: 'about', href: '/about' },
   { key: 'services', href: '/services' },
   { key: 'packages', href: '/packages' },
+  { key: 'blog', href: '/blog' },
   { key: 'giftCards', href: '/gift-cards' },
+  { key: 'about', href: '/about' },
   { key: 'team', href: '/team' },
   { key: 'contact', href: '/contact' },
 ]
+
+export const desktopNavigation = [
+  { key: 'home', href: '/' },
+  { key: 'services', href: '/services' },
+  { key: 'packages', href: '/packages' },
+  { key: 'blog', href: '/blog' },
+]
+
+export const desktopMoreLinks: NavItem[] = [
+  { key: 'giftCards', href: '/gift-cards' },
+  { key: 'about', href: '/about' },
+  { key: 'team', href: '/team' },
+  { key: 'contact', href: '/contact' },
+]
+
+// Backward-compat alias (use mobile for full list where needed)
+export const primaryNavigation = mobileNavigation
 
 // Footer — Explore column
 export const footerExploreLinks: NavItem[] = [
