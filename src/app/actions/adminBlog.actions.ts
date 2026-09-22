@@ -392,7 +392,7 @@ export async function getRelatedBlogPosts(
 // FETCH FOR SPECIFIC SERVICE (Public)
 // ─────────────────────────────────────────────
 export async function getBlogPostsForService(serviceSlug: string, limit: number = 3) {
-  const supabase = await createClient()
+  const supabase = createStaticClient()
 
   const { data, error } = await supabase
     .from('blog_posts')

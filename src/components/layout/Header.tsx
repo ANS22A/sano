@@ -33,6 +33,24 @@ export function Header({ isAuthenticated = false }: { isAuthenticated?: boolean 
     () => typeof window !== 'undefined' && window.scrollY > SCROLL_THRESHOLD
   )
   const [menuOpen, setMenuOpen] = useState(false)
+  const [isAuth, setIsAuth] = useState(isAuthenticated)
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { createClient } = await import('@/lib/supabase/client')
+      const supabase = createClient()
+      const { data: { session } } = await supabase.auth.getSession()
+      setIsAuth(!!session)
+
+      const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+        setIsAuth(!!session)
+      })
+
+      return () => subscription.unsubscribe()
+    }
+    
+    checkAuth()
+  }, [])
 
   // Passive scroll listener
   const handleScroll = useCallback(() => {
@@ -102,13 +120,13 @@ export function Header({ isAuthenticated = false }: { isAuthenticated?: boolean 
 
             {/* Account CTA */}
             <Link
-              href={isAuthenticated ? "/account" : "/login"}
+              href={isAuth ? "/account" : "/login"}
               className={cn(
                 'text-sm font-medium transition-colors',
                 isSolid ? 'text-foreground hover:text-accent' : 'text-white/90 hover:text-white'
               )}
             >
-              {isAuthenticated ? t('account') : t('signIn')}
+              {isAuth ? t('account') : t('signIn')}
             </Link>
 
             {/* Booking CTA */}
@@ -175,7 +193,7 @@ export function Header({ isAuthenticated = false }: { isAuthenticated?: boolean 
       </header>
 
       {/* Mobile Menu */}
-      <MobileMenu isOpen={menuOpen} onClose={closeMenu} isAuthenticated={isAuthenticated} />
+      <MobileMenu isOpen={menuOpen} onClose={closeMenu} isAuthenticated={isAuth} />
     </>
   )
 }

@@ -34,6 +34,10 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>
 }): Promise<Metadata> {
   const { locale, slug } = await params
+
+  const { setRequestLocale } = await import('next-intl/server')
+  setRequestLocale(locale)
+
   const isAr = locale === 'ar'
   const service = await getServiceBySlug(slug)
 
@@ -78,6 +82,9 @@ export default async function ServiceDetailPage({
   params: Promise<{ locale: string; slug: string }>
 }) {
   const { locale, slug } = await params
+
+  const { setRequestLocale } = await import('next-intl/server')
+  setRequestLocale(locale)
   const isAr = locale === 'ar'
 
   const [service, categories] = await Promise.all([
@@ -112,10 +119,8 @@ export default async function ServiceDetailPage({
   }
 
   // Fetch related services and blog posts
-  const [related, relatedArticles] = await Promise.all([
-    getRelatedServices(service.id, 3),
-    getBlogPostsForService(service.slug, 3)
-  ])
+  const related = await getRelatedServices(service.id, 3)
+  const relatedArticles = await getBlogPostsForService(service.slug, 3)
 
   // Structured data — schema.org Service
   const jsonLd = {

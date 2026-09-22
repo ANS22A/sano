@@ -16,10 +16,14 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>
 }): Promise<Metadata> {
   const { locale, slug } = await params
+  
+  const { setRequestLocale } = await import('next-intl/server')
+  setRequestLocale(locale)
+
   const isAr = locale === 'ar'
   
-  const { createClient } = await import('@/lib/supabase/server')
-  const supabase = await createClient()
+  const { createStaticClient } = await import('@/lib/supabase/server')
+  const supabase = createStaticClient()
   const { data: dbPkg } = await supabase.from('packages').select('name_ar, name_en, description_ar, description_en').eq('slug', slug).eq('is_active', true).maybeSingle()
   
   const pkg = dbPkg
@@ -36,10 +40,13 @@ export default async function PackageDetailPage({
   params: Promise<{ locale: string; slug: string }>
 }) {
   const { locale, slug } = await params
+  
+  const { setRequestLocale } = await import('next-intl/server')
+  setRequestLocale(locale)
   const isAr = locale === 'ar'
   
-  const { createClient } = await import('@/lib/supabase/server')
-  const supabase = await createClient()
+  const { createStaticClient } = await import('@/lib/supabase/server')
+  const supabase = createStaticClient()
   const { data: dbPkg } = await supabase.from('packages').select('*, package_services(services(name_en, name_ar, is_active))').eq('slug', slug).eq('is_active', true).maybeSingle()
   
   const pkg = dbPkg

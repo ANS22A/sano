@@ -1,6 +1,6 @@
 'use server'
 
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createStaticClient } from '@/lib/supabase/server'
 import type {
   Service,
   ServiceCategory,
@@ -13,7 +13,7 @@ import type {
 // ─────────────────────────────────────────────
 
 export async function getAllCategories(): Promise<ServiceCategory[]> {
-  const supabase = await createClient()
+  const supabase = createStaticClient()
   const { data } = await supabase
     .from('service_categories')
     .select('*')
@@ -23,7 +23,7 @@ export async function getAllCategories(): Promise<ServiceCategory[]> {
 }
 
 export async function getCategoryBySlug(slug: string): Promise<ServiceCategory | null> {
-  const supabase = await createClient()
+  const supabase = createStaticClient()
   const { data } = await supabase
     .from('service_categories')
     .select('*')
@@ -38,7 +38,7 @@ export async function getCategoryBySlug(slug: string): Promise<ServiceCategory |
 // ─────────────────────────────────────────────
 
 export async function getAllServices(filters?: ServiceFilters): Promise<Service[]> {
-  const supabase = await createClient()
+  const supabase = createStaticClient()
   let query = supabase.from('services').select('id, slug, name_ar, name_en, short_description_ar, short_description_en, description_ar, description_en, price_sar, duration_minutes, image_url, is_active, is_featured, is_popular, category_id, sort_order, tags').eq('is_active', true)
 
   if (filters?.category) {
@@ -83,7 +83,7 @@ export async function getAllServices(filters?: ServiceFilters): Promise<Service[
 // ─────────────────────────────────────────────
 
 export async function getServiceBySlug(slug: string): Promise<ServiceWithCategory | null> {
-  const supabase = await createClient()
+  const supabase = createStaticClient()
   const { data } = await supabase
     .from('services')
     .select('*, service_categories(id, slug, name_ar, name_en)')
@@ -104,7 +104,7 @@ export async function getServiceBySlug(slug: string): Promise<ServiceWithCategor
 // ─────────────────────────────────────────────
 
 export async function getServicesByCategory(categorySlug: string): Promise<Service[]> {
-  const supabase = await createClient()
+  const supabase = createStaticClient()
   const { data: category } = await supabase
     .from('service_categories')
     .select('id')
@@ -128,7 +128,7 @@ export async function getServicesByCategory(categorySlug: string): Promise<Servi
 // ─────────────────────────────────────────────
 
 export async function getFeaturedServices(): Promise<ServiceWithCategory[]> {
-  const supabase = await createClient()
+  const supabase = createStaticClient()
   const { data } = await supabase
     .from('services')
     .select('*, service_categories(id, slug, name_ar, name_en)')
@@ -144,7 +144,7 @@ export async function getFeaturedServices(): Promise<ServiceWithCategory[]> {
 }
 
 export async function getPopularServices(): Promise<ServiceWithCategory[]> {
-  const supabase = await createClient()
+  const supabase = createStaticClient()
   const { data } = await supabase
     .from('services')
     .select('*, service_categories(id, slug, name_ar, name_en)')
@@ -167,7 +167,7 @@ export async function getRelatedServices(
   serviceId: string,
   limit = 3
 ): Promise<Service[]> {
-  const supabase = await createClient()
+  const supabase = createStaticClient()
   
   // 1. Get current service to find its category and tags
   const { data: current } = await supabase.from('services').select('category_id, tags').eq('id', serviceId).single()
@@ -203,8 +203,6 @@ export async function getRelatedServices(
 // SLUGS — For static generation
 // ─────────────────────────────────────────────
 
-import { createStaticClient } from '@/lib/supabase/server'
-
 export async function getAllServiceSlugs(): Promise<string[]> {
   const supabase = createStaticClient()
   const { data } = await supabase.from('services').select('slug')
@@ -216,7 +214,7 @@ export async function getAllServiceSlugs(): Promise<string[]> {
 // ─────────────────────────────────────────────
 
 export async function getServiceCountByCategory(): Promise<Record<string, number>> {
-  const supabase = await createClient()
+  const supabase = createStaticClient()
   const { data } = await supabase.from('services').select('category_id').eq('is_active', true)
   
   const counts: Record<string, number> = {}
@@ -259,7 +257,7 @@ interface PackageServiceDbRow {
 }
 
 export async function getActivePackages(): Promise<BookingPackage[]> {
-  const supabase = await createClient()
+  const supabase = createStaticClient()
   const { data } = await supabase
     .from('packages')
     .select('id, slug, name_ar, name_en, tagline_ar, tagline_en, description_ar, description_en, price_sar, total_duration_minutes, max_guests, image_url, is_active, sort_order, package_services(services(is_active))')
@@ -285,7 +283,7 @@ export async function getActivePackages(): Promise<BookingPackage[]> {
  * True ONLY IF package exists, is_active=true, AND all included services are active.
  */
 export async function getPackageBookability(slug: string): Promise<boolean> {
-  const supabase = await createClient()
+  const supabase = createStaticClient()
   const { data: dbPkg } = await supabase
     .from('packages')
     .select('is_active, package_services(services(is_active))')

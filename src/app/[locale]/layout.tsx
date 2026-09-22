@@ -7,7 +7,6 @@ import { generateSiteMetadata } from '@/lib/metadata'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { PageTransition } from '@/components/layout/PageTransition'
-import { createClient } from '@/lib/supabase/server'
 import { siteConfig, contactConfig } from '@/config/site.config'
 import type { Locale } from '@/types/ui.types'
 import { Cinzel, Montserrat, Cairo, Tajawal } from 'next/font/google'
@@ -58,6 +57,9 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
+  
+  const { setRequestLocale } = await import('next-intl/server')
+  setRequestLocale(locale)
 
   if (!routing.locales.includes(locale as Locale)) {
     notFound()
@@ -65,11 +67,7 @@ export default async function LocaleLayout({
 
   const messages = await getMessages()
   const dir = LOCALE_DIRECTION[locale as Locale]
-  
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  const isAuthenticated = !!user
-  
+
   const isAr = locale === 'ar'
 
   // Global LocalBusiness Structured Data
@@ -115,7 +113,7 @@ export default async function LocaleLayout({
         />
         <NextIntlClientProvider messages={messages}>
           {/* Global Header — sticky, state-aware */}
-          <Header isAuthenticated={isAuthenticated} />
+          <Header />
 
           {/* Main content — flex-1 fills remaining space */}
           <main id="main-content" className="flex-1 flex flex-col min-h-0">
