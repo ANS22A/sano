@@ -31,6 +31,7 @@ export async function generateMetadata({
   const isAr = locale === 'ar'
   const title = isAr ? (post.seo_title_ar || post.title_ar) : (post.seo_title_en || post.title_en)
   const description = isAr ? (post.seo_description_ar || post.excerpt_ar) : (post.seo_description_en || post.excerpt_en)
+  const coverImage = post.cover_image || `/images/blog/${slug}.jpg`
   
   return {
     title: `${title} | SANO LUNA`,
@@ -38,7 +39,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description: description || undefined,
-      images: post.cover_image ? [post.cover_image] : undefined,
+      images: coverImage ? [coverImage] : undefined,
     },
     alternates: {
       canonical: `https://sanoluna.com/${locale}/blog/${slug}`,
@@ -66,6 +67,7 @@ export default async function BlogPostPage({
   const title = isAr ? post.title_ar : post.title_en
   const content = isAr ? post.content_ar : post.content_en
   const excerpt = isAr ? post.excerpt_ar : post.excerpt_en
+  const coverImage = post.cover_image || `/images/blog/${post.slug}.jpg`
   const relatedPosts = await getRelatedBlogPosts(slug, post.category, 3)
 
   // JSON-LD Structured Data
@@ -74,7 +76,7 @@ export default async function BlogPostPage({
     '@type': 'Article',
     headline: title,
     description: excerpt,
-    image: post.cover_image ? [post.cover_image] : [],
+    image: coverImage ? [coverImage] : [],
     datePublished: post.published_at,
     dateModified: post.updated_at,
     author: {
@@ -101,10 +103,10 @@ export default async function BlogPostPage({
       <article className="min-h-screen bg-surface">
         {/* Hero Section */}
         <div className="relative pt-32 pb-16 lg:pt-48 lg:pb-32 overflow-hidden">
-          {post.cover_image && (
+          {coverImage && (
             <div className="absolute inset-0 z-0">
               <Image
-                src={post.cover_image}
+                src={coverImage}
                 alt={title}
                 fill
                 priority

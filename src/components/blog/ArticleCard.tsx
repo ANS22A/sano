@@ -12,6 +12,7 @@ export async function ArticleCard({ post, locale }: ArticleCardProps) {
   
   const title = isAr ? post.title_ar : post.title_en
   const excerpt = isAr ? post.excerpt_ar : post.excerpt_en
+  const coverImage = post.cover_image || `/images/blog/${post.slug}.jpg`
   
   return (
     <Link 
@@ -19,9 +20,9 @@ export async function ArticleCard({ post, locale }: ArticleCardProps) {
       className="group flex flex-col bg-surface-warm border border-border/50 rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
     >
       <div className="relative aspect-[4/3] bg-muted w-full overflow-hidden">
-        {post.cover_image ? (
+        {coverImage ? (
           <Image
-            src={post.cover_image}
+            src={coverImage}
             alt={title}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-500"
