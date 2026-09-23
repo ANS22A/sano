@@ -23,7 +23,7 @@ export default async function AccountBookingsPage(props: PageProps) {
     return (
       <Link href={`/${locale}/account/bookings/${booking.id}`} className="block">
         <div className="flex flex-col md:flex-row items-center gap-6 p-6 bg-white rounded-2xl border border-subtle hover:border-border-strong transition-colors shadow-sm group">
-          <div className="w-16 h-16 rounded-full bg-surface text-secondary flex items-center justify-center shrink-0 group-hover:bg-surface-muted transition-colors">
+          <div className="w-16 h-16 rounded-full bg-surface text-primary flex items-center justify-center shrink-0 group-hover:bg-surface-muted transition-colors">
             <Calendar className="w-8 h-8" />
           </div>
           
@@ -39,12 +39,12 @@ export default async function AccountBookingsPage(props: PageProps) {
               </span>
             </div>
             
-            <p className="text-secondary font-medium text-sm">
+            <p className="text-muted-foreground font-medium text-sm">
               {new Date(booking.date).toLocaleDateString(locale, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} • {booking.start_time ? booking.start_time.slice(0, 5) : 'بانتظار تحديد الوقت'}
             </p>
           </div>
           
-          <div className="hidden md:flex items-center justify-center text-muted-foreground group-hover:text-secondary transition-colors">
+          <div className="hidden md:flex items-center justify-center text-muted-foreground group-hover:text-primary transition-colors">
             <ChevronRight className="w-6 h-6 rtl:rotate-180" />
           </div>
         </div>
@@ -74,7 +74,7 @@ export default async function AccountBookingsPage(props: PageProps) {
       {historyBookings.length > 0 && (
         <div className="space-y-6">
           <h2 className="text-xl font-bold text-foreground font-display border-b border-subtle pb-4">{t('history')}</h2>
-          <div className="space-y-4 opacity-75 hover:opacity-100 transition-opacity">
+          <div className="space-y-4">
             {historyBookings.map((booking) => (
               <BookingCard key={booking.id} booking={booking} />
             ))}

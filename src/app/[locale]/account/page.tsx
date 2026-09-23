@@ -26,7 +26,7 @@ export default async function AccountDashboardPage(props: PageProps) {
         <h1 className="text-3xl font-bold text-foreground mb-2 font-display">
           {t('welcome')}, {profile?.full_name?.split(' ')[0] || ''}
         </h1>
-        <p className="text-secondary font-medium">
+        <p className="text-muted-foreground font-medium">
           {profile?.email}
         </p>
       </div>
@@ -35,7 +35,7 @@ export default async function AccountDashboardPage(props: PageProps) {
       <div className="bg-white rounded-3xl p-8 shadow-sm border border-subtle">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-foreground font-display">{t('upcomingBooking')}</h2>
-          <Link href={`/${locale}/account/bookings`} className="text-sm font-medium text-secondary hover:underline flex items-center gap-1">
+          <Link href={`/${locale}/account/bookings`} className="text-sm font-medium text-primary hover:underline flex items-center gap-1">
             {t('bookings')}
             <ChevronRight className="w-4 h-4 rtl:rotate-180" />
           </Link>
@@ -43,14 +43,14 @@ export default async function AccountDashboardPage(props: PageProps) {
 
         {nextBooking ? (
           <div className="flex flex-col md:flex-row items-center gap-6 p-6 bg-surface rounded-2xl border border-subtle">
-            <div className="w-16 h-16 rounded-full bg-surface-muted text-secondary flex items-center justify-center shrink-0">
+            <div className="w-16 h-16 rounded-full bg-surface-muted text-primary flex items-center justify-center shrink-0">
               <Calendar className="w-8 h-8" />
             </div>
             <div className="flex-1 space-y-1 text-center md:text-start">
               <h3 className="text-lg font-bold text-foreground">
                 {isAr ? nextBooking.services?.name_ar : nextBooking.services?.name_en}
               </h3>
-              <p className="text-secondary font-medium text-sm">
+              <p className="text-muted-foreground font-medium text-sm">
                 {new Date(nextBooking.date).toLocaleDateString(locale, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} • {nextBooking.start_time ? nextBooking.start_time.slice(0, 5) : 'بانتظار تحديد الوقت'}
               </p>
             </div>

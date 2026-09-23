@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useTransition, useCallback, useEffect, useMemo } from 'react'
 import { useAdmin } from '@/components/admin/shell/AdminShell'
@@ -19,7 +19,7 @@ import {
 import Link from 'next/link'
 import { formatAppointmentTime } from '@/lib/utils/format'
 
-// â”€â”€â”€ Translations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── Translations ────────────────────────────
 
 const t9b = {
   en: {
@@ -31,7 +31,7 @@ const t9b = {
     stepSchedule: 'Date & Time',
     stepReview: 'Review & Confirm',
     // Customer
-    searchCustomer: 'Search existing customerâ€¦',
+    searchCustomer: 'Search existing customer...',
     orCreateNew: 'Or create a new customer',
     customerName: 'Full Name',
     customerPhone: 'Phone',
@@ -58,7 +58,7 @@ const t9b = {
     selectDate: 'Select Date',
     selectTime: 'Select Time',
     noSlots: 'No available slots for this date',
-    loadingSlots: 'Loading available timesâ€¦',
+    loadingSlots: 'Loading available times...',
     // Notes
     notes: 'Internal Notes',
     notesHint: 'Admin-only notes (not visible to customer)',
@@ -74,7 +74,7 @@ const t9b = {
     back: 'Back',
     next: 'Next',
     createBooking: 'Create Booking',
-    creating: 'Creatingâ€¦',
+    creating: 'Creating...',
     // Success
     bookingCreated: 'Booking Created!',
     bookingNumber: 'Booking Number',
@@ -85,56 +85,56 @@ const t9b = {
     errorPhone: 'Invalid phone number',
   },
   ar: {
-    title: 'ط­ط¬ط² ط¬ط¯ظٹط¯',
-    subtitle: 'ط¥ظ†ط´ط§ط، ط­ط¬ط² ظٹط¯ظˆظٹ',
-    stepCustomer: 'ط§ظ„ط¹ظ…ظٹظ„ط©',
-    stepService: 'ط§ظ„ط®ط¯ظ…ط©',
-    stepSchedule: 'ط§ظ„طھط§ط±ظٹط® ظˆط§ظ„ظˆظ‚طھ',
-    stepReview: 'ط§ظ„ظ…ط±ط§ط¬ط¹ط© ظˆط§ظ„طھط£ظƒظٹط¯',
-    searchCustomer: 'ط§ظ„ط¨ط­ط« ط¹ظ† ط¹ظ…ظٹظ„ط©â€¦',
-    orCreateNew: 'ط£ظˆ ط¥ظ†ط´ط§ط، ط¹ظ…ظٹظ„ط© ط¬ط¯ظٹط¯ط©',
-    customerName: 'ط§ظ„ط§ط³ظ… ط§ظ„ظƒط§ظ…ظ„',
-    customerPhone: 'ط±ظ‚ظ… ط§ظ„ط¬ظˆط§ظ„',
-    customerEmail: 'ط§ظ„ط¨ط±ظٹط¯ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ (ط§ط®طھظٹط§ط±ظٹ)',
-    customerAddress: 'ط¹ظ†ظˆط§ظ† ط§ظ„ط®ط¯ظ…ط©',
-    customerAddressHint: 'ظ…ظƒط§ظ† طھظ‚ط¯ظٹظ… ط§ظ„ط®ط¯ظ…ط©',
-    selectExisting: 'ط§ط®طھظٹط§ط±',
-    newCustomer: 'ط¹ظ…ظٹظ„ط© ط¬ط¯ظٹط¯ط©',
-    existingCustomer: 'ط¹ظ…ظٹظ„ط© ظ…ط³ط¬ظ„ط©',
-    noCustomersFound: 'ظ„ط§ طھظˆط¬ط¯ ط¹ظ…ظٹظ„ط§طھ',
-    bookingSource: 'ظ…طµط¯ط± ط§ظ„ط­ط¬ط²',
-    sourceWebsite: 'ط§ظ„ظ…ظˆظ‚ط¹',
-    sourceWhatsapp: 'ظˆط§طھط³ط§ط¨',
-    sourcePhone: 'ظ‡ط§طھظپ',
-    sourceAdmin: 'ط¥ط¯ط§ط±ط©',
-    sourceOther: 'ط£ط®ط±ظ‰',
-    selectService: 'ط§ط®طھظٹط§ط± ط§ظ„ط®ط¯ظ…ط©',
-    price: 'ط§ظ„ط³ط¹ط±',
-    duration: 'ط§ظ„ظ…ط¯ط©',
-    minUnit: 'ط¯',
-    selectDate: 'ط§ط®طھظٹط§ط± ط§ظ„طھط§ط±ظٹط®',
-    selectTime: 'ط§ط®طھظٹط§ط± ط§ظ„ظˆظ‚طھ',
-    noSlots: 'ظ„ط§ طھظˆط¬ط¯ ظ…ظˆط§ط¹ظٹط¯ ظ…طھط§ط­ط© ظ„ظ‡ط°ط§ ط§ظ„طھط§ط±ظٹط®',
-    loadingSlots: 'ط¬ط§ط±ظچ طھط­ظ…ظٹظ„ ط§ظ„ظ…ظˆط§ط¹ظٹط¯â€¦',
-    notes: 'ظ…ظ„ط§ط­ط¸ط§طھ ط¯ط§ط®ظ„ظٹط©',
-    notesHint: 'ظ…ظ„ط§ط­ط¸ط§طھ ظ„ظ„ط¥ط¯ط§ط±ط© ظپظ‚ط· (ط؛ظٹط± ظ…ط±ط¦ظٹط© ظ„ظ„ط¹ظ…ظٹظ„ط©)',
-    reviewTitle: 'ظ…ط±ط§ط¬ط¹ط© ط§ظ„ط­ط¬ط²',
-    customer: 'ط§ظ„ط¹ظ…ظٹظ„ط©',
-    service: 'ط§ظ„ط®ط¯ظ…ط©',
-    date: 'ط§ظ„طھط§ط±ظٹط®',
-    time: 'ط§ظ„ظˆظ‚طھ',
-    source: 'ط§ظ„ظ…طµط¯ط±',
-    address: 'ط§ظ„ط¹ظ†ظˆط§ظ†',
-    back: 'ط±ط¬ظˆط¹',
-    next: 'ط§ظ„طھط§ظ„ظٹ',
-    createBooking: 'ط¥ظ†ط´ط§ط، ط§ظ„ط­ط¬ط²',
-    creating: 'ط¬ط§ط±ظچ ط§ظ„ط¥ظ†ط´ط§ط،â€¦',
-    bookingCreated: 'طھظ… ط¥ظ†ط´ط§ط، ط§ظ„ط­ط¬ط²!',
-    bookingNumber: 'ط±ظ‚ظ… ط§ظ„ط­ط¬ط²',
-    viewBookings: 'ط¹ط±ط¶ ط§ظ„ط­ط¬ظˆط²ط§طھ',
-    createAnother: 'ط¥ظ†ط´ط§ط، ط­ط¬ط² ط¢ط®ط±',
-    errorRequired: 'ظ‡ط°ط§ ط§ظ„ط­ظ‚ظ„ ظ…ط·ظ„ظˆط¨',
-    errorPhone: 'ط±ظ‚ظ… ط§ظ„ط¬ظˆط§ظ„ ط؛ظٹط± طµط­ظٹط­',
+    title: 'حجز جديد',
+    subtitle: 'إنشاء حجز يدوي',
+    stepCustomer: 'العميلة',
+    stepService: 'الخدمة',
+    stepSchedule: 'التاريخ والوقت',
+    stepReview: 'المراجعة والتأكيد',
+    searchCustomer: 'البحث عن عميلة...',
+    orCreateNew: 'أو إنشاء عميلة جديدة',
+    customerName: 'الاسم الكامل',
+    customerPhone: 'رقم الجوال',
+    customerEmail: 'البريد الإلكتروني (اختياري)',
+    customerAddress: 'عنوان الخدمة',
+    customerAddressHint: 'مكان تقديم الخدمة',
+    selectExisting: 'اختيار',
+    newCustomer: 'عميلة جديدة',
+    existingCustomer: 'عميلة مسجلة',
+    noCustomersFound: 'لا توجد عميلات',
+    bookingSource: 'مصدر الحجز',
+    sourceWebsite: 'الموقع',
+    sourceWhatsapp: 'واتساب',
+    sourcePhone: 'هاتف',
+    sourceAdmin: 'إدارة',
+    sourceOther: 'أخرى',
+    selectService: 'اختيار الخدمة',
+    price: 'السعر',
+    duration: 'المدة',
+    minUnit: 'د',
+    selectDate: 'اختيار التاريخ',
+    selectTime: 'اختيار الوقت',
+    noSlots: 'لا توجد مواعيد متاحة لهذا التاريخ',
+    loadingSlots: 'جارٍ تحميل المواعيد...',
+    notes: 'ملاحظات داخلية',
+    notesHint: 'ملاحظات للإدارة فقط (غير مرئية للعميلة)',
+    reviewTitle: 'مراجعة الحجز',
+    customer: 'العميلة',
+    service: 'الخدمة',
+    date: 'التاريخ',
+    time: 'الوقت',
+    source: 'المصدر',
+    address: 'العنوان',
+    back: 'رجوع',
+    next: 'التالي',
+    createBooking: 'إنشاء الحجز',
+    creating: 'جارٍ الإنشاء...',
+    bookingCreated: 'تم إنشاء الحجز!',
+    bookingNumber: 'رقم الحجز',
+    viewBookings: 'عرض الحجوزات',
+    createAnother: 'إنشاء حجز آخر',
+    errorRequired: 'هذا الحقل مطلوب',
+    errorPhone: 'رقم الجوال غير صحيح',
   },
 } as const
 
@@ -146,7 +146,7 @@ const SOURCE_OPTIONS: { value: BookingSource; iconKey: string }[] = [
   { value: 'other', iconKey: 'other' },
 ]
 
-// â”€â”€â”€ Types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── Types ───────────────────────────────────
 
 interface ServiceOption {
   id: string
@@ -165,7 +165,7 @@ interface CustomerResult {
 
 type Step = 'customer' | 'service' | 'schedule' | 'review' | 'success'
 
-// â”€â”€â”€ Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── Component ───────────────────────────────
 
 export function AdminNewBookingClient({ locationId }: { locationId: string }) {
   const { lang } = useAdmin()
@@ -213,7 +213,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
   // Error
   const [error, setError] = useState('')
 
-  // â”€â”€ Customer search â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Customer search ─────────────────────────
   const doSearch = useCallback(async (q: string) => {
     if (q.length < 2) { setSearchResults([]); return }
     setIsSearching(true)
@@ -229,7 +229,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
     return () => clearTimeout(timeout)
   }, [customerSearch, doSearch])
 
-  // â”€â”€ Load services â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Load services ───────────────────────────
   useEffect(() => {
     if (servicesLoaded) return
     getServicesForBooking().then((s) => {
@@ -238,7 +238,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
     })
   }, [servicesLoaded])
 
-  // â”€â”€ Load slots when date changes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Load slots when date changes ────────────
   useEffect(() => {
     if (!date || !selectedService) return
     let active = true
@@ -254,7 +254,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
     return () => { active = false }
   }, [date, selectedService, locationId])
 
-  // â”€â”€ Select existing customer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Select existing customer ────────────────
   function selectCustomer(c: CustomerResult) {
     setSelectedCustomer(c)
     setCustomerName(c.full_name)
@@ -263,7 +263,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
     setCustomerMode('search')
   }
 
-  // â”€â”€ Validation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Validation ──────────────────────────────
   function canAdvance(): boolean {
     switch (step) {
       case 'customer':
@@ -298,7 +298,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
     }
   }
 
-  // â”€â”€ Submit â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Submit ──────────────────────────────────
   function submitBooking() {
     setError('')
     startTransition(async () => {
@@ -328,7 +328,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
     })
   }
 
-  // â”€â”€ Reset â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Reset ───────────────────────────────────
   function resetForm() {
     setStep('customer')
     setCustomerSearch('')
@@ -349,7 +349,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
     setError('')
   }
 
-  // â”€â”€ Source label â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Source label ─────────────────────────────
   function sourceLabel(s: BookingSource): string {
     const map = {
       website: labels.sourceWebsite,
@@ -361,11 +361,11 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
     return map[s]
   }
 
-  // â”€â”€ Today string â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Today string ────────────────────────────
   // eslint-disable-next-line react-hooks/purity
   const today = useMemo(() => new Date(Date.now() + 3 * 60 * 60 * 1000).toISOString().slice(0, 10), [])
 
-  // â”€â”€ Steps indicator â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Steps indicator ─────────────────────────
   const steps: { key: Step; label: string }[] = [
     { key: 'customer', label: labels.stepCustomer },
     { key: 'service', label: labels.stepService },
@@ -410,7 +410,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
         </div>
       )}
 
-      {/* â”€â”€â”€ STEP: Customer â”€â”€â”€ */}
+      {/* ─── STEP: Customer ─── */}
       {step === 'customer' && (
         <div className="bg-surface rounded-2xl border border-border p-5 space-y-5">
           {/* Booking Source */}
@@ -591,7 +591,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
         </div>
       )}
 
-      {/* â”€â”€â”€ STEP: Service â”€â”€â”€ */}
+      {/* ─── STEP: Service ─── */}
       {step === 'service' && (
         <div className="bg-surface rounded-2xl border border-border p-5 space-y-4">
           <h2 className="text-sm font-bold text-foreground">{labels.selectService}</h2>
@@ -630,7 +630,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
         </div>
       )}
 
-      {/* â”€â”€â”€ STEP: Schedule â”€â”€â”€ */}
+      {/* ─── STEP: Schedule ─── */}
       {step === 'schedule' && (
         <div className="bg-surface rounded-2xl border border-border p-5 space-y-5">
           {/* Date */}
@@ -700,12 +700,12 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
         </div>
       )}
 
-      {/* â”€â”€â”€ STEP: Review â”€â”€â”€ */}
+      {/* ─── STEP: Review ─── */}
       {step === 'review' && (
         <div className="bg-surface rounded-2xl border border-border p-5 space-y-4">
           <h2 className="text-sm font-bold text-foreground">{labels.reviewTitle}</h2>
           <div className="divide-y divide-border-subtle">
-            <ReviewRow icon={<User className="w-4 h-4" />} label={labels.customer} value={`${customerName} â€” ${customerPhone}`} />
+            <ReviewRow icon={<User className="w-4 h-4" />} label={labels.customer} value={`${customerName} — ${customerPhone}`} />
             <ReviewRow icon={<FileText className="w-4 h-4" />} label={labels.service} value={selectedService ? (lang === 'ar' ? selectedService.name_ar : selectedService.name_en) : ''} />
             <ReviewRow icon={<CalendarDays className="w-4 h-4" />} label={labels.date} value={date} />
             <ReviewRow icon={<Clock className="w-4 h-4" />} label={labels.time} value={selectedSlot} />
@@ -759,7 +759,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
         </div>
       )}
 
-      {/* â”€â”€â”€ STEP: Success â”€â”€â”€ */}
+      {/* ─── STEP: Success ─── */}
       {step === 'success' && (
         <div className="bg-surface rounded-2xl border border-border p-8 text-center space-y-4">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-success-bg">
@@ -787,7 +787,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
         </div>
       )}
 
-      {/* â”€â”€â”€ Navigation â”€â”€â”€ */}
+      {/* ─── Navigation ─── */}
       {step !== 'success' && (
         <div className="flex items-center justify-between">
           {step !== 'customer' ? (
@@ -818,7 +818,7 @@ export function AdminNewBookingClient({ locationId }: { locationId: string }) {
   )
 }
 
-// â”€â”€â”€ Review Row â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── Review Row ──────────────────────────────
 
 function ReviewRow({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (

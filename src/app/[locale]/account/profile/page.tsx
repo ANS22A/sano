@@ -47,7 +47,7 @@ export default function AccountProfilePage() {
   }
 
   if (isLoading) {
-    return <div className="flex justify-center p-12"><Loader2 className="w-8 h-8 animate-spin text-secondary" /></div>
+    return <div className="flex justify-center p-12"><Loader2 className="w-8 h-8 animate-spin text-primary" /></div>
   }
 
   return (

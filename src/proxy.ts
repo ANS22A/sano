@@ -31,8 +31,8 @@ export async function proxy(request: NextRequest) {
       return NextResponse.next({ request: { headers: requestHeaders } })
     }
 
-    // Create a response we can mutate (for cookie refresh) and inject pathname for layouts
-    const response = NextResponse.next({ request: { headers: requestHeaders } })
+    // Create an initial response we can mutate and inject pathname for layouts
+    let response = NextResponse.next({ request: { headers: requestHeaders } })
 
     // Check Supabase session using SSR cookies
     const supabase = createServerClient(
@@ -42,6 +42,22 @@ export async function proxy(request: NextRequest) {
         cookies: {
           getAll: () => request.cookies.getAll(),
           setAll: (cookiesToSet) => {
+            cookiesToSet.forEach(({ name, value }) => {
+              // Update request cookies so downstream server components receive the refreshed token
+              request.cookies.set(name, value)
+            })
+            // IMPORTANT: Sync the mutated request.cookies back to our cloned requestHeaders
+            // Otherwise, passing headers: requestHeaders below will overwrite the updated cookies!
+            requestHeaders.set('cookie', request.cookies.toString())
+
+            // Re-create the response to forward the updated request headers downstream
+            // along with our custom x-next-pathname header
+            response = NextResponse.next({
+              request: {
+                headers: requestHeaders,
+              },
+            })
+            // Update response cookies so the browser stores the refreshed token
             cookiesToSet.forEach(({ name, value, options }) => {
               response.cookies.set(name, value, options)
             })
