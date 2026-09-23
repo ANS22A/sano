@@ -32,7 +32,14 @@
     "updatePassword": "تحديث كلمة المرور",
     "backToLogin": "العودة لتسجيل الدخول",
     "resetSent": "إذا كان هناك حساب، تم إرسال رابط إعادة التعيين.",
-    "accountCreated": "تم إنشاء الحساب بنجاح."
+    "accountCreated": "تم إنشاء الحساب بنجاح.",
+    "confirmPassword": "تأكيد كلمة المرور الجديدة",
+    "passwordTooShort": "يجب أن تكون كلمة المرور ٨ أحرف على الأقل.",
+    "passwordMismatch": "كلمتا المرور غير متطابقتين.",
+    "passwordUpdated": "تم تحديث كلمة المرور بنجاح.",
+    "redirectingToLogin": "جارٍ إعادة التوجيه لتسجيل الدخول...",
+    "invalidRecoveryLink": "رابط الاستعادة غير صالح أو منتهي الصلاحية. يرجى طلب رابط جديد.",
+    "processingRecovery": "جارٍ معالجة طلب الاستعادة..."
   },
   "site": {
     "name": "سانو لونا",
@@ -244,82 +251,6 @@
     }
   },
   "booking": {
-    "title": "احجزي موعدك",
-    "name": "الاسم الكامل",
-    "email": "البريد الإلكتروني",
-    "phone": "رقم الجوال",
-    "service": "الخدمة",
-    "date": "التاريخ",
-    "time": "الوقت",
-    "notes": "ملاحظات إضافية",
-    "submit": "تأكيد الحجز",
-    "success": "تم استلام طلب حجزك بنجاح",
-    "error": "حدث خطأ أثناء الحجز، يرجى المحاولة مجدداً"
-  },
-  "contact": {
-    "title": "تواصلي معنا",
-    "name": "الاسم",
-    "email": "البريد الإلكتروني",
-    "message": "رسالتك",
-    "submit": "إرسال الرسالة",
-    "success": "شكراً! سنتواصل معكِ في أقرب وقت",
-    "error": "حدث خطأ، يرجى المحاولة مجدداً"
-  },
-  "services": {
-    "hero": {
-      "overline": "خدماتنا",
-      "title": "اكتشفي طقسك الخاص",
-      "subtitle": "كل علاج لحظة مدروسة من العناية الحقيقية — مصمَّمة لتُعاش في خصوصية وراحة منزلك."
-    },
-    "catalog": {
-      "allCategories": "جميع الخدمات",
-      "searchPlaceholder": "ابحثي عن خدمة…",
-      "sortLabel": "ترتيب حسب",
-      "sortRecommended": "موصى به",
-      "sortPriceAsc": "السعر: من الأقل",
-      "sortPriceDesc": "السعر: من الأعلى",
-      "sortDuration": "الأقصر أولاً",
-      "resultsCount": "{count} خدمة",
-      "noResults": "لم يتم العثور على خدمات",
-      "noResultsHint": "جربي تغيير البحث أو الفلاتر.",
-      "resetFilters": "عرض جميع الخدمات",
-      "loading": "جار التحميل…"
-    },
-    "card": {
-      "duration": "د",
-      "from": "من",
-      "currency": "ريال",
-      "popular": "الأكثر طلباً",
-      "featured": "مميزة",
-      "viewDetails": "استكشفي",
-      "bookNow": "احجزي"
-    },
-    "detail": {
-      "breadcrumbHome": "الرئيسية",
-      "breadcrumbServices": "الخدمات",
-      "duration": "المدة",
-      "price": "السعر",
-      "currency": "ريال",
-      "minutes": "دقيقة",
-      "bookCta": "احجزي هذه التجربة",
-      "bookCtaNote": "حددي الموعد في الخطوة التالية",
-      "benefitsTitle": "ما ستشعرين به",
-      "descriptionTitle": "عن هذا العلاج",
-      "whatToExpectTitle": "ماذا تتوقعين",
-      "beforeLabel": "قبل الجلسة",
-      "duringLabel": "خلال الجلسة",
-      "afterLabel": "بعد الجلسة",
-      "relatedTitle": "قد يعجبكِ أيضاً",
-      "finalCtaTitle": "مستعدة للبدء؟",
-      "finalCtaSubtitle": "احجزي علاجك ونحن نأتي إليكِ.",
-      "finalCta": "احجزي الآن",
-      "notFound": "الخدمة غير موجودة",
-      "notFoundHint": "ربما تم نقل هذه الخدمة أو تغيير مسارها.",
-      "backToServices": "العودة للخدمات",
-      "priceOnRequest": "السعر عند الطلب"
-    }
-  },
-  "booking": {
     "title": "احجزي تجربتك",
     "subtitle": "خطوات بسيطة نحو لحظتك من العناية",
     "progress": {
@@ -348,8 +279,29 @@
       "noSlots": "لا توجد أوقات متاحة في هذا التاريخ",
       "noSlotsHint": "يرجى اختيار تاريخ آخر.",
       "loading": "جارٍ تحميل الأوقات المتاحة…",
-      "days": ["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"],
-      "months": ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"],
+      "days": [
+        "الأحد",
+        "الاثنين",
+        "الثلاثاء",
+        "الأربعاء",
+        "الخميس",
+        "الجمعة",
+        "السبت"
+      ],
+      "months": [
+        "يناير",
+        "فبراير",
+        "مارس",
+        "أبريل",
+        "مايو",
+        "يونيو",
+        "يوليو",
+        "أغسطس",
+        "سبتمبر",
+        "أكتوبر",
+        "نوفمبر",
+        "ديسمبر"
+      ],
       "today": "اليوم",
       "continue": "متابعة"
     },
@@ -417,6 +369,69 @@
       "duration": "المدة",
       "price": "السعر",
       "nothingSelected": "لم يتم تحديد أي تجربة بعد"
+    }
+  },
+  "contact": {
+    "title": "تواصلي معنا",
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "message": "رسالتك",
+    "submit": "إرسال الرسالة",
+    "success": "شكراً! سنتواصل معكِ في أقرب وقت",
+    "error": "حدث خطأ، يرجى المحاولة مجدداً"
+  },
+  "services": {
+    "hero": {
+      "overline": "خدماتنا",
+      "title": "اكتشفي طقسك الخاص",
+      "subtitle": "كل علاج لحظة مدروسة من العناية الحقيقية — مصمَّمة لتُعاش في خصوصية وراحة منزلك."
+    },
+    "catalog": {
+      "allCategories": "جميع الخدمات",
+      "searchPlaceholder": "ابحثي عن خدمة…",
+      "sortLabel": "ترتيب حسب",
+      "sortRecommended": "موصى به",
+      "sortPriceAsc": "السعر: من الأقل",
+      "sortPriceDesc": "السعر: من الأعلى",
+      "sortDuration": "الأقصر أولاً",
+      "resultsCount": "{count} خدمة",
+      "noResults": "لم يتم العثور على خدمات",
+      "noResultsHint": "جربي تغيير البحث أو الفلاتر.",
+      "resetFilters": "عرض جميع الخدمات",
+      "loading": "جار التحميل…"
+    },
+    "card": {
+      "duration": "د",
+      "from": "من",
+      "currency": "ريال",
+      "popular": "الأكثر طلباً",
+      "featured": "مميزة",
+      "viewDetails": "استكشفي",
+      "bookNow": "احجزي"
+    },
+    "detail": {
+      "breadcrumbHome": "الرئيسية",
+      "breadcrumbServices": "الخدمات",
+      "duration": "المدة",
+      "price": "السعر",
+      "currency": "ريال",
+      "minutes": "دقيقة",
+      "bookCta": "احجزي هذه التجربة",
+      "bookCtaNote": "حددي الموعد في الخطوة التالية",
+      "benefitsTitle": "ما ستشعرين به",
+      "descriptionTitle": "عن هذا العلاج",
+      "whatToExpectTitle": "ماذا تتوقعين",
+      "beforeLabel": "قبل الجلسة",
+      "duringLabel": "خلال الجلسة",
+      "afterLabel": "بعد الجلسة",
+      "relatedTitle": "قد يعجبكِ أيضاً",
+      "finalCtaTitle": "مستعدة للبدء؟",
+      "finalCtaSubtitle": "احجزي علاجك ونحن نأتي إليكِ.",
+      "finalCta": "احجزي الآن",
+      "notFound": "الخدمة غير موجودة",
+      "notFoundHint": "ربما تم نقل هذه الخدمة أو تغيير مسارها.",
+      "backToServices": "العودة للخدمات",
+      "priceOnRequest": "السعر عند الطلب"
     }
   },
   "email": {

@@ -29,10 +29,17 @@
     "resetPassword": "Reset Password",
     "sendResetLink": "Send Reset Link",
     "newPassword": "New Password",
+    "confirmPassword": "Confirm New Password",
     "updatePassword": "Update Password",
     "backToLogin": "Back to Sign In",
     "resetSent": "If an account exists, a reset link was sent.",
-    "accountCreated": "Account created successfully."
+    "accountCreated": "Account created successfully.",
+    "passwordTooShort": "Password must be at least 8 characters.",
+    "passwordMismatch": "Passwords do not match.",
+    "passwordUpdated": "Your password has been updated successfully.",
+    "redirectingToLogin": "Redirecting to login...",
+    "invalidRecoveryLink": "This recovery link is invalid or has expired. Please request a new one.",
+    "processingRecovery": "Processing your recovery request..."
   },
   "site": {
     "name": "SANO LUNA",

@@ -361,7 +361,7 @@ function CustomerAuthFormContent({
                 type="button"
                 onClick={handleResend}
                 disabled={countdown > 0 || isResending}
-                className="font-semibold text-secondary hover:text-foreground disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex items-center gap-1"
+                className="font-semibold text-primary hover:text-primary-hover disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex items-center gap-1"
               >
                 {isResending ? (
                   <>
@@ -507,7 +507,7 @@ function CustomerAuthFormContent({
                 <div className="flex justify-end mt-2">
                   <Link
                     href={`/${locale}/forgot-password`}
-                    className="text-xs font-medium text-secondary hover:underline"
+                    className="text-xs font-medium text-primary hover:underline"
                   >
                     {isAr ? 'نسيت كلمة المرور؟' : 'Forgot Password?'}
                   </Link>
@@ -524,7 +524,7 @@ function CustomerAuthFormContent({
             <button
               type="submit"
               disabled={isPending}
-              className="w-full py-3 px-4 rounded-xl bg-secondary text-white text-sm font-bold tracking-wide
+              className="w-full py-3 px-4 rounded-xl bg-primary text-white text-sm font-bold tracking-wide
                 hover:bg-primary-hover active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed
                 transition-all duration-200 shadow-md flex items-center justify-center gap-2"
             >
@@ -547,7 +547,7 @@ function CustomerAuthFormContent({
               {t.noAccount}{' '}
               <Link
                 href={`/${locale}/register`}
-                className="font-semibold text-secondary hover:underline"
+                className="font-semibold text-primary hover:underline"
               >
                 {t.signUp}
               </Link>
@@ -557,7 +557,7 @@ function CustomerAuthFormContent({
               {t.hasAccount}{' '}
               <Link
                 href={`/${locale}/login`}
-                className="font-semibold text-secondary hover:underline"
+                className="font-semibold text-primary hover:underline"
               >
                 {t.signIn}
               </Link>
@@ -574,7 +574,7 @@ export function CustomerAuthForm(props: { type: 'login' | 'register'; locale: st
     <Suspense
       fallback={
         <div className="min-h-screen bg-surface flex items-center justify-center p-4">
-          <Loader2 className="w-8 h-8 animate-spin text-secondary" />
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
         </div>
       }
     >

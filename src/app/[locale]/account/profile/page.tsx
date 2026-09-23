@@ -119,7 +119,7 @@ export default function AccountProfilePage() {
         <button
           type="submit"
           disabled={isPending}
-          className="w-full sm:w-auto py-3 px-8 rounded-xl bg-secondary text-white text-sm font-bold tracking-wide
+          className="w-full sm:w-auto py-3 px-8 rounded-xl bg-primary text-white text-sm font-bold tracking-wide
             hover:bg-primary-hover active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed
             transition-all duration-200 shadow-md flex items-center justify-center gap-2 mt-8"
         >

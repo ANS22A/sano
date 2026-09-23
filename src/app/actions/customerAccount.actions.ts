@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { z } from 'zod'
 import { revalidatePath } from 'next/cache'
+import { checkRateLimit } from '@/lib/rate-limit'
 
 // Profile Schema
 const saudiPhoneRegex = /^(\+966|0966|966|0)(5\d{8})$/
@@ -139,16 +140,25 @@ export async function getCustomerBookingById(id: string) {
 }
 
 export async function resetPasswordForEmail(formData: FormData) {
+  // Rate limit: prevent abuse of password reset emails
+  const rateLimit = await checkRateLimit('password_reset')
+  if (!rateLimit.success) {
+    return { error: 'Too many attempts. Please wait a few minutes and try again.' }
+  }
+
   const email = formData.get('email')?.toString() ?? ''
+  const locale = formData.get('locale')?.toString() || 'ar'
   if (!email) return { error: 'Email is required' }
 
   const supabase = await createClient()
-  
-  // Create an absolute URL for redirect
+
+  // Use NEXT_PUBLIC_SITE_URL (set in Vercel for production, falls back for dev)
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
 
+  // Route through /auth/callback so the PKCE code is exchanged server-side,
+  // then redirect to the locale-aware reset-password page
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${baseUrl}/en/reset-password`, // Assuming middleware handles locale
+    redirectTo: `${baseUrl}/auth/callback?next=/${locale}/reset-password`,
   })
 
   if (error) {
