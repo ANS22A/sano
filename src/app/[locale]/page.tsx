@@ -61,9 +61,11 @@ export async function generateMetadata({
 // ─────────────────────────────────────────────
 
 export default async function HomePage() {
-  const staff = await getFeaturedTeamMembers()
-  const featuredServices = await getFeaturedServices()
-  const activePackages = await getActivePackages()
+  const [staff, featuredServices, activePackages] = await Promise.all([
+    getFeaturedTeamMembers(),
+    getFeaturedServices(),
+    getActivePackages(),
+  ])
 
   return (
     <>
