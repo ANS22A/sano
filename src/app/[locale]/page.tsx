@@ -15,7 +15,9 @@ import { GallerySection } from '@/components/home/GallerySection'
 import { FaqSection } from '@/components/home/FaqSection'
 import { FinalCtaSection } from '@/components/home/FinalCtaSection'
 import { getFeaturedTeamMembers } from '@/services/team.service'
-import { getFeaturedServices } from '@/services/catalog.service'
+import { getFeaturedServices, getActivePackages } from '@/services/catalog.service'
+
+export const revalidate = 60
 
 // ─────────────────────────────────────────────
 // SEO METADATA
@@ -61,6 +63,7 @@ export async function generateMetadata({
 export default async function HomePage() {
   const staff = await getFeaturedTeamMembers()
   const featuredServices = await getFeaturedServices()
+  const activePackages = await getActivePackages()
 
   return (
     <>
@@ -83,7 +86,7 @@ export default async function HomePage() {
       <ComposeSection />
 
       {/* 7. Packages — curated journeys */}
-      <PackagesSection />
+      <PackagesSection packages={activePackages} />
 
       {/* 8. Gift cards */}
       <GiftCardsSection />

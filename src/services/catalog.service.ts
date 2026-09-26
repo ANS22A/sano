@@ -260,7 +260,7 @@ export async function getActivePackages(): Promise<BookingPackage[]> {
   const supabase = createStaticClient()
   const { data } = await supabase
     .from('packages')
-    .select('id, slug, name_ar, name_en, tagline_ar, tagline_en, description_ar, description_en, price_sar, total_duration_minutes, max_guests, image_url, is_active, sort_order, package_services(services(is_active))')
+    .select('id, slug, name_ar, name_en, tagline_ar, tagline_en, description_ar, description_en, price_sar, total_duration_minutes, max_guests, image_url, is_active, sort_order, package_services(services(name_ar, name_en, is_active))')
     .eq('is_active', true)
     .order('sort_order', { ascending: true })
 
@@ -268,7 +268,7 @@ export async function getActivePackages(): Promise<BookingPackage[]> {
     // A package is bookable only if all its included services are active.
     // If it has no services, it defaults to bookable (preserves current behavior).
     const psArray = Array.isArray(p.package_services) ? p.package_services : []
-    const isBookable = psArray.every((ps: PackageServiceDbRow) => ps.services?.is_active === true)
+    const isBookable = psArray.every((ps: any) => ps.services?.is_active === true)
 
     return {
       ...p,

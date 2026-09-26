@@ -7,9 +7,8 @@ import { Link } from '@/i18n/navigation'
 import { useReveal } from '@/lib/motion/use-reveal'
 import { staggerContainer, staggerItem } from '@/lib/motion/variants'
 import { cn } from '@/lib/utils/cn'
-import { featuredPackages } from '@/data/content.data'
 
-export function PackagesSection() {
+export function PackagesSection({ packages = [] }: { packages?: any[] }) {
   const t = useTranslations('home.packages')
   const locale = useLocale()
   const isAr = locale === 'ar'
@@ -66,7 +65,12 @@ export function PackagesSection() {
           initial="hidden"
           animate={controls}
         >
-          {featuredPackages.slice(0, 3).map((pkg) => (
+          {packages.slice(0, 3).map((pkg) => {
+            const dbServices = pkg.package_services?.map((ps: any) => isAr ? ps?.services?.name_ar : ps?.services?.name_en).filter(Boolean) as string[] | undefined
+            const staticServices = isAr ? pkg.included_services_ar : pkg.included_services_en
+            const includedServices: string[] = (pkg.package_services && dbServices?.length) ? dbServices : (staticServices || [])
+
+            return (
             <motion.article
               key={pkg.id}
               variants={staggerItem}
@@ -135,7 +139,7 @@ export function PackagesSection() {
                     {t('includes')}
                   </p>
                   <ul className="space-y-1">
-                    {(isAr ? pkg.included_services_ar : pkg.included_services_en).map((s) => (
+                    {includedServices.map((s) => (
                       <li key={s} className="text-xs text-foreground flex items-center gap-1.5">
                         <span className="text-accent text-[10px]" aria-hidden="true">✦</span>
                         <span>{s}</span>
@@ -164,7 +168,8 @@ export function PackagesSection() {
                 </div>
               </div>
             </motion.article>
-          ))}
+            )
+          })}
         </motion.div>
 
         {/* View all */}
