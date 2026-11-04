@@ -41,14 +41,14 @@ export const adminT = {
       reports: 'Reports',
       blog: 'Blog',
       signOut: 'Sign Out',
-      groups: {
-        overview: 'Overview',
-        workspace: 'Workspace',
-        management: 'Management',
-        financial: 'Financial',
-        system: 'System',
-      },
       administration: 'Administration',
+    },
+    navGroups: {
+      overview: 'Overview',
+      workspace: 'Workspace',
+      management: 'Management',
+      financial: 'Financial',
+      system: 'System',
     },
     // Auth
     auth: {
@@ -504,14 +504,14 @@ export const adminT = {
       reports: 'التقارير',
       blog: 'المقالات',
       signOut: 'تسجيل الخروج',
-      groups: {
-        overview: 'نظرة عامة',
-        workspace: 'مساحة العمل',
-        management: 'الإدارة',
-        financial: 'المالية',
-        system: 'النظام',
-      },
       administration: 'الإدارة',
+    },
+    navGroups: {
+      overview: 'نظرة عامة',
+      workspace: 'مساحة العمل',
+      management: 'الإدارة',
+      financial: 'المالية',
+      system: 'النظام',
     },
     auth: {
       login: 'تسجيل دخول الإدارة',
