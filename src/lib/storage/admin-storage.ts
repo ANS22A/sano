@@ -6,17 +6,19 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5 MB
 
 const ALLOWED_MIME_TYPES = new Set([
   'image/jpeg',
+  'image/jpg',
   'image/png',
   'image/webp'
 ])
 
 const EXTENSION_MAP: Record<string, string> = {
   'image/jpeg': 'jpg',
+  'image/jpg': 'jpg',
   'image/png': 'png',
   'image/webp': 'webp'
 }
 
-export type StorageFolder = 'services' | 'staff'
+export type StorageFolder = 'services' | 'staff' | 'packages'
 
 export interface UploadResult {
   success: boolean
@@ -102,7 +104,8 @@ export async function deleteImage(path: string): Promise<{ success: boolean; err
     if (!path) return { success: false, error: 'No path provided' }
     
     // Prevent traversal attempts in the path
-    if (path.includes('..') || path.startsWith('/')) {
+    const cleanPath = decodeURIComponent(path.split('?')[0])
+    if (cleanPath.includes('..') || cleanPath.startsWith('/')) {
       return { success: false, error: 'Invalid path' }
     }
 
@@ -110,7 +113,7 @@ export async function deleteImage(path: string): Promise<{ success: boolean; err
     const { error } = await supabaseAdmin
       .storage
       .from(BUCKET_NAME)
-      .remove([path])
+      .remove([cleanPath])
 
     if (error) {
       console.error('[AdminStorage] Delete error:', error.message)

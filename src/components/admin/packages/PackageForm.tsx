@@ -4,7 +4,7 @@ import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useAdmin } from '@/components/admin/shell/AdminShell'
-import { createAdminPackage, updateAdminPackage } from '@/app/actions/adminPackages.actions'
+import { createAdminPackage, updateAdminPackage, uploadPackageImage, removePackageImage } from '@/app/actions/adminPackages.actions'
 import { ArrowLeft, ArrowRight, Loader2, Plus, Trash2, GripVertical } from 'lucide-react'
 import { AdminImageUpload } from '@/components/admin/ui/AdminImageUpload'
 
@@ -46,6 +46,7 @@ export function PackageForm({ initialData, availableServices }: Props) {
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
+  const [imageUrl, setImageUrl] = useState<string | null>(initialData?.image_url ?? null)
   
   const [packageServices, setPackageServices] = useState<{ id: string; service_id: string }[]>(
     (initialData?.package_services || []).sort((a, b) => a.sequence_order - b.sequence_order).map((s, idx) => ({ id: `${idx}-${s.service_id}`, service_id: s.service_id }))
@@ -65,6 +66,7 @@ export function PackageForm({ initialData, availableServices }: Props) {
       sequence_order: index + 1
     }))
     formData.set('services', JSON.stringify(servicesPayload))
+    formData.set('image_url', imageUrl || '')
 
     startTransition(async () => {
       try {
@@ -127,9 +129,7 @@ export function PackageForm({ initialData, availableServices }: Props) {
           return srv && srv.is_active === false
         }) && (
           <div className="p-4 bg-amber-500/10 text-amber-600 dark:text-amber-500 rounded-lg text-sm font-medium border border-amber-500/20">
-            {isAr 
-              ? 'تحتوي هذه الباقة على خدمات غير نشطة، ولن تكون قابلة للحجز حتى يتم تفعيل جميع الخدمات المضمنة.' 
-              : 'This package contains inactive services and will not be bookable until all included services are active.'}
+            {t.packages.inactiveServicesWarning}
           </div>
         )}
 
@@ -137,11 +137,11 @@ export function PackageForm({ initialData, availableServices }: Props) {
           <div className="md:col-span-2 space-y-6">
             {/* Package Details */}
             <div className="bg-card rounded-xl border shadow-sm p-6 space-y-6">
-              <h2 className="text-lg font-semibold">{isAr ? 'بيانات الباقة' : 'Package Details'}</h2>
+              <h2 className="text-lg font-semibold">{t.packages.packageDetails}</h2>
               <div className="grid gap-6 md:grid-cols-2">
                 <div className="space-y-2">
                   <label htmlFor="name_en" className="text-sm font-medium">
-                    {t.packages.nameEn} <span className="text-destructive">*</span>
+                    {t.forms.nameEn} <span className="text-destructive">*</span>
                   </label>
                   <input
                     id="name_en"
@@ -154,7 +154,7 @@ export function PackageForm({ initialData, availableServices }: Props) {
 
                 <div className="space-y-2">
                   <label htmlFor="name_ar" className="text-sm font-medium">
-                    {t.packages.nameAr} <span className="text-destructive">*</span>
+                    {t.forms.nameAr} <span className="text-destructive">*</span>
                   </label>
                   <input
                     id="name_ar"
@@ -168,34 +168,34 @@ export function PackageForm({ initialData, availableServices }: Props) {
 
                 <div className="space-y-2">
                   <label htmlFor="tagline_en" className="text-sm font-medium">
-                    {t.packages.taglineEn}
+                    {t.forms.taglineEn}
                   </label>
                   <input
                     id="tagline_en"
                     name="tagline_en"
                     defaultValue={initialData?.tagline_en ?? ''}
-                    placeholder={isAr ? '' : 'e.g. For you and someone you love'}
+                    placeholder={t.packages.taglinePlaceholder}
                     className={inputClasses}
                   />
                 </div>
 
                 <div className="space-y-2">
                   <label htmlFor="tagline_ar" className="text-sm font-medium">
-                    {t.packages.taglineAr}
+                    {t.forms.taglineAr}
                   </label>
                   <input
                     id="tagline_ar"
                     name="tagline_ar"
                     dir="rtl"
                     defaultValue={initialData?.tagline_ar ?? ''}
-                    placeholder={isAr ? 'مثال: لكِ ولمن تحبين' : ''}
+                    placeholder={t.packages.taglinePlaceholder}
                     className={inputClasses}
                   />
                 </div>
 
                 <div className="space-y-2 md:col-span-2">
                   <label htmlFor="slug" className="text-sm font-medium">
-                    {t.services.slug} <span className="text-destructive">*</span>
+                    {t.forms.slug} <span className="text-destructive">*</span>
                   </label>
                   <input
                     id="slug"
@@ -208,7 +208,7 @@ export function PackageForm({ initialData, availableServices }: Props) {
 
                 <div className="space-y-2 md:col-span-2">
                   <label htmlFor="description_en" className="text-sm font-medium">
-                    {t.packages.descEn}
+                    {t.forms.descEn}
                   </label>
                   <textarea
                     id="description_en"
@@ -221,7 +221,7 @@ export function PackageForm({ initialData, availableServices }: Props) {
 
                 <div className="space-y-2 md:col-span-2">
                   <label htmlFor="description_ar" className="text-sm font-medium">
-                    {t.packages.descAr}
+                    {t.forms.descAr}
                   </label>
                   <textarea
                     id="description_ar"
@@ -251,7 +251,7 @@ export function PackageForm({ initialData, availableServices }: Props) {
 
               {packageServices.length === 0 ? (
                 <div className="text-sm text-muted-foreground p-4 bg-muted/50 rounded-lg text-center border border-dashed">
-                  {isAr ? 'لم تتم إضافة أي خدمات إلى هذه الباقة بعد.' : 'No services added to this package yet.'}
+                  {t.packages.noServicesAdded}
                 </div>
               ) : (
                 <div className="space-y-3">
@@ -265,11 +265,11 @@ export function PackageForm({ initialData, availableServices }: Props) {
                           onChange={(e) => updateServiceId(ps.id, e.target.value)}
                           className="w-full text-sm bg-transparent outline-none focus:ring-2 rounded focus:ring-ring"
                         >
-                          <option value="" disabled>{isAr ? 'اختر خدمة' : 'Select a service'}</option>
+                          <option value="" disabled>{t.packages.selectService}</option>
                           {availableServices.map(srv => (
                             <option key={srv.id} value={srv.id}>
                               {isAr ? srv.name_ar : srv.name_en}
-                              {srv.is_active === false ? ` (${isAr ? 'غير مفعّلة' : 'Inactive'})` : ''}
+                              {srv.is_active === false ? ` (${t.common.inactive})` : ''}
                             </option>
                           ))}
                         </select>
@@ -290,11 +290,11 @@ export function PackageForm({ initialData, availableServices }: Props) {
 
           <div className="space-y-6">
             <div className="bg-card rounded-xl border shadow-sm p-6 space-y-6">
-              <h2 className="text-lg font-semibold">{isAr ? 'إعدادات الباقة' : 'Package Settings'}</h2>
+              <h2 className="text-lg font-semibold">{t.packages.packageSettings}</h2>
               
               <div className="space-y-2">
                 <label htmlFor="price_sar" className="text-sm font-medium">
-                  {t.packages.price} <span className="text-destructive">*</span>
+                  {t.forms.price} <span className="text-destructive">*</span>
                 </label>
                 <input
                   id="price_sar"
@@ -325,7 +325,7 @@ export function PackageForm({ initialData, availableServices }: Props) {
 
               <div className="space-y-2">
                 <label htmlFor="max_guests" className="text-sm font-medium">
-                  {t.packages.maxGuests}
+                  {t.forms.maxGuests}
                 </label>
                 <input
                   id="max_guests"
@@ -339,7 +339,7 @@ export function PackageForm({ initialData, availableServices }: Props) {
 
               <div className="space-y-2">
                 <label htmlFor="sort_order" className="text-sm font-medium">
-                  {t.packages.sortOrder}
+                  {t.forms.sortOrder}
                 </label>
                 <input
                   id="sort_order"
@@ -360,18 +360,32 @@ export function PackageForm({ initialData, availableServices }: Props) {
                     defaultChecked={initialData?.is_active ?? true}
                     className="rounded border-input text-primary focus:ring-primary w-4 h-4"
                   />
-                  <span className="text-sm font-medium">{t.packages.active}</span>
+                  <span className="text-sm font-medium">{t.forms.active}</span>
                 </label>
               </div>
             </div>
 
             <div className="bg-card rounded-xl border shadow-sm p-6 space-y-4">
               <h2 className="text-lg font-semibold">{t.media.uploadImage}</h2>
+              <input type="hidden" name="image_url" value={imageUrl ?? ''} />
               <AdminImageUpload
                 entityId={initialData?.id || 'new'}
-                imageUrl={initialData?.image_url ?? null}
-                onUpload={async () => ({ success: false, error: 'Not implemented' })}
-                onRemove={async () => ({ success: false, error: 'Not implemented' })}
+                imageUrl={imageUrl}
+                onUpload={async (id, fd) => {
+                  const res = await uploadPackageImage(id, fd)
+                  if (res.url) {
+                    setImageUrl(res.url)
+                  }
+                  return res
+                }}
+                onRemove={async (id) => {
+                  const res = await removePackageImage(id, imageUrl)
+                  if (res.success) {
+                    setImageUrl(null)
+                  }
+                  return res
+                }}
+                onChange={(url) => setImageUrl(url)}
                 t={t}
               />
             </div>

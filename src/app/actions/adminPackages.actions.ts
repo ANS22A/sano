@@ -85,11 +85,12 @@ export async function createAdminPackage(formData: FormData) {
     sort_order: sortOrder,
     image_url: imageUrl || null,
   }
-  // New columns — included only when migration has been applied
+  // New columns ظ¤ included only when migration has been applied
   if (taglineEn !== null) insertData.tagline_en = taglineEn
   if (taglineAr !== null) insertData.tagline_ar = taglineAr
   if (maxGuests > 0) insertData.max_guests = maxGuests
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data, error } = await supabase.from('packages').insert(insertData as any).select('id').single()
 
   if (error) {
@@ -163,11 +164,12 @@ export async function updateAdminPackage(id: string, formData: FormData) {
     sort_order: sortOrder,
     image_url: imageUrl || null,
   }
-  // New columns — included only when migration has been applied
+  // New columns ظ¤ included only when migration has been applied
   if (taglineEn !== null) updateData.tagline_en = taglineEn
   if (taglineAr !== null) updateData.tagline_ar = taglineAr
   if (maxGuests > 0) updateData.max_guests = maxGuests
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { error } = await supabase.from('packages').update(updateData as any).eq('id', id)
 
   if (error) {
@@ -240,4 +242,125 @@ export async function togglePackageActive(id: string, isActive: boolean) {
   revalidatePath('/packages')
   revalidatePath('/', 'layout')
   return { success: true }
+}
+
+
+export async function uploadPackageImage(id: string, formData: FormData): Promise<{ success?: boolean; url?: string; error?: string }> {
+  const session = await requireRole('admin')
+  const file = formData.get('file') as File
+  if (!file) return { error: 'No file provided' }
+
+  // 1. Upload new image first
+  const { uploadImage, deleteImage } = await import('@/lib/storage/admin-storage')
+  const uploadResult = await uploadImage(file, 'packages', id || 'new')
+  if (!uploadResult.success || !uploadResult.url) {
+    return { error: uploadResult.error ?? 'Upload failed' }
+  }
+
+  // 2. Fetch current image path & update DB if package exists
+  if (id && id !== 'new') {
+    const supabase = await createClient()
+    const { data: currentPackage } = await supabase
+      .from('packages')
+      .select('image_url')
+      .eq('id', id)
+      .single()
+
+    // 3. Update DB
+    const { error: dbError } = await supabase
+      .from('packages')
+      .update({ image_url: uploadResult.url })
+      .eq('id', id)
+
+    if (dbError) {
+      return { error: 'Failed to update database with new image URL' }
+    }
+
+    // 4. Delete old image from storage if it exists and differs
+    if (currentPackage?.image_url && currentPackage.image_url !== uploadResult.url) {
+      const bucketPath = '/storage/v1/object/public/sanoluna-media/'
+      const idx = currentPackage.image_url.indexOf(bucketPath)
+      if (idx !== -1) {
+        const oldPath = currentPackage.image_url.substring(idx + bucketPath.length)
+        deleteImage(oldPath).catch(console.error)
+      }
+    }
+
+    await writeAuditLog({
+      adminUserId: session.userId,
+      action: 'package.image_uploaded',
+      entityType: 'package',
+      entityId: id,
+    })
+
+    revalidatePath('/admin/packages')
+    revalidatePath(`/admin/packages/${id}/edit`)
+    revalidatePath('/packages')
+    revalidatePath('/', 'layout')
+  }
+
+  return { success: true, url: uploadResult.url }
+}
+
+export async function removePackageImage(id: string, currentImageUrl?: string | null): Promise<{ success?: boolean; error?: string }> {
+  const session = await requireRole('admin')
+  const { deleteImage } = await import('@/lib/storage/admin-storage')
+
+  if (id && id !== 'new') {
+    // 1. Fetch current image path
+    const supabase = await createClient()
+    const { data: currentPackage } = await supabase
+      .from('packages')
+      .select('image_url')
+      .eq('id', id)
+      .single()
+
+    const targetUrl = currentPackage?.image_url || currentImageUrl
+    if (!targetUrl) {
+      return { error: 'No image to remove' }
+    }
+
+    const bucketPath = '/storage/v1/object/public/sanoluna-media/'
+    const idx = targetUrl.indexOf(bucketPath)
+    if (idx !== -1) {
+      const oldPath = targetUrl.substring(idx + bucketPath.length)
+      const deleteResult = await deleteImage(oldPath)
+      if (!deleteResult.success) {
+        return { error: 'Failed to delete image from storage' }
+      }
+    }
+
+    // 2. Clear DB
+    const { error: dbError } = await supabase
+      .from('packages')
+      .update({ image_url: null })
+      .eq('id', id)
+
+    if (dbError) return { error: 'Failed to clear image URL in database' }
+
+    await writeAuditLog({
+      adminUserId: session.userId,
+      action: 'package.image_removed',
+      entityType: 'package',
+      entityId: id,
+    })
+
+    revalidatePath('/admin/packages')
+    revalidatePath(`/admin/packages/${id}/edit`)
+    revalidatePath('/packages')
+    revalidatePath('/', 'layout')
+
+    return { success: true }
+  } else {
+    // For new unsaved package
+    if (currentImageUrl) {
+      const bucketPath = '/storage/v1/object/public/sanoluna-media/'
+      const idx = currentImageUrl.indexOf(bucketPath)
+      if (idx !== -1) {
+        const oldPath = currentImageUrl.substring(idx + bucketPath.length)
+        await deleteImage(oldPath).catch(console.error)
+      }
+    }
+    return { success: true }
+  }
 }
