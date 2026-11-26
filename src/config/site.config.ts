@@ -95,7 +95,7 @@ export const socialLinks = {
   instagram: 'https://www.instagram.com/sanoluna.co' as string,
   whatsapp: 'https://wa.me/966551854617' as string,
   facebook: 'https://www.facebook.com/share/1PTTnhTxWK/' as string,
-  tiktok: 'https://www.tiktok.com/@sano.luna7' as string,
+  tiktok: 'https://www.tiktok.com/@sanolunaone' as string,
   snapchat: 'https://www.snapchat.com/@sanolunaone' as string,
 } as const
 

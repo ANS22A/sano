@@ -100,7 +100,7 @@ export default async function LocaleLayout({
     sameAs: [
       siteConfig.url,
       'https://www.instagram.com/sanoluna.co',
-      'https://www.tiktok.com/@sano.luna7',
+      'https://www.tiktok.com/@sanolunaone',
     ],
   }
 
